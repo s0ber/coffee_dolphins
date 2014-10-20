@@ -25,3 +25,16 @@ $text_font_size: 13px
   -moz-user-select: none
   -ms-user-select: none
   user-select: none
+
+=clearfix
+  &:before,
+  &:after
+    content: ""
+    display: table
+
+  &:after
+    clear: both
+
+  &
+    zoom: 1
+
