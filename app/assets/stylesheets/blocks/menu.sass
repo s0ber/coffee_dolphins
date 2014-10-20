@@ -1,3 +1,5 @@
+@import 'imports'
+
 .menu
   padding: 15px 0
 
@@ -6,8 +8,8 @@
   padding: 10px 15px
   height: 25px
   line-height: 25px
-  background: #D6DFE9
-  color: #5D83A9
+  background: $blue_medium
+  color: $blue_dark
   text-shadow: 0 1px rgba(255, 255, 255, .75)
   border-radius: 5px
 
@@ -26,11 +28,11 @@
 
   &:hover
     color: #fff
-    background: #D6DFE9
+    background: $blue_medium
     cursor: pointer
     text-shadow: 0 1px rgba(0, 0, 0, .22)
 
   &.is-active
-    background: #5D83A9
+    background: $blue_dark
     color: #fff
     cursor: default
