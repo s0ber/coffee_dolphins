@@ -2,4 +2,63 @@
   | Лендинги
 
 .page-body
-  | Тут какой-то текст
+  form.form
+    .textbox
+      label
+        | Ваше имя
+      input type='text' value='Сергей Шишкалов'
+
+    .select
+      label
+        | Ваша страна
+      select
+        option
+          | Выберите страну...
+        option value='russia'
+          | Российская Федерация
+
+    .checkbox
+      label
+        input type='checkbox'
+        span.label_wrap
+          | Вы согласны с правилами использования сайта?
+
+    .radio_buttons
+      label.control-label
+        | Выберите тип лендинга
+
+      label.radio-label
+        input type='radio' name='landing_type'
+        span.label_wrap
+          | Обычный
+
+      label.radio_buttons-label
+        input type='radio' name='landing_type'
+        span.label_wrap
+          | Продвинутый
+
+      label.radio_buttons-label
+        input type='radio' name='landing_type'
+        span.label_wrap
+          | Крутой
+
+    .checkboxes
+      label.control-label
+        | Выберите участников
+
+      label.radio-label
+        input type='checkbox' name='users'
+        span.label_wrap
+          | Рита Семушина
+
+      label.radio_buttons-label
+        input type='checkbox' name='users'
+        span.label_wrap
+          | Сергей Шишкалов
+
+    .textarea
+      label
+        | Расскажите о себе
+      textarea
+        | Ну я, эм... Это самое.
+
