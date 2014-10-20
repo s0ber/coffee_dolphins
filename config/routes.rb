@@ -1,6 +1,8 @@
 require 'routing_filters/helper_params'
 
 Rails.application.routes.draw do
+  get 'users/new'
+
   filter :helper_params
 
   root 'application#root'
