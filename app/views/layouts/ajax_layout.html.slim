@@ -1,0 +1,10 @@
+html
+  body
+    javascript:
+      parent.ijax.registerResponse('#{ijax_request_id}');
+
+    = yield
+
+    javascript:
+      parent.ijax.resolveResponse();
+

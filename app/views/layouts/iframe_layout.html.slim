@@ -1,0 +1,11 @@
+html
+  body
+    javascript:
+      parent.ijax.registerResponse('#{ijax_request_id}');
+
+    javascript:
+      parent.ijax.pushLayout('#{yield}');
+
+    javascript:
+      parent.ijax.resolveResponse();
+

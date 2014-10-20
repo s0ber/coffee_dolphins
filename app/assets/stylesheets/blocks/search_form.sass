@@ -1,0 +1,53 @@
+.search_form
+  margin-top: 5px
+  padding: 10px 15px
+  background: #D6DFE9
+  border-radius: 5px
+
+.search_form-label
+  margin-bottom: 10px
+  font-weight: bold
+  height: 20px
+  line-height: 20px
+
+.search_form-radio_buttons
+
+.search_form-radio
+  position: relative
+  float: left
+  margin-left: 15px
+  padding-left: 25px
+  height: 30px
+  line-height: 30px
+  text-decoration: none
+  color: inherit
+  cursor: pointer
+
+  &:first-child
+    margin-left: 0
+
+  &:before
+    content: ''
+    position: absolute
+    top: 6px
+    left: 0
+    border: 1px solid #5D83A9
+    height: 16px
+    width: 16px
+    background: #fff
+    border-radius: 10px
+
+  &.is-active
+    &:before
+      box-shadow: 0 0 3px rgba(93, 131, 169, .9)
+
+    &:after
+      content: ''
+      position: absolute
+      top: 12px
+      left: 6px
+      height: 6px
+      width: 6px
+      background: #5D83A9
+      border-radius: 50%
+

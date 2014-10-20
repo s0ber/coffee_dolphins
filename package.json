@@ -1,0 +1,45 @@
+{
+  "name": "history-app",
+  "author": "AUTHOR_NAME <AUTHOR_EMAIL>",
+  "description": "RAILS_APP_TESTING_SUIT",
+  "dependencies": {
+    "bower": "~1.2"
+  },
+  "devDependencies": {
+    "coffee-script": "~1.7.1",
+    "mocha": "~1.18.2",
+    "chai": "~1.9.1",
+    "sinon": "~1.9.1",
+    "sinon-chai": "~2.5.0",
+    "sprockets-chain": "~0.0.13",
+    "karma": "~0.12.16",
+    "karma-cli": "~0.0.4",
+    "karma-html2js-preprocessor": "~0.1.0",
+    "karma-coffee-preprocessor": "~0.2.1",
+    "karma-phantomjs-launcher": "~0.1.4",
+    "karma-mocha": "~0.1.3",
+    "karma-chai": "~0.1.0",
+    "karma-chai-plugins": "~0.2.1",
+    "karma-sinon-chai": "~0.1.5",
+    "karma-sprockets": "~0.3.0",
+    "karma-junit-reporter": "~0.2.2",
+
+    "gems-assets-data": "~0.1.0",
+
+    "gulp": "~3.6.2",
+    "gulp-util": "~2.2.14",
+    "gulp-karma": "git://github.com/s0ber/gulp-karma.git#ignore_gulp_src_files",
+    "coffeegulp": "~0.0.4"
+  },
+  "engine": {
+    "node": ">= 0.10",
+    "npm": ">=1.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/npm/npm.git"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install"
+  }
+}

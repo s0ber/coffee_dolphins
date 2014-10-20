@@ -1,0 +1,37 @@
+doctype html
+html
+  head
+    title
+      | Coffee Dolphins — Step In My Trip
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+
+  body.layout data-app="app"
+    .layout-main
+      header.layout-header data-view="header"
+        .header
+          | Coffee Dolphins
+
+      .clearfix
+        section.layout-content
+          .layout-content_inner
+            .main_content
+              .page.js-app-page_wrapper
+                = yield
+
+        aside.layout-sidebar
+          .menu.js-app-menu
+            .menu-header
+              | Меню
+            .menu-items
+              - menu_items.each do |title, path, options = {}|
+                - current_page = current_page?(path)
+                = link_to title, path, class: "menu-item js-app-menu_item #{'is-active' if current_page}", data: {menu_item_id: options[:menu_item_id]}
+
+      .layout-empty
+
+    footer.layout-footer
+      .layout-footer_inner
+        .footer
+          | Step in my trip...
