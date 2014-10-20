@@ -1,0 +1,21 @@
+.panel
+  .panel-header
+    | Lasciate ogne speranza, voi ch’intrate
+  .panel-body
+    = form_tag login_path, class: 'form' do
+      .form-fields
+        .textbox
+          label.control-label
+            | Email
+          input type='text' value=params[:email]
+
+        .textbox
+          label.control-label
+            | Пароль
+          input type='text' value=params[:password]
+
+      .form-actions
+        .fl_r
+          button.small_button.is-green type='submit'
+            | Войти
+
