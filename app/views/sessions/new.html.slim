@@ -1,18 +1,24 @@
-.panel
+.panel.for-login_form
   .panel-header
     | Lasciate ogne speranza, voi ch’intrate
   .panel-body
-    = form_tag login_path, class: 'form' do
+    = form_tag sessions_path, class: 'form' do
       .form-fields
         .textbox
           label.control-label
             | Email
-          input type='text' value=params[:email]
+          input type='text' name='email' data-view='autofocus'
 
         .textbox
           label.control-label
             | Пароль
-          input type='text' value=params[:password]
+          input type='password' name='password'
+
+        .checkbox
+          label.control-label
+            = check_box_tag :remember_me, 1, params[:remember_me]
+            span.label_wrap
+              | Запомнить меня
 
       .form-actions
         .fl_r

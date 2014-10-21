@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_filter :require_login
 
   include IframeStreaming
 
@@ -25,5 +26,11 @@ protected
       end
     end
   end
+
+private
+
+def not_authenticated
+  redirect_to login_url, alert: 'Вы должны войти, чтобы получить доступ к запрашиваемой странице.'
+end
 
 end

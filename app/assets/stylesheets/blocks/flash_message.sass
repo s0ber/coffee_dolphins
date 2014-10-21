@@ -1,0 +1,27 @@
+@import 'imports'
+
+.flash_message
+  margin-bottom: 15px
+  padding: 10px 15px
+  height: 23px
+  color: $text_color
+  font-size: $text_font_size
+  line-height: 23px
+  border-radius: 5px
+
+  &.is-notice
+    border: 1px solid lighten($green_dark, 10%)
+    background: lighten($green_dark, 50%)
+
+  &.is-alert
+    border: 1px solid lighten($red_dark, 10%)
+    background: lighten($red_dark, 50%)
+
+.flash_message-close
+  border-bottom: 1px dashed $text_color
+  cursor: pointer
+  font-size: 12px
+  line-height: 17px
+  margin: 3px 0
+  color: $text_color_light
+
