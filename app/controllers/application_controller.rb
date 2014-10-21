@@ -29,8 +29,8 @@ protected
 
 private
 
-def not_authenticated
-  redirect_to login_url, alert: 'Вы должны войти, чтобы получить доступ к запрашиваемой странице.'
-end
+  def not_authenticated
+    redirect_to login_url, alert: 'Вы должны войти, чтобы получить доступ к запрашиваемой странице.'
+  end
 
 end
