@@ -1,7 +1,7 @@
 class App.Views.SearchForm extends App.View
 
   events:
-    'click .js-search_form-radio': 'changeActiveRadio'
+    'click @search_form-radio': 'changeActiveRadio'
 
   initialize: ->
     @model = {}
@@ -44,7 +44,7 @@ class App.Views.SearchForm extends App.View
   # getters
 
   $radios: ->
-    @_$radios ?= @$('.js-search_form-radio')
+    @_$radios ?= @$('@search_form-radio')
 
   $listWrapper: ->
     $('[data-view="app#pagination"]')

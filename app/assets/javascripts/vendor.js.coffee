@@ -1,5 +1,7 @@
 #= require jquery
 #= require jquery_ujs
+#= require jquery.role
+
 #= require sugar/release/sugar.min
 #= require underscore/underscore
 #= require backbone/backbone

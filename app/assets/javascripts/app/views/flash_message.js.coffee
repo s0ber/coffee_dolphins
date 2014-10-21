@@ -1,7 +1,7 @@
 class App.Views.FlashMessage extends App.View
 
   events:
-    'click .js-flash_message-close': 'close'
+    'click @flash_message-close': 'close'
 
   initialize: ->
     @close.bind(@).delay(5000)

@@ -3,7 +3,7 @@ FRAMES_BATCH_COUNT = 3
 class App.Views.Layout extends App.View
 
   events:
-    'click a.js-app-menu_item': 'processLinkClick'
+    'click a@app-menu_item': 'processLinkClick'
 
   initialize: ->
     @historyWidget = Histo.addWidget(id: 'menu_navigation')
@@ -91,7 +91,7 @@ class App.Views.Layout extends App.View
   # getters
 
   $menu: ->
-    @_$menu ?= @$('.js-app-menu')
+    @_$menu ?= @$('@app-menu')
 
   $pageWrapper: ->
-    @_$pageWrapper ?= @$('.js-app-page_wrapper')
+    @_$pageWrapper ?= @$('@app-page_wrapper')

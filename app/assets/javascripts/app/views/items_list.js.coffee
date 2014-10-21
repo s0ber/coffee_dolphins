@@ -56,7 +56,7 @@ class App.Views.ItemsList extends App.View
   # accessors
 
   $selectedItemWrapper: ->
-    @_$selectedItemWrapper ?= @$('.js-items_list-item_wrapper')
+    @_$selectedItemWrapper ?= @$('@items_list-item_wrapper')
 
   $itemById: (id) ->
     @$('.list-item').filter("[data-item-id=#{id}]")
