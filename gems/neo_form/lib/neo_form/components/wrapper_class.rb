@@ -6,7 +6,7 @@ module NeoForm
         password: 'text_box',
         email: 'text_box',
         tel: 'text_box',
-        text: 'ui-textarea',
+        text: 'textarea',
         select: 'select_box',
         radio_buttons: 'radio_buttons_list',
         time_zone: 'select_box',
