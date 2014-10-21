@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   resources :landings, only: [:index]
   resource :statistics, only: [:show]
   resource :finances, only: [:show]
+  resources :users, only: [:index]
 end

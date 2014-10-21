@@ -1,0 +1,9 @@
+.page-title
+  | Пользователи
+
+.page-body
+  - if @users.any?
+    = render partial: 'user', collection: @users
+  - else
+    p.page-text
+      | Тут текст.
