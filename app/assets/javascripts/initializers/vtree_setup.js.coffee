@@ -1,6 +1,6 @@
 Vtree.onNodeInit (node) ->
-  viewName = "#{node.applicationName}.Views.#{node.nodeName}:#{node.applicationId}"
-  viewConstructor = window[node.applicationName]?.Views?[node.nodeName]
+  viewName = "#{node.namespaceName}.Views.#{node.nodeName}"
+  viewConstructor = window[node.namespaceName]?.Views?[node.nodeName]
 
   unless viewConstructor
     console.warn "Error finding constructor for view '#{viewName}'"

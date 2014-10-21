@@ -47,7 +47,7 @@ class App.Views.SearchForm extends App.View
     @_$radios ?= @$('.js-search_form-radio')
 
   $listWrapper: ->
-    $('[data-view="pagination"]')
+    $('[data-view="app#pagination"]')
 
   fieldName: ->
     @_fieldName ?= @$el.data('field-name')
