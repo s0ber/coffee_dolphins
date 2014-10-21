@@ -36,7 +36,7 @@ module ActionViewTemplateExtension
       template = render_without_iframe_streaming(view, locals, nil, &block)
 
       partial = <<-FLAT_PARTIAL
-\n<script type="text/javascript">parent.ijax.pushLayout('#{template}')</script>
+\n<script type="text/javascript">parent.ijax.pushLayout('#{view.escape_javascript(template)}')</script>
 FLAT_PARTIAL
 
       view.output_buffer << partial.html_safe
@@ -56,7 +56,7 @@ FLAT_PARTIAL
       template = render_without_iframe_streaming(view, locals, nil, &block)
 
       partial = <<-FLAT_PARTIAL
-<script type="text/javascript">parent.ijax.pushFrame('#{partial_id}', '#{template}')</script>
+<script type="text/javascript">parent.ijax.pushFrame('#{partial_id}', '#{view.escape_javascript(template)}')</script>
 FLAT_PARTIAL
 
       view.output_buffer << partial.html_safe

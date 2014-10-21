@@ -2,23 +2,11 @@
   .panel-header
     | Lasciate ogne speranza, voi ch’intrate
   .panel-body
-    = form_tag sessions_path, class: 'form' do
+    = neo_form_for @user, url: sessions_path, class: 'form' do |f|
       .form-fields
-        .textbox
-          label.control-label
-            | Email
-          input type='text' name='email' data-view='app#autofocus'
-
-        .textbox
-          label.control-label
-            | Пароль
-          input type='password' name='password'
-
-        .checkbox
-          label.control-label
-            = check_box_tag :remember_me, 1, params[:remember_me]
-            span.label_wrap
-              | Запомнить меня
+        = f.input :email, label: 'Email', input_html: {value: '', data: {view: 'app#autofocus'}}
+        = f.input :password, as: :password, label: 'Пароль', input_html: {value: ''}
+        = f.input :remember_me, as: :boolean, label: 'Запомнить меня', input_html: {checked: true}
 
       .form-actions
         .fl_r

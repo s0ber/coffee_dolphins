@@ -2,12 +2,12 @@
 
 form.form class=("for-#{modifier}" if modifier)
   .form-fields
-    .textbox
+    .text_box
       label.control-label
         | Ваше имя
       input type='text' value='Сергей Шишкалов'
 
-    .select
+    .select_box
       label.control-label
         | Ваша страна
       select
@@ -16,41 +16,41 @@ form.form class=("for-#{modifier}" if modifier)
         option value='russia'
           | Российская Федерация
 
-    .checkbox
+    .check_box
       label.control-label
         input type='checkbox'
         span.label_wrap
           | Вы согласны с правилами использования сайта?
 
-    .radio_buttons
+    .radio_buttons_list
       label.control-label
         | Выберите тип лендинга
 
-      label.radio_buttons-label
+      label.radio
         input type='radio' name='landing_type'
         span.label_wrap
           | Обычный
 
-      label.radio_buttons-label
+      label.radio
         input type='radio' name='landing_type'
         span.label_wrap
           | Продвинутый
 
-      label.radio_buttons-label
+      label.radio
         input type='radio' name='landing_type'
         span.label_wrap
           | Крутой
 
-    .checkboxes
+    .check_boxes_list
       label.control-label
         | Выберите участников
 
-      label.checkbox-label
+      label.checkbox
         input type='checkbox' name='users'
         span.label_wrap
           | Рита Семушина
 
-      label.checkbox-label
+      label.checkbox
         input type='checkbox' name='users'
         span.label_wrap
           | Сергей Шишкалов

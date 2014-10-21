@@ -1,14 +1,14 @@
 class SessionsController < ApplicationController
+  before_filter :redirect_logged_user, only: [:new]
   skip_before_filter :require_login, except: [:destroy]
 
   def new
-    if current_user
-      redirect_to root_url
-    end
+    @user = User.new
   end
 
   def create
-    user = login(params[:email], params[:password], params[:remember_me])
+    user = User.new(user_params)
+    user = login(user.email, user.password, user.remember_me)
 
     if user
       redirect_back_or_to root_url, notice: 'Вы успешно вошли на сайт.'
@@ -22,4 +22,17 @@ class SessionsController < ApplicationController
     logout
     redirect_to login_url, notice: 'Сессия завершена.'
   end
+
+protected
+
+  def redirect_logged_user
+    redirect_to(root_url) if logged_in?
+  end
+
+private
+
+  def user_params
+    params.require(:user).permit(:email, :password, :remember_me)
+  end
+
 end

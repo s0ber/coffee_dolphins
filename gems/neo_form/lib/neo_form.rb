@@ -1,0 +1,8 @@
+require 'neo_form/components/translate'
+require 'neo_form/components/required_hint'
+require 'neo_form/components/wrapper_class'
+require 'neo_form/form_builder'
+require 'neo_form/form_helper'
+require 'neo_form/wrapper'
+require 'neo_form/simple_form_ext/wrapper_class'
+require 'neo_form/simple_form_ext/components/labels'

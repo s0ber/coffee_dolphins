@@ -5,8 +5,28 @@
       | Добавить нового
 
 .page-body
-  - if @users.any?
-    = render partial: 'user', collection: @users
-  - else
-    p.page-text
-      | Тут текст.
+  .panels
+    - if @users.any?
+      = render partial: 'user', collection: @users
+    - else
+      p.page-text
+        | Тут текст.
+
+    .panel
+      .panel-header
+        | Форма добавления пользователя
+      .panel-body
+        = neo_form_for @user do |f|
+          = f.input :email
+          = f.input :password, label: 'Пароль'
+          = f.input :password_confirmation, label: 'Подтверждение пароля'
+
+          = f.input :some_checkbox, as: :boolean, label: 'Вы согласны отметить этот чекбокс?', input_html: {checked: false}
+          = f.input :checkboxes, as: :check_boxes, label: 'Каково это?', input_html: {checked: false}, collection: [['Отвратно', 0], ['Неплохо', 1], ['Супер', 2]]
+          = f.input :radio, as: :radio_buttons, label: 'А конкретнее?', input_html: {checked: false}, collection: [['Отвратно', 0], ['Неплохо', 1], ['Супер', 2]]
+          = f.input :select_field, label: 'Выберите что-нибудь, пожалуйста', prompt: 'Ну выберите...', selected: false, collection: [['Отвратно', 0], ['Неплохо', 1], ['Супер', 2]]
+
+          .form-actions
+            .fl_r
+              button.small_button.is-green type='submit'
+                | Добавить пользователя
