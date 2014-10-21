@@ -35,7 +35,12 @@ gem 'colorize', require: false
 # Custom responders
 gem 'responders'
 
+# Authentification
 gem 'sorcery'
+
+# Forms
+gem 'simple_form'
+gem 'neo_form', path: 'gems/neo_form'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
