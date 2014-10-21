@@ -42,6 +42,9 @@ gem 'sorcery'
 gem 'simple_form'
 gem 'neo_form', path: 'gems/neo_form'
 
+# Decorating models with presentation logic
+gem 'draper', '~> 1.3'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
