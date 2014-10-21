@@ -15,6 +15,7 @@
   text-shadow: none
   font-weight: normal
   box-sizing: initial
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, .2)
   +no_select
 
   &:first-child
@@ -32,14 +33,10 @@
   &.is-green
     border: 1px solid $green_dark
     color: $green_dark
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, .2)
 
     &:hover
       background: $green_dark
       color: #fff
-
-    &:active
-      box-shadow: none
 
   &.is-red
     border: 1px solid $red_dark
@@ -50,5 +47,3 @@
       background: $red_dark
       color: #fff
 
-    &:active
-      box-shadow: none

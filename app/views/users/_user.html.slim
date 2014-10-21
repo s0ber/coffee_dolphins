@@ -1,6 +1,11 @@
 .panel
   .panel-header
     = user.email
+    .fl_r
+      .small_button
+        | Редактировать
+      .small_button.is-red
+        | Удалить
 
   .panel-list
     .panel-list_row
@@ -8,24 +13,11 @@
         | Email
       .panel-list_value
         = user.email
-        .fl_r
-          .small_button
-            | Редактировать
-          .small_button.is-red
-            | Удалить
-
-
     .panel-list_row
       .panel-list_label
         | Имя
       .panel-list_value
         | Сергей Шишкалов
-        .fl_r
-          .small_button
-            | Редактировать
-          .small_button.is-red
-            | Удалить
-
     .panel-list_row
       p.panel-text
         | Тут какой-то текст.
