@@ -8,6 +8,7 @@
     "URIjs": "1.13.2",
     "vtree": "~0.2.1",
     "histo": "0.1.3",
+    "ijax": "~0.1.0",
     "backbone-factory": "https://raw.githubusercontent.com/SupportBee/Backbone-Factory/ca14482bf13b4670128bc0291dd108fcc4cbeec0/public/javascripts/backbone-factory.js",
     "faker": "https://raw.githubusercontent.com/Marak/Faker.js/1bd1d73d29222c4e2f52d63a4282345b63a324df/Faker.js",
     "mock-async": "~>0.1.1"

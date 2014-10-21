@@ -3,4 +3,5 @@
 #= require_tree ./app
 
 $ ->
+  window.ijax = new Ijax()
   Vtree.initNodes()
