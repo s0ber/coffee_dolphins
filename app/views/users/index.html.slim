@@ -1,7 +1,7 @@
 .page-title
   | Пользователи
   .fl_r
-    .small_button.is-green.is-disabled
+    button.small_button.is-green
       | Добавить нового
 
 .page-body
@@ -22,7 +22,7 @@
           = f.input :password_confirmation, label: 'Подтверждение пароля'
 
           = f.input :some_checkbox, as: :boolean, label: 'Вы согласны отметить этот чекбокс?', input_html: {checked: false}
-          = f.input :checkboxes, as: :check_boxes, label: 'Каково это?', input_html: {checked: false}, collection: [['Отвратно', 0], ['Неплохо', 1], ['Супер', 2]]
+          = f.input :checkboxes, as: :check_boxes, label: 'Каково это было?', input_html: {checked: false}, collection: [['Отвратно', 0], ['Неплохо', 1], ['Супер', 2]]
           = f.input :radio, as: :radio_buttons, label: 'А конкретнее?', input_html: {checked: false}, collection: [['Отвратно', 0], ['Неплохо', 1], ['Супер', 2]]
           = f.input :select_field, label: 'Выберите что-нибудь, пожалуйста', prompt: 'Ну выберите...', selected: false, collection: [['Отвратно', 0], ['Неплохо', 1], ['Супер', 2]]
           = f.input :some_text, as: :text, label: 'А здесь можно и текста написать', input_html: {value: ''}

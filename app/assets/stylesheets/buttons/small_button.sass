@@ -1,6 +1,7 @@
 @import 'imports'
 
 .small_button
+  position: relative
   display: inline-block
   margin-left: 9px
   border: 1px solid $blue_dark
@@ -40,6 +41,16 @@
     box-shadow: none !important
     cursor: default
 
+    &.is-loading
+      background: $blue_dark !important
+      border: 1px solid $blue_dark !important
+
+      .small_button-wrap
+        visibility: hidden
+
+      .button_loader
+        display: block
+
   &.is-disabled:active,
   &:disabled:active
     margin-bottom: 0
@@ -60,6 +71,10 @@
       border: 1px solid #92c795 !important
       color: #92c795 !important
 
+      &.is-loading
+        border: 1px solid $green_dark !important
+        background: $green_dark !important
+
   &.is-red
     border: 1px solid $red_dark
     color: $red_dark
@@ -75,4 +90,8 @@
     &:disabled:hover
       border: 1px solid lighten($red_dark, 30%) !important
       color: lighten($red_dark, 30%) !important
+
+      &.is-loading
+        border: 1px solid $red_dark !important
+        background: $red_dark !important
 
