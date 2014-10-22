@@ -13,6 +13,10 @@ gem 'pg'
 gem 'routing-filter', '0.4.0.pre'
 
 gem 'sass-rails', '~> 4.0.3'
+
+# Automatically add vendor prefixes for styles
+gem 'autoprefixer-rails'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views

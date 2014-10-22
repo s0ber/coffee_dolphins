@@ -33,6 +33,8 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
+    autoprefixer-rails (1.1.20140605)
+      execjs
     bcrypt (3.1.7)
     builder (3.2.2)
     coffee-rails (4.0.1)
@@ -165,6 +167,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  autoprefixer-rails
   coffee-rails (~> 4.0.0)
   colorize
   draper (~> 1.3)
