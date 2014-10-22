@@ -11,10 +11,10 @@ class SessionsController < ApplicationController
     user = login(user.email, user.password, user.remember_me)
 
     if user
-      redirect_back_or_to root_url, notice: 'Вы успешно вошли на сайт.'
+      flash.notice = 'Вы успешно вошли на сайт.'
+      render json: {redirect: session[:return_to_url] || root_url}
     else
-      flash.alert = 'Email или пароль не верны'
-      redirect_to :back
+      render_validation_errors(email: ['данные для входа не верны'])
     end
   end
 

@@ -2,7 +2,7 @@
   .panel-header
     | Lasciate ogne speranza, voi ch’intrate
   .panel-body
-    = neo_form_for @user, url: sessions_path, class: 'form' do |f|
+    = neo_form_for @user, url: sessions_path do |f|
       .form-fields
         = f.input :email, label: 'Email', input_html: {value: '', data: {view: 'app#autofocus'}}
         = f.input :password, as: :password, label: 'Пароль', input_html: {value: ''}

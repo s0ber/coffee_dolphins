@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   self.responder = Responders::AppResponder
   respond_to :html, :json, :al
 
-  rescue_from ActiveRecord::RecordInvalid, with: :render_validation_errors
+  rescue_from ActiveRecord::RecordInvalid, with: :process_failed_validation
 
   def root
     redirect_to positions_path
@@ -29,8 +29,12 @@ protected
     end
   end
 
-  def render_validation_errors(exception)
-    render json: {errors: exception.record.errors}, status: :unprocessable_entity
+  def process_failed_validation(exception)
+    render_validation_errors(exception.record.errors)
+  end
+
+  def render_validation_errors(errors)
+    render json: {errors: errors}, status: :unprocessable_entity
   end
 
 private
