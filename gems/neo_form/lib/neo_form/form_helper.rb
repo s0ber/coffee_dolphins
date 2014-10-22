@@ -29,7 +29,10 @@ module NeoForm
       options[:html][:"data-modifier"] = [options[:modifier]].compact.flatten.to_s
       options[:html][:class] = [options[:html][:class], 'form'].compact.flatten.join(' ')
 
-      options[:html][:"data-view"] = 'app#form' unless options[:custom]
+      unless options[:custom]
+        options[:html][:"data-view"] = 'app#form'
+        options[:remote] = true
+      end
       options
     end
 
