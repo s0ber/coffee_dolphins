@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
 
     if user
       flash.notice = 'Вы успешно вошли на сайт.'
-      render json: {redirect: session[:return_to_url] || root_url}
+      render json: {browser_redirect: session[:return_to_url] || root_url}
     else
       render_validation_errors(email: ['данные для входа не верны'])
     end

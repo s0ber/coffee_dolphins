@@ -18,14 +18,14 @@ class App.Views.Form extends App.View
 
   processSubmit: (e, json) ->
     @displayNotifications(json)
-    @followRedirect(json.redirect) if (json.redirect)
+    @followRedirect(json.browser_redirect) if (json.browser_redirect)
 
   processErrorSubmit: (e, xhr) ->
     @hideLoader()
     json = JSON.parse(xhr.responseText)
 
-    if json.redirect
-      @followRedirect(json.redirect)
+    if json.browser_redirect
+      @followRedirect(json.browser_redirect)
     else
       @displayNotifications(json)
       @showErrors(json.errors)
