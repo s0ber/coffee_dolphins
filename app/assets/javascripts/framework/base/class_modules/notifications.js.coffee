@@ -4,10 +4,6 @@
   included: (klass) ->
     klass.addToConfigureChain('__initializeNotifications')
 
-  extended: (klass) ->
-    klass.emitter = new Noted.Emitter(Dolphin.broker, klass)
-    klass.receiver = new Noted.Receiver(Dolphin.broker, klass)
-
   __initializeNotifications: ->
     @emitter = new Noted.Emitter(Dolphin.broker, @)
     @receiver = new Noted.Receiver(Dolphin.broker, @)
@@ -18,7 +14,7 @@
   listen: (message, callback, options) ->
     @receiver.listen(message, callback, options)
 
-  unsubscribe: (message, callback, context) ->
+  unsubscribe: (message, callback) ->
     Dolphin.broker.unsubscribe(message, callback, @)
 
   showNotice: (message, hideAfterMs = 5000) ->
