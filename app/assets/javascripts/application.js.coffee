@@ -1,7 +1,4 @@
-#= require vendor
-#= require_tree ./initializers
-#= require_tree ./app
+#= require ./utils
+#= require ./framework
+#= require ./bundles
 
-$ ->
-  window.ijax = new Ijax()
-  Vtree.initNodes()

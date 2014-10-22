@@ -1,6 +1,6 @@
 FRAMES_BATCH_COUNT = 3
 
-class App.Views.Layout extends App.View
+class App.Views.Layout extends Dolphin.View
 
   events:
     'click a@app-menu_item': 'processLinkClick'

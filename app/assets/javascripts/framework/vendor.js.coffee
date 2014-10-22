@@ -8,5 +8,9 @@
 #= require URIjs/src/URI.min
 #= require async_fn/build/async_fn
 #= require vtree/build/vtree
+#= require echoes/index
+#= require frames/build/frames
 #= require histo/build/histo
 #= require ijax/build/ijax
+#= require noted/lib/noted
+

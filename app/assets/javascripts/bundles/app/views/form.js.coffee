@@ -1,7 +1,7 @@
-class App.Views.Form extends App.View
+class App.Views.Form extends Dolphin.View
 
-  $submitButton: ->
-    @$('[type="submit"]')
+  els:
+    submitButton: '[type="submit"]'
 
   events:
     'keydown .is-invalid': 'removeErrorOnKeydown'

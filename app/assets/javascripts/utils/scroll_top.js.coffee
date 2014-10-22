@@ -1,2 +1,2 @@
-App.Utils.scrollTop = ->
+Utils.scrollTop = ->
   $('html, body').scrollTop(0)

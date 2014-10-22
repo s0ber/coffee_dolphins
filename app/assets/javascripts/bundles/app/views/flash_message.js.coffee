@@ -1,4 +1,4 @@
-class App.Views.FlashMessage extends App.View
+class App.Views.FlashMessage extends Dolphin.View
 
   events:
     'click @flash_message-close': 'close'

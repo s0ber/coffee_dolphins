@@ -11,7 +11,7 @@ LOADER_TEMPLATE = '''
   </div>
 '''
 
-App.Utils.showButtonLoader = ($button) ->
+Utils.showButtonLoader = ($button) ->
   unless $button.hasClass('has-loader')
     $loader = $(LOADER_TEMPLATE)
 
@@ -24,7 +24,7 @@ App.Utils.showButtonLoader = ($button) ->
     .attr('disabled', 'disabled')
     .addClass('is-loading')
 
-App.Utils.hideButtonLoader = ($button) ->
+Utils.hideButtonLoader = ($button) ->
   return unless $button.hasClass('has-loader')
 
   $button

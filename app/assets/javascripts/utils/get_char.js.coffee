@@ -1,4 +1,4 @@
-App.Utils.getChar = (event) ->
+Utils.getChar = (event) ->
   unless event.which
     return null if event.keyCode < 32
     return String.fromCharCode(event.keyCode)

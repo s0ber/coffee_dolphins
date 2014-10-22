@@ -8,7 +8,7 @@ Vtree.onNodeInit (node) ->
 
   try
     console.log "Initializing view '#{viewName}'"
-    view = new viewConstructor(el: node.el)
+    view = new viewConstructor(el: node.el, node: node)
     node.setData('view', view)
     node.setData('viewName', viewName)
   catch e
@@ -17,8 +17,10 @@ Vtree.onNodeInit (node) ->
 
 Vtree.onNodeUnload (node) ->
   view = node.getData 'view'
-  viewName = node.getData 'viewName'
+  return unless view?
 
+  view.onUnload()
+
+  viewName = node.getData 'viewName'
   console.log "Unloading view '#{viewName}'"
-  view.unload?()
 
