@@ -33,6 +33,8 @@ module ActionViewTemplateExtension
   def flat_action_render(view, locals, &block)
     view.view_renderer.__current_fiber = {fiber: nil, children: []}
     view.view_renderer.__current_fiber[:fiber] = Fiber.new do
+      # TODO: hack for Draper
+      view.controller.view_context
       template = render_without_iframe_streaming(view, locals, nil, &block)
 
       partial = <<-FLAT_PARTIAL
@@ -53,6 +55,8 @@ FLAT_PARTIAL
 
     child_fiber = {fiber: nil, children: []}
     child_fiber[:fiber] = Fiber.new do
+      # TODO: hack for Draper
+      view.controller.view_context
       template = render_without_iframe_streaming(view, locals, nil, &block)
 
       partial = <<-FLAT_PARTIAL

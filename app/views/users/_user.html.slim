@@ -2,20 +2,8 @@
   .panel-header
     = user.email
     .fl_r
-      = link_to 'Редактировать', edit_user_path(user),
-        class: 'small_button',
-        remote: true,
-        data: {role: 'item-edit'}
-
-      - if user.id == current_user.id || user.admin?
-        .small_button.is-red.is-disabled
-          | Удалить
-      - else
-        = link_to 'Удалить', user_path(user),
-          class: 'small_button is-red',
-          remote: true,
-          method: :delete,
-          data: {role: 'item-remove', confirm: "Удалить пользователя #{user.email}?"}
+      = user.edit_button
+      = user.remove_button
 
   .panel-list data-role='item-info'
     .panel-list_row

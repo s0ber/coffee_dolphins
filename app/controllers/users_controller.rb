@@ -1,17 +1,17 @@
 class UsersController < ApplicationController
   def index
-    @users = User.active
+    @users = User.active.decorate
     @user = User.new
     respond_with(@users)
   end
 
   def create
-    @user = User.create!(user_params)
+    @user = User.create!(user_params).decorate
     render_partial('user', user: @user)
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = User.find(params[:id]).decorate
     respond_with(@user)
   end
 

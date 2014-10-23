@@ -2,12 +2,12 @@ class App.ItemsList.Views.Item extends Dolphin.View
 
   els:
     infoContainer: '@item-info'
-    editButton: '@item-edit'
+    editButton: '@edit_item_button'
     calcelEditButton: '@item-cancel_edit'
 
   events:
-    'ajax:success @item-remove': 'removeItem'
-    'ajax:success @item-edit': 'openEditForm'
+    'ajax:success @remove_item_button': 'removeItem'
+    'ajax:success @edit_item_button': 'openEditForm'
     'click @item-cancel_edit': 'closeEditForm'
     'ajax:success form': 'updateItem'
 
