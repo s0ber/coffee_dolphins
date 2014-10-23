@@ -3,13 +3,22 @@ class User < ActiveRecord::Base
 
   scope :active, -> { order(:created_at) }
 
-  attr_accessor :remember_me
+  before_validation :check_password, on: :create
 
   validates :email, presence: true, uniqueness: true, email: true
-  validates :password, presence: true, confirmation: true, length: {within: 6...128}
-  validates :password_confirmation, presence: true
+  validates :password, confirmation: true, length: {within: 6...128}, allow_blank: true
+
+  attr_accessor :remember_me
 
   def admin?
     email == 'coffeedolphins@gmail.com'
+  end
+
+private
+
+  def check_password
+    if self.password.blank?
+      self.errors.add :password, :blank
+    end
   end
 end

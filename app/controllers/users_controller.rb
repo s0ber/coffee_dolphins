@@ -5,6 +5,11 @@ class UsersController < ApplicationController
     respond_with(@users)
   end
 
+  def show
+    @user = User.find(params[:id]).decorate
+    render_partial('user', user: @user)
+  end
+
   def create
     @user = User.create!(user_params).decorate
     render_partial('user', user: @user)
@@ -16,7 +21,10 @@ class UsersController < ApplicationController
   end
 
   def update
+    user = User.find(params[:id])
+    user.update_attributes!(user_params)
 
+    render json: {success: true}
   end
 
   def destroy
