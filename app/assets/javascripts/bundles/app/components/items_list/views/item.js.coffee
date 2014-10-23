@@ -1,6 +1,7 @@
 class App.ItemsList.Views.Item extends Dolphin.View
 
   els:
+    itemTitle: '@item-title'
     infoContainer: '@item-info'
     editButton: '@edit_item_button'
     calcelEditButton: '@item-cancel_edit'
@@ -12,6 +13,8 @@ class App.ItemsList.Views.Item extends Dolphin.View
     'ajax:success form': 'updateItem'
 
   initialize: ->
+    @applyBehavior 'Dynamic'
+
     @itemsList.addItem id: @id()
 
   removeItem: ->
@@ -29,6 +32,14 @@ class App.ItemsList.Views.Item extends Dolphin.View
     @$infoContainer()
       .next().remove().end()
       .show()
+
+  updateItem: ->
+    @behaviors.Dynamic.redraw().done @showUpdateNotice.bind(@)
+
+  showUpdateNotice: ->
+    $updateNotice = $('<span class="status is-gray"> — обновлено</span>').hide()
+    $updateNotice.appendTo(@$itemTitle()).fadeIn()
+    (-> $updateNotice.fadeOut(-> $updateNotice.remove())).delay(4000)
 
 # private
 

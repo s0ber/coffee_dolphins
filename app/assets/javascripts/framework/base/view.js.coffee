@@ -7,6 +7,7 @@ class Dolphin.View extends Frames.View
 
   @include AjaxRequestsModule
   @include AppDataModule
+  @include BehaviorModule
   @include DomHelpersModule
   @include NotificationsModule
   @include SelectorFunctionsModule

@@ -5,8 +5,8 @@
     = neo_form_for user do |f|
       .form-fields
         = f.input :email
-        = f.input :password, label: 'Пароль'
-        = f.input :password_confirmation, label: 'Подтверждение пароля'
+        = f.input :password, label: 'Пароль', required: true
+        = f.input :password_confirmation, label: 'Подтверждение пароля', required: true
 
       .form-actions
         .fl_r

@@ -6,6 +6,8 @@ class App.Views.Layout extends Dolphin.View
     'click a@app-menu_item': 'processLinkClick'
 
   initialize: ->
+    @applyBehavior 'RemoteLinks'
+
     @historyWidget = Histo.addWidget(id: 'menu_navigation')
     @setInitialState()
     @historyWidget.onPopState @processPoppedState.bind(@)

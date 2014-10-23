@@ -1,6 +1,7 @@
 .panel data-view='item' data={item_id: user.id, edit_path: user_path(user), block_path: user_path(user)}
   .panel-header
-    = user.email
+    span data-role='item-title'
+      = user.email
     .fl_r
       = user.edit_button
       = user.remove_button

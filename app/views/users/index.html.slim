@@ -6,7 +6,7 @@ div data-component='app#items_list'
         | Добавить нового
 
   .page-body
-    = render 'new_user_form', user: @user, users: @users
+    = render 'new_form', user: @user, users: @users
 
     .panels data-role='items_list-list_wrapper'
       = render partial: 'user', collection: @users

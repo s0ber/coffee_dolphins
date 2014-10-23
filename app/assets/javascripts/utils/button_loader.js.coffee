@@ -28,5 +28,5 @@ Utils.hideButtonLoader = ($button) ->
   return unless $button.hasClass('has-loader')
 
   $button
-    .removeClass('is-processed')
+    .removeClass('is-loading')
     .removeAttr('disabled')

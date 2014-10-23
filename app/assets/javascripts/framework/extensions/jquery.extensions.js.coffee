@@ -51,7 +51,7 @@ $.fn.blink = do ->
     @animate(opacity: .2, 400, -> dfd.resolve())
     dfd.promise()
 
-  return (iterationsNum = 4) ->
+  return (iterationsNum = 3) ->
     callStack = fadeOut.call(@).then(fadeIn.bind(@))
 
     for i in [1...iterationsNum]
