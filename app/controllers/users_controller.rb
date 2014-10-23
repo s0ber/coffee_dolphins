@@ -10,6 +10,11 @@ class UsersController < ApplicationController
     render_partial('user', user: @user)
   end
 
+  def destroy
+    User.find(params[:id]).destroy
+    render json: {success: true}
+  end
+
 private
 
   def user_params

@@ -20,7 +20,7 @@ class App.ItemsList.ViewModels.ItemsList extends Dolphin.ViewModel
   removeItemById: (id) ->
     itemModel = @collection.get(id)
 
-    @item.remove(itemModel)
+    @collection.remove(itemModel)
     @trigger('item_removed', itemModel.toJSON())
 
   addFetchedItemData: (data...) ->

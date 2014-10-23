@@ -4,8 +4,15 @@
     .fl_r
       button.small_button
         | Редактировать
-      button.small_button.is-red
-        | Удалить
+      - if user.id == current_user.id || user.admin?
+        .small_button.is-red.is-disabled
+          | Удалить
+      - else
+        = link_to 'Удалить', user_path(user),
+          class: 'small_button is-red',
+          remote: true,
+          method: :delete,
+          data: {role: 'items_list-remove_item', confirm: "Удалить пользователя #{user.email}?"}
 
   .panel-list
     .panel-list_row

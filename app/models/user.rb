@@ -8,4 +8,8 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true, email: true
   validates :password, presence: true, confirmation: true, length: {within: 6...128}
   validates :password_confirmation, presence: true
+
+  def admin?
+    email == 'coffeedolphins@gmail.com'
+  end
 end
