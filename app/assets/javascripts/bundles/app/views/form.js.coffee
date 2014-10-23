@@ -19,11 +19,7 @@ class App.Views.Form extends Dolphin.View
 
   processSubmit: (e, json) ->
     @displayNotifications(json)
-
-    if json.browser_redirect
-      @followRedirect(json.browser_redirect)
-    else
-      @hideLoader()
+    @followRedirect(json.browser_redirect) if json.browser_redirect
 
   processErrorSubmit: (e, xhr) ->
     @hideLoader()
@@ -74,6 +70,7 @@ class App.Views.Form extends Dolphin.View
 
   reset: ->
     @removeAllErrors()
+    @hideLoader()
     @$el[0].reset()
 
   followRedirect: (path) ->

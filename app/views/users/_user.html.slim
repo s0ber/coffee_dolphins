@@ -1,9 +1,12 @@
-.panel data-view='item' data-item-id=user.id
+.panel data-view='item' data={item_id: user.id, edit_path: user_path(user)}
   .panel-header
     = user.email
     .fl_r
-      button.small_button
-        | Редактировать
+      = link_to 'Редактировать', edit_user_path(user),
+        class: 'small_button',
+        remote: true,
+        data: {role: 'item-edit'}
+
       - if user.id == current_user.id || user.admin?
         .small_button.is-red.is-disabled
           | Удалить
@@ -12,9 +15,9 @@
           class: 'small_button is-red',
           remote: true,
           method: :delete,
-          data: {role: 'items_list-remove_item', confirm: "Удалить пользователя #{user.email}?"}
+          data: {role: 'item-remove', confirm: "Удалить пользователя #{user.email}?"}
 
-  .panel-list
+  .panel-list data-role='item-info'
     .panel-list_row
       .panel-list_label
         | Email

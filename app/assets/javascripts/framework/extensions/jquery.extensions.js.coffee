@@ -36,7 +36,7 @@ $.fn.autofocus = ->
   @find('input, textare').not(':hidden')
     .first()
     .filter('[type="text"], [type="email"], textarea')
-    .focus()
+    .focus().select()
 
   @
 

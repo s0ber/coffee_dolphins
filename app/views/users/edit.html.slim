@@ -1,0 +1,14 @@
+.panel-body
+  = neo_form_for @user do |f|
+    .form-fields
+      = f.input :email
+      = f.input :password, label: 'Пароль'
+      = f.input :password_confirmation, label: 'Подтверждение пароля'
+
+    .form-actions
+      .fl_r
+        .small_button data-role='item-cancel_edit'
+          | Отмена
+        button.small_button.is-green type='submit'
+          | Сохранить
+
