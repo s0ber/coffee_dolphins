@@ -1,10 +1,12 @@
 #= require_tree ./view_modules
 #= require_self
 
+VIEW_LOCALS_OPTIONS = ['namespaceName', 'componentName', 'componentId', 'node']
+
 class Dolphin.View extends Frames.View
 
   @include AjaxRequestsModule
-  # @include AppDataModule
+  @include AppDataModule
   @include DomHelpersModule
   @include NotificationsModule
   @include SelectorFunctionsModule
@@ -13,7 +15,8 @@ class Dolphin.View extends Frames.View
   @addToConfigureChain 'preconfigure'
 
   preconfigure: (@options = {}) ->
-    @node = @options.node
+    # copy some options to view instance
+    _.extend(@, Object.select(options, VIEW_LOCALS_OPTIONS))
 
   onUnload: ->
     @unload?()

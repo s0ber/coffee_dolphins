@@ -1,28 +1,16 @@
-.page-title
-  | Пользователи
-  .fl_r
-    button.small_button.is-green
-      | Добавить нового
+div data-component='app#items_list'
+  .page-title
+    | Пользователи
+    .fl_r
+      button.small_button.is-green data-role='items_list-show_form'
+        | Добавить нового
 
-.page-body
-  .panels
-    - if @users.any?
+  .page-body
+    = render 'new_user_form', user: @user, users: @users
+
+    .panels data-role='items_list-list_wrapper'
       = render partial: 'user', collection: @users
-    - else
-      p.page-text
-        | Тут текст.
 
-    .panel
-      .panel-header
-        | Форма добавления пользователя
-      .panel-body
-        = neo_form_for @user, url: users_path do |f|
-          .form-fields
-            = f.input :email
-            = f.input :password, label: 'Пароль'
-            = f.input :password_confirmation, label: 'Подтверждение пароля'
+    p.page-text class=('hidden' if @users.any?) data-role='items_list-empty_list_message'
+      | Нет пользователей.
 
-          .form-actions
-            .fl_r
-              button.small_button.is-green type='submit'
-                | Добавить пользователя

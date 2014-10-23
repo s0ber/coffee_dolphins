@@ -1,7 +1,7 @@
 #= require_self
+#= require_tree ./view_models
 #= require_tree ./views
-#= require ./components/items_list
 
-class @App extends Class
+class App.ItemsList extends Class
 
   @extend BackboneNamespacesModule

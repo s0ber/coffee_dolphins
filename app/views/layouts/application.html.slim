@@ -24,27 +24,27 @@ html
               - if notice
                 .flash_message.is-notice data-view='app#flash_message'
                   = notice
-                  .flash_message-close.fl_r.js-flash_message-close
+                  .flash_message-close.fl_r data-role='flash_message-close'
                     | Закрыть
 
               - if alert
                 .flash_message.is-alert data-view='app#flash_message'
                   = alert
-                  .flash_message-close.fl_r.js-flash_message-close
+                  .flash_message-close.fl_r data-role='flash_message-close'
                     | Закрыть
 
-              .page.js-app-page_wrapper
+              .page data-role='app-page_wrapper'
                 = yield
 
         - if current_user
           aside.layout-sidebar
-            .menu.js-app-menu
+            .menu data-role='app-menu'
               .menu-header
                 | Меню
               .menu-items
                 - menu_items.each do |title, path, options = {}|
                   - current_page = current_page?(path)
-                  = link_to title, path, class: "menu-item js-app-menu_item #{'is-active' if current_page}", data: {menu_item_id: options[:menu_item_id]}
+                  = link_to title, path, class: "menu-item #{'is-active' if current_page}", data: {role: 'app-menu_item', menu_item_id: options[:menu_item_id]}
 
       .layout-empty
 

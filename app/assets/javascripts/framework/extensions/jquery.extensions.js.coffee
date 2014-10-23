@@ -35,8 +35,24 @@ $.fn.getFormData = ->
 $.fn.autofocus = ->
   @find('input, textare').not(':hidden')
     .first()
-    .filter('[type="text"], textarea')
+    .filter('[type="text"], [type="email"], textarea')
     .focus()
 
   @
 
+$.fn.blink = do ->
+  fadeIn = ->
+    dfd = new $.Deferred()
+    @animate(opacity: 1, 400, -> dfd.resolve())
+    dfd.promise()
+
+  fadeOut = ->
+    dfd = new $.Deferred()
+    @animate(opacity: .2, 400, -> dfd.resolve())
+    dfd.promise()
+
+  return (iterationsNum = 4) ->
+    callStack = fadeOut.call(@).then(fadeIn.bind(@))
+
+    for i in [1...iterationsNum]
+      callStack = callStack.then(fadeOut.bind(@)).then(fadeIn.bind(@))

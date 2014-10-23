@@ -1,16 +1,13 @@
 class UsersController < ApplicationController
   def index
-    @users = User.all
+    @users = User.active
     @user = User.new
     respond_with(@users)
   end
 
-  def new
-  end
-
   def create
     @user = User.create!(user_params)
-    respond_with(@user)
+    render_partial('user', user: @user)
   end
 
 private
@@ -18,5 +15,4 @@ private
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
   end
-
 end

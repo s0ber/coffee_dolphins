@@ -14,3 +14,4 @@
 #= require ijax/build/ijax
 #= require noted/lib/noted
 
+#= require stacktrace-js/stacktrace

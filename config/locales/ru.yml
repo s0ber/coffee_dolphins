@@ -28,4 +28,5 @@ ru:
       too_short: минимум %{count} символов
       not_a_number: должно быть числом
       invalid: невалидный формат
+      taken: уже занято
 

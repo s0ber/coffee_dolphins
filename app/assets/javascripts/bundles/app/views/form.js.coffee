@@ -11,6 +11,7 @@ class App.Views.Form extends Dolphin.View
     'ajax:error': 'processErrorSubmit'
     'ajax:custom_error': 'displayCustomErrors'
     'ajax:success': 'processSubmit'
+    'form:reset': 'reset'
 
   processBeforeSubmit: ->
     @removeAllErrors()
@@ -18,7 +19,11 @@ class App.Views.Form extends Dolphin.View
 
   processSubmit: (e, json) ->
     @displayNotifications(json)
-    @followRedirect(json.browser_redirect) if (json.browser_redirect)
+
+    if json.browser_redirect
+      @followRedirect(json.browser_redirect)
+    else
+      @hideLoader()
 
   processErrorSubmit: (e, xhr) ->
     @hideLoader()
@@ -37,7 +42,7 @@ class App.Views.Form extends Dolphin.View
   showErrors: (errors) ->
     for name, messages of errors
       $field = @$("[name='#{@entity()}[#{name}]']")
-      $fieldWrap = $field.closest('@field_wrapper')
+      $fieldWrap = $field.closest('.js-field_wrapper')
       $label = $fieldWrap.find('label.control-label .label_wrap')
 
       $fieldWrap.addClass('is-invalid')
@@ -61,11 +66,15 @@ class App.Views.Form extends Dolphin.View
     @removeError $(e.currentTarget)
 
   removeError: ($field) ->
-    $fieldWrap = $field.closest('@field_wrapper')
+    $fieldWrap = $field.closest('.js-field_wrapper')
     $error = $fieldWrap.find('.error')
 
     $fieldWrap.removeClass('is-invalid')
     $error.fadeOut(-> $error.remove())
+
+  reset: ->
+    @removeAllErrors()
+    @$el[0].reset()
 
   followRedirect: (path) ->
     window.location.replace(path)

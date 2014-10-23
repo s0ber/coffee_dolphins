@@ -19,14 +19,10 @@ class ApplicationController < ActionController::Base
 protected
 
   def render_partial(template, options = {})
-    respond_with(nil) do |format|
-      format.json do
-        render json: {
-          success: true,
-          html: render_to_string(partial: template, layout: false, formats: [:html], locals: options)
-        }
-      end
-    end
+    render json: {
+      success: true,
+      html: render_to_string(partial: template, layout: false, formats: [:html], locals: options)
+    }
   end
 
   def process_failed_validation(exception)
