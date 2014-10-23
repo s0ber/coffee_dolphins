@@ -16,10 +16,11 @@
       .panel-header
         | Форма добавления пользователя
       .panel-body
-        = neo_form_for @user do |f|
-          = f.input :email
-          = f.input :password, label: 'Пароль'
-          = f.input :password_confirmation, label: 'Подтверждение пароля'
+        = neo_form_for @user, url: users_path do |f|
+          .form-fields
+            = f.input :email
+            = f.input :password, label: 'Пароль'
+            = f.input :password_confirmation, label: 'Подтверждение пароля'
 
           .form-actions
             .fl_r
