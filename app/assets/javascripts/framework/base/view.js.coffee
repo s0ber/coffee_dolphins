@@ -1,7 +1,7 @@
 #= require_tree ./view_modules
 #= require_self
 
-VIEW_LOCALS_OPTIONS = ['namespaceName', 'componentName', 'componentId', 'node']
+VIEW_INSTANCE_OPTIONS = ['namespaceName', 'componentName', 'componentId', 'node']
 
 class Dolphin.View extends Frames.View
 
@@ -17,7 +17,7 @@ class Dolphin.View extends Frames.View
 
   preconfigure: (@options = {}) ->
     # copy some options to view instance
-    _.extend(@, Object.select(options, VIEW_LOCALS_OPTIONS))
+    _.extend(@, Object.select(options, VIEW_INSTANCE_OPTIONS))
 
   onUnload: ->
     @unload?()

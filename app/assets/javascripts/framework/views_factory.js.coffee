@@ -56,7 +56,7 @@ ViewNodeDataWrapper = class
   viewName: ->
     @_viewName ?=
       if @node.isStandAlone
-        "#{@node.namespaceName}.Views.#{@node.nodeName}:#{@componentId()}"
+        "#{@namespaceName()}.Views.#{@nodeName()}:#{@componentId()}"
       else
-        "#{@node.namespaceName}.#{@node.componentName}.Views.#{@node.nodeName}:#{@componentId()}"
+        "#{@namespaceName()}.#{@componentName()}.Views.#{@nodeName()}:#{@componentId()}"
 
