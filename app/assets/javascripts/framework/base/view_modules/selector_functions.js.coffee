@@ -5,23 +5,16 @@
 
   # Create selector functions.
   __createSelectors: ->
-    @__createSelector(name, selector) for name, selector of @els
-
-  # Create selector function.
-  __createSelector: (name, selector) ->
-    cachedMatches = selector.match(/^cached (.+)/)
-    @['$' + name] = @__selectorFn(cachedMatches, name, selector)
+    for name, selector of @els
+      cachedMatches = selector.match(/^cached (.+)/)
+      @['$' + name] = @__selectorFn(cachedMatches, name, selector)
 
   # Remove all selector functions from instance.
   __removeSelectors: ->
-    @__removeSelector(name, selector) for name, selector of @els
-
-  # Remove selector by name.
-  __removeSelector: (name, selector) ->
-    cachedMatches = selector.match(/^cached (.+)/)
-    delete @['$_' + name] if cachedMatches
-    delete @['$' + name]
-
+    for name, selector of @els
+      cachedMatches = selector.match(/^cached (.+)/)
+      delete @['$_' + name] if cachedMatches
+      delete @['$' + name]
 
   # private
 
