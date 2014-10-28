@@ -1,0 +1,20 @@
+default: &common
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+  host: localhost
+  reconnecting: true
+
+development:
+  <<: *common
+  database: coffee_dolphins_development
+  username: s0ber
+  password: postgres
+
+test:
+  <<: *common
+  database: coffee_dolphins_test
+  username: s0ber
+  password: postgres
+
