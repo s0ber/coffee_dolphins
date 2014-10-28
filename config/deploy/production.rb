@@ -11,7 +11,6 @@
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
-set :stage, :production
 server '192.168.33.10', user: 'deploy', roles: %w{web app}
 
 # you can set custom ssh options
