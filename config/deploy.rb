@@ -70,30 +70,15 @@ namespace :nginx do
   after :append_config, :restart
 end
 
-set :unicorn_config, "#{shared_path}/config/unicorn.rb"
 set :unicorn_pid, "#{shared_path}/run/unicorn.pid"
-
-namespace :application do
-  desc 'Run Unicorn'
-  task :start do
-    on roles(:app) do
-      execute "cd #{release_path} && bundle exec unicorn_rails -c #{fetch(:unicorn_config)} -E #{fetch(:rails_env)} -D"
-    end
-  end
-  desc 'Stop Unicorn'
-  task :stop do
-    on roles(:app) do
-      execute "if [ -f #{fetch(:unicorn_pid)} ] && [ -e /proc/$(cat #{fetch(:unicorn_pid)}) ]; then kill -9 `cat #{fetch(:unicorn_pid)}`; fi"
-    end
-  end
-end
+set :unicorn_config_path, "#{shared_path}/config/unicorn.rb"
 
 namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
-      execute :touch, release_path.join('tmp/restart.txt')
+      invoke 'unicorn:restart'
     end
   end
 
@@ -106,8 +91,7 @@ namespace :deploy do
   end
 
   before :compile_assets, :install_js_dependencies
-  after :finishing, 'application:stop'
-  after :finishing, 'application:start'
+  after :publishing, :restart
   after :finishing, :cleanup
 
   after :restart, :clear_cache do
