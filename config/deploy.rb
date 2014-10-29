@@ -21,10 +21,6 @@ set :deploy_to, "/home/#{fetch(:username)}/#{fetch(:application)}"
 # Default value for :log_level is :debug
 set :log_level, :info
 
-# capistrano3/unicorn settings
-set :unicorn_pid, "#{shared_path}/run/unicorn.pid"
-set :unicorn_config_path, "#{shared_path}/config/unicorn.rb"
-
 # Default value for :pty is false
 # set :pty, true
 
@@ -73,6 +69,10 @@ namespace :nginx do
   end
   after :append_config, :restart
 end
+
+# capistrano3/unicorn settings
+set :unicorn_pid, "#{shared_path}/run/unicorn.pid"
+set :unicorn_config_path, "#{shared_path}/config/unicorn.rb"
 
 namespace :deploy do
   desc 'Restart application'
