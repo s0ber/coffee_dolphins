@@ -15,6 +15,9 @@ gem "slim-rails"
 # Use SCSS for stylesheets
 gem 'pg'
 
+# Fix for rails console under ubuntu 14.04
+gem 'rb-readline'
+
 # Filter generated paths
 gem 'routing-filter', '0.4.0.pre'
 

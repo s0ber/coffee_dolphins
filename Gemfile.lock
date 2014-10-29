@@ -125,6 +125,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (10.3.2)
+    rb-readline (0.5.1)
     rdoc (4.1.2)
       json (~> 1.4)
     request_store (1.1.0)
@@ -208,6 +209,7 @@ DEPENDENCIES
   neo_form!
   pg
   rails (= 4.1.1)
+  rb-readline
   responders
   routing-filter (= 0.4.0.pre)
   sass-rails (~> 4.0.3)
