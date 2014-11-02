@@ -2,6 +2,8 @@
   = neo_form_for @user do |f|
     .form-fields
       = f.input :email
+      = f.input :full_name, label: 'Имя'
+      = f.input :description, label: 'Описание'
       = f.input :password, label: 'Пароль'
       = f.input :password_confirmation, label: 'Подтверждение пароля'
 
