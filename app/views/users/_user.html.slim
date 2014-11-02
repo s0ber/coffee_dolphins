@@ -17,7 +17,7 @@
         | Имя
       .panel-list_value
         = user.full_name
-    - if user.description
+    - if user.description?
       .panel-list_row
         p.panel-text
           = user.description
