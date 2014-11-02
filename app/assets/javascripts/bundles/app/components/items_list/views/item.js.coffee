@@ -14,12 +14,12 @@ class App.ItemsList.Views.Item extends Dolphin.View
 
   initialize: ->
     @applyBehavior 'Dynamic'
-
     @itemsList.addItem id: @id()
 
   removeItem: ->
-    @itemsList.removeItemById(@id())
-    @$el.fadeOut(=> @$el.remove())
+    @$el.fadeOut =>
+      @$el.remove()
+      @itemsList.removeItemById(@id())
 
   openEditForm: (e, json) ->
     @utils.hideButtonLoader(@$editButton())

@@ -25,3 +25,9 @@ class Dolphin.View extends Frames.View
     @remove()
 
   utils: Utils
+
+  # it at first calls provided callback,
+  # and then observes provided model's 'change' event with this callback
+  observe: (viewModel, callback) ->
+    callback.call(@)
+    @listenTo(viewModel, 'change', callback)

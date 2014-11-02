@@ -6,22 +6,14 @@ class ItemsCollection extends Dolphin.Collection
 class App.ItemsList.ViewModels.ItemsList extends Dolphin.ViewModel
 
   initialize: ->
-    @collection = new ItemsCollection()
-
-    @listenTo @collection, 'change', =>
-      @setFormAsOpened() if @isEmpty()
+    @setCollection(new ItemsCollection())
 
   addItem: (item) ->
-    itemModel = new ItemModel(item)
-
-    @collection.add(itemModel)
-    @trigger('item_added', itemModel.toJSON())
+    @addToCollection(new ItemModel(item))
 
   removeItemById: (id) ->
     itemModel = @collection.get(id)
-
-    @collection.remove(itemModel)
-    @trigger('item_removed', itemModel.toJSON())
+    @removeFromCollection(itemModel)
 
   addFetchedItemData: (data...) ->
     @trigger('item_data_fetched', data...)
@@ -31,13 +23,4 @@ class App.ItemsList.ViewModels.ItemsList extends Dolphin.ViewModel
 
   setFormAsClosed: ->
     @trigger('form_set_closed')
-
-  isEmpty: ->
-    @collection.size() is 0
-
-  size: ->
-    @collection.size()
-
-  toJSON: ->
-    @collection.toJSON()
 

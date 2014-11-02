@@ -1,0 +1,18 @@
+.panel.for-new_item.hidden data-view='new_item_form'
+  .panel-header
+    | Форма добавления позиции
+  .panel-body
+    = neo_form_for position do |f|
+      .form-fields
+        = f.input :title, label: 'Название'
+        = f.input :price, as: :string, label: 'Цена'
+        = f.input :profit, as: :string, label: 'Прибыль'
+        = f.input :image_url, as: :string
+
+      .form-actions
+        .fl_r
+          .small_button data-role='items_list-cancel'
+            | Отмена
+          button.small_button.is-green type='submit'
+            | Добавить позицию
+
