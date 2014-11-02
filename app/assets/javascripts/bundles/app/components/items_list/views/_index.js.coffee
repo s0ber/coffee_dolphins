@@ -3,6 +3,7 @@ class App.ItemsList.Views.Index extends Dolphin.View
   els:
     openFormButton: '@items_list-show_form'
     listWrapper: '@items_list-list_wrapper'
+    emptyListMessage: '@items_list-empty_list_message'
 
   events:
     'click @items_list-show_form': 'setFormAsOpened'
@@ -14,6 +15,8 @@ class App.ItemsList.Views.Index extends Dolphin.View
     @listenTo(@itemsList, 'form_set_opened', @disableFormButton)
     @listenTo(@itemsList, 'form_set_closed', @enableFormButton)
     @listenTo(@itemsList, 'item_data_fetched', @renderNewItem)
+
+    @observe(@itemsList, @toggleEmptyListMessage)
 
   setFormAsOpened: ->
     @itemsList.setFormAsOpened()
@@ -30,3 +33,7 @@ class App.ItemsList.Views.Index extends Dolphin.View
     @append(@$listWrapper(), $newItem)
     @utils.scrollToEl($newItem)
     $newItem.blink()
+
+  toggleEmptyListMessage: ->
+    @$emptyListMessage().toggleClass('hidden', not @itemsList.isEmpty())
+

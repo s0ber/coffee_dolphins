@@ -1,0 +1,15 @@
+.panel-body
+  = neo_form_for @position do |f|
+    .form-fields
+      = f.input :title, label: 'Название'
+      = f.input :price, as: :string, label: 'Цена'
+      = f.input :profit, as: :string, label: 'Прибыль'
+      = f.input :image_url, as: :string
+
+    .form-actions
+      .fl_r
+        .small_button data-role='item-cancel_edit'
+          | Отмена
+        button.small_button.is-green type='submit'
+          | Сохранить
+

@@ -7,18 +7,8 @@
       = user.remove_button
 
   .panel-list data-role='item-info'
-    .panel-list_row
-      .panel-list_label
-        | Email
-      .panel-list_value
-        = user.email
-    .panel-list_row
-      .panel-list_label
-        | Имя
-      .panel-list_value
-        = user.full_name
+    = list_item 'Email', user.email
+    = list_item 'Имя', user.full_name
     - if user.description?
-      .panel-list_row
-        p.panel-text
-          = user.description
+      = list_text(user.description)
 
