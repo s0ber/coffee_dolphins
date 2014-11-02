@@ -1,8 +1,8 @@
 class App.Behaviors.RemoteLinks extends Dolphin.View
 
   events:
-    'ajax:before [data-remote="true"]': 'onBeforeLinkSubmit'
-    'ajax:success [data-remote="true"]': 'onSuccessLinkSubmit'
+    'ajax:before [href][data-remote="true"]': 'onBeforeLinkSubmit'
+    'ajax:success [href][data-remote="true"]': 'onSuccessLinkSubmit'
 
   onBeforeLinkSubmit: (e) ->
     $button = $(e.currentTarget)
