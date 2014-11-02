@@ -1,10 +1,14 @@
 class UserDecorator < ApplicationDecorator
   def edit_button
-    h.link_to 'Редактировать',
-      h.edit_user_path(object),
-      class: 'small_button',
-      remote: true,
-      data: {role: 'edit_item_button'}
+    if object.admin? and !h.current_user.admin?
+      h.content_tag :span, 'Редактировать', class: 'small_button is-disabled'
+    else
+      h.link_to 'Редактировать',
+        h.edit_user_path(object),
+        class: 'small_button',
+        remote: true,
+        data: {role: 'edit_item_button'}
+    end
   end
 
   def remove_button
