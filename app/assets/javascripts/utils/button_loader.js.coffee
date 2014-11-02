@@ -22,11 +22,11 @@ Utils.showButtonLoader = ($button) ->
 
   $button
     .attr('disabled', 'disabled')
-    .addClass('is-loading')
+    .addClass('is-loading is-disabled')
 
 Utils.hideButtonLoader = ($button) ->
-  return unless $button.hasClass('has-loader')
+  return if not $button.hasClass('has-loader') or not $button.hasClass('is-loading')
 
   $button
-    .removeClass('is-loading')
+    .removeClass('is-loading is-disabled')
     .removeAttr('disabled')

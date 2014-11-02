@@ -22,6 +22,7 @@ class App.ItemsList.Views.Item extends Dolphin.View
     @$el.fadeOut(=> @$el.remove())
 
   openEditForm: (e, json) ->
+    @utils.hideButtonLoader(@$editButton())
     @$editButton().addClass('is-disabled')
     @$infoContainer().hide()
     @after(@$infoContainer(), json.html)
