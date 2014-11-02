@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true, uniqueness: true, email: true
   validates :password, confirmation: true, length: {within: 6...128}, allow_blank: true
+  validates :full_name, presence: true, length: {maximum: 255}
 
   attr_accessor :remember_me
 

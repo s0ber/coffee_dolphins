@@ -16,8 +16,9 @@
       .panel-list_label
         | Имя
       .panel-list_value
-        | Сергей Шишкалов
-    .panel-list_row
-      p.panel-text
-        | Тут какой-то текст.
+        = user.full_name
+    - if user.description
+      .panel-list_row
+        p.panel-text
+          = user.description
 
