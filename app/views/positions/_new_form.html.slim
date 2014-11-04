@@ -4,9 +4,12 @@
   .panel-body
     = neo_form_for position do |f|
       .form-fields
+        = f.input :apishops_position_id, as: :string, label: 'Apishops ID'
         = f.input :title, label: 'Название'
+        = f.input :category, label: 'Категория'
         = f.input :price, as: :string, label: 'Цена'
         = f.input :profit, as: :string, label: 'Прибыль'
+        = f.input :availability_level, as: :string, label: 'Доступность'
         = f.input :image_url, as: :string
 
       .form-actions

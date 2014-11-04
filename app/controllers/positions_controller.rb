@@ -40,6 +40,6 @@ private
 
 
   def position_params
-    params.require(:position).permit(:title, :price, :profit, :availability_level, :image_url)
+    params.require(:position).permit(:apishops_position_id, :title, :category, :price, :profit, :availability_level, :image_url)
   end
 end
