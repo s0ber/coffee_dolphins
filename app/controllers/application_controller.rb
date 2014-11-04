@@ -25,6 +25,13 @@ protected
     }
   end
 
+  def render_modal(title)
+    render json: {
+      title: title,
+      html: render_to_string(action: action_name, layout: false, formats: [:html])
+    }
+  end
+
   def process_failed_validation(exception)
     render_validation_errors(exception.record.errors)
   end

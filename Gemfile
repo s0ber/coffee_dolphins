@@ -12,6 +12,8 @@ end
 gem 'rails', '4.1.1'
 # Use Slim for templates
 gem "slim-rails"
+# javascript templates
+gem 'ejs'
 # Use SCSS for stylesheets
 gem 'pg'
 

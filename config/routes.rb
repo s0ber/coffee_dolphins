@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   get 'logout' => 'sessions#destroy'
   resources :sessions, only: [:new, :create, :destroy]
 
-  resources :positions
+  resources :positions do
+    get :import, on: :collection
+  end
   resources :landings, only: [:index]
   resource :statistics, only: [:show]
   resource :finances, only: [:show]

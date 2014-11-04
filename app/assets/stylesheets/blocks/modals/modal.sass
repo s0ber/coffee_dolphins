@@ -1,0 +1,20 @@
+@import 'imports'
+@import 'primitives/panel'
+
+.modal
+  width: 500px
+
+.modal-header
+  +acts_as_panel_header
+  border-radius: 5px 5px 0 0
+
+.modal-body
+  +acts_as_panel_body
+  border-radius: 0 0 5px 5px
+
+p.modal-text
+  margin: 25px 0 0 0
+
+  &:first-child
+    margin-top: 0
+

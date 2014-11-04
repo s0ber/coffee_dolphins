@@ -11,7 +11,7 @@ class Dolphin.View extends Frames.View
   @include DomHelpersModule
   @include NotificationsModule
   @include SelectorFunctionsModule
-  # @include TemplatesRenderingModule
+  @include TemplatesRenderingModule
 
   @addToConfigureChain 'preconfigure'
 

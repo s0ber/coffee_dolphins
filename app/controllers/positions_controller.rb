@@ -32,6 +32,10 @@ class PositionsController < ApplicationController
     render json: {success: true}
   end
 
+  def import
+    render_modal 'Импортировать позиции Apishops'
+  end
+
 private
 
   def load_position
