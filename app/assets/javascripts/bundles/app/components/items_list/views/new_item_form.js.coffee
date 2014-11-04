@@ -26,11 +26,11 @@ class App.ItemsList.Views.NewItemForm extends Dolphin.View
   _openForm: ->
     return if @$el.is(':visible')
 
-    @$el.hide()
+    @$el
       .removeClass('hidden')
-      .fadeIn()
       .autofocus()
 
   _closeForm: ->
-    @$el.fadeOut('fast', => @$form().trigger('form:reset'))
+    @$el.addClass('hidden')
+    @$form().trigger('form:reset')
 
