@@ -55,6 +55,9 @@ gem 'sorcery'
 gem 'simple_form'
 gem 'neo_form', path: 'gems/neo_form'
 
+# Ajax file uploads for rails forms
+gem 'remotipart', '~> 1.2'
+
 # Decorating models with presentation logic
 gem 'draper', '~> 1.3'
 

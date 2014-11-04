@@ -128,6 +128,7 @@ GEM
     rb-readline (0.5.1)
     rdoc (4.1.2)
       json (~> 1.4)
+    remotipart (1.2.1)
     request_store (1.1.0)
     responders (1.1.1)
       railties (>= 3.2, < 4.2)
@@ -210,6 +211,7 @@ DEPENDENCIES
   pg
   rails (= 4.1.1)
   rb-readline
+  remotipart (~> 1.2)
   responders
   routing-filter (= 0.4.0.pre)
   sass-rails (~> 4.0.3)
