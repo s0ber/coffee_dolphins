@@ -1,13 +1,18 @@
-class App.Views.Modal extends Dolphin.View
+class App.Modal.Views.Index extends Dolphin.View
 
   events: {}
 
   initialize: ->
+    @addComponentData($modalSourceButton: @options.$modalSourceButton)
+    @applyBehavior 'FormActions'
+
     @$window = $(window)
     @$modalsContainer = $('@modals-container')
 
     @locate()
     @$window.on('resize.modal:position', @locate.bind(@))
+
+    @$el.autofocus()
 
   unload: ->
     @$window.off('.modal:position')

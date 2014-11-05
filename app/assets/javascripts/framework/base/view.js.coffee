@@ -19,6 +19,9 @@ class Dolphin.View extends Frames.View
     # copy some options to view instance
     _.extend(@, Object.select(options, VIEW_INSTANCE_OPTIONS))
 
+    # extends options with options from element's "data-view-options"
+    _.extend(@options, $(@options.el).data('view-options'))
+
   onUnload: ->
     @unload?()
     delete @node

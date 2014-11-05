@@ -9,6 +9,9 @@ class App.Behaviors.Modals extends Dolphin.View
     'click [data-modal]': 'loadModal'
     'click @close_modal': 'closeModal'
 
+  initialize: ->
+    @listen('modals:close_modal', @hideModal)
+
   loadModal: (e) ->
     $link = $(e.currentTarget)
     return if $link.hasClass('is-disabled')
@@ -16,12 +19,16 @@ class App.Behaviors.Modals extends Dolphin.View
     @showLoader($link)
     @createNewRequest(
       $.getJSON($link.data('modal'))
-        .done @showModal.bind(@)
+        .done @showModal.bind(@, $link)
         .always @hideLoader.bind(@, $link)
     )
 
-  showModal: (json) ->
-    @$modal = @$renderTemplate('modal', title: json.title, html: json.html)
+  showModal: ($link, json) ->
+    @$modal = @$renderTemplate('modal',
+      title: json.title,
+      html: json.html
+    ).data('view-options', $modalSourceButton: $link)
+
     @showOverlay()
     @html(@$modalsContainer(), @$modal)
 
@@ -56,7 +63,7 @@ class App.Behaviors.Modals extends Dolphin.View
 
       .on 'click.modals:hide', (e) =>
         $clickedEl = $(e.target)
-        $modal = $clickedEl.closest('[data-view="app#modal"]')
+        $modal = $clickedEl.closest('[data-component="app#modal"]')
         @hideModal() unless $modal.is(@$modal)
 
   unbindCloseEvents: ->

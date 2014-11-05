@@ -33,6 +33,7 @@ class PositionsController < ApplicationController
   end
 
   def import
+    @position = Position.first
     render_modal 'Импортировать позиции Apishops'
   end
 
