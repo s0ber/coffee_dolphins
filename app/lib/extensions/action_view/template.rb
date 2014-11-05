@@ -6,10 +6,14 @@ module ActionViewTemplateExtension
   end
 
   def render_with_iframe_streaming(*args, &block)
-    view = args.first
+    view = args[0]
+    locals = args[1]
 
+    # if this is pagination rendering, use default rendering behavior
+    if locals[:current_page].is_a? Kaminari::Helpers::Paginator::PageProxy
+      render_without_iframe_streaming(*args, &block)
     # if this is a usual rendering, use default template rendering behavior
-    unless view.view_renderer.__iframe_rendering
+    elsif !view.view_renderer.__iframe_rendering
       render_without_iframe_streaming(*args, &block)
     else
       render_ajax_layout(*args, &block)

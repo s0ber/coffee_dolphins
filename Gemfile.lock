@@ -85,6 +85,9 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.1)
     jwt (1.0.0)
+    kaminari (0.16.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     kgio (2.9.2)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -209,6 +212,7 @@ DEPENDENCIES
   ejs
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari
   neo_form!
   pg
   rails (= 4.1.1)

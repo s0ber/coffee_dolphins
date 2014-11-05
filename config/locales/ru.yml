@@ -31,3 +31,10 @@ ru:
       taken: уже занято
       inclusion: не входит в допустимый диапазон значений
 
+  views:
+    pagination:
+      first: '&laquo; Первая'
+      last: 'Последняя &raquo;'
+      previous: '&lsaquo; Предыдущая'
+      next: 'Следующая &rsaquo;'
+      truncate: '&hellip;'

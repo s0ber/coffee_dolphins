@@ -2,7 +2,7 @@ class PositionsController < ApplicationController
   before_filter :load_position, only: [:show, :edit, :update, :destroy]
 
   def index
-    @positions = Position.by_creation.decorate
+    @positions = Position.by_creation.page(params[:page])
     @position = Position.new
     respond_with(@positions)
   end

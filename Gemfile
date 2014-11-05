@@ -63,6 +63,9 @@ gem 'remotipart', '~> 1.2'
 # Decorating models with presentation logic
 gem 'draper', '~> 1.3'
 
+# Pagination
+gem 'kaminari'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
