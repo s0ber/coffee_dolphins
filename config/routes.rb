@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
 
   resources :positions do
-    get :import, on: :collection
+    collection do
+      get :prepare_import
+      post :import
+    end
   end
   resources :landings, only: [:index]
   resource :statistics, only: [:show]

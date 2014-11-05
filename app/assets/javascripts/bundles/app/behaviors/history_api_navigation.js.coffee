@@ -1,4 +1,4 @@
-FRAMES_BATCH_COUNT = 3
+FRAMES_BATCH_COUNT = 7
 
 class App.Behaviors.HistoryApiNavigation extends Dolphin.View
 

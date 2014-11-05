@@ -18,6 +18,10 @@ class ApplicationController < ActionController::Base
 
 protected
 
+  def render_success
+    render json: {success: true}
+  end
+
   def render_partial(template, options = {})
     render json: {
       success: true,

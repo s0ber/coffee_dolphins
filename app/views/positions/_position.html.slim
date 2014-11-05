@@ -7,10 +7,13 @@
       = position.remove_button
 
   .panel_item-body data-role='item-info'
-    .panel-list
-      .panel-list_row
-        = list_item 'Категория', position.category
-        = list_item 'Цена', position.price
-        = list_item 'Прибыль', position.profit
-        = list_item 'Доступность', position.availability_level
+    .panel_list.is-table
+      .panel_list-inner
+        .panel_list-photo
+          img src=position.image_url title=position.title
+        .panel_list-items
+          = list_item 'Категория', position.category
+          = list_item 'Цена', position.price
+          = list_item 'Прибыль', position.profit
+          = list_item 'Доступность', position.availability_level
 

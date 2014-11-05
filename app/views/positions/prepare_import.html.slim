@@ -1,0 +1,10 @@
+= neo_form_for :positions, url: import_positions_path, method: :post do |f|
+  .modal-fields
+    = f.input :file, as: :file, label: 'CSV файл'
+  .modal-buttons
+    .fl_r
+      .small_button data-role='close_modal'
+        | Отмена
+      button.small_button.is-green type='submit'
+        | Сохранить
+
