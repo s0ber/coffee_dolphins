@@ -7,6 +7,7 @@ class App.Behaviors.Modals extends Dolphin.View
 
   events:
     'click [data-modal]': 'loadModal'
+    'click @close_modal': 'closeModal'
 
   loadModal: (e) ->
     $link = $(e.currentTarget)
@@ -23,6 +24,11 @@ class App.Behaviors.Modals extends Dolphin.View
     @$modal = @$renderTemplate('modal', title: json.title, html: json.html)
     @showOverlay()
     @html(@$modalsContainer(), @$modal)
+
+  closeModal: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    @hideModal()
 
   hideModal: ->
     @$modal.remove()

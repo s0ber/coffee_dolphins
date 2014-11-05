@@ -30,3 +30,5 @@ Utils.hideButtonLoader = ($button) ->
   $button
     .removeClass('is-loading is-disabled')
     .removeAttr('disabled')
+    # this is a button forced "repaint"
+    .hide().show(0)

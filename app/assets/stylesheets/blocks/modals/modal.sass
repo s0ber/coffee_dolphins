@@ -3,6 +3,8 @@
 
 .modal
   width: 500px
+  border-radius: 5px
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, .05)
 
 .modal-header
   +acts_as_panel_header
@@ -10,11 +12,14 @@
 
 .modal-body
   +acts_as_panel_body
+  padding: 0
   border-radius: 0 0 5px 5px
 
-p.modal-text
-  margin: 25px 0 0 0
+.modal-buttons
+  border-top: 1px solid $blue_medium
+  padding: 15px
+  height: 25px
 
-  &:first-child
-    margin-top: 0
+p.modal-text
+  margin: 15px
 
