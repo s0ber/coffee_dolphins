@@ -4,10 +4,11 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
 
   els:
     menu: '@app-menu'
+    menuItems: '@app-menu_item'
     pageWrapper: '@app-page_wrapper'
 
   events:
-    'click a@app-menu_item': 'processLinkClick'
+    'click a': 'processLinkClick'
 
   initialize: ->
     @historyWidget = Histo.addWidget(id: 'menu_navigation')
@@ -16,15 +17,12 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
     @historyWidget.onPopState @processPoppedState.bind(@)
 
   setInitialState: ->
-    activeMenuItemId = @$menu()
-      .find('.is-active')
-      .data('menu-item-id')
+    $activeLink = @$menu().find('.is-active')
 
-    @historyWidget.replaceInitialState('active_menu_item_id': activeMenuItemId)
+    @historyWidget.replaceInitialState('page_path': $activeLink.attr('href'))
 
   processPoppedState: (state, path, dfd) ->
-    activeMenuItemId = state['active_menu_item_id']
-    $link = @$menu().find("[data-menu-item-id='#{activeMenuItemId}']")
+    $menuLink = @$menuItems().filter("[href='#{state['page_path']}']")
 
     dfd.fail => ijax.abortCurrentRequest()
 
@@ -33,7 +31,7 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
 
       res
         .onLayoutReceive((html) =>
-          @setLinkAsActive($link)
+          @setLinkAsActive($menuLink)
           @utils.scrollTop()
           @$pageWrapper().html(html)
         )
@@ -44,12 +42,13 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
         )
 
   processLinkClick: (e) ->
+    return if @isClickedInNewTab(e)
+
     e.preventDefault()
-
     $link = $(e.currentTarget)
-    return if $link.hasClass('is-active')
+    $menuLink = @$menuItems().filter("[href='#{$link.attr('href')}']")
+    return if $link.is('@app-menu_item.is-active') or not @isNavigationLink($link)
 
-    activeMenuItemId = $link.data('menu-item-id')
     path = $link.attr('href')
 
     ijax.get(path).done (response) =>
@@ -57,9 +56,9 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
 
       response
         .onLayoutReceive((html) =>
-          @setLinkAsActive($link)
+          @setLinkAsActive($menuLink)
           @utils.scrollTop()
-          @historyWidget.pushState(path, 'active_menu_item_id': activeMenuItemId)
+          @historyWidget.pushState(path, 'page_path': path)
           @$pageWrapper().html(html)
         )
         .onFrameReceive(@processFrameReceive.bind(@, frames))
@@ -84,11 +83,22 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
     frames.length = 0
 
   # private
+  isClickedInNewTab: (e) ->
+    e.which is 2 or e.metaKey or e.ctrlKey
 
   setLinkAsActive: ($link) ->
+    unless $link.exists()
+      @$menuItems().removeClass('is-active')
+      return
+
     $link
       .siblings()
         .removeClass('is-active')
         .end()
       .addClass('is-active')
 
+  isNavigationLink: ($link) ->
+    isRemoteLink = $link.is('[data-remote]')
+    isLocalLink = $link.attr('href')[0] is '/'
+
+    isLocalLink and not isRemoteLink
