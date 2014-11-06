@@ -51,7 +51,7 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
     @historyWidget.replaceInitialState('page_path': $activeLink.attr('href'))
 
   processPoppedState: (state, path, dfd) ->
-    $menuLink = @$menuItems().filter("[href='#{state['page_path']}']")
+    $menuLink = @$menuItemForPath(state['page_path'])
 
     dfd.fail => ijax.abortCurrentRequest()
 
@@ -74,10 +74,11 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
 
     e.preventDefault()
     $link = $(e.currentTarget)
-    $menuLink = @$menuItems().filter("[href='#{$link.attr('href')}']")
-    return if $link.is('@app-menu_item.is-active') or not @isNavigationLink($link)
+    $menuLink = @$menuItemForPath($link.attr('href'))
+    return if not @isNavigationLink($link)
 
     path = $link.attr('href')
+    shouldPushPath = "#{location.origin}#{path}" isnt location.href
 
     ijax.get(path).done (response) =>
       frames = new PageFrames(@)
@@ -85,7 +86,10 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
       response
         .onLayoutReceive((html) =>
           @setLinkAsActive($menuLink)
-          frames.addFrame('layout', html, path)
+          if shouldPushPath
+            frames.addFrame('layout', html, path)
+          else
+            frames.addFrame('layout', html)
         )
         .onFrameReceive((id, html) -> frames.addFrame(id, html))
         .onResolve(=>
@@ -93,8 +97,13 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
         )
 
   # private
+
   isClickedInNewTab: (e) ->
     e.which is 2 or e.metaKey or e.ctrlKey
+
+  $menuItemForPath: (path) ->
+    @$menuItems().filter (i, menuItem) =>
+      path.search($(menuItem).attr('href')) isnt -1
 
   setLinkAsActive: ($link) ->
     unless $link.exists()
