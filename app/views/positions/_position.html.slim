@@ -1,14 +1,19 @@
-.panel data-view='item' data={item_id: position.id, edit_path: position_path(position), block_path: position_path(position)}
-  .panel-header
+.panel_item data-view='item' data={item_id: position.id, edit_path: position_path(position), block_path: position_path(position)}
+  .panel_item-header
     span data-role='item-title'
       = position.title
     .fl_r
       = position.edit_button
       = position.remove_button
 
-  .panel-list data-role='item-info'
-    .panel-list_row
-      = list_item 'Название', position.title
-      = list_item 'Цена', position.price
-      = list_item 'Прибыль', position.profit
+  .panel_item-body data-role='item-info'
+    .panel_list.is-table
+      .panel_list-inner
+        .panel_list-photo
+          img src=position.image_url title=position.title
+        .panel_list-items
+          = list_item 'Категория', position.category
+          = list_item 'Цена', position.price
+          = list_item 'Прибыль', position.profit
+          = list_item 'Доступность', position.availability_level
 

@@ -2,6 +2,8 @@ div data-component='app#items_list'
   .page-title
     | Позиции
     .fl_r
+      .small_button data-modal=prepare_import_positions_path
+        | Импортировать
       button.small_button.is-green data-role='items_list-show_form'
         | Добавить новую
 
@@ -9,7 +11,9 @@ div data-component='app#items_list'
     = render 'new_form', positions: @positions, position: @position
 
     .panels data-role='items_list-list_wrapper'
-      = render partial: 'position', collection: @positions
+      = render partial: 'position', collection: @positions.decorate
+
+    = pagination_for @positions
 
     p.page-empty_page_message class=('hidden' if @positions.any?) data-role='items_list-empty_list_message'
       | Нет позиций.

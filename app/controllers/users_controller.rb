@@ -23,13 +23,12 @@ class UsersController < ApplicationController
   def update
     user = User.find(params[:id])
     user.update_attributes!(user_params)
-
-    render json: {success: true}
+    render_success
   end
 
   def destroy
     User.find(params[:id]).destroy
-    render json: {success: true}
+    render_success
   end
 
 private

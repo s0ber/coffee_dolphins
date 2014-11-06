@@ -18,10 +18,21 @@ class ApplicationController < ActionController::Base
 
 protected
 
+  def render_success
+    render json: {success: true}
+  end
+
   def render_partial(template, options = {})
     render json: {
       success: true,
       html: render_to_string(partial: template, layout: false, formats: [:html], locals: options)
+    }
+  end
+
+  def render_modal(title)
+    render json: {
+      title: title,
+      html: render_to_string(action: action_name, layout: false, formats: [:html])
     }
   end
 

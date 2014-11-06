@@ -1,13 +1,43 @@
-FRAMES_BATCH_COUNT = 3
+class PageFrames
+
+  FRAMES_BATCH_COUNT = 7
+
+  constructor: (@view) ->
+    @frames = []
+
+  addFrame: (id, html, path = null) ->
+    @frames.push {id, html, path}
+    @render() if @frames.length is FRAMES_BATCH_COUNT # render by N frames
+
+  render: ->
+    for frame in @frames
+      if frame.id is 'layout'
+        @_renderLayoutFrame(frame)
+      else
+        @_renderPartialFrame(frame)
+
+    @frames.length = 0
+
+  _renderLayoutFrame: (frame) ->
+    @view.utils.scrollTop()
+    if frame.path
+      @view.historyWidget.pushState(frame.path, 'page_path': frame.path)
+    @view.$pageWrapper().html(frame.html)
+
+  _renderPartialFrame: (frame) ->
+    $appendNode = $ document.getElementById("append_#{frame.id}")
+    @view.after($appendNode, frame.html)
+    $appendNode.remove()
 
 class App.Behaviors.HistoryApiNavigation extends Dolphin.View
 
   els:
     menu: '@app-menu'
+    menuItems: '@app-menu_item'
     pageWrapper: '@app-page_wrapper'
 
   events:
-    'click a@app-menu_item': 'processLinkClick'
+    'click a': 'processLinkClick'
 
   initialize: ->
     @historyWidget = Histo.addWidget(id: 'menu_navigation')
@@ -16,79 +46,78 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
     @historyWidget.onPopState @processPoppedState.bind(@)
 
   setInitialState: ->
-    activeMenuItemId = @$menu()
-      .find('.is-active')
-      .data('menu-item-id')
+    $activeLink = @$menu().find('.is-active')
 
-    @historyWidget.replaceInitialState('active_menu_item_id': activeMenuItemId)
+    @historyWidget.replaceInitialState('page_path': $activeLink.attr('href'))
 
   processPoppedState: (state, path, dfd) ->
-    activeMenuItemId = state['active_menu_item_id']
-    $link = @$menu().find("[data-menu-item-id='#{activeMenuItemId}']")
+    $menuLink = @$menuItemForPath(state['page_path'])
 
     dfd.fail => ijax.abortCurrentRequest()
 
     ijax.get(path).done (res) =>
-      frames = []
+      frames = new PageFrames(@)
 
       res
         .onLayoutReceive((html) =>
-          @setLinkAsActive($link)
-          @utils.scrollTop()
-          @$pageWrapper().html(html)
+          @setLinkAsActive($menuLink)
+          frames.addFrame('layout', html)
         )
-        .onFrameReceive(@processFrameReceive.bind(@, frames))
+        .onFrameReceive((id, html) -> frames.addFrame(id, html))
         .onResolve(=>
-          @renderFrames(frames)
+          frames.render()
           dfd.resolve()
         )
 
   processLinkClick: (e) ->
+    return if @isClickedInNewTab(e)
+
     e.preventDefault()
-
     $link = $(e.currentTarget)
-    return if $link.hasClass('is-active')
+    $menuLink = @$menuItemForPath($link.attr('href'))
+    return if not @isNavigationLink($link)
 
-    activeMenuItemId = $link.data('menu-item-id')
     path = $link.attr('href')
+    shouldPushPath = "#{location.origin}#{path}" isnt location.href
 
     ijax.get(path).done (response) =>
-      frames = []
+      frames = new PageFrames(@)
 
       response
         .onLayoutReceive((html) =>
-          @setLinkAsActive($link)
-          @utils.scrollTop()
-          @historyWidget.pushState(path, 'active_menu_item_id': activeMenuItemId)
-          @$pageWrapper().html(html)
+          @setLinkAsActive($menuLink)
+          if shouldPushPath
+            frames.addFrame('layout', html, path)
+          else
+            frames.addFrame('layout', html)
         )
-        .onFrameReceive(@processFrameReceive.bind(@, frames))
+        .onFrameReceive((id, html) -> frames.addFrame(id, html))
         .onResolve(=>
-          @renderFrames(frames)
+          frames.render()
         )
-
-  processFrameReceive: (frames, frameId, frameHtml) ->
-    frames.push
-      id: frameId
-      html: frameHtml
-
-    # render by N frames
-    @renderFrames(frames) if frames.length is FRAMES_BATCH_COUNT
-
-  renderFrames: (frames) ->
-    for frame in frames
-      $appendNode = $ document.getElementById("append_#{frame.id}")
-      @after($appendNode, frame.html)
-      $appendNode.remove()
-
-    frames.length = 0
 
   # private
 
+  isClickedInNewTab: (e) ->
+    e.which is 2 or e.metaKey or e.ctrlKey
+
+  $menuItemForPath: (path) ->
+    @$menuItems().filter (i, menuItem) =>
+      path.search($(menuItem).attr('href')) isnt -1
+
   setLinkAsActive: ($link) ->
+    unless $link.exists()
+      @$menuItems().removeClass('is-active')
+      return
+
     $link
       .siblings()
         .removeClass('is-active')
         .end()
       .addClass('is-active')
 
+  isNavigationLink: ($link) ->
+    isRemoteLink = $link.is('[data-remote]')
+    isLocalLink = $link.attr('href')[0] is '/'
+
+    isLocalLink and not isRemoteLink

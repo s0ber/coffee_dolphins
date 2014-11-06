@@ -12,6 +12,8 @@ end
 gem 'rails', '4.1.1'
 # Use Slim for templates
 gem "slim-rails"
+# javascript templates
+gem 'ejs'
 # Use SCSS for stylesheets
 gem 'pg'
 
@@ -55,8 +57,14 @@ gem 'sorcery'
 gem 'simple_form'
 gem 'neo_form', path: 'gems/neo_form'
 
+# Ajax file uploads for rails forms
+gem 'remotipart', '~> 1.2'
+
 # Decorating models with presentation logic
 gem 'draper', '~> 1.3'
+
+# Pagination
+gem 'kaminari'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

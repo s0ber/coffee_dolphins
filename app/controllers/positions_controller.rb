@@ -2,7 +2,7 @@ class PositionsController < ApplicationController
   before_filter :load_position, only: [:show, :edit, :update, :destroy]
 
   def index
-    @positions = Position.by_creation.decorate
+    @positions = Position.by_creation.page(params[:page])
     @position = Position.new
     respond_with(@positions)
   end
@@ -24,13 +24,29 @@ class PositionsController < ApplicationController
 
   def update
     @position.update_attributes!(position_params)
-    render json: {success: true}
+    render_success
   end
 
   def destroy
     @position.destroy
-    render json: {success: true}
+    render_success
   end
+
+  def prepare_import
+    @position = Position.first
+    render_modal 'Импортировать позиции Apishops'
+  end
+
+  def import
+    file = params[:positions] && params[:positions][:file]
+    if file.blank?
+      render_validation_errors(file: ['не может быть пустым'])
+    else
+      Position.import(file)
+      render_success
+    end
+  end
+
 
 private
 
@@ -40,6 +56,6 @@ private
 
 
   def position_params
-    params.require(:position).permit(:title, :price, :profit, :availability_level, :image_url)
+    params.require(:position).permit(:apishops_position_id, :title, :category, :price, :profit, :availability_level, :image_url, :file)
   end
 end

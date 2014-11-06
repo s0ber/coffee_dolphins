@@ -12,7 +12,7 @@ module NeoForm
         time_zone: 'select_box',
         boolean: 'check_box',
         check_boxes: 'check_boxes_list',
-        file: 'ui-file',
+        file: 'file_box',
         neo_file: 'ui-file',
         display: 'ui-display'
       }

@@ -3,8 +3,8 @@
   included: (klass) ->
     klass.addToRemoveChain('__unloadBehavior')
 
-  applyBehavior: (name) ->
-    options = _.extend({}, @options, isBehavior: true)
+  applyBehavior: (name, options = {}) ->
+    options = _.extend({}, @options, options, isBehavior: true, view: @)
     console.log "Apply behavior '#{name}' to view '#{options.viewName}'"
 
     @behaviors ?= {}

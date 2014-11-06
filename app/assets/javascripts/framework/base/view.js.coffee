@@ -11,13 +11,16 @@ class Dolphin.View extends Frames.View
   @include DomHelpersModule
   @include NotificationsModule
   @include SelectorFunctionsModule
-  # @include TemplatesRenderingModule
+  @include TemplatesRenderingModule
 
   @addToConfigureChain 'preconfigure'
 
   preconfigure: (@options = {}) ->
     # copy some options to view instance
     _.extend(@, Object.select(options, VIEW_INSTANCE_OPTIONS))
+
+    # extends options with options from element's "data-view-options"
+    _.extend(@options, $(@options.el).data('view-options'))
 
   onUnload: ->
     @unload?()

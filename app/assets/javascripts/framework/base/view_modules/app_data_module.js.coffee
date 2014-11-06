@@ -4,9 +4,16 @@
     klass.addToConfigureChain '__extendWithComponentData'
 
   __extendWithComponentData: (options) ->
-    return unless options.node?
-    if componentData = options.node.componentIndexNode?.getData 'cache'
-      _.extend(@, componentData)
+    componentData =
+      if options.isBehavior
+        if options.view.node.isComponentIndex
+          options.view.node?.getData 'cache'
+        else
+          options.view.node?.componentIndexNode?.getData 'cache'
+      else
+        options.node?.componentIndexNode?.getData 'cache'
+
+    _.extend(@, componentData) if componentData?
 
   addComponentData: (data) ->
     return unless @node?.isComponentIndex

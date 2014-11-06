@@ -1,14 +1,14 @@
-.panel data-view='item' data={item_id: user.id, edit_path: user_path(user), block_path: user_path(user)}
-  .panel-header
+.panel_item data-view='item' data={item_id: user.id, edit_path: user_path(user), block_path: user_path(user)}
+  .panel_item-header
     span data-role='item-title'
-      = user.email
+      = user.full_name
     .fl_r
       = user.edit_button
       = user.remove_button
 
-  .panel-list data-role='item-info'
-    = list_item 'Email', user.email
-    = list_item 'Имя', user.full_name
-    - if user.description?
-      = list_text(user.description)
+  .panel_item-body data-role='item-info'
+    .panel_list
+      = list_item 'Email', user.email
+      - if user.description?
+        = list_text(user.description)
 

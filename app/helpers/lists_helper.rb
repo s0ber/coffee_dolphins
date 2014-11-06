@@ -1,7 +1,7 @@
 module ListsHelper
   def list_item(label, value)
-    label = content_tag(:div, label, class: 'panel-list_label')
-    value = content_tag(:div, value, class: 'panel-list_value')
+    label = content_tag(:div, label, class: 'panel_list-label')
+    value = content_tag(:div, value, class: 'panel_list-value')
     list_row(label + value)
   end
 
@@ -11,6 +11,6 @@ module ListsHelper
   end
 
   def list_row(value)
-    content_tag(:div, value, class: 'panel-list_row')
+    content_tag(:div, value, class: 'panel_list-row')
   end
 end
