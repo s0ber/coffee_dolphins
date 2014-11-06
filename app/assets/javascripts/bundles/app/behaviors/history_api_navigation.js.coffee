@@ -72,11 +72,12 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
   processLinkClick: (e) ->
     return if @isClickedInNewTab(e)
 
-    e.preventDefault()
     $link = $(e.currentTarget)
-    $menuLink = @$menuItemForPath($link.attr('href'))
     return if not @isNavigationLink($link)
 
+    e.preventDefault()
+
+    $menuLink = @$menuItemForPath($link.attr('href'))
     path = $link.attr('href')
     shouldPushPath = "#{location.origin}#{path}" isnt location.href
 
@@ -119,5 +120,6 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
   isNavigationLink: ($link) ->
     isRemoteLink = $link.is('[data-remote]')
     isLocalLink = $link.attr('href')[0] is '/'
+    isLogoutLink = $link.attr('href') is '/logout'
 
-    isLocalLink and not isRemoteLink
+    isLocalLink and not isRemoteLink and not isLogoutLink
