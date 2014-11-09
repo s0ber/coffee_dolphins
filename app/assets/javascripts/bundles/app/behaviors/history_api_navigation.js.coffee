@@ -1,34 +1,3 @@
-class PageFrames
-
-  FRAMES_BATCH_COUNT = 7
-
-  constructor: (@view) ->
-    @frames = []
-
-  addFrame: (id, html, path = null) ->
-    @frames.push {id, html, path}
-    @render() if @frames.length is FRAMES_BATCH_COUNT # render by N frames
-
-  render: ->
-    for frame in @frames
-      if frame.id is 'layout'
-        @_renderLayoutFrame(frame)
-      else
-        @_renderPartialFrame(frame)
-
-    @frames.length = 0
-
-  _renderLayoutFrame: (frame) ->
-    @view.utils.scrollTop()
-    if frame.path
-      @view.historyWidget.pushState(frame.path, 'page_path': frame.path)
-    @view.$pageWrapper().html(frame.html)
-
-  _renderPartialFrame: (frame) ->
-    $appendNode = $ document.getElementById("append_#{frame.id}")
-    @view.after($appendNode, frame.html)
-    $appendNode.remove()
-
 class App.Behaviors.HistoryApiNavigation extends Dolphin.View
 
   els:
@@ -56,7 +25,9 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
     dfd.fail => ijax.abortCurrentRequest()
 
     ijax.get(path).done (res) =>
-      frames = new PageFrames(@)
+      frames = new Utils.PageFramesManager
+        view: @
+        $pageContainer: @$pageWrapper()
 
       res
         .onLayoutReceive((html) =>
@@ -82,7 +53,10 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
     shouldPushPath = "#{location.origin}#{path}" isnt location.href
 
     ijax.get(path).done (response) =>
-      frames = new PageFrames(@)
+      frames = new Utils.PageFramesManager
+        view: @
+        $pageContainer: @$pageWrapper()
+        pagePath: path
 
       response
         .onLayoutReceive((html) =>
