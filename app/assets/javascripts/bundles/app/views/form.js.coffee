@@ -19,14 +19,15 @@ class App.Views.Form extends Dolphin.View
 
   processSubmit: (e, json) ->
     @displayNotifications(json)
-    @followRedirect(json.browser_redirect) if json.browser_redirect
+    @followBrowserRedirect(json.browser_redirect) if json.browser_redirect
+    @followRedirect(json.redirect) if json.redirect
 
   processErrorSubmit: (e, xhr) ->
     @hideLoader()
     json = JSON.parse(xhr.responseText)
 
     if json.browser_redirect
-      @followRedirect(json.browser_redirect)
+      @followBrowserRedirect(json.browser_redirect)
     else
       @displayNotifications(json)
       @showErrors(json.errors)
@@ -73,12 +74,18 @@ class App.Views.Form extends Dolphin.View
     @hideLoader()
     @$el[0].reset()
 
-  followRedirect: (path) ->
+  followBrowserRedirect: (path) ->
     window.location.replace(path)
 
+  followRedirect: (path) ->
+    if path is 'back'
+      @emit('page:reload')
+    else
+      @emit('page:load', path)
+
   displayNotifications: (json) ->
-    # ['alert', 'notice'].each (type) =>
-    #   @emit("notifications:#{type}", json[type]) if json[type]
+    ['alert', 'notice'].each (type) =>
+      @emit("flash_message:#{type}", json[type]) if json[type]
 
   showLoader: (e) ->
     @utils.showButtonLoader @$submitButton()

@@ -1,34 +1,3 @@
-class PageFrames
-
-  FRAMES_BATCH_COUNT = 7
-
-  constructor: (@view) ->
-    @frames = []
-
-  addFrame: (id, html, path = null) ->
-    @frames.push {id, html, path}
-    @render() if @frames.length is FRAMES_BATCH_COUNT # render by N frames
-
-  render: ->
-    for frame in @frames
-      if frame.id is 'layout'
-        @_renderLayoutFrame(frame)
-      else
-        @_renderPartialFrame(frame)
-
-    @frames.length = 0
-
-  _renderLayoutFrame: (frame) ->
-    @view.utils.scrollTop()
-    if frame.path
-      @view.historyWidget.pushState(frame.path, 'page_path': frame.path)
-    @view.$pageWrapper().html(frame.html)
-
-  _renderPartialFrame: (frame) ->
-    $appendNode = $ document.getElementById("append_#{frame.id}")
-    @view.after($appendNode, frame.html)
-    $appendNode.remove()
-
 class App.Behaviors.HistoryApiNavigation extends Dolphin.View
 
   els:
@@ -45,6 +14,9 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
     @setInitialState()
     @historyWidget.onPopState @processPoppedState.bind(@)
 
+    @listen('page:load', (m) => @loadPage(m.body))
+    @listen('page:reload', @reloadCurrentPage)
+
   setInitialState: ->
     $activeLink = @$menu().find('.is-active')
 
@@ -55,10 +27,12 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
 
     dfd.fail => ijax.abortCurrentRequest()
 
-    ijax.get(path).done (res) =>
-      frames = new PageFrames(@)
+    ijax.get(path).done (response) =>
+      frames = new Utils.PageFramesManager
+        view: @
+        $pageContainer: @$pageWrapper()
 
-      res
+      response
         .onLayoutReceive((html) =>
           @setLinkAsActive($menuLink)
           frames.addFrame('layout', html)
@@ -76,26 +50,30 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
     return if not @isNavigationLink($link)
 
     e.preventDefault()
+    @loadPage($link.attr('href'))
 
-    $menuLink = @$menuItemForPath($link.attr('href'))
-    path = $link.attr('href')
+  loadPage: (path) ->
+    $menuLink = @$menuItemForPath(path)
     shouldPushPath = "#{location.origin}#{path}" isnt location.href
 
     ijax.get(path).done (response) =>
-      frames = new PageFrames(@)
+      frames = new Utils.PageFramesManager
+        view: @
+        $pageContainer: @$pageWrapper()
+        pagePath: (path if shouldPushPath)
 
       response
         .onLayoutReceive((html) =>
           @setLinkAsActive($menuLink)
-          if shouldPushPath
-            frames.addFrame('layout', html, path)
-          else
-            frames.addFrame('layout', html)
+          frames.addFrame('layout', html)
         )
         .onFrameReceive((id, html) -> frames.addFrame(id, html))
         .onResolve(=>
           frames.render()
         )
+
+  reloadCurrentPage: ->
+    @loadPage(location.pathname + location.search)
 
   # private
 

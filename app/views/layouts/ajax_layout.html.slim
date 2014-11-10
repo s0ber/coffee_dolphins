@@ -1,7 +1,7 @@
 html
   body
     javascript:
-      parent.ijax.registerResponse('#{ijax_request_id}');
+      parent.ijax.registerResponse('#{ijax_request_id}', {assetsMd5Hash: '#{assets_md5_hash}'});
 
     = yield
 

@@ -1,0 +1,8 @@
+- type ||= 'notice'
+
+.flash_message class="is-#{type}" data-view='app#flash_message'
+  .flash_message-inner
+    = message
+    span.flash_message-close.fl_r data-role='flash_message-close'
+      | Закрыть
+

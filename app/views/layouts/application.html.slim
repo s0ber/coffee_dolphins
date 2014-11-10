@@ -3,11 +3,18 @@ html
   head
     title
       | Coffee Dolphins — Step In My Trip
+    = include_gon(camel_case: true)
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
 
   body.layout class=('for-logged_out_user' unless current_user) data-view="app#layout"
+    .flash_messages data-view='app#flash_messages'
+      - if notice
+        = render 'shared/flash_message', message: notice, type: 'notice'
+      - if alert
+        = render 'shared/flash_message', message: alert, type: 'alert'
+
     .layout-main
       header.layout-header
         .header
@@ -22,18 +29,6 @@ html
         section.layout-content
           .layout-content_inner
             .main_content
-              - if notice
-                .flash_message.is-notice data-view='app#flash_message'
-                  = notice
-                  .flash_message-close.fl_r data-role='flash_message-close'
-                    | Закрыть
-
-              - if alert
-                .flash_message.is-alert data-view='app#flash_message'
-                  = alert
-                  .flash_message-close.fl_r data-role='flash_message-close'
-                    | Закрыть
-
               .page data-role='app-page_wrapper'
                 = yield
 
