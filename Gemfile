@@ -66,6 +66,9 @@ gem 'draper', '~> 1.3'
 # Pagination
 gem 'kaminari'
 
+# Pass variables to front-end
+gem 'gon'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
