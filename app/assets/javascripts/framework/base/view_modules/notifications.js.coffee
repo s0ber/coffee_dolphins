@@ -17,8 +17,12 @@
   unsubscribe: (message, callback) ->
     Dolphin.broker.unsubscribe(message, callback, @)
 
-  showNotice: (message, hideAfterMs = 5000) ->
-    @emit('flash_messages:notice', message, hideAfter: hideAfterMs)
+  showNotice: (message) ->
+    @emit('flash_message:notice', message)
 
-  showAlert: (message, hideAfterMs = 5000) ->
-    @emit('flash_messages:alert', message, hideAfter: hideAfterMs)
+  showWarning: (message) ->
+    @emit('flash_message:warning', message)
+
+  showAlert: (message) ->
+    @emit('flash_message:alert', message)
+

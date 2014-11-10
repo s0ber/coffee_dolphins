@@ -14,6 +14,9 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
     @setInitialState()
     @historyWidget.onPopState @processPoppedState.bind(@)
 
+    @listen('page:load', (m) => @loadPage(m.body))
+    @listen('page:reload', @reloadCurrentPage)
+
   setInitialState: ->
     $activeLink = @$menu().find('.is-active')
 
@@ -24,12 +27,12 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
 
     dfd.fail => ijax.abortCurrentRequest()
 
-    ijax.get(path).done (res) =>
+    ijax.get(path).done (response) =>
       frames = new Utils.PageFramesManager
         view: @
         $pageContainer: @$pageWrapper()
 
-      res
+      response
         .onLayoutReceive((html) =>
           @setLinkAsActive($menuLink)
           frames.addFrame('layout', html)
@@ -47,29 +50,30 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
     return if not @isNavigationLink($link)
 
     e.preventDefault()
+    @loadPage($link.attr('href'))
 
-    $menuLink = @$menuItemForPath($link.attr('href'))
-    path = $link.attr('href')
+  loadPage: (path) ->
+    $menuLink = @$menuItemForPath(path)
     shouldPushPath = "#{location.origin}#{path}" isnt location.href
 
     ijax.get(path).done (response) =>
       frames = new Utils.PageFramesManager
         view: @
         $pageContainer: @$pageWrapper()
-        pagePath: path
+        pagePath: (path if shouldPushPath)
 
       response
         .onLayoutReceive((html) =>
           @setLinkAsActive($menuLink)
-          if shouldPushPath
-            frames.addFrame('layout', html, path)
-          else
-            frames.addFrame('layout', html)
+          frames.addFrame('layout', html)
         )
         .onFrameReceive((id, html) -> frames.addFrame(id, html))
         .onResolve(=>
           frames.render()
         )
+
+  reloadCurrentPage: ->
+    @loadPage(location.pathname + location.search)
 
   # private
 
