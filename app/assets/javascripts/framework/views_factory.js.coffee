@@ -7,6 +7,7 @@ Vtree.onNodeInit (node) ->
         window[viewNode.namespaceName].Views[viewNode.nodeName]
       else
         window[viewNode.namespaceName][viewNode.componentName].Views[viewNode.nodeName]
+    throw new Error('Class not found') unless ViewClass?
   catch e
     console.warn "Can find view class for '#{viewNode.viewName}'"
     return null
