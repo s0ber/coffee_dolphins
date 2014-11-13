@@ -8,6 +8,7 @@ class App.Views.Keywords extends Dolphin.View
     'keydown input[type="text"]': 'processKeypress'
     'keypress input[type="text"]': 'processKeypress'
     'keyup input[type="text"]': 'addKeywordOnEnter'
+    'blur input[type="text"]': 'addKeywordOnBlur'
     'click @keyword-delete': 'deleteKeyword'
 
   initialize: ->
@@ -45,7 +46,16 @@ class App.Views.Keywords extends Dolphin.View
     return false if not keyword or @isKeywordCached(keyword)
 
     @$field().val('')
-    @keywordsList.add(name: keyword, rating: 0, main: false)
+    @keywordsList.add(name: keyword)
+
+  addKeywordOnBlur: (e) ->
+    return if @$field().val().isBlank()
+
+    keyword = @$field().val()
+    unless @isKeywordCached(keyword)
+      @keywordsList.add(name: keyword)
+
+    @$field().val('')
 
   renderKeyword: (keyword) ->
     keywordsHtml = @renderTemplate 'keyword',

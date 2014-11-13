@@ -47,7 +47,6 @@ class PositionsController < ApplicationController
     end
   end
 
-
 private
 
   def load_position
@@ -56,6 +55,10 @@ private
 
 
   def position_params
-    params.require(:position).permit(:apishops_position_id, :title, :category, :price, :profit, :availability_level, :image_url, :file, :search_keywords)
+    params
+      .fetch(:position, {})
+      .permit(:apishops_position_id, :title, :category, :price, :profit,
+              :availability_level, :image_url, :file,
+              search_keywords_attributes: [:id, :name, :_destroy])
   end
 end
