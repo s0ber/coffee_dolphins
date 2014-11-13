@@ -48,8 +48,8 @@ class App.ViewModels.KeywordsList extends Dolphin.ViewModel
     @trigger('change', @getItems())
     @trigger('item_removed', itemModel.toJSON())
 
-  removeByName: (name) ->
-    itemModel = @_getItemByTitle(name)
+  removeByTitle: (title) ->
+    itemModel = @_getItemByTitle(title)
     return unless itemModel?
 
     @collection.remove(itemModel)

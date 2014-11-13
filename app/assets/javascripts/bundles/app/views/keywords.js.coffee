@@ -8,11 +8,10 @@ class App.Views.Keywords extends Dolphin.View
     'keydown input[type="text"]': 'processKeypress'
     'keypress input[type="text"]': 'processKeypress'
     'keyup input[type="text"]': 'addKeywordOnEnter'
-    'click @delete': 'deleteKeyword'
+    'click @keyword-delete': 'deleteKeyword'
 
   initialize: ->
     @renderKeywordsContainer()
-    @renderEmptyListGuard()
 
     @keywordsList = new App.ViewModels.KeywordsList()
 
@@ -24,14 +23,6 @@ class App.Views.Keywords extends Dolphin.View
   renderKeywordsContainer: ->
     $container = $('<div class="tags has-mt7" data-role="keywords-container" />')
     @append(@$el, $container)
-
-  renderEmptyListGuard: ->
-    $emptyListInput = $('<input />').attr
-      type: 'hidden'
-      value: '1'
-      name: "#{@objectName()}[#{@associatedAttributesName()}][0][_destroy]"
-
-    @append(@$el, $emptyListInput)
 
   renderInitialKeywords: (keywords) ->
     @$keywordsContainer().html(
@@ -69,7 +60,9 @@ class App.Views.Keywords extends Dolphin.View
     keyword = _.unescape($keyword.data('title'))
 
     @keywordsList.removeByTitle(keyword)
-    $keyword.fadeOut 'fast', -> $keyword.remove()
+    $keyword
+      .find('@keyword-destroy_flag').val(1).end()
+      .fadeOut('fast')
 
   processKeypress: (e) ->
     if e.keyCode is 13
