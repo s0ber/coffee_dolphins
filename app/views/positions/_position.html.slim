@@ -17,3 +17,10 @@
           = list_item 'Прибыль', position.profit
           = list_item 'Доступность', position.availability_level
 
+          - if position.search_keywords.any?
+            = list_item 'Ключевые слова' do
+              = render 'search_keywords', position: position
+          - else
+            = list_item 'Ключевые слова' do
+              = render 'edit_search_keywords', position: position
+
