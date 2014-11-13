@@ -8,14 +8,18 @@ group :development do
   gem 'unicorn-rails'
 end
 
+gem 'pg'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
 # Use Slim for templates
 gem "slim-rails"
 # javascript templates
 gem 'ejs'
-# Use SCSS for stylesheets
-gem 'pg'
+# Use SASS for stylesheets
+gem 'sass-rails', '~> 4.0.3'
+# Font-Awesome icons
+gem 'font-awesome-rails'
 
 # Fix for rails console under ubuntu 14.04
 gem 'rb-readline'
@@ -23,7 +27,6 @@ gem 'rb-readline'
 # Filter generated paths
 gem 'routing-filter', '0.4.0.pre'
 
-gem 'sass-rails', '~> 4.0.3'
 
 # Automatically add vendor prefixes for styles
 gem 'autoprefixer-rails'

@@ -3,5 +3,5 @@
     .flexible-left
       = f.association :search_keywords, as: :keywords, modifier: 'stand_alone', label: false
     .flexible-right
-      button.small_button.is-green type='submit'
-        | Сохранить
+      button.small_button.is-icon.is-green type='submit'
+        = fa_icon 'pencil'
