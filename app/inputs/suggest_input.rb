@@ -9,8 +9,8 @@ class SuggestInput < SimpleForm::Inputs::CollectionInput
       name: '',
       data: {
         object_name: object_name,
-        associated_objects_name: reflection_or_attribute_name,
-        associated_objects: collection
+        associated_attributes_name: reflection_or_attribute_name.to_s + '_attributes',
+        associated_attributes_collection: collection
       }
     ))
   end
