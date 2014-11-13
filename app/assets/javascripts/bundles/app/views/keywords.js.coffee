@@ -1,7 +1,111 @@
 class App.Views.Keywords extends Dolphin.View
 
-  initialize: ->
-    console.log 'OLOLO'
+  els:
+    field: 'input[type="text"]'
+    keywordsContainer: '@keywords-container'
 
-  unload: ->
-    console.log 'PISH-PISH'
+  events:
+    'keydown input[type="text"]': 'processKeypress'
+    'keypress input[type="text"]': 'processKeypress'
+    'keyup input[type="text"]': 'addKeywordOnEnter'
+    'click @delete': 'deleteKeyword'
+
+  initialize: ->
+    @renderKeywordsContainer()
+    @renderEmptyListGuard()
+
+    @keywordsList = new App.ViewModels.KeywordsList()
+
+    @listenTo(@keywordsList, 'items_reset', @renderInitialKeywords)
+    @listenTo(@keywordsList, 'item_added',  @addKeyword)
+
+    @keywordsList.reset(@associatedAttributesCollection())
+
+  renderKeywordsContainer: ->
+    $container = $('<div class="tags has-mt7" data-role="keywords-container" />')
+    @append(@$el, $container)
+
+  renderEmptyListGuard: ->
+    $emptyListInput = $('<input />').attr
+      type: 'hidden'
+      value: '1'
+      name: "#{@objectName()}[#{@associatedAttributesName()}][0][_destroy]"
+
+    @append(@$el, $emptyListInput)
+
+  renderInitialKeywords: (keywords) ->
+    @$keywordsContainer().html(
+      keywords.map((keyword) =>
+        @renderKeyword(keyword)
+      ).join('')
+    )
+
+  addKeyword: (keyword) ->
+    $keyword = $(@renderKeyword(keyword)).hide()
+    $keyword.appendTo(@$keywordsContainer()).fadeIn()
+
+  addKeywordOnEnter: (e) ->
+    return unless e.keyCode is 13
+
+    e.preventDefault()
+    e.stopPropagation()
+
+    keyword = $(e.currentTarget).val()
+    return false if not keyword or @isKeywordCached(keyword)
+
+    @$field().val('')
+    @keywordsList.add(title: keyword, rating: 0, main: false)
+
+  renderKeyword: (keyword) ->
+    keywordsHtml = @renderTemplate 'keyword',
+      objectName: @objectName()
+      associatedAttributesName: @associatedAttributesName()
+      keyword: keyword
+
+    keywordsHtml
+
+  deleteKeyword: (e) ->
+    $keyword = $(e.currentTarget).closest('@keyword')
+    keyword = _.unescape($keyword.data('title'))
+
+    @keywordsList.removeByTitle(keyword)
+    $keyword.fadeOut 'fast', -> $keyword.remove()
+
+  processKeypress: (e) ->
+    if e.keyCode is 13
+      e.preventDefault()
+      e.stopPropagation()
+      return
+
+    newVal = @utils.getNewFieldVal(e)
+    return unless newVal?
+
+    keypressChar = @utils.getChar(e)
+
+    if keypressChar is ','
+      [newKeyword, newFieldVal] = newVal.split(',').map('trim')
+
+      if not newKeyword.isBlank() and not @isKeywordCached(newKeyword)
+        @keywordsList.add(title: newKeyword)
+
+      # let event propagate and then set field val
+      (=>
+        @$field().val(newFieldVal)
+      ).delay(0)
+
+# getters
+
+  objectName: ->
+    @_objectName ?= @$field().data('object-name')
+
+  associatedAttributesName: ->
+    @_associatedAttributesName ?= @$field().data('associated-attributes-name')
+
+  associatedAttributesCollection: ->
+    @_associatedAttributesCollection ?= @$field().data('associated-attributes-collection') or []
+
+# private
+
+  isKeywordCached: (keywordTitle) ->
+    @keywordsList.hasItemWithTitle(keywordTitle)
+

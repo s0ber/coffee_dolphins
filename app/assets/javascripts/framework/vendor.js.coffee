@@ -16,3 +16,4 @@
 #= require noted/lib/noted
 
 #= require stacktrace-js/stacktrace
+#= require jquery.caret
