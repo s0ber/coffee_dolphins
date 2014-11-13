@@ -43,7 +43,7 @@ class PositionsController < ApplicationController
       render_validation_errors(file: ['не может быть пустым'])
     else
       Position.import(file)
-      render_success(redirect: :back, notice: 'Позиции успешно импортированы.')
+      render_success(redirect: positions_path, notice: 'Позиции успешно импортированы.')
     end
   end
 
