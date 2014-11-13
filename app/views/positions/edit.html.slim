@@ -6,7 +6,8 @@
       = f.input :price, as: :string, label: 'Цена', hint: 'в рублях, дробная часть отделяется точкой'
       = f.input :profit, as: :string, label: 'Прибыль', hint: 'в рублях, дробная часть отделяется точкой'
       = f.input :availability_level, as: :string, label: 'Доступность', hint: 'от 0 до 5'
-      = f.input :image_url, as: :string
+      = f.input :image_url, as: :string, label: 'Картинка'
+      = f.association :search_keywords, as: :keywords, label: 'Ключевые слова'
 
     .form-actions
       .fl_r

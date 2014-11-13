@@ -6,6 +6,14 @@ module NeoForm
 
     def render(input)
       @simple_form_wrapper.options[:wrapper_class] = [input.wrapper_class, 'js-field_wrapper'] if input.respond_to? :wrapper_class
+
+      # add js view to wrapper, if specified
+      unless input.try(:wrapper_js_view).nil?
+        input.options.merge!(
+          wrapper_html: {data: {view: input.wrapper_js_view}}
+        )
+      end
+
       @simple_form_wrapper.render(input)
     end
 

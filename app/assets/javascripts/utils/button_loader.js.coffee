@@ -12,6 +12,7 @@ LOADER_TEMPLATE = '''
 '''
 
 Utils.showButtonLoader = ($button) ->
+  return if $button.hasClass('is-icon')
   unless $button.hasClass('has-loader')
     $loader = $(LOADER_TEMPLATE)
 
@@ -25,6 +26,7 @@ Utils.showButtonLoader = ($button) ->
     .addClass('is-loading is-disabled')
 
 Utils.hideButtonLoader = ($button) ->
+  return if $button.hasClass('is-icon')
   return if not $button.hasClass('has-loader') or not $button.hasClass('is-loading')
 
   $button

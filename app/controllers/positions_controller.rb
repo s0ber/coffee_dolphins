@@ -2,7 +2,7 @@ class PositionsController < ApplicationController
   before_filter :load_position, only: [:show, :edit, :update, :destroy]
 
   def index
-    @positions = Position.by_creation.page(params[:page])
+    @positions = Position.by_creation.page(params[:page]).preload(:search_keywords)
     @position = Position.new
     respond_with(@positions)
   end
@@ -43,10 +43,9 @@ class PositionsController < ApplicationController
       render_validation_errors(file: ['не может быть пустым'])
     else
       Position.import(file)
-      render_success(redirect: :back, notice: 'Позиции успешно импортированы.')
+      render_success(redirect: positions_path, notice: 'Позиции успешно импортированы.')
     end
   end
-
 
 private
 
@@ -56,6 +55,10 @@ private
 
 
   def position_params
-    params.require(:position).permit(:apishops_position_id, :title, :category, :price, :profit, :availability_level, :image_url, :file)
+    params
+      .fetch(:position, {})
+      .permit(:apishops_position_id, :title, :category, :price, :profit,
+              :availability_level, :image_url, :file,
+              search_keywords_attributes: [:id, :name, :_destroy])
   end
 end

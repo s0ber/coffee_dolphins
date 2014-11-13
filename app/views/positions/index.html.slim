@@ -10,6 +10,8 @@ div data-component='app#items_list'
   .page-body
     = render 'new_form', positions: @positions, position: @position
 
+    = pagination_for @positions
+
     .panels data-role='items_list-list_wrapper'
       = render partial: 'position', collection: @positions.decorate
 

@@ -44,8 +44,10 @@ module NeoForm
         include NeoForm::Components::Translate
         #include NeoForm::Components::RequiredHint
         include NeoForm::Components::WrapperClass
+        include NeoForm::Components::WrapperJsView
 
         wrapper_class superclass.default_wrapper_class
+        js_view superclass.default_js_view
       end
     end
   end
