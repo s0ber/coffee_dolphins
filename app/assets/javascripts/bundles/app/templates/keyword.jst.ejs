@@ -1,9 +1,9 @@
-<div class="tags-item is-deletable %>" data-role="keyword" data-title="<%- keyword.title %>">
-  <%- keyword.title %>
+<div class="tags-item is-deletable %>" data-role="keyword" data-name="<%- keyword.name %>">
+  <%- keyword.name %>
   <i class="fa fa-close tags-item_delete" data-role="keyword-delete"></i>
   <input type="hidden"
-    name="<%- objectName %>[<%- associatedAttributesName %>][<%- keyword.virtualId %>][title]"
-    value="<%- keyword.title %>" />
+    name="<%- objectName %>[<%- associatedAttributesName %>][<%- keyword.virtualId %>][name]"
+    value="<%- keyword.name %>" />
   <input type="hidden" data-role="keyword-destroy_flag"
     name="<%- objectName %>[<%- associatedAttributesName %>][<%- keyword.virtualId %>][_destroy]"
     value="0" />

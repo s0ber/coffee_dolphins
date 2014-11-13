@@ -48,8 +48,8 @@ class App.ViewModels.KeywordsList extends Dolphin.ViewModel
     @trigger('change', @getItems())
     @trigger('item_removed', itemModel.toJSON())
 
-  removeByTitle: (title) ->
-    itemModel = @_getItemByTitle(title)
+  removeByName: (name) ->
+    itemModel = @_getItemByName(name)
     return unless itemModel?
 
     @collection.remove(itemModel)
@@ -59,12 +59,12 @@ class App.ViewModels.KeywordsList extends Dolphin.ViewModel
   hasItemWithId: (id) ->
     @collection.get(id)?
 
-  hasItemWithTitle: (title) ->
-    return false unless title?
-    @_getItemByTitle(title)?
+  hasItemWithName: (name) ->
+    return false unless name?
+    @_getItemByName(name)?
 
-  _getItemByTitle: (title) ->
-    @collection.find((item) => item.get('title').toLowerCase() is title.toLowerCase())
+  _getItemByName: (name) ->
+    @collection.find((item) => item.get('name').toLowerCase() is name.toLowerCase())
 
   _addVirtualIndex: (itemModel) ->
     itemModel.set virtualId: @maxVirtualIndex

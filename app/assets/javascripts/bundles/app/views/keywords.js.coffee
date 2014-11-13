@@ -45,7 +45,7 @@ class App.Views.Keywords extends Dolphin.View
     return false if not keyword or @isKeywordCached(keyword)
 
     @$field().val('')
-    @keywordsList.add(title: keyword, rating: 0, main: false)
+    @keywordsList.add(name: keyword, rating: 0, main: false)
 
   renderKeyword: (keyword) ->
     keywordsHtml = @renderTemplate 'keyword',
@@ -57,9 +57,9 @@ class App.Views.Keywords extends Dolphin.View
 
   deleteKeyword: (e) ->
     $keyword = $(e.currentTarget).closest('@keyword')
-    keyword = _.unescape($keyword.data('title'))
+    keyword = _.unescape($keyword.data('name'))
 
-    @keywordsList.removeByTitle(keyword)
+    @keywordsList.removeByName(keyword)
     $keyword
       .find('@keyword-destroy_flag').val(1).end()
       .fadeOut('fast')
@@ -79,7 +79,7 @@ class App.Views.Keywords extends Dolphin.View
       [newKeyword, newFieldVal] = newVal.split(',').map('trim')
 
       if not newKeyword.isBlank() and not @isKeywordCached(newKeyword)
-        @keywordsList.add(title: newKeyword)
+        @keywordsList.add(name: newKeyword)
 
       # let event propagate and then set field val
       (=>
@@ -99,6 +99,6 @@ class App.Views.Keywords extends Dolphin.View
 
 # private
 
-  isKeywordCached: (keywordTitle) ->
-    @keywordsList.hasItemWithTitle(keywordTitle)
+  isKeywordCached: (keywordName) ->
+    @keywordsList.hasItemWithName(keywordName)
 
