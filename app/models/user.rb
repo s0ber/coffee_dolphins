@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   validates :full_name, presence: true, length: {maximum: 255}
   before_validation :check_password, on: :create
 
-  scope :active, -> { order(:created_at) }
+  default_scope { order(:created_at) }
 
   attr_accessor :remember_me
 

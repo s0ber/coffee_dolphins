@@ -1,12 +1,12 @@
 class Position < ActiveRecord::Base
-  scope :by_creation, -> { order(:created_at) }
-
   validates :title, :price, :profit, :apishops_position_id, presence: true
   validates :availability_level, inclusion: 0..5
 
   has_many :search_keywords, dependent: :destroy
 
   accepts_nested_attributes_for :search_keywords, allow_destroy: true
+
+  default_scope { order(:created_at) }
 
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|

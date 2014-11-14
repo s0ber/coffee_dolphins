@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def index
-    @users = User.active.decorate
+    @users = User.decorate
     @user = User.new
     respond_with(@users)
   end
