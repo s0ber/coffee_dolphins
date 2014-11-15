@@ -22,14 +22,13 @@ class App.ItemsList.Views.Item extends Dolphin.View
       @itemsList.removeItemById(@id())
 
   openEditForm: (e, json) ->
-    @utils.hideButtonLoader(@$editButton())
-    @$editButton().addClass('is-disabled')
+    @utils.disableLink(@$editButton(), true)
     @$infoContainer().hide()
     @after(@$infoContainer(), json.html)
     @$el.autofocus()
 
   closeEditForm: ->
-    @$editButton().removeClass('is-disabled')
+    @utils.enableLink(@$editButton(), true)
     @$infoContainer()
       .next().remove().end()
       .show()

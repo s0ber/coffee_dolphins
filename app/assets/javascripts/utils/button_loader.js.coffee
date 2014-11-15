@@ -13,6 +13,7 @@ LOADER_TEMPLATE = '''
 
 Utils.showButtonLoader = ($button) ->
   return if $button.hasClass('is-icon')
+
   unless $button.hasClass('has-loader')
     $loader = $(LOADER_TEMPLATE)
 
@@ -21,16 +22,12 @@ Utils.showButtonLoader = ($button) ->
       .append($loader)
       .addClass('has-loader')
 
-  $button
-    .attr('disabled', 'disabled')
-    .addClass('is-loading is-disabled')
+  $button.addClass('is-loading')
 
 Utils.hideButtonLoader = ($button) ->
   return if $button.hasClass('is-icon')
   return if not $button.hasClass('has-loader') or not $button.hasClass('is-loading')
 
   $button
-    .removeClass('is-loading is-disabled')
-    .removeAttr('disabled')
-    # this is a button forced "repaint"
-    .hide().show(0)
+    .removeClass('is-loading')
+    .hide().show(0) # this is a button forced "repaint"

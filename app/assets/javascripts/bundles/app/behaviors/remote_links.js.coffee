@@ -6,16 +6,24 @@ class App.Behaviors.RemoteLinks extends Dolphin.View
     'ajax:error [href][data-remote="true"]': 'onFailedLinkSubmit'
 
   onBeforeLinkSubmit: (e) ->
-    $button = $(e.currentTarget)
-    return false if $button.hasClass('is-disabled')
-
-    @utils.showButtonLoader($button)
+    $link = $(e.currentTarget)
+    return false if $link.hasClass('is-disabled')
+    @showLoader($link)
 
   onSuccessLinkSubmit: (e, json) ->
-    $button = $(e.currentTarget)
-    @utils.hideButtonLoader($button)
+    $link = $(e.currentTarget)
+    @hideLoader($link)
 
   onFailedLinkSubmit: (e, response) ->
-    $button = $(e.currentTarget)
-    @utils.hideButtonLoader($button)
+    $link = $(e.currentTarget)
+    @hideLoader($link)
 
+# private
+
+  showLoader: ($link) ->
+    @utils.disableLink($link)
+    @utils.showButtonLoader($link)
+
+  hideLoader: ($link) ->
+    @utils.enableLink($link)
+    @utils.hideButtonLoader($link)

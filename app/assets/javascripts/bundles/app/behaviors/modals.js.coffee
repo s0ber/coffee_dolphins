@@ -70,8 +70,10 @@ class App.Behaviors.Modals extends Dolphin.View
     @$el.off('.modals:hide')
 
   showLoader: ($link) ->
+    @utils.disableLink($link)
     @utils.showButtonLoader($link)
 
   hideLoader: ($link) ->
+    @utils.enableLink($link)
     @utils.hideButtonLoader($link)
 

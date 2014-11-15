@@ -88,9 +88,11 @@ class App.Views.Form extends Dolphin.View
       @emit("flash_message:#{type}", json[type]) if json[type]
 
   showLoader: (e) ->
+    @utils.disableLink @$submitButton()
     @utils.showButtonLoader @$submitButton()
 
   hideLoader: (e) ->
+    @utils.enableLink @$submitButton()
     @utils.hideButtonLoader @$submitButton()
 
   entity: ->
