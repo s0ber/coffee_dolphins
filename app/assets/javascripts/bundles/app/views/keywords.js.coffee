@@ -5,7 +5,6 @@ class App.Views.Keywords extends Dolphin.View
     keywordsContainer: '@keywords-container'
 
   events:
-    'keydown input[type="text"]': 'processKeypress'
     'keypress input[type="text"]': 'processKeypress'
     'keyup input[type="text"]': 'addKeywordOnEnter'
     'blur input[type="text"]': 'addKeywordOnBlur'
@@ -76,8 +75,12 @@ class App.Views.Keywords extends Dolphin.View
 
   processKeypress: (e) ->
     if e.keyCode is 13
-      e.preventDefault()
-      e.stopPropagation()
+      unless @$field().val().isBlank()
+        e.preventDefault()
+        e.stopPropagation()
+      else
+        # if field is blank, we are submitting form and moving to the next one
+        @$nextField().focus()
       return
 
     newVal = @utils.getNewFieldVal(e)
@@ -97,6 +100,11 @@ class App.Views.Keywords extends Dolphin.View
       ).delay(0)
 
 # getters
+
+  $nextField: ->
+    $keywordsViews = $('[data-view="app#keywords"]')
+    curFieldIndex = $keywordsViews.toArray().indexOf(this.el)
+    $keywordsViews.eq(curFieldIndex + 1).find('input[type="text"]')
 
   objectName: ->
     @_objectName ?= @$field().data('object-name')
