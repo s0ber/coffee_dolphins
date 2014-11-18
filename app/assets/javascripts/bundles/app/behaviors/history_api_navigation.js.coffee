@@ -39,7 +39,7 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
         )
         .onFrameReceive((id, html) -> frames.addFrame(id, html))
         .onResolve(=>
-          frames.render()
+          frames.render(true)
           dfd.resolve()
         )
 
@@ -69,7 +69,7 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
         )
         .onFrameReceive((id, html) -> frames.addFrame(id, html))
         .onResolve(=>
-          frames.render()
+          frames.render(true)
         )
 
   reloadCurrentPage: ->

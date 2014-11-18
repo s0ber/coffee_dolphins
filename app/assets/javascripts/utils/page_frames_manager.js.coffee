@@ -10,14 +10,26 @@ class Utils.PageFramesManager
     @frames.push {id, html}
     @render() if @frames.length is FRAMES_BATCH_COUNT # render by N frames
 
-  render: ->
+  render: (lastRender = false) ->
+    @_setBodyAsLoading()
+
     for frame in @frames
       if frame.id is 'layout'
         @_renderLayoutFrame(frame)
       else
         @_renderPartialFrame(frame)
-
     @frames.length = 0
+
+    @_setBodyAsNotLoading() if lastRender
+
+  $body: ->
+    @_$body ?= $('body')
+
+  _setBodyAsLoading: ->
+    @$body().addClass('is-loading')
+
+  _setBodyAsNotLoading: ->
+    @$body().removeClass('is-loading')
 
   _renderLayoutFrame: (frame) ->
     @view.utils.scrollTop()
