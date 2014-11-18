@@ -6,7 +6,7 @@ class Position < ActiveRecord::Base
 
   accepts_nested_attributes_for :search_keywords, allow_destroy: true
 
-  default_scope { order(:created_at) }
+  default_scope { order(availability_level: :desc, created_at: :asc) }
 
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
