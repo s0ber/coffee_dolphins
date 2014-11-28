@@ -59,6 +59,6 @@ private
       .fetch(:position, {})
       .permit(:apishops_position_id, :title, :category, :price, :profit,
               :availability_level, :image_url, :file,
-              search_keywords_attributes: [:id, :name, :_destroy])
+              search_keywords_attributes: [:id, :name, :search_count, :_destroy])
   end
 end

@@ -57,7 +57,7 @@ class App.Views.Keywords extends Dolphin.View
     @$field().val('')
 
   renderKeyword: (keyword) ->
-    keywordsHtml = @renderTemplate 'keyword',
+    keywordsHtml = @renderTemplate @templateName(),
       objectName: @objectName()
       associatedAttributesName: @associatedAttributesName()
       keyword: keyword
@@ -80,7 +80,7 @@ class App.Views.Keywords extends Dolphin.View
         e.stopPropagation()
       else
         # if field is blank, we are submitting form and moving to the next one
-        @$nextField().focus()
+        # @$nextField().focus()
       return
 
     newVal = @utils.getNewFieldVal(e)
@@ -114,6 +114,9 @@ class App.Views.Keywords extends Dolphin.View
 
   associatedAttributesCollection: ->
     @_associatedAttributesCollection ?= @$field().data('associated-attributes-collection') or []
+
+  templateName: ->
+    @_templateName ?= @$field().data('template-name')
 
 # private
 
