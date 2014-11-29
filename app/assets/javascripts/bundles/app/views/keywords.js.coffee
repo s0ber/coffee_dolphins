@@ -1,7 +1,7 @@
 class App.Views.Keywords extends Dolphin.View
 
   els:
-    field: 'input[type="text"]'
+    field: 'input[type="text"]:first'
     keywordsContainer: '@keywords-container'
 
   events:
