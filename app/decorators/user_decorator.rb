@@ -1,7 +1,7 @@
 class UserDecorator < ApplicationDecorator
   def edit_button
     if object.admin? and !h.current_user.admin?
-      h.content_tag :span, h.fa_icon('pencil'), class: 'small_button is-disabled'
+      h.content_tag :span, h.fa_icon('pencil'), class: 'small_button is-icon is-disabled'
     else
       h.link_to h.fa_icon('pencil'),
         h.edit_user_path(object),

@@ -1,4 +1,6 @@
 class Keyword extends Dolphin.Model
+  defaults:
+    search_count: 0
 
 class Keywords extends Dolphin.Collection
   model: Keyword

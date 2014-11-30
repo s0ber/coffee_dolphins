@@ -14,7 +14,8 @@ class KeywordsInput < SimpleForm::Inputs::CollectionInput
       data: {
         object_name: object_name,
         associated_attributes_name: reflection_or_attribute_name.to_s + '_attributes',
-        associated_attributes_collection: object.send(reflection_or_attribute_name.to_sym)
+        associated_attributes_collection: object.send(reflection_or_attribute_name.to_sym),
+        template_name: options[:template] || 'keyword'
       }
     )
   end

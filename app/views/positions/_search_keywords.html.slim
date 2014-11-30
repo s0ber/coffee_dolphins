@@ -2,3 +2,5 @@
   - position.search_keywords.each do |search_keyword|
     .tags-item
       = search_keyword.name
+      span.tags-item_counter
+        = search_keyword.search_count
