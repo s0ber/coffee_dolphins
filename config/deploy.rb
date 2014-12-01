@@ -91,6 +91,15 @@ namespace :deploy do
     end
   end
 
+  task :backup do
+    on roles(:all) do
+      within release_path do
+        execute :backup, 'perform --trigger coffee_dolphins_database'
+      end
+    end
+  end
+
+  before :migrate, :backup
   before :compile_assets, :install_js_dependencies
   after :publishing, :restart
   after :finishing, :cleanup
