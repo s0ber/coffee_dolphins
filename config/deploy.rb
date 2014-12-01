@@ -1,6 +1,10 @@
 # config valid only for Capistrano 3.2.1
 lock '3.2.1'
 
+set :rbenv_type, :user # or :system, depends on your rbenv setup
+set :rbenv_ruby, '2.1.3'
+set :rbenv_map_bins, %w{rake gem bundle ruby rails backup}
+
 set :username, 'deploy'
 set :application, 'coffee_dolphins'
 set :rails_env, 'production'
