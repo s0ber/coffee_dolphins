@@ -1,6 +1,10 @@
 # config valid only for Capistrano 3.2.1
 lock '3.2.1'
 
+set :rbenv_type, :user # or :system, depends on your rbenv setup
+set :rbenv_ruby, '2.1.3'
+set :rbenv_map_bins, %w{rake gem bundle ruby rails backup}
+
 set :username, 'deploy'
 set :application, 'coffee_dolphins'
 set :rails_env, 'production'
@@ -91,6 +95,15 @@ namespace :deploy do
     end
   end
 
+  task :backup do
+    on roles(:all) do
+      within release_path do
+        execute :backup, 'perform --trigger coffee_dolphins_database'
+      end
+    end
+  end
+
+  before :migrate, :backup
   before :compile_assets, :install_js_dependencies
   after :publishing, :restart
   after :finishing, :cleanup
