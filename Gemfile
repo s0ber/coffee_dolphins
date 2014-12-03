@@ -11,7 +11,7 @@ end
 gem 'pg'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.1'
+gem 'rails', '4.1.8'
 # Use Slim for templates
 gem "slim-rails"
 # javascript templates
@@ -57,7 +57,7 @@ gem 'responders'
 gem 'sorcery'
 
 # Forms
-gem 'simple_form'
+gem 'simple_form', '~> 3.0.2'
 gem 'neo_form', path: 'gems/neo_form'
 
 # Ajax file uploads for rails forms
