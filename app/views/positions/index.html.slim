@@ -17,6 +17,6 @@ div data-component='app#items_list'
 
     = pagination_for @positions
 
-    p.page-empty_page_message class=('hidden' if @positions.any?) data-role='items_list-empty_list_message'
+    p.page-empty_page_message class=('hidden' if @positions.to_a.any?) data-role='items_list-empty_list_message'
       | Нет позиций.
 

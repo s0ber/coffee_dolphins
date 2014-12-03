@@ -6,7 +6,7 @@ class Position < ActiveRecord::Base
 
   accepts_nested_attributes_for :search_keywords, allow_destroy: true
 
-  default_scope { order(availability_level: :desc, created_at: :asc) }
+  scope :order_by_search_count, -> { select('positions.*, avg(search_keywords.search_count) AS sc').joins(:search_keywords).group('positions.id').order('sc DESC') }
 
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|

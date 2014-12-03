@@ -2,7 +2,7 @@ class PositionsController < ApplicationController
   before_filter :load_position, only: [:show, :edit, :update, :destroy]
 
   def index
-    @positions = Position.page(params[:page]).preload(:search_keywords)
+    @positions = Position.order_by_search_count.page(params[:page])
     @position = Position.new
     respond_with(@positions)
   end
