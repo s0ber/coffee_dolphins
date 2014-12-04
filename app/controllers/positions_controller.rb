@@ -1,5 +1,5 @@
 class PositionsController < ApplicationController
-  before_filter :load_position, only: [:show, :edit, :update, :destroy]
+  before_filter :load_position, only: [:show, :edit, :update, :destroy, :like, :unlike]
 
   def index
     @positions = Position.order_by_search_count.page(params[:page])
@@ -45,6 +45,18 @@ class PositionsController < ApplicationController
       Position.import(file)
       render_success(redirect: positions_path, notice: 'Позиции успешно импортированы.')
     end
+  end
+
+  def like
+    @position.liked = true
+    @position.save!
+    render_success(notice: 'Позиция добавлена в избранное')
+  end
+
+  def unlike
+    @position.liked = false
+    @position.save!
+    render_success(notice: 'Позиция удалена из избранного')
   end
 
 private

@@ -14,7 +14,13 @@ Rails.application.routes.draw do
       get :prepare_import
       post :import
     end
+
+    member do
+      put :like
+      put :unlike
+    end
   end
+
   resources :landings, only: [:index]
   resource :statistics, only: [:show]
   resource :finances, only: [:show]

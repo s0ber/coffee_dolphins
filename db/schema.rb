@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141128211656) do
+ActiveRecord::Schema.define(version: 20141204094701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20141128211656) do
     t.datetime "updated_at"
     t.integer  "apishops_position_id"
     t.integer  "apishops_category_id"
+    t.boolean  "liked",                default: false
   end
 
   create_table "search_keywords", force: true do |t|
