@@ -4,7 +4,7 @@ class PositionDecorator < ApplicationDecorator
       h.edit_position_path(object),
       class: 'small_button is-icon',
       remote: true,
-      data: {role: 'edit_item_button'}
+      data: {role: 'editable_item-edit_button'}
   end
 
   def remove_button
@@ -13,6 +13,6 @@ class PositionDecorator < ApplicationDecorator
       class: 'small_button is-icon is-red',
       remote: true,
       method: :delete,
-      data: {role: 'remove_item_button', confirm: "Удалить позицию #{object.title}?"}
+      data: {role: 'item-remove_button', confirm: "Удалить позицию #{object.title}?"}
   end
 end
