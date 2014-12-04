@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :positions do
     collection do
       get :prepare_import
+      get :favorite
       post :import
     end
 

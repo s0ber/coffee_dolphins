@@ -1,17 +1,10 @@
 div data-component='app#items_list'
   .page-title
-    | Популярные позиции
-    .fl_r
-      .small_button data-modal=prepare_import_positions_path
-        | Импортировать
-      button.small_button.is-green data-role='items_list-show_form'
-        | Добавить новую
+    | Избранные позиции
 
   = render 'filters'
 
   .page-body
-    = render 'new_form', positions: @positions, position: @position
-
     = pagination_for @positions
 
     .panels data-role='items_list-list_wrapper'

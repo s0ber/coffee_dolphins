@@ -37,6 +37,11 @@ class PositionsController < ApplicationController
     render_modal 'Импортировать позиции Apishops'
   end
 
+  def favorite
+    @positions = Position.favorite.order_by_search_count.page(params[:page])
+    respond_with(@positions)
+  end
+
   def import
     file = params[:positions] && params[:positions][:file]
     if file.blank?
