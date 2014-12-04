@@ -20,6 +20,10 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
   setInitialState: ->
     $activeLink = @$menu().find('.is-active')
 
+    unless $activeLink.exists()
+      $activeLink = @$menuItemForPath(location.pathname + location.search)
+      @setLinkAsActive($activeLink) if $activeLink.exists()
+
     @historyWidget.replaceInitialState('page_path': $activeLink.attr('href'))
 
   processPoppedState: (state, path, dfd) ->
