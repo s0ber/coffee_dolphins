@@ -20,6 +20,8 @@ gem 'ejs'
 gem 'sass-rails', '~> 4.0.3'
 # Font-Awesome icons
 gem 'font-awesome-rails'
+# Sass Images Helpers
+gem 'rails-sass-images'
 
 # Fix for rails console under ubuntu 14.04
 gem 'rb-readline'

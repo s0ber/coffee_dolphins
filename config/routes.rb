@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     end
 
     member do
+      get :cut
       put :like
       put :unlike
     end

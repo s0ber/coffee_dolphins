@@ -1,7 +1,8 @@
-.panel_item data-view='item' data={item_id: position.id, edit_path: position_path(position), block_path: position_path(position)}
+.panel_item data-view='item' data={item_id: position.id, edit_path: position_path(position), block_path: cut_position_path(position)}
   .panel_item-header
     span data-role='item-title'
-      = position.title
+      = link_to position.title, position_path(position), class: 'panel_item-header_link'
+      span.chevron.is-right
     .fl_r
       = position.like_button
       = position.edit_button
@@ -24,27 +25,4 @@
           - else
             = list_item 'Ключевые слова' do
               = render 'edit_search_keywords', position: position
-
-  .panel_item-body.for-notes
-    .panel
-      .panel-header
-        | Заметки
-      .panel-body.has-p15.is-dark
-        - 5.times do
-        .note
-          .note-header
-            | О безопасности в интернете
-            span.note-date
-              | , добавила Рита 27.11.2014
-            .fl_r
-              .note-button
-                = fa_icon('pencil')
-              .note-button
-                = fa_icon('close')
-          .note-body
-            .note-text
-              p
-                | Как я в комментарии к той статье написал, это очень большая глупость. Вы вслепую запускаете код из интернета, который вы даже не видели, и тут даже совершенно неважно из под sudo или нет.
-              p
-                | Еще раз. Абсолютно вся безопасность построена на вашем доверии к определенным людям или компаниям, будь это Линус Торвальдс, Ubuntu Security Team либо автор маленькой полезной утилиты. Вам необходимо убедиться в том, что 1. автор заслуживает доверия, и 2. вы запускаете то, что выложил автор.
 

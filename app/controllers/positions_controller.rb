@@ -1,5 +1,5 @@
 class PositionsController < ApplicationController
-  before_filter :load_position, only: [:show, :edit, :update, :destroy, :like, :unlike]
+  before_filter :load_position, only: [:show, :cut, :edit, :update, :destroy, :like, :unlike]
 
   def index
     @positions = Position.order_by_search_count.includes(:search_keywords).page(params[:page])
@@ -7,9 +7,14 @@ class PositionsController < ApplicationController
     respond_with(@positions)
   end
 
-  def show
+  def cut
     @position = @position.decorate
     render_partial('position', position: @position)
+  end
+
+  def show
+    @position = @position.decorate
+    respond_with(@position)
   end
 
   def create
