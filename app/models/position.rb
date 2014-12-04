@@ -3,6 +3,7 @@ class Position < ActiveRecord::Base
   validates :availability_level, inclusion: 0..5
 
   has_many :search_keywords, dependent: :destroy
+  has_many :notes, as: :notable, dependent: :destroy
 
   accepts_nested_attributes_for :search_keywords, allow_destroy: true
 
