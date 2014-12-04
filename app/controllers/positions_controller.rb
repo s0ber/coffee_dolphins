@@ -2,7 +2,7 @@ class PositionsController < ApplicationController
   before_filter :load_position, only: [:show, :edit, :update, :destroy, :like, :unlike]
 
   def index
-    @positions = Position.order_by_search_count.page(params[:page])
+    @positions = Position.order_by_search_count.includes(:search_keywords).page(params[:page])
     @position = Position.new
     respond_with(@positions)
   end
@@ -38,7 +38,7 @@ class PositionsController < ApplicationController
   end
 
   def favorite
-    @positions = Position.favorite.order_by_search_count.page(params[:page])
+    @positions = Position.favorite.order_by_search_count.includes(:search_keywords).page(params[:page])
     respond_with(@positions)
   end
 

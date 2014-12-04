@@ -7,7 +7,9 @@ class Position < ActiveRecord::Base
   accepts_nested_attributes_for :search_keywords, allow_destroy: true
 
   scope :favorite, -> { where(liked: true) }
-  scope :order_by_search_count, -> { select('positions.*, avg(search_keywords.search_count) AS sc').joins(:search_keywords).group('positions.id').order('sc DESC') }
+  scope :order_by_search_count, -> { select('positions.*, coalesce(sum(search_keywords.search_count), 0) AS sk_count')
+                                      .joins('LEFT OUTER JOIN search_keywords ON search_keywords.position_id = positions.id')
+                                      .group('positions.id').order('sk_count DESC') }
 
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
