@@ -12,9 +12,16 @@ Rails.application.routes.draw do
   resources :positions do
     collection do
       get :prepare_import
+      get :favorite
       post :import
     end
+
+    member do
+      put :like
+      put :unlike
+    end
   end
+
   resources :landings, only: [:index]
   resource :statistics, only: [:show]
   resource :finances, only: [:show]
