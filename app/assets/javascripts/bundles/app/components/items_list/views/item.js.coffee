@@ -39,6 +39,7 @@ class App.ItemsList.Views.Item extends Dolphin.View
     @behaviors.Dynamic.redraw().done @showUpdateNotice.bind(@)
 
   showUpdateNotice: ->
+    return unless @$itemTitle().exists()
     $updateNotice = $('<span class="status is-gray"> — обновлено</span>').hide()
     $updateNotice.appendTo(@$itemTitle()).fadeIn()
     (-> $updateNotice.fadeOut(-> $updateNotice.remove())).delay(4000)
