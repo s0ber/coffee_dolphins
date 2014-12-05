@@ -13,7 +13,7 @@ class PositionsController < ApplicationController
   end
 
   def show
-    @position = @position.decorate
+    @position = Position.includes(notes: :user).find(params[:id]).decorate
     respond_with(@position)
   end
 

@@ -1,0 +1,29 @@
+- has_notes = notable.notes.any?
+
+.panel
+  .panel-header
+    | Заметки
+    .fl_r
+      .small_button.is-green
+        | Добавить новую
+
+  .panel-body.has-p15
+    .note.is-new data-view='new_item_form'
+      .note-body
+        = neo_form_for [notable, notable.notes.build] do |f|
+          .form-fields
+            = f.input :title, label: 'Заголовок'
+            = f.input :comment, label: 'Текст заметки'
+          .form-actions
+            .fl_r
+              .note-button.is-cancel data-role='items_list-cancel'
+                | Отмена
+              button.note-button.is-green type='submit'
+                | Добавить заметку
+
+    - if has_notes
+      = render 'polymorphic/notes/note', collection: notable.notes
+    - else
+      p.page-text
+        | Нет заметок.
+

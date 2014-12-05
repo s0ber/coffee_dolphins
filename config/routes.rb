@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get 'login' => 'sessions#new'
   get 'logout' => 'sessions#destroy'
+
   resources :sessions, only: [:new, :create, :destroy]
 
   resources :positions do
@@ -21,10 +22,18 @@ Rails.application.routes.draw do
       put :like
       put :unlike
     end
+
+    scope module: :positions do
+      resources :notes, only: [:create]
+    end
   end
 
   resources :landings, only: [:index]
   resource :statistics, only: [:show]
   resource :finances, only: [:show]
   resources :users
+
+  scope module: :polymorphic do
+    resources :notes, only: [:show, :edit, :update, :destroy]
+  end
 end
