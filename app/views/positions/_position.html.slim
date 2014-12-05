@@ -1,7 +1,7 @@
 .panel_item data-view='item' data={item_id: position.id, edit_path: position_path(position), block_path: cut_position_path(position)}
   .panel_item-header
     span data-role='editable_item-title'
-      = link_to position.title, position_path(position), class: 'panel_item-header_link'
+      = link_to position.title, position_path(position)
       span.chevron.is-right
     .fl_r
       = position.like_button
