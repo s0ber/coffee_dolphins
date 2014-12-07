@@ -2,7 +2,7 @@
   .note-header
     = note.title
     span.note-date
-      | #{note.user.full_name} добавил #{l(note.created_at)}
+      | , добавил #{note.user.full_name} #{l(note.created_at)}
     .fl_r
       .note-button
         = fa_icon('pencil')

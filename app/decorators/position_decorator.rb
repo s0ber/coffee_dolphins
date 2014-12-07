@@ -1,4 +1,6 @@
 class PositionDecorator < ApplicationDecorator
+  decorates_association :notes
+
   def edit_button
     h.link_to h.fa_icon('pencil'),
       h.edit_position_path(object),

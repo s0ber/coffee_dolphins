@@ -2,9 +2,11 @@ class Polymorphic::NotesController < ApplicationController
   before_filter :load_note, only: [:show, :edit, :update, :destroy]
 
   def create
-    @note = Note.new(note_params.merge(user: current_user))
-    notable.notes << @note
-    render_partial('note', note: @note)
+    note = Note.new(note_params)
+    note.notable = notable
+    note.user = current_user
+    note.save!
+    render_partial('note', note: note)
   end
 
   def show
@@ -38,8 +40,6 @@ protected
 private
 
   def note_params
-    params
-      .require(:note, {})
-      .permit(:title, :comment)
+    params.require(:note).permit(:title, :comment)
   end
 end
