@@ -1,6 +1,9 @@
 class NoteDecorator < ApplicationDecorator
   def comment
-    h.simple_format(h.auto_link(h.html_escape(object.comment)))
+    h.auto_link(
+      h.simple_format(h.html_escape(object.comment)),
+      html: {target: '_blank'}
+    )
   end
 
   def edit_button
