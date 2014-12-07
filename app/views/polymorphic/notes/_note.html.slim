@@ -3,7 +3,7 @@
     .note-header
       = note.title
       span.note-date
-        ' , #{note.user.male? ? 'добавил' : 'добавила'} #{note.user.full_name} #{l(note.created_at)}
+        ' , #{note.user.male? ? 'добавил' : 'добавила'} #{note.user.full_name}, #{l(note.created_at, format: :long)}
       .fl_r
         =note.edit_button
         =note.remove_button
