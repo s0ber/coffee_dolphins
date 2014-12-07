@@ -4,6 +4,7 @@
       = f.input :email
       = f.input :full_name, label: 'Имя'
       = f.input :description, label: 'Описание'
+      = f.input :gender, as: :radio_buttons, label: 'Пол', collection: {'Парень' => true, 'Девушка' => false}
       = f.input :password, label: 'Пароль'
       = f.input :password_confirmation, label: 'Подтверждение пароля'
 
