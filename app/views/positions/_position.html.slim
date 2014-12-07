@@ -1,13 +1,14 @@
-.panel_item data-view='item' data={item_id: position.id, edit_path: position_path(position), block_path: position_path(position)}
+.panel_item data-view='item' data={item_id: position.id, edit_path: position_path(position), block_path: cut_position_path(position)}
   .panel_item-header
-    span data-role='item-title'
-      = position.title
+    span data-role='editable_item-title'
+      = link_to position.title, position_path(position)
+      span.chevron.is-right
     .fl_r
       = position.like_button
       = position.edit_button
       = position.remove_button
 
-  .panel_item-body data-role='item-info'
+  .panel_item-body data-role='editable_item-info'
     .panel_list.is-table
       .panel_list-inner
         .panel_list-photo

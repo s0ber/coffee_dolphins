@@ -7,7 +7,7 @@ class UserDecorator < ApplicationDecorator
         h.edit_user_path(object),
         class: 'small_button is-icon',
         remote: true,
-        data: {role: 'edit_item_button'}
+        data: {role: 'editable_item-edit_button'}
     end
   end
 
@@ -20,7 +20,7 @@ class UserDecorator < ApplicationDecorator
         class: 'small_button is-icon is-red',
         remote: true,
         method: :delete,
-        data: {role: 'remove_item_button', confirm: "Удалить пользователя #{object.email}?"}
+        data: {role: 'item-remove_button', confirm: "Удалить пользователя #{object.email}?"}
     end
   end
 end

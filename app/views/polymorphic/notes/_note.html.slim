@@ -1,0 +1,14 @@
+.note data-view='item' data={item_id: note.id, edit_path: note_path(note), block_path: note_path(note)}
+  div data-role='editable_item-info'
+    .note-header
+      = note.title
+      span.note-date
+        ' , #{note.user.male? ? 'добавил' : 'добавила'} #{note.user.full_name}, #{l(note.created_at, format: :long)}
+      .fl_r
+        =note.edit_button
+        =note.remove_button
+
+    .note-body
+      .note-text
+        = note.comment
+

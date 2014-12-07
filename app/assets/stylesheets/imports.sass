@@ -1,4 +1,7 @@
-$blue_dark: #5D83A9
+@import 'rails-sass-images'
+
+$blue_dark: darken(#5D83A9, 5%)
+$blue_bg: #5D83A9
 $blue_medium: #D6DFE9
 $blue_light: #F5F7F9
 
@@ -6,10 +9,13 @@ $green_dark: #308434
 $red_dark: #D20A2F
 
 $text_color: #555
+$text_color_medium: lighten($text_color, 15%)
 $text_color_light: lighten($text_color, 25%)
 
 $header_font_size: 14px
 $text_font_size: 13px
+
+$link_color: darken($blue_dark, 12%)
 
 =lh_100p
   &:after

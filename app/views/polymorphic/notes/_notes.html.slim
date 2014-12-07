@@ -1,0 +1,27 @@
+.panel data-component='app#items_list'
+  .panel-header
+    | Заметки
+    .fl_r
+      button.small_button.is-green data-role='items_list-show_form'
+        | Добавить новую
+
+  .panel-body.has-p15
+    .note.is-new.hidden data-view='new_item_form'
+      .note-body
+        = neo_form_for [notable, Note.new] do |f|
+          .form-fields
+            = f.input :title, label: 'Заголовок'
+            = f.input :comment, label: 'Текст заметки'
+          .form-actions
+            .fl_r
+              .small_button data-role='items_list-cancel'
+                | Отмена
+              button.small_button.is-green type='submit'
+                | Добавить заметку
+
+    .notes data-role='items_list-list_wrapper'
+      = render partial: 'polymorphic/notes/note', collection: notable.notes, as: :note
+
+    p.page-text class=('hidden' if notable.notes.any?) data-role='items_list-empty_list_message'
+      | Нет заметок.
+

@@ -13,6 +13,7 @@ class App.Behaviors.RemoteLinks extends Dolphin.View
   onSuccessLinkSubmit: (e, json) ->
     $link = $(e.currentTarget)
     @hideLoader($link)
+    @showNotice(json.notice) if json.notice
 
   onFailedLinkSubmit: (e, response) ->
     $link = $(e.currentTarget)

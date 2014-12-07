@@ -32,9 +32,18 @@
   +acts_as_panel_header
   border-radius: 5px 5px 0 0
 
+.panel-header_link
+  +acts_as_panel_header_link
+
 .panel-body
   +acts_as_panel_body
   border-radius: 0 0 5px 5px
+
+  &.has-p15
+    padding: 15px
+
+  &.is-dark
+    background: $blue_light
 
 p.panel-text
   margin: 25px 0 0 0

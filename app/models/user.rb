@@ -14,6 +14,10 @@ class User < ActiveRecord::Base
     email == 'coffeedolphins@gmail.com'
   end
 
+  def male?
+    gender == true
+  end
+
 private
 
   def check_password

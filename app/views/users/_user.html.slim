@@ -1,12 +1,12 @@
 .panel_item data-view='item' data={item_id: user.id, edit_path: user_path(user), block_path: user_path(user)}
   .panel_item-header
-    span data-role='item-title'
+    span data-role='editable_item-title'
       = user.full_name
     .fl_r
       = user.edit_button
       = user.remove_button
 
-  .panel_item-body data-role='item-info'
+  .panel_item-body data-role='editable_item-info'
     .panel_list
       = list_item 'Email', user.email
       - if user.description?
