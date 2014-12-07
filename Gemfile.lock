@@ -132,6 +132,8 @@ GEM
       dimensions (> 0)
       mime-types (> 0)
       sass (> 0)
+    rails_autolink (1.1.6)
+      rails (> 3.1)
     railties (4.1.8)
       actionpack (= 4.1.8)
       activesupport (= 4.1.8)
@@ -226,6 +228,7 @@ DEPENDENCIES
   pg
   rails (= 4.1.8)
   rails-sass-images
+  rails_autolink
   rb-readline
   remotipart (~> 1.2)
   responders

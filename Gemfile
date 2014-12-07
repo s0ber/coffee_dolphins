@@ -29,6 +29,9 @@ gem 'rb-readline'
 # Filter generated paths
 gem 'routing-filter', '0.4.0.pre'
 
+# automatically turn http:// text into links
+gem 'rails_autolink'
+
 
 # Automatically add vendor prefixes for styles
 gem 'autoprefixer-rails'

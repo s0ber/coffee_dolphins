@@ -1,6 +1,6 @@
 class NoteDecorator < ApplicationDecorator
   def comment
-    h.simple_format(h.html_escape(object.comment))
+    h.simple_format(h.auto_link(h.html_escape(object.comment)))
   end
 
   def edit_button
