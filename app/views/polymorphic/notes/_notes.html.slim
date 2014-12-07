@@ -1,12 +1,12 @@
-.panel
+.panel data-component='app#items_list'
   .panel-header
     | Заметки
     .fl_r
-      .small_button.is-green
+      button.small_button.is-green data-role='items_list-show_form'
         | Добавить новую
 
   .panel-body.has-p15
-    .note.is-new data-view='new_item_form'
+    .note.is-new.hidden data-view='new_item_form'
       .note-body
         = neo_form_for [notable, Note.new] do |f|
           .form-fields
@@ -19,9 +19,9 @@
               button.small_button.is-green type='submit'
                 | Добавить заметку
 
-    .notes
+    .notes data-role='items_list-list_wrapper'
       = render partial: 'polymorphic/notes/note', collection: notable.notes, as: :note
 
-    p.page-text
+    p.page-text class=('hidden' if notable.notes.any?) data-role='items_list-empty_list_message'
       | Нет заметок.
 

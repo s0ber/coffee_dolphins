@@ -7,8 +7,6 @@ class App.ItemsList.Views.Item extends Dolphin.View
 
   events:
     'ajax:success @item-remove_button': 'removeItem'
-    'ajax:success @edit_item_button': 'openEditForm'
-    'click @item-cancel_edit': 'closeEditForm'
 
   initialize: ->
     @applyBehavior 'EditableItem'

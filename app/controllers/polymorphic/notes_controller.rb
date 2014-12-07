@@ -6,11 +6,11 @@ class Polymorphic::NotesController < ApplicationController
     note.notable = notable
     note.user = current_user
     note.save!
-    render_partial('note', note: note)
+    render_partial('note', note: note.decorate, notice: 'Заметка добавлена')
   end
 
   def show
-    render_partial('note', note: @note)
+    render_partial('note', note: @note.decorate)
   end
 
   def edit
@@ -19,12 +19,12 @@ class Polymorphic::NotesController < ApplicationController
 
   def update
     @note.update_attributes!(note_params)
-    render_success
+    render_success(notice: 'Заметка обновлена')
   end
 
   def destroy
     @note.destroy
-    render_success
+    render_success(notice: 'Заметка удалена')
   end
 
 protected

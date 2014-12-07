@@ -1,0 +1,11 @@
+.note-body
+  = neo_form_for @note do |f|
+    .form-fields
+      = f.input :title, label: 'Заголовок'
+      = f.input :comment, label: 'Текст заметки'
+    .form-actions
+      .fl_r
+        .small_button data-role='editable_item-cancel_edit'
+          | Отмена
+        button.small_button.is-green type='submit'
+          | Сохранить заметку

@@ -1,15 +1,14 @@
-.note
-  .note-header
-    = note.title
-    span.note-date
-      | , добавил #{note.user.full_name} #{l(note.created_at)}
-    .fl_r
-      .note-button
-        = fa_icon('pencil')
-      .note-button
-        = fa_icon('close')
+.note data-view='item' data={item_id: note.id, edit_path: note_path(note), block_path: note_path(note)}
+  div data-role='editable_item-info'
+    .note-header
+      = note.title
+      span.note-date
+        | , добавил #{note.user.full_name} #{l(note.created_at)}
+      .fl_r
+        =note.edit_button
+        =note.remove_button
 
-  .note-body
-    .note-text
-      = note.comment
+    .note-body
+      .note-text
+        = note.comment
 
