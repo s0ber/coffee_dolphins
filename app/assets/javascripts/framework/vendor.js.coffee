@@ -2,6 +2,8 @@
 #= require jquery_ujs
 #= require jquery.remotipart
 #= require jquery.role
+#= require jquery.caret
+#= require jquery-autosize/jquery.autosize
 
 #= require sugar/release/sugar.min
 #= require underscore/underscore
