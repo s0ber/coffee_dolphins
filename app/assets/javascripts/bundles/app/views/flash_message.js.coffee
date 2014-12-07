@@ -1,6 +1,6 @@
 class App.Views.FlashMessage extends Dolphin.View
 
-  HIDE_AFTER = 5000
+  HIDE_AFTER = 2000
 
   events:
     'click @flash_message-close': 'close'
