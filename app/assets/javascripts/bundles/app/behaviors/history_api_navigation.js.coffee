@@ -35,6 +35,7 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
       frames = new Utils.PageFramesManager
         view: @
         $pageContainer: @$pageWrapper()
+        stateScrollTop: window.history.state['menu_navigation']['scroll_top_pos']
 
       response
         .onLayoutReceive((html) =>
@@ -60,6 +61,8 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
     $menuLink = @$menuItemForPath(path)
     shouldPushPath = "#{location.origin}#{path}" isnt location.href
 
+    @saveScrollTopPos()
+
     ijax.get(path).done (response) =>
       frames = new Utils.PageFramesManager
         view: @
@@ -80,6 +83,11 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
     @loadPage(location.pathname + location.search)
 
   # private
+
+  saveScrollTopPos: ->
+    @historyWidget.replaceInitialState
+      page_path: window.history.state['menu_navigation']['page_path']
+      scroll_top_pos: $('body').scrollTop()
 
   isClickedInNewTab: (e) ->
     e.which is 2 or e.metaKey or e.ctrlKey
