@@ -11,5 +11,27 @@ class ApplicationDecorator < Draper::Decorator
              like_path: h.polymorphic_path(object, action: :like),
              unlike_path: h.polymorphic_path(object, action: :unlike)}
   end
+
+  def edit_button
+    h.link_to h.fa_icon('pencil'),
+      h.polymorphic_path(object, action: :edit),
+      class: 'small_button is-icon',
+      remote: true,
+      data: {role: 'editable_item-edit_button'}
+  end
+
+  def remove_button
+    h.link_to h.fa_icon('close'),
+      h.polymorphic_path(object),
+      class: 'small_button is-icon is-red',
+      remote: true,
+      method: :delete,
+      data: {role: 'item-remove_button', confirm: confirm_remove_message}
+  end
+
+protected
+  def confirm_remove_message
+    raise NotImplementedError
+  end
 end
 
