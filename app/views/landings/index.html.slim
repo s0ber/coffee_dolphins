@@ -1,5 +1,11 @@
-.page-title
-  | Лендинги
+div data-component='app#items_list'
+  .page-title
+    | Лендинги
 
-.page-body
-  = render 'shared/form', modifier: 'page'
+  .page-body
+    .panels data-role='items_list-list_wrapper'
+      = render partial: 'landing', collection: @landings
+
+    p.page-text class=('hidden' if @landings.any?) data-role='items_list-empty_list_message'
+      | Нет лендингов.
+

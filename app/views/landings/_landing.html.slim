@@ -1,0 +1,16 @@
+.panel_item data-view='item' data={item_id: landing.id}
+  .panel_item-header
+    = link_to edit_landing_path(landing) do
+      = landing.title
+      span.chevron.is-right
+    .fl_r
+      = landing.remove_button
+
+  .panel_item-body
+    .panel_list
+      = list_item 'Категория', landing.category.title
+      = list_item 'Позиция' do
+        = link_to position_path(landing.position) do
+          = landing.position.title
+          span.chevron.is-right
+

@@ -1,0 +1,17 @@
+= neo_form_for @landing do |f|
+  p.modal-text
+    b =@position.title
+
+  .modal-fields
+    = f.association :position, as: :hidden, value: params[:position_id]
+    = f.input :title, label: 'Заголовок'
+    = f.association :category, label: 'Категория', prompt: 'Выберите категорию лендинга'
+    = f.input :slug, as: :slug, label: 'URL slug'
+
+  .modal-buttons
+    .fl_r
+      .small_button data-role='close_modal'
+        | Отмена
+      button.small_button.is-green type='submit'
+        | Сохранить
+

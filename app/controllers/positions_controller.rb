@@ -1,5 +1,5 @@
 class PositionsController < ApplicationController
-  before_filter :load_position, only: [:show, :cut, :edit, :update, :destroy, :like, :unlike]
+  before_filter :load_position, only: [:cut, :edit, :update, :destroy, :like, :unlike]
 
   def index
     @positions = Position.order_by_search_count.includes(:search_keywords).page(params[:page])

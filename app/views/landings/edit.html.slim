@@ -1,0 +1,50 @@
+- position = @landing.position
+
+.page-title
+  = link_to 'Лендинги', landings_path, class: 'panel_item-header_link'
+  span.chevron.is-right
+  = @landing.title
+
+.page-body
+  = neo_form_for @landing do |f|
+    .form
+      .panels
+        .panel
+          .panel_item
+            .panel_item-header
+              = link_to position_path(position) do
+                = position.title
+                span.chevron.is-right
+            .panel_item-body
+              .panel_list.is-table
+                .panel_list-inner
+                  .panel_list-photo
+                    img src=position.image_url title=position.title
+                  .panel_list-items
+                    = list_item 'Категория', position.category
+                    = list_item 'Цена', position.price
+                    = list_item 'Прибыль', position.profit
+                    = list_item 'Доступность', position.availability_level
+
+                    - if position.search_keywords.any?
+                      = list_item 'Ключевые слова' do
+                        = render 'positions/search_keywords', position: position
+                    - else
+                      = list_item 'Ключевые слова' do
+                        = render 'positions/edit_search_keywords', position: position
+
+        .panel
+          .panel_item
+            .panel_item-header
+              | Детали
+            .panel_item-body
+              .form-fields
+                = f.input :title, label: 'Заголовок'
+                = f.association :category, label: 'Категория', prompt: 'Выберите категорию лендинга'
+                = f.input :slug, as: :slug, label: 'URL slug'
+
+          .panel-footer
+            .fl_r
+              button.small_button.is-green type='submit'
+                | Сохранить
+

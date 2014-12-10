@@ -4,6 +4,7 @@ class Landing < ActiveRecord::Base
   before_validation :set_as_draft, on: :create
 
   validates :title, :slug, :category_id, :position_id, :_status, presence: true
+  validates :slug, uniqueness: true
   validates :price,
             :old_price,
             :apishops_price,

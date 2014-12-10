@@ -9,7 +9,7 @@ class App.ItemsList.Views.Item extends Dolphin.View
     'ajax:success @item-remove_button': 'removeItem'
 
   initialize: ->
-    @applyBehavior 'EditableItem'
+    @applyBehavior 'EditableItem' if @blockPath()
     @itemsList.addItem id: @id()
 
   removeItem: ->
@@ -18,6 +18,9 @@ class App.ItemsList.Views.Item extends Dolphin.View
       @itemsList.removeItemById(@id())
 
 # private
+
+  blockPath: ->
+    @$el.data('block-path')
 
   id: ->
     @$el.data('item-id')
