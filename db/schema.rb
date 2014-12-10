@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141210113333) do
+ActiveRecord::Schema.define(version: 20141210174045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,28 @@ ActiveRecord::Schema.define(version: 20141210113333) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "landings", force: true do |t|
+    t.string   "title"
+    t.string   "slug"
+    t.decimal  "price"
+    t.decimal  "old_price"
+    t.decimal  "apishops_price"
+    t.decimal  "max_click_cost"
+    t.string   "video_url"
+    t.integer  "color",               limit: 2
+    t.string   "apishops_article_id"
+    t.string   "meta_description"
+    t.string   "html_title"
+    t.integer  "category_id"
+    t.string   "_status"
+    t.integer  "position_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "landings", ["category_id"], name: "index_landings_on_category_id", using: :btree
+  add_index "landings", ["position_id"], name: "index_landings_on_position_id", using: :btree
 
   create_table "notes", force: true do |t|
     t.string   "title"

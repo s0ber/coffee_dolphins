@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   end
 
   resources :categories
-  resources :landings, only: [:index]
+  resources :landings
   resource :statistics, only: [:show]
   resource :finances, only: [:show]
   resources :users
