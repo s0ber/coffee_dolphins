@@ -3,7 +3,7 @@
 .page-title
   = link_to 'Лендинги', landings_path, class: 'panel_item-header_link'
   span.chevron.is-right
-  = @landing.title
+  = @landing.position.title
   .fl_r
     = link_to 'Показать черновик &rarr;'.html_safe, @landing.public_path, class: 'small_button is-green', target: '_blank'
 
@@ -15,7 +15,7 @@
           .panel_item
             .panel_item-header
               = link_to position_path(position) do
-                = position.title
+                | Позиция
                 span.chevron.is-right
             .panel_item-body
               .panel_list.is-table

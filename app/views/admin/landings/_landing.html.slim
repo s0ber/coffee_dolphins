@@ -1,7 +1,7 @@
 .panel_item data-view='item' data={item_id: landing.id}
   .panel_item-header
     = link_to edit_landing_path(landing) do
-      = landing.title
+      = landing.position.title
       span.chevron.is-right
     .fl_r
       = landing.remove_button
