@@ -1,0 +1,64 @@
+@import 'admin/imports'
+
+html, body
+  width: 100%
+  height: 100%
+
+body
+  font-size: $text_font_size
+  line-height: 25px
+  background: image-url('cream_pixels_bg.png') center center repeat
+  background-size: 160px
+  overflow-x: hidden
+
+a
+  color: $blue_dark
+
+.layout.is-loading
+  .layout-main
+    margin-bottom: 0
+
+.layout.for-logged_out_user
+  .layout-content_inner
+    margin-left: 0
+
+/* Header */
+.layout-header
+  height: 65px
+  background: $blue_bg
+  border-radius: 0 0 5px 5px
+
+/* Main Wrapper */
+.layout-main
+  width: 1020px
+  min-height: 100%
+  margin: 0 auto -65px
+
+.layout-empty
+  height: 65px
+
+/* Main Content */
+.layout-content
+  width: 100%
+  float: left
+
+.layout-content_inner
+  margin-left: 200px
+
+/* Sidebar */
+.layout-sidebar
+  float: left
+  width: 200px
+  margin-left: -100%
+
+/* Footer */
+.layout-footer
+  height: 65px
+
+.layout-footer_inner
+  width: 1020px
+  height: 65px
+  margin: 0 auto
+  background: $blue_bg
+  color: #fff
+  border-radius: 5px 5px 0 0

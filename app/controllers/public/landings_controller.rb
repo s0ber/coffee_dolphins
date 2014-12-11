@@ -1,4 +1,6 @@
 class Public::LandingsController < Public::BaseController
+  layout 'public_landing'
+
   before_filter :load_landing, :restrict_access_to_unpublished
 
   def show

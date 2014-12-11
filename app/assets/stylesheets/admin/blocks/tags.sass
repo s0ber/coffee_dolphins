@@ -1,0 +1,65 @@
+@import 'admin/imports'
+
+.tags
+  +clearfix
+  margin: 0 -7px -7px 0
+
+  &:empty
+    margin: 0 !important
+
+  &.has-mt7
+    margin-top: 7px
+
+.tags-item
+  position: relative
+  float: left
+  margin: 0 7px 7px 7px
+  margin-left: 6px
+  padding: 0 8px 0 7px
+  height: 24px
+  background: #aaa
+  color: #fff
+  font-size: 12px
+  line-height: 24px
+  white-space: nowrap
+  text-shadow: 0 1px rgba(0, 0, 0, .5)
+  border-radius: 2px 3px 3px 2px
+
+  &:before
+    content: ''
+    position: absolute
+    top: 0
+    left: 0
+    margin-left: -6px
+    height: 0
+    width: 0
+    border-top: 12px solid transparent
+    border-bottom: 12px solid transparent
+    border-right: 7px solid #aaa
+
+.tags-item input[type='text']
+  color: $text_color
+  display: inline-block !important
+  margin-left: 5px !important
+  padding: 0 5px !important
+  height: 18px !important
+  width: 55px !important
+  font-size: 12px !important
+  border-color: #aaa
+
+.tags-item_counter
+  margin-left: 8px
+  border-left: 1px solid #999
+  padding-left: 7px
+  height: 24px
+  text-align: center
+  box-shadow: 1px 0 #bbb inset
+
+.tags-item_delete
+  display: inline-block
+  font-size: 10px
+  font-weight: normal
+  padding: 3px
+  margin-right: -3px
+  cursor: pointer
+
