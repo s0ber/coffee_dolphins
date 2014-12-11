@@ -1,6 +1,10 @@
-.page-title
-  | Публичный лендинг #{params[:landing]}
+= render 'header'
+= render 'main_section'
+= render 'description'
+= render 'reviews'
+= render 'guarantees'
+= render 'shipping'
+= render 'order'
+= render 'footer'
 
-.page-body
-  p.page-text
-    | Тут какой-то текст
+= render 'modal'

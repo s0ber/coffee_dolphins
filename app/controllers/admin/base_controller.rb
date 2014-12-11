@@ -1,6 +1,4 @@
 class Admin::BaseController < ApplicationController
-  layout 'admin'
-
   include IframeStreaming
 
   before_filter :require_login

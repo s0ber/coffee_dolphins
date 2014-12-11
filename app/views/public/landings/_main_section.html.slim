@@ -1,0 +1,33 @@
+.section.is-dark_gradient data-section='main'
+  .columns
+    .column.is-7.offset.is-by_2
+      .cta
+        .cta_inner
+          .cta-title
+            = @landing.title
+
+          .cta-description
+            | — Легкий, практичный, занимает мало места, идеально подойдет для полива газонов, мойки машины, и многого другого.
+            br
+            span data-section-name='description'
+              | — <span class="g-dashed">Включите воду, и он увеличится! (видео) &darr;</span>
+            br
+            | — 97% довольных покупателей, 70% обратились за повторной покупкой.
+          .cta-warning
+            | Успейте заказать этот уникальный <b>товар из ограниченной серии</b> по&nbsp;суперцене (<b>скидка действительна до 27.11.2014</b>).
+
+          = render 'cta_form'
+
+    .column.is-7
+      = render 'photos_slider'
+
+  .columns
+    .why_to_buy
+      .why_to_buy-inner data-section-name='description'
+        img src=image_path('public/woman.png')
+        .why_to_buy-text
+          | Почему шланг Xhose — незаменимая вещь в хозяйстве?
+          br
+          .why_to_buy-click_me
+            | Нажмите сюда, чтобы узнать &darr;
+

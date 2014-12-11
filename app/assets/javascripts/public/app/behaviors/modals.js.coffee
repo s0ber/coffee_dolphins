@@ -29,7 +29,7 @@ class App.Behaviors.Modals extends View
     #   html: json.html
     # ).data('view-options', $modalSourceButton: $link)
     #
-    @$modal = $($('#modal_template').data('html'))
+    @$modal = $($('#modal_template').data('template').html)
 
     @showOverlay()
     @html(@$modalsContainer, @$modal)
