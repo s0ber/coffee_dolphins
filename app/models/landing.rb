@@ -32,6 +32,10 @@ class Landing < ActiveRecord::Base
   end
 
   def published?
-    self._status == :published
+    self.status == :published
+  end
+
+  def draft?
+    self.status == :draft
   end
 end

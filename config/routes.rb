@@ -10,6 +10,12 @@ Rails.application.routes.draw do
 
   resources :sessions, only: [:new, :create, :destroy]
 
+  scope module: :public do
+    categories = ->(req) { Category.where(slug: req.params[:category]).any? }
+    get '/:category' => 'categories#show', as: :public_category, constraints: categories
+    get '/:category/:landing' => 'landings#show', as: :public_landing, constraints: categories
+  end
+
   scope module: :admin do
     resources :positions do
       collection do
