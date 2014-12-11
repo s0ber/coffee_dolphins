@@ -111,5 +111,6 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
     isRemoteLink = $link.is('[data-remote]')
     isLocalLink = $link.attr('href')[0] is '/'
     isLogoutLink = $link.attr('href') is '/logout'
+    isNewTabLink = $link.attr('target') is '_blank'
 
-    isLocalLink and not isRemoteLink and not isLogoutLink
+    isLocalLink and not isRemoteLink and not isLogoutLink and not isNewTabLink
