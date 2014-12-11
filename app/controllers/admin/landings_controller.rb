@@ -1,4 +1,4 @@
-class LandingsController < ApplicationController
+class Admin::LandingsController < Admin::BaseController
   before_filter :load_landing, only: [:show, :update, :destroy]
 
   def index

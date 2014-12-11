@@ -11,9 +11,9 @@ html
   body.layout class=('for-logged_out_user' unless current_user) data-view="app#layout"
     .flash_messages data-view='app#flash_messages'
       - if notice
-        = render 'shared/flash_message', message: notice, type: 'notice'
+        = render 'admin/shared/flash_message', message: notice, type: 'notice'
       - if alert
-        = render 'shared/flash_message', message: alert, type: 'alert'
+        = render 'admin/shared/flash_message', message: alert, type: 'alert'
 
     .layout-main
       header.layout-header

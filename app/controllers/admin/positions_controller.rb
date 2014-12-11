@@ -1,4 +1,4 @@
-class PositionsController < ApplicationController
+class Admin::PositionsController < Admin::BaseController
   before_filter :load_position, only: [:cut, :edit, :update, :destroy, :like, :unlike]
 
   def index

@@ -1,4 +1,4 @@
-class CategoriesController < ApplicationController
+class Admin::CategoriesController < Admin::BaseController
   before_filter :load_category, only: [:show, :edit, :update, :destroy]
 
   def index

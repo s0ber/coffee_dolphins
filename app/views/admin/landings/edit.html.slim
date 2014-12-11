@@ -28,10 +28,10 @@
 
                     - if position.search_keywords.any?
                       = list_item 'Ключевые слова' do
-                        = render 'positions/search_keywords', position: position
+                        = render 'admin/positions/search_keywords', position: position
                     - else
                       = list_item 'Ключевые слова' do
-                        = render 'positions/edit_search_keywords', position: position
+                        = render 'admin/positions/edit_search_keywords', position: position
 
         .panel
           .panel_item

@@ -1,4 +1,4 @@
-class Positions::NotesController < Polymorphic::NotesController
+class Admin::Positions::NotesController < Admin::Polymorphic::NotesController
 
 protected
 

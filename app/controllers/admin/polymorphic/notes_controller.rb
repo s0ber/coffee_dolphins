@@ -1,4 +1,4 @@
-class Polymorphic::NotesController < ApplicationController
+class Admin::Polymorphic::NotesController < Admin::BaseController
   before_filter :load_note, only: [:show, :edit, :update, :destroy]
 
   def create
