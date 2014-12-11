@@ -13,7 +13,7 @@
     $(@renderTemplate(args...))
 
   __templateNamespaceFn: (templateName) ->
-    JST["bundles/#{@namespaceName.underscore()}/templates/#{templateName}"]
+    JST["admin/bundles/#{@namespaceName.underscore()}/templates/#{templateName}"]
 
   __templateComponentFn: (templateName) ->
-    JST["bundles/#{@namespaceName.underscore()}/components/#{@componentName.underscore()}/templates/#{templateName}"]
+    JST["admin/bundles/#{@namespaceName.underscore()}/components/#{@componentName.underscore()}/templates/#{templateName}"]
