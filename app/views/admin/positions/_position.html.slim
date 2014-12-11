@@ -1,0 +1,35 @@
+.panel_item data-view='item' data={item_id: position.id, edit_path: position_path(position), block_path: cut_position_path(position)}
+  .panel_item-header
+    span data-role='editable_item-title'
+      = link_to position_path(position) do
+        = position.title
+        span.chevron.is-right
+    .fl_r
+      - if position.landing.nil?
+        .small_button.is-green.is-icon data-modal=new_landing_path(position_id: position.id)
+          = fa_icon('plus')
+      - else
+        = link_to 'Открыть лендинг &rarr;'.html_safe, edit_landing_path(position.landing), class: 'small_button is-green'
+
+      = position.like_button
+      = position.edit_button
+      = position.remove_button
+
+  .panel_item-body data-role='editable_item-info'
+    .panel_list.is-table
+      .panel_list-inner
+        .panel_list-photo
+          img src=position.image_url title=position.title
+        .panel_list-items
+          = list_item 'Категория', position.category
+          = list_item 'Цена', position.price
+          = list_item 'Прибыль', position.profit
+          = list_item 'Доступность', position.availability_level
+
+          - if position.search_keywords.any?
+            = list_item 'Ключевые слова' do
+              = render 'search_keywords', position: position
+          - else
+            = list_item 'Ключевые слова' do
+              = render 'edit_search_keywords', position: position
+

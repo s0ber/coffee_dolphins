@@ -1,0 +1,25 @@
+- modifier ||= nil
+
+.photos_slider class=("for-#{modifier}" if modifier) data-view='app#photos_slider'
+  .photos_slider-inner
+    .photos_slider-arrow_left.js-show_prev_photo
+      = fa_icon 'chevron-left'
+    .photos_slider-photo_wrap
+      .photos_slider-photo_inner
+        .photos_slider-photo.js-main_photo style="background-image: url(#{image_path('public/test_photo.jpg')});"
+    .photos_slider-arrow_right.js-show_next_photo
+      = fa_icon 'chevron-right'
+    .photos_slider-previews
+      .clearfix
+        .photos_slider-previews_item.is-active.js-photo_preview
+          .photos_slider-previews_item_inner
+            img src=image_path('public/test_photo.jpg')
+        .photos_slider-previews_item.js-photo_preview
+          .photos_slider-previews_item_inner
+            img src=image_path('public/test_photo2.jpg')
+        .photos_slider-previews_item.js-photo_preview
+          .photos_slider-previews_item_inner
+            img src=image_path('public/test_photo3.jpg')
+        .photos_slider-previews_item.js-photo_preview
+          .photos_slider-previews_item_inner
+            img src=image_path('public/test_photo4.jpg')

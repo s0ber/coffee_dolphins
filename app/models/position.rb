@@ -4,6 +4,7 @@ class Position < ActiveRecord::Base
 
   has_many :search_keywords, dependent: :destroy
   has_many :notes, as: :notable, dependent: :destroy
+  has_one :landing
 
   accepts_nested_attributes_for :search_keywords, allow_destroy: true
 

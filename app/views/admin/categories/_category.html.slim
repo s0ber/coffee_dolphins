@@ -1,0 +1,12 @@
+.panel_item data-view='item' data={item_id: category.id, edit_path: category_path(category), block_path: category_path(category)}
+  .panel_item-header
+    span data-role='editable_item-title'
+      = category.title
+    .fl_r
+      = category.edit_button
+      = category.remove_button
+
+  .panel_item-body data-role='editable_item-info'
+    .panel_list
+      = list_text(category.description)
+

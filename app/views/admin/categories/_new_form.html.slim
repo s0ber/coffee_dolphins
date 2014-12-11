@@ -1,0 +1,20 @@
+.panel.for-new_item.hidden data-view='new_item_form'
+  .panel-header
+    | Форма добавления категории
+  .panel-body
+    = neo_form_for category do |f|
+      .form-fields
+        = f.input :title, label: 'Название'
+        = f.input :description, label: 'Описание'
+        = f.input :slug, as: :slug, label: 'URL slug'
+        = f.input :html_title, label: 'HTML title'
+        = f.input :meta_keywords, label: 'Ключевые слова для SEO (meta keywords)'
+        = f.input :meta_description, label: 'Описание для SEO (meta description)'
+
+      .form-actions
+        .fl_r
+          .small_button data-role='items_list-cancel'
+            | Отмена
+          button.small_button.is-green type='submit'
+            | Добавить категорию
+

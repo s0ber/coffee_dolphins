@@ -1,0 +1,61 @@
+$transparent_10: lighten($base, 60%)
+$transparent_50: lighten($base, 40%)
+$transparent_100: lighten($base, 32%)
+$light_200: lighten($base, 24%)
+$light_300: lighten($base, 16%)
+$light_400: lighten($base, 8%)
+$light_500: desaturate(lighten($base, 4%), 3%)
+$dark_600: darken($base, 4%)
+$dark_700: darken($base, 8%)
+$dark_800: darken($base, 12%)
+$dark_900: darken($base, 16%)
+
+$bd: #c2c2c2
+
+=full_width_bg($bg_color)
+  position: relative
+  &:before
+    content: ''
+    position: absolute
+    top: 0
+    bottom: 0
+    left: -1000px
+    right: -1000px
+    background: $bg_color
+    z-index: -1
+    box-sizing: border-box
+
+=lh_100p
+  &:after
+    display: inline-block
+    content: ''
+    height: 100%
+    width: 0
+    vertical-align: top
+
+=no_select
+  -webkit-touch-callout: none
+  -webkit-user-select: none
+  -khtml-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+
+=text_overflow
+  display: block
+  overflow: hidden !important
+  white-space: nowrap
+  text-overflow: ellipsis
+
+=clearfix
+  &:before,
+  &:after
+    content: ""
+    display: table
+
+  &:after
+    clear: both
+
+  &
+    zoom: 1
+

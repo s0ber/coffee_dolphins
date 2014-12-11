@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  slug: MyString
+  price: 9.99
+  old_price: 9.99
+  apishops_price: 9.99
+  video_url: MyString
+  color: 
+  apishops_article_id: MyString
+  meta_description: MyString
+  html_title: MyString
+  category_id: 
+  _status: MyString
+  max_click_cost: 9.99
+  position_id: 
+
+two:
+  title: MyString
+  slug: MyString
+  price: 9.99
+  old_price: 9.99
+  apishops_price: 9.99
+  video_url: MyString
+  color: 
+  apishops_article_id: MyString
+  meta_description: MyString
+  html_title: MyString
+  category_id: 
+  _status: MyString
+  max_click_cost: 9.99
+  position_id: 

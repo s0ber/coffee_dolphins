@@ -1,0 +1,90 @@
+@import 'public/imports'
+
+.section
+  +clearfix
+  padding: 30px 0 40px
+  background: #fff
+  border-bottom: 1px solid $transparent_50
+
+  &.is-dark_gradient
+    background: linear-gradient(lighten($transparent_10, 3%), $transparent_10)
+
+  &.is-dark
+    background: $transparent_10
+
+.section-title
+  padding: 0 0 30px
+  text-align: center
+
+.section-title_inner
+  display: inline
+  border-bottom: 1px solid $bd
+  font-size: 20px
+  line-height: 30px
+  padding-bottom: 5px
+
+.section-description
+  padding: 0 0 30px
+  font-size: 18px
+  text-align: center
+
+.section-read_more
+  padding: 30px 0 0
+  text-align: center
+
+.section-subtitle
+  padding: 30px 0 20px
+  font-size: 18px
+  line-height: 27px
+  font-weight: bold
+
+.section-text
+  margin: 25px 0 0 0
+
+  &:first-child
+    margin-top: 0
+
+.section-centered
+  text-align: center
+
+.section-cell
+  .section-subtitle,
+  .section-text,
+  .section-list
+    margin-right: 10px
+
+.section-video
+  margin-top: 25px
+  text-align: center
+
+  iframe
+    width: 560px
+    height: 315px
+
+  &:first-child
+    margin-top: 0
+
+  .layout.lt-big_screen &
+    iframe
+      width: 500px
+      height: 281px
+
+.section-list
+  padding-left: 20px
+
+  &:first-child
+    margin-top: 0
+
+  li
+    margin: 10px 0 0
+
+    &:first-child
+      margin-top: 0
+
+.section-image
+  text-align: center
+
+  img
+    width: 100%
+    max-width: 250px
+    height: auto

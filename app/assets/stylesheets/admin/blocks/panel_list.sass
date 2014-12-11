@@ -1,0 +1,63 @@
+@import 'admin/imports'
+@import 'admin/primitives/panel'
+
+.panel_list
+
+.panel_list-row
+  +clearfix
+  border-top: 1px solid $blue_medium
+
+  &:first-child
+    border-top: 0
+
+.panel_list-label
+  float: left
+  width: 25%
+  padding: 9px 15px
+  font-size: 12px
+  font-weight: bold
+  box-sizing: border-box
+
+.panel_list-value
+  float: left
+  padding: 9px 15px
+  width: 75%
+  box-sizing: border-box
+
+.panel_list p.panel-text
+  margin: 25px 15px 15px
+
+  &:first-child
+    margin-top: 15px
+
+// modifiers
+
+.panel_list.is-table
+  position: relative
+  display: table
+  table-layout: fixed
+  width: 100%
+
+  .panel_list-inner
+    display: table-row
+
+  .panel_list-photo,
+  .panel_list-items
+    display: table-cell
+    vertical-align: top
+
+  .panel_list-photo
+    position: static
+    width: 175px
+    height: 175px
+    padding: 15px
+    box-sizing: border-box
+    border-right: 1px solid $blue_medium
+
+    img
+      width: 145px
+      height: 145px
+      vertical-align: top
+      border-radius: 5px
+      box-sizing: border-box
+

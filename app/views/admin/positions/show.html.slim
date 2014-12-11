@@ -1,0 +1,32 @@
+.page-title
+  = link_to 'Позиции', positions_path, class: 'panel_item-header_link'
+  span.chevron.is-right
+  = @position.title
+  .fl_r
+    = @position.like_button
+
+.page-body
+  .panels
+    .panel
+      .panel-header
+        | Детали
+      .panel-body
+        .panel_list.is-table
+          .panel_list-inner
+            .panel_list-photo
+              img src=@position.image_url title=@position.title
+            .panel_list-items
+              = list_item 'Категория', @position.category
+              = list_item 'Цена', @position.price
+              = list_item 'Прибыль', @position.profit
+              = list_item 'Доступность', @position.availability_level
+
+              - if @position.search_keywords.any?
+                = list_item 'Ключевые слова' do
+                  = render 'search_keywords', position: @position
+              - else
+                = list_item 'Ключевые слова' do
+                  = render 'edit_search_keywords', position: @position
+
+    = render 'admin/polymorphic/notes/notes', notable: @position
+

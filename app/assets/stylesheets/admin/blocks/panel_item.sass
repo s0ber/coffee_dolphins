@@ -1,0 +1,31 @@
+@import 'admin/imports'
+@import 'admin/primitives/panel'
+
+.panel_item
+  margin-top: -1px
+
+  &:first-child
+    margin-top: 0
+
+    .panel_item-header
+      border-radius: 5px 5px 0 0
+
+  &:last-child
+    .panel_item-body
+      border-radius: 0 0 5px 5px
+
+.panel_item-header
+  +acts_as_panel_header
+
+.panel_item-header_link
+  +acts_as_panel_header_link
+
+.panel_item-body
+  +acts_as_panel_body
+
+p.panel_item-text
+  margin: 25px 0 0 0
+
+  &:first-child
+    margin-top: 0
+

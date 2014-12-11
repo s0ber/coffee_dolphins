@@ -1,0 +1,32 @@
+- modifier ||= nil
+- options = [['Мне нужно 1 шт.', 1], ['Мне нужно 2 шт.', 2], ['Мне нужно 3 шт.', 3], ['Мне нужно 4 шт.', 4], ['Мне нужно 5 шт.', 5]]
+
+.cta_form class=("for-#{modifier}" if modifier) data-view='app#form' data={full_price: '990'}
+  .cta_form-wrap
+    .cta_form-inner
+      .clearfix
+        .cta_form-field
+          = fa_icon 'phone'
+          input type='text' placeholder='Ваш телефон'
+        .cta_form-quantity data-view='app#select'
+          span.js-select-label
+            | Мне нужно 1 шт.
+          select.js-select-input
+            - options.each do |name, value|
+              option selected=(value == 1) value=value
+                = name
+          = fa_icon 'sort-down'
+
+      button.cta_form-button.js-order_button
+        | Заказать за <b>990</b> рублей &rarr;
+    .cta_form-info
+      ' Артикул товара: <b>#24177420</b>. Сделайте заказ, и мы перезвоним вам в течение нескольких&nbsp;минут,
+      ' или&nbsp;позвоните нам по&nbsp;телефону
+      | <b>#{fa_icon('phone')} 8-804-333-00-69</b> (круглосуточно,&nbsp;бесплатно,&nbsp;24/7).
+  .price_tag
+    .price_tag-inner
+      | &ndash; 40%
+      span.price_tag-price_old
+        | 1990 руб.
+      span.price_tag-price_new
+        | 990 руб.

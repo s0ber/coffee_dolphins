@@ -1,0 +1,16 @@
+div data-component='app#items_list'
+  .page-title
+    | Категории лендингов
+    .fl_r
+      button.small_button.is-green data-role='items_list-show_form'
+        | Добавить новую
+
+  .page-body
+    = render 'new_form', category: @category, categories: @categories
+
+    .panels data-role='items_list-list_wrapper'
+      = render partial: 'category', collection: @categories
+
+    p.page-text class=('hidden' if @categories.any?) data-role='items_list-empty_list_message'
+      | Нет категорий.
+
