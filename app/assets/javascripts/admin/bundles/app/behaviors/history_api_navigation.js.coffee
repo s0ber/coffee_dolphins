@@ -36,10 +36,11 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
         view: @
         $pageContainer: @$pageWrapper()
         stateScrollTop: window.history.state['menu_navigation']['scroll_top_pos']
+        onLayoutRender: =>
+          @setLinkAsActive($menuLink)
 
       response
         .onLayoutReceive((html) =>
-          @setLinkAsActive($menuLink)
           frames.addFrame('layout', html)
         )
         .onFrameReceive((id, html) -> frames.addFrame(id, html))
@@ -68,10 +69,11 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
         view: @
         $pageContainer: @$pageWrapper()
         pagePath: (path if shouldPushPath)
+        onLayoutRender: =>
+          @setLinkAsActive($menuLink)
 
       response
         .onLayoutReceive((html) =>
-          @setLinkAsActive($menuLink)
           frames.addFrame('layout', html)
         )
         .onFrameReceive((id, html) -> frames.addFrame(id, html))
