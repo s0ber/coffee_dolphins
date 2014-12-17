@@ -2,7 +2,7 @@ class Admin::PositionsController < Admin::BaseController
   before_filter :load_position, only: [:cut, :edit, :update, :destroy, :like, :unlike]
 
   def index
-    @positions = Position.order_by_search_count.includes(:search_keywords).page(params[:page])
+    @positions = Position.order_by_search_count.includes(:search_keywords, :landing).page(params[:page])
     @position = Position.new
     respond_with(@positions)
   end
@@ -13,7 +13,7 @@ class Admin::PositionsController < Admin::BaseController
   end
 
   def show
-    @position = Position.includes(notes: :user).find(params[:id]).decorate
+    @position = Position.with_all_details.find(params[:id]).decorate
     respond_with(@position)
   end
 
@@ -43,7 +43,7 @@ class Admin::PositionsController < Admin::BaseController
   end
 
   def favorite
-    @positions = Position.favorite.order_by_search_count.includes(:search_keywords).page(params[:page])
+    @positions = Position.favorite.order_by_search_count.includes(:search_keywords, :landing).page(params[:page])
     respond_with(@positions)
   end
 

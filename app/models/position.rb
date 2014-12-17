@@ -13,11 +13,17 @@ class Position < ActiveRecord::Base
                                       .joins('LEFT OUTER JOIN search_keywords ON search_keywords.position_id = positions.id')
                                       .group('positions.id').order('sk_count DESC') }
 
+  scope :with_all_details, -> { includes(:search_keywords, notes: :user, landing: :category) }
+
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
       position = find_by_apishops_position_id(row['apishops_position_id']) || new
       position.attributes = row.to_hash
       position.save!
     end
+  end
+
+  def has_landing?
+    not self.landing.nil?
   end
 end

@@ -1,0 +1,19 @@
+= neo_form_for landing do |f|
+  .panel
+    .form
+      .panel_item
+        .panel_item-header
+          | Лендинг
+          .fl_r
+            = link_to 'Показать черновик &rarr;'.html_safe, landing.public_path, class: 'small_button is-green', target: '_blank'
+        .panel_item-body
+          .form-fields
+            = f.input :title, label: 'Заголовок'
+            = f.association :category, label: 'Категория', prompt: 'Выберите категорию лендинга'
+            = f.input :slug, as: :slug, label: 'URL slug'
+
+      .panel-footer
+        .fl_r
+          button.small_button.is-green type='submit'
+            | Сохранить
+
