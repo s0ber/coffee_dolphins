@@ -36,6 +36,6 @@ private
   end
 
   def category_params
-    params.require(:category).permit(:title, :slug, :description, :html_title, :meta_keywords, :meta_description)
+    params.require(:category).permit(:title, :slug, :description, :html_title, :meta_description)
   end
 end
