@@ -9,7 +9,7 @@
         .small_button.is-green.is-icon data-modal=new_landing_path(position_id: position.id)
           = fa_icon('plus')
       - else
-        = link_to 'Открыть лендинг &rarr;'.html_safe, edit_landing_path(position.landing), class: 'small_button is-green'
+        = link_to 'Открыть лендинг &rarr;'.html_safe, position_path(position), class: 'small_button is-green'
 
       = position.like_button
       = position.edit_button

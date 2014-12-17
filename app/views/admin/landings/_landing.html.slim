@@ -1,16 +1,24 @@
 .panel_item data-view='item' data={item_id: landing.id}
   .panel_item-header
-    = link_to edit_landing_path(landing) do
+    = link_to position_path(landing.position) do
       = landing.position.title
       span.chevron.is-right
     .fl_r
       = landing.remove_button
 
   .panel_item-body
-    .panel_list
-      = list_item 'Категория', landing.category.title
-      = list_item 'Позиция' do
-        = link_to position_path(landing.position) do
-          = landing.position.title
-          span.chevron.is-right
-
+    .panel_list.is-table
+      .panel_list-inner
+        .panel_list-photo
+          img src=landing.position.image_url title=landing.position.title
+        .panel_list-items
+          = list_item 'Статус', landing.human_status
+          = list_item 'Категория', landing.category.title
+          = list_item 'URL Slug', landing.slug
+          = list_item 'Предпросмотр' do
+            = link_to landing.public_path, target: '_blank' do
+              - if landing.draft?
+                | Показать черновик
+              - else
+                | Показать опубликованный лендинг
+              span.chevron.is-right

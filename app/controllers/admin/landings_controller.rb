@@ -20,15 +20,9 @@ class Admin::LandingsController < Admin::BaseController
     render_success(redirect: edit_landing_path(@landing), notice: 'Лендинг успешно создан')
   end
 
-  def edit
-    @landing = Landing.includes(:category, position: :search_keywords).find(params[:id])
-    @landing = @landing.decorate
-    respond_with(@landing)
-  end
-
   def update
     @landing.update_attributes!(landing_params)
-    render_success(redirect: edit_landing_path(@landing), notice: 'Лендинг обновлен')
+    render_success(redirect: position_path(@landing.position), notice: 'Лендинг обновлен')
   end
 
   def destroy

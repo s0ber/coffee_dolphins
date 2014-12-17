@@ -3,7 +3,7 @@ class Utils.PageFramesManager
   FRAMES_BATCH_COUNT = 7
 
   constructor: (options) ->
-    {@view, @$pageContainer, @pagePath, @stateScrollTop} = options
+    {@view, @$pageContainer, @pagePath, @stateScrollTop, @onLayoutRender} = options
     @frames = []
 
   addFrame: (id, html) ->
@@ -20,6 +20,10 @@ class Utils.PageFramesManager
         @_renderPartialFrame(frame)
 
     @frames.length = 0
+
+    unless @layoutRendered
+      @layoutRendered = true
+      @onLayoutRender?()
 
     @_setBodyAsNotLoading() if lastRender
     @_scrollToStateTopPos() if @stateScrollTop

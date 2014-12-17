@@ -28,5 +28,8 @@
                 = list_item 'Ключевые слова' do
                   = render 'edit_search_keywords', position: @position
 
+    - if @position.has_landing?
+      = render 'landing_details', landing: @position.landing.decorate
+
     = render 'admin/polymorphic/notes/notes', notable: @position
 
