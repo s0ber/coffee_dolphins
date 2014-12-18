@@ -1,0 +1,63 @@
+.page-title
+  = link_to 'Позиции', positions_path, class: 'panel_item-header_link'
+  span.chevron.is-right
+  = link_to @landing.position.title, position_path(@landing.position), class: 'panel_item-header_link'
+  span.chevron.is-right
+  | Редактирование лендинга
+
+  .fl_r
+    = link_to 'Показать черновик &rarr;'.html_safe, @landing.public_path, class: 'small_button', target: '_blank'
+
+.page-body
+  .panel
+    = neo_form_for @landing do |f|
+      .form
+        .panel_item
+          .panel_item-header
+            | Главная информация
+          .panel_item-body
+            .form-fields
+              = f.input :title, label: 'Заголовок'
+
+        .panel_item
+          .panel_item-header
+            | Изображения
+          .panel_item-body
+            .form-fields
+              = f.input :title, label: 'Заголовок'
+
+        .panel_item
+          .panel_item-header
+            | Описание
+          .panel_item-body
+
+        .panel_item
+          .panel_item-header
+            | Преимущества
+          .panel_item-body
+
+        .panel_item
+          .panel_item-header
+            | Отзывы
+          .panel_item-body
+
+        .panel_item
+          .panel_item-header
+            | Дополнительно
+          .panel_item-body
+            .form-fields
+              = f.association :category, label: 'Категория', prompt: 'Выберите категорию лендинга'
+              = f.input :slug, as: :slug, label: 'URL slug'
+
+        .panel_item
+          .panel_item-header
+            | SEO
+          .panel_item-body
+            .form-fields
+              = f.association :category, label: 'Категория', prompt: 'Выберите категорию лендинга'
+              = f.input :slug, as: :slug, label: 'URL slug'
+
+        .panel-footer
+          .fl_r
+            button.small_button.is-green type='submit'
+              | Сохранить
