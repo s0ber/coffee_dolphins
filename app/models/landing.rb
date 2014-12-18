@@ -5,7 +5,13 @@ class Landing < ActiveRecord::Base
 
   validates :title, :slug, :category_id, :position_id, :_status, presence: true
   validates :slug, uniqueness: true
-  validates :price,
+  validates :short_description,
+            :description_title,
+            :description_text,
+            :advantages_title,
+            :advantages_text,
+            :why_question,
+            :price,
             :old_price,
             :apishops_price,
             :max_click_cost,

@@ -9,7 +9,7 @@ class Public::LandingsController < Public::BaseController
 private
 
   def load_landing
-    @landing = Landing.find_by_slug(params[:landing])
+    @landing = Landing.find_by_slug(params[:landing]).decorate
   end
 
   def restrict_access_to_unpublished

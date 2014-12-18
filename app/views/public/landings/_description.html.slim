@@ -3,85 +3,23 @@
     .column.is-16
       .section-title
         .section-title_inner
-          | О чудо-шланге Xhose™
+          = @landing.description_title
 
   .columns
     .column.is-10.offset.is-by_3
-      p.section-text
-        | Любите проводить время на даче, но вам надоело возиться с тяжелыми шлангами, которые постоянно путаются и заламываются?
-      p.section-text
-        ' Представляем вашему вниманию новое революционное изобретение — шланг <b>Xhose™</b>!
-        | Этот чудо-шланг весит всего пол килограмма и способен увеличиваться в размере <b>в 3 раза</b> при подаче воды, а затем возвращаться в исходное состояние.
-      .section-video
-        iframe src='//www.youtube.com/embed/nyM52jsO4vo' frameborder='0' allowfullscreen=true
-      p.section-text
-        ' Секрет Икс-Хоз в том, что он состоит из двух слоев: внутренний растягивающийся из резины и внешний из прочного нейлона.
-        | Благодаря такой конструкции, вы забудете о скручиваниях и заломах, затрудняющих полив, а переноска шланга станет невероятно удобной.
+      = @landing.description_text
 
 .section.is-dark_gradient
   .columns
     .column.is-16
       .section-title
         .section-title_inner
-          | Преимущества шланга Xhose™
+          = @landing.advantages_title
 
-  .columns
-    .column.is-9.offset.is-by_2.section-cell
-      ol.section-list
-        li Очень легкий (вес 416 гр).
-        li Увеличивается в размере в 3 раза при поступлении воды, а затем снова сжимается.
-        li Не допускает заломов и не перекручивается.
-        li Создает хороший напор воды.
-        li Прочный и долговечный.
-        li Компактный, удобно хранить и переносить.
-        li Можно увеличить длину шланга за счет соединения нескольких шлангов Xhose™ между собой.
-
-    .column.is-3.section-cell
-      .section-image
-        img src=image_path('public/inline_image.png')
-
-  .columns
-    .column.is-4.offset.is-by_2.section-cell
-      .section-subtitle
-        | Для чего можно использовать
-
-      ul.section-list
-        li для полива;
-        li для мойки машин;
-        li для мытья окон и фасадов;
-        li для мытья бассейна и т.д.
-      p.section-text
-        | Посмотрите видео об Экс-Хозе, почитайте отзывы и закажите свой чудо-шланг со скидкой прямо сейчас!
-
-    .column.is-4.section-cell
-      .section-subtitle
-        | Размеры шлангов в спокойном состоянии
-
-      ul.section-list
-        li Xhose™ 7,5 м: около 3,1 м;
-        li Xhose™ 15 м: около 5,6 м;
-        li Xhose™ 22,5 м: около 8,5 м;
-        li Xhose™ 30 м: около 11,2 м;
-
-    .column.is-5.section-cell
-      .section-subtitle
-        | Характеристики
-
-      div
+  - if @landing.advantages_text
+    = @landing.advantages_text.html_safe
+  - else
+    .columns
+      .column.is-10.offset.is-by_3
         p.section-text
-          | <b>Рабочее давление шланга:</b> 2-16 атмосфер.
-          br
-          | <b>Температура используемой воды:</b> от 0 до 36 градусов.
-          br
-          | <b>Цвет:</b> синий.
-          br
-          | <b>Материал шланга:</b> пластик, латекс, полотно тканное полиэфирное.
-          br
-          | <b>Внутренний диаметр:</b> 6 мм.
-          br
-          | <b>Внешний диаметр:</b> 9 мм.
-          br
-          | <b>Диаметр резьбового соединения:</b> 20 мм (подходит для 3/4").
-          br
-          | <b>Вес:</b> 416 г.
-
+          | Текст с описанием преимуществ товара.

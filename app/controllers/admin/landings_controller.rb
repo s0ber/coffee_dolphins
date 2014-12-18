@@ -42,6 +42,15 @@ private
   end
 
   def landing_params
-    params.require(:landing).permit(:title, :slug, :category_id)
+    params.require(:landing)
+      .permit(:title,
+              :slug,
+              :short_description,
+              :description_title,
+              :description_text,
+              :advantages_title,
+              :advantages_text,
+              :why_question,
+              :category_id)
   end
 end

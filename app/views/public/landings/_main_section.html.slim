@@ -7,12 +7,7 @@
             = @landing.title.html_safe
 
           .cta-description
-            | — Легкий, практичный, занимает мало места, идеально подойдет для полива газонов, мойки машины, и многого другого.
-            br
-            span data-section-name='description'
-              | — <span class="g-dashed">Включите воду, и он увеличится! (видео) &darr;</span>
-            br
-            | — 97% довольных покупателей, 70% обратились за повторной покупкой.
+            = @landing.short_description.html_safe
           .cta-warning
             | Успейте заказать этот уникальный <b>товар из ограниченной серии</b> по&nbsp;суперцене (<b>скидка действительна до 27.11.2014</b>).
 
@@ -26,7 +21,7 @@
       .why_to_buy-inner data-section-name='description'
         img src=image_path('public/woman.png')
         .why_to_buy-text
-          | Почему шланг Xhose — незаменимая вещь в хозяйстве?
+          = @landing.why_question
           br
           .why_to_buy-click_me
             | Нажмите сюда, чтобы узнать &darr;

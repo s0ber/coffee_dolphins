@@ -18,31 +18,44 @@
             | Основные параметры
           .panel_item-body
             .form-fields
-              = f.input :title, label: 'Заголовок'
+              = f.association :category, label: 'Категория', prompt: 'Выберите категорию лендинга'
 
         .panel_item
           .panel_item-header
-            | Главная информация
+            | Блок с основной информацией
           .panel_item-body
             .form-fields
-              = f.input :title, label: 'Заголовок'
+              = f.input :title, label: 'Заголовок товара'
+              = f.input :short_description, label: 'Краткое описание'
+              = f.input :why_question,
+                label: 'Вопрос "Почему?"',
+                hint: 'Пример: "Почему этот товар — незаменимая вещь в хозяйстве?"'
 
         .panel_item
           .panel_item-header
             | Изображения
           .panel_item-body
             .form-fields
-              = f.input :title, label: 'Заголовок'
 
         .panel_item
           .panel_item-header
-            | Описание
+            | Блок с описанием товара
           .panel_item-body
+            .form-fields
+              = f.input :description_title, label: 'Заголовок блока'
+              = f.input :description_text,
+                label: 'Текст с описанием товара',
+                hint: 'Вы можете поместить видео внутри этого текста с помощью плейсхолдера %VIDEO%'
 
         .panel_item
           .panel_item-header
             | Преимущества
           .panel_item-body
+            .form-fields
+              = f.input :advantages_title, label: 'Заголовок блока'
+              = f.input :advantages_text,
+                label: 'Текст с преимуществами и характеристиками товара',
+                hint: 'Допустимо использование HTML-разметки'
 
         .panel_item
           .panel_item-header
@@ -62,7 +75,6 @@
             | SEO
           .panel_item-body
             .form-fields
-              = f.association :category, label: 'Категория', prompt: 'Выберите категорию лендинга'
               = f.input :slug, as: :slug, label: 'URL slug'
 
         .panel-footer
