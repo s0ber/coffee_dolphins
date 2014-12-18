@@ -1,9 +1,10 @@
 .page-title
-  = link_to 'Позиции', positions_path, class: 'panel_item-header_link'
-  span.chevron.is-right
-  = link_to @landing.position.title, position_path(@landing.position), class: 'panel_item-header_link'
-  span.chevron.is-right
-  | Редактирование лендинга
+  span
+    = link_to 'Позиции', positions_path, class: 'panel_item-header_link'
+    span.chevron.is-right
+    = link_to @landing.position.title, position_path(@landing.position), class: 'panel_item-header_link'
+    span.chevron.is-right
+    | Редактирование лендинга
 
   .fl_r
     = link_to 'Показать черновик &rarr;'.html_safe, @landing.public_path, class: 'small_button', target: '_blank'

@@ -1,4 +1,5 @@
 @import 'admin/imports'
+@import 'admin/primitives/flexible'
 
 .page
   .layout.for-logged_out_user &
@@ -17,9 +18,17 @@
   color: $blue_dark
   text-shadow: 0 1px rgba(255, 255, 255, .75)
   border-radius: 5px
+  +acts_as_flexible_container
 
   .layout.for-logged_out_user &
     left: 0
+
+  > span
+    +text_overflow
+    +acts_as_flexible_left
+
+  .fl_r
+    +acts_as_flexible_right
 
 .page-body
   min-height: 500px

@@ -1,5 +1,6 @@
 @import 'admin/imports'
 @import 'admin/primitives/panel'
+@import 'admin/primitives/flexible'
 
 .panel_item
   margin-top: -1px
@@ -16,6 +17,14 @@
 
 .panel_item-header
   +acts_as_panel_header
+  +acts_as_flexible_container
+
+  > span
+    +text_overflow
+    +acts_as_flexible_left
+
+  .fl_r
+    +acts_as_flexible_right
 
 .panel_item-header_link
   +acts_as_panel_header_link

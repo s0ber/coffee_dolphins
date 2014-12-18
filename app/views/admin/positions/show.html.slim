@@ -1,7 +1,8 @@
 .page-title
-  = link_to 'Позиции', positions_path, class: 'panel_item-header_link'
-  span.chevron.is-right
-  = @position.title
+  span
+    = link_to 'Позиции', positions_path, class: 'panel_item-header_link'
+    span.chevron.is-right
+    = @position.title
   .fl_r
     = @position.like_button
 
@@ -10,7 +11,8 @@
     .panel data-view='app#editable_item' data={redirect_path: position_path(@position)}
       .panel_item
         .panel_item-header
-          | Детали
+          span
+            | Детали
           .fl_r
             = @position.edit_button
         .panel_item-body data-role='editable_item-info'
