@@ -31,6 +31,7 @@
               = f.input :title, label: 'Заголовок товара'
               = f.input :short_description,
                 label: 'Краткое описание',
+                input_html: {data: {view: 'app#editable_html'}},
                 hint: 'Допустимо использование HTML-разметки'
               = f.input :why_question,
                 label: 'Вопрос "Почему?"',
@@ -60,6 +61,7 @@
               = f.input :advantages_title, label: 'Заголовок блока'
               = f.input :advantages_text,
                 label: 'Текст с преимуществами и характеристиками товара',
+                input_html: {data: {view: 'app#editable_html'}},
                 hint: 'Допустимо использование HTML-разметки'
 
         .panel_item
