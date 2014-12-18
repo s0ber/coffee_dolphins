@@ -45,6 +45,7 @@ private
     params.require(:landing)
       .permit(:title,
               :slug,
+              :video_id,
               :short_description,
               :description_title,
               :description_text,

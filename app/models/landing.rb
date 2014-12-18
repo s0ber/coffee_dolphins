@@ -15,7 +15,7 @@ class Landing < ActiveRecord::Base
             :old_price,
             :apishops_price,
             :max_click_cost,
-            :video_url,
+            :video_id,
             :color,
             :apishops_article_id,
             :meta_description,

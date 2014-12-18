@@ -26,7 +26,14 @@ class LandingDecorator < ApplicationDecorator
   end
 
   def description_text
-    h.simple_format(object.description_text.presence || 'Текст с описанием товара.', class: 'section-text')
+    if object.video_id
+      video_iframe_tag = "<iframe src=\"//www.youtube.com/embed/#{object.video_id}\" frameborder=\"0\" allowfullscreen=\"true\"></iframe>"
+      text = object.description_text.presence.sub('%VIDEO%', h.content_tag(:div, video_iframe_tag.html_safe, class: 'section-video'))
+    else
+      text = object.description_text
+    end
+
+    h.simple_format(text.presence || 'Текст с описанием товара.', {class: 'section-text'}, sanitize: false)
   end
 
   def advantages_title

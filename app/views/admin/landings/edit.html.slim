@@ -19,6 +19,9 @@
           .panel_item-body
             .form-fields
               = f.association :category, label: 'Категория', prompt: 'Выберите категорию лендинга'
+              = f.input :video_id,
+                label: 'ID видео на ютубе',
+                hint: 'Пример: nyM52jsO4vo'
 
         .panel_item
           .panel_item-header
@@ -26,7 +29,9 @@
           .panel_item-body
             .form-fields
               = f.input :title, label: 'Заголовок товара'
-              = f.input :short_description, label: 'Краткое описание'
+              = f.input :short_description,
+                label: 'Краткое описание',
+                hint: 'Допустимо использование HTML-разметки'
               = f.input :why_question,
                 label: 'Вопрос "Почему?"',
                 hint: 'Пример: "Почему этот товар — незаменимая вещь в хозяйстве?"'
@@ -61,14 +66,6 @@
           .panel_item-header
             | Отзывы
           .panel_item-body
-
-        .panel_item
-          .panel_item-header
-            | Дополнительно
-          .panel_item-body
-            .form-fields
-              = f.association :category, label: 'Категория', prompt: 'Выберите категорию лендинга'
-              = f.input :slug, as: :slug, label: 'URL slug'
 
         .panel_item
           .panel_item-header
