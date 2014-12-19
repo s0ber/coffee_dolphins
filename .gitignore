@@ -30,3 +30,7 @@ config/secrets.yml
 /.vagrant
 
 /docs
+
+public/assets/*
+public/system/*
+public/uploads/*
