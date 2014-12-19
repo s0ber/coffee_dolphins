@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141218174146) do
+ActiveRecord::Schema.define(version: 20141218201501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,17 @@ ActiveRecord::Schema.define(version: 20141218174146) do
     t.integer  "apishops_category_id"
     t.boolean  "liked",                default: false
   end
+
+  create_table "reviews", force: true do |t|
+    t.string   "author"
+    t.boolean  "author_gender", default: true
+    t.text     "text"
+    t.integer  "landing_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reviews", ["landing_id"], name: "index_reviews_on_landing_id", using: :btree
 
   create_table "search_keywords", force: true do |t|
     t.string   "name"

@@ -7,28 +7,19 @@
 
   .columns
     .column.is-10.offset.is-by_3
-      .review
-        .review-text
-          = fa_icon 'quote-left'
-          | Очень удобный шланг! Носить его может даже ребенок. Легко соединяется с любым другим шлангом, да и насадки почти все к нему подходят.
-        .review-author
-          img.review-image src=image_path('public/review_author_man1.jpg')
-          | <b>Владимир Старовойтов</b>, программист
+      - woman_reviews = 0
+      - man_reviews = 0
 
-      .review
-        .review-text
-          = fa_icon 'quote-left'
-          | Такой легкий, я в шоке просто! Когда привезли я не верила что он сможет увеличиться в размере, но стоило включить воду и он растянулся как по волшебству!
-        .review-author
-          img.review-image src=image_path('public/review_author_woman1.jpg')
-          | <b>Ольга Баринова</b>, предприниматель
+      - @landing.reviews.each_with_index do |review|
+        .review
+          .review-text
+            = fa_icon 'quote-left'
+            = review.text
+          .review-author
+            - if review.by_male?
+              img.review-image src=image_path("public/review_author_man#{man_reviews += 1}.jpg")
+            - else
+              img.review-image src=image_path("public/review_author_woman#{woman_reviews += 1}.jpg")
 
-      .review
-        .review-text
-          = fa_icon 'quote-left'
-          | Икс Хоз - это лучшее изобретение для дачи за последнее время!
-          br
-          | Значительно облегчает жизнь любому садоводу-огороднику! Легкий, удобный шланг, не заламывается и не путается. А напор из него такой, что прям ух! Спасибо вообщем!
-        .review-author
-          img.review-image src=image_path('public/review_author_man2.jpg')
-          | <b>Тимур Васильев</b>, менеджер по продажам
+            = review.author
+

@@ -42,7 +42,8 @@ private
   end
 
   def landing_params
-    params.require(:landing)
+    params
+      .fetch(:landing, {})
       .permit(:title,
               :slug,
               :video_id,
@@ -52,6 +53,7 @@ private
               :advantages_title,
               :advantages_text,
               :why_question,
-              :category_id)
+              :category_id,
+              reviews_attributes: [:id, :author, :author_gender, :text, :landing_id])
   end
 end

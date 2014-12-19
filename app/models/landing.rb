@@ -2,6 +2,7 @@ class Landing < ActiveRecord::Base
   include StatusHolder
 
   before_validation :set_as_draft, on: :create
+  before_validation :mark_empty_reviews_for_destruction, on: :update
 
   validates :title, :slug, :category_id, :position_id, :_status, presence: true
   validates :slug, uniqueness: true
@@ -25,9 +26,17 @@ class Landing < ActiveRecord::Base
 
   belongs_to :category
   belongs_to :position
+  has_many :reviews, dependent: :destroy
+
+  accepts_nested_attributes_for :reviews, allow_destroy: true
 
   default_scope { order(:created_at) }
 
+  def mark_empty_reviews_for_destruction
+    self.reviews.each do |review|
+      review.mark_for_destruction if review.author.blank?
+    end
+  end
 
   def set_as_draft
     self._status = :draft

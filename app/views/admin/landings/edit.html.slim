@@ -28,7 +28,9 @@
             | Блок с основной информацией
           .panel_item-body
             .form-fields
-              = f.input :title, label: 'Заголовок товара'
+              = f.input :title,
+                label: 'Заголовок товара',
+                hint: 'Допустимо использование HTML-разметки'
               = f.input :short_description,
                 label: 'Краткое описание',
                 input_html: {data: {view: 'app#editable_html'}},
@@ -64,10 +66,7 @@
                 input_html: {data: {view: 'app#editable_html'}},
                 hint: 'Допустимо использование HTML-разметки'
 
-        .panel_item
-          .panel_item-header
-            | Отзывы
-          .panel_item-body
+        = render 'reviews_edit', landing: @landing, f: f
 
         .panel_item
           .panel_item-header
