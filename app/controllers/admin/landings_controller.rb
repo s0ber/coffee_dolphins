@@ -55,6 +55,6 @@ private
               :advantages_text,
               :reviews_title,
               :category_id,
-              reviews_attributes: [:id, :author, :author_gender, :text, :landing_id])
+              reviews_attributes: [:id, :author, :author_gender, :text, :landing_id, :author_profession])
   end
 end

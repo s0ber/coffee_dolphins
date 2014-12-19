@@ -21,5 +21,5 @@
             - else
               img.review-image src=image_path("public/review_author_woman#{woman_reviews += 1}.jpg")
 
-            = review.author
+            | <b>#{review.author}</b>, #{review.author_profession}
 

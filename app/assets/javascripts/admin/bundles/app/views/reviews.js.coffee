@@ -13,7 +13,6 @@ class App.Views.Reviews extends Dolphin.View
 
   addReview: ->
     @$emptyMessage().hide()
-    @reviewsCounter++
 
     $review = $(@reviewTemplate().html)
     $review.find('input, textarea').each (i, field) =>
@@ -24,6 +23,7 @@ class App.Views.Reviews extends Dolphin.View
         .attr(name: name.replace('0', @reviewsCounter))
 
     @append(@$reviewsContainer(), $review)
+    @reviewsCounter++
 
 # getter
 
