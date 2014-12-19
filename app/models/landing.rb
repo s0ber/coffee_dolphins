@@ -12,6 +12,7 @@ class Landing < ActiveRecord::Base
             :advantages_title,
             :advantages_text,
             :why_question,
+            :reviews_title,
             :price,
             :old_price,
             :apishops_price,

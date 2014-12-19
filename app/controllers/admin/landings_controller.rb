@@ -48,11 +48,12 @@ private
               :slug,
               :video_id,
               :short_description,
+              :why_question,
               :description_title,
               :description_text,
               :advantages_title,
               :advantages_text,
-              :why_question,
+              :reviews_title,
               :category_id,
               reviews_attributes: [:id, :author, :author_gender, :text, :landing_id])
   end

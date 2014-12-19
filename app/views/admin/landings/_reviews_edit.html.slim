@@ -22,6 +22,8 @@
         = fa_icon 'plus'
 
   .panel_item-body.has-p15
+    = f.input :reviews_title, label: 'Заголовок блока'
+
     .panels data-role='reviews-container'
       = f.simple_fields_for :reviews do |review_form|
         .panel data-role='reviews-review'

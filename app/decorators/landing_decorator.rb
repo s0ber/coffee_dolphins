@@ -40,6 +40,10 @@ class LandingDecorator < ApplicationDecorator
     object.advantages_title.presence || 'Заголовок блока с преимуществами товара'
   end
 
+  def reviews_title
+    object.reviews_title.presence || 'Заголовок блока с отзывами'
+  end
+
 protected
 
   def confirm_remove_message
