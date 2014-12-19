@@ -23,6 +23,7 @@ class App.Views.Reviews extends Dolphin.View
         .attr(name: name.replace('0', @reviewsCounter))
 
     @append(@$reviewsContainer(), $review)
+    $review.autofocus()
     @reviewsCounter++
 
 # getter
