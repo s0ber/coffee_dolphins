@@ -26,7 +26,7 @@ class LandingDecorator < ApplicationDecorator
   end
 
   def description_text
-    if object.video_id
+    if object.video_id && object.description_text
       video_iframe_tag = "<iframe src=\"//www.youtube.com/embed/#{object.video_id}\" frameborder=\"0\" allowfullscreen=\"true\"></iframe>"
       text = object.description_text.presence.sub('%VIDEO%', h.content_tag(:div, video_iframe_tag.html_safe, class: 'section-video'))
     else
