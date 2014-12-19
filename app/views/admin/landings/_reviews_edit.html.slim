@@ -1,0 +1,43 @@
+- review_template = capture do
+  .panel
+    .panel-body.is-stand_alone
+      .form-fields
+        - dummy_landing = Landing.new
+        - dummy_landing.reviews.build
+        = neo_fields_for dummy_landing do |f|
+          = f.association :reviews do |review_form|
+            = review_form.input :id, as: :hidden
+            = review_form.input :author,
+              label: 'Автор',
+              hint: 'Оставьте это поле пустым, и этот отзыв будет удален при сабмите формы'
+            = review_form.input :author_profession, label: 'Профессия автора'
+            = review_form.input :author_gender, as: :radio_buttons, label: 'Пол автора', collection: {'Парень' => true, 'Девушка' => false}
+            = review_form.input :text, label: 'Текст отзыва'
+
+.panel_item data-view='app#reviews' data={review_template: {html: review_template}.to_json}
+  .panel_item-header
+    span
+      | Отзывы
+    .fl_r
+      .small_button.is-icon.is-green data-role='reviews-add'
+        = fa_icon 'plus'
+
+  .panel_item-body.has-p15
+    = f.input :reviews_title, label: 'Заголовок блока'
+
+    .panels data-role='reviews-container'
+      = f.simple_fields_for :reviews do |review_form|
+        .panel data-role='reviews-review'
+          .panel-body.is-stand_alone
+            .form-fields
+              = review_form.input :id, as: :hidden
+              = review_form.input :author,
+                label: 'Автор',
+                hint: 'Оставьте это поле пустым, и этот отзыв будет удален при сабмите формы'
+              = review_form.input :author_profession, label: 'Профессия автора'
+              = review_form.input :author_gender, as: :radio_buttons, label: 'Пол автора', collection: {'Парень' => true, 'Девушка' => false}
+              = review_form.input :text, label: 'Текст отзыва'
+
+    div class=('hidden' if landing.reviews.any?) data-role='reviews-empty_message'
+      p.panel-text
+        | Нет отзывов

@@ -9,7 +9,43 @@ class LandingDecorator < ApplicationDecorator
     h.content_tag :b, (object.draft? ? 'Черновик' : 'Опубликован')
   end
 
+  def title
+    object.title.presence || 'Заголовок товара'
+  end
+
+  def short_description
+    object.short_description.presence || 'Краткое описание товара.'
+  end
+
+  def why_question
+    object.why_question.presence || 'Вопрос "Почему?".'
+  end
+
+  def description_title
+    object.description_title.presence || 'Заголовок блока с описанием товара'
+  end
+
+  def description_text
+    if object.video_id
+      video_iframe_tag = "<iframe src=\"//www.youtube.com/embed/#{object.video_id}\" frameborder=\"0\" allowfullscreen=\"true\"></iframe>"
+      text = object.description_text.presence.sub('%VIDEO%', h.content_tag(:div, video_iframe_tag.html_safe, class: 'section-video'))
+    else
+      text = object.description_text
+    end
+
+    h.simple_format(text.presence || 'Текст с описанием товара.', {class: 'section-text'}, sanitize: false)
+  end
+
+  def advantages_title
+    object.advantages_title.presence || 'Заголовок блока с преимуществами товара'
+  end
+
+  def reviews_title
+    object.reviews_title.presence || 'Заголовок блока с отзывами'
+  end
+
 protected
+
   def confirm_remove_message
     "Удалить лендинг #{object.title}?"
   end

@@ -1,5 +1,6 @@
 @import 'admin/imports'
 @import 'admin/primitives/panel'
+@import 'admin/primitives/flexible'
 
 .panel
 
@@ -30,7 +31,15 @@
 
 .panel-header
   +acts_as_panel_header
+  +acts_as_flexible_container
   border-radius: 5px 5px 0 0
+
+  > span
+    +text_overflow
+    +acts_as_flexible_left
+
+  .fl_r
+    +acts_as_flexible_right
 
 .panel-header_link
   +acts_as_panel_header_link
@@ -45,6 +54,10 @@
   &.is-dark
     background: $blue_light
 
+  &.is-stand_alone
+    margin-top: 0
+    border-radius: 5px
+
 p.panel-text
   margin: 25px 0 0 0
 
@@ -54,6 +67,5 @@ p.panel-text
 .panel-footer
   +acts_as_panel_body
   padding: 15px
-  background: #E9EBEC
-  border-color: #D2CCCC
+  background: $blue_light
   border-radius: 0 0 5px 5px

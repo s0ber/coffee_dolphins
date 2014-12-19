@@ -1,19 +1,13 @@
-= neo_form_for landing do |f|
-  .panel
-    .form
-      .panel_item
-        .panel_item-header
-          | Лендинг
-          .fl_r
-            = link_to 'Показать черновик &rarr;'.html_safe, landing.public_path, class: 'small_button is-green', target: '_blank'
-        .panel_item-body
-          .form-fields
-            = f.input :title, label: 'Заголовок'
-            = f.association :category, label: 'Категория', prompt: 'Выберите категорию лендинга'
-            = f.input :slug, as: :slug, label: 'URL slug'
-
-      .panel-footer
-        .fl_r
-          button.small_button.is-green type='submit'
-            | Сохранить
-
+.panel
+  .panel_item
+    .panel_item-header
+      span
+        | Лендинг
+      .fl_r
+        = link_to fa_icon('pencil'), edit_landing_path(landing), class: 'small_button is-icon'
+        = link_to 'Показать черновик &rarr;'.html_safe, landing.public_path, class: 'small_button', target: '_blank'
+    .panel_item-body
+      .panel_list
+        = list_item 'Статус', landing.human_status
+        = list_item 'Категория', landing.category.title
+        = list_item 'URL Slug', landing.slug

@@ -12,7 +12,7 @@ class App.Behaviors.EditableItem extends Dolphin.View
     'ajax:success form': 'updateItem'
 
   initialize: ->
-    @applyBehavior 'Dynamic'
+    @applyBehavior 'Dynamic' if @blockPath()
 
   openEditForm: (e, json) ->
     @utils.disableLink(@$editButton(), true)
@@ -27,10 +27,22 @@ class App.Behaviors.EditableItem extends Dolphin.View
       .show()
 
   updateItem: ->
-    @behaviors.Dynamic.redraw().done @showUpdateNotice.bind(@)
+    if @blockPath()
+      @behaviors.Dynamic.redraw().done @showUpdateNotice.bind(@)
+    else if @redirectPath()
+      @emit('page:load', @redirectPath())
 
   showUpdateNotice: ->
     return unless @$itemTitle().exists()
     $updateNotice = $('<span class="status is-gray"> — обновлено</span>').hide()
     $updateNotice.appendTo(@$itemTitle()).fadeIn()
     (-> $updateNotice.fadeOut(-> $updateNotice.remove())).delay(4000)
+
+# getters
+
+  blockPath: ->
+    @_blockPath ?= @$el.data('block-path')
+
+  redirectPath: ->
+    @_redirectPath ?= @$el.data('redirect-path')
+

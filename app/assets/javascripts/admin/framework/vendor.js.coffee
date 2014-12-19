@@ -17,5 +17,13 @@
 #= require ijax/build/ijax
 #= require noted/lib/noted
 
+#= require codemirror/lib/codemirror.js
+#= require codemirror/mode/xml/xml.js
+#= require codemirror/addon/fold/xml-fold.js
+#= require codemirror/addon/edit/closebrackets.js
+#= require codemirror/addon/edit/matchbrackets.js
+#= require codemirror/addon/edit/closetag.js
+#= require codemirror/addon/edit/matchtags.js
+
 #= require stacktrace-js/stacktrace
 #= require jquery.caret

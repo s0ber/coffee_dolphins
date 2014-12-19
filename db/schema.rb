@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217144855) do
+ActiveRecord::Schema.define(version: 20141219001031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,9 +31,8 @@ ActiveRecord::Schema.define(version: 20141217144855) do
     t.string   "slug"
     t.decimal  "price"
     t.decimal  "old_price"
-    t.decimal  "apishops_price"
     t.decimal  "max_click_cost"
-    t.string   "video_url"
+    t.string   "video_id"
     t.integer  "color",               limit: 2
     t.string   "apishops_article_id"
     t.string   "meta_description"
@@ -43,6 +42,13 @@ ActiveRecord::Schema.define(version: 20141217144855) do
     t.integer  "position_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "short_description"
+    t.string   "description_title"
+    t.text     "description_text"
+    t.string   "advantages_title"
+    t.text     "advantages_text"
+    t.string   "why_question"
+    t.string   "reviews_title"
   end
 
   add_index "landings", ["category_id"], name: "index_landings_on_category_id", using: :btree
@@ -73,6 +79,18 @@ ActiveRecord::Schema.define(version: 20141217144855) do
     t.integer  "apishops_category_id"
     t.boolean  "liked",                default: false
   end
+
+  create_table "reviews", force: true do |t|
+    t.string   "author"
+    t.boolean  "author_gender",     default: true
+    t.text     "text"
+    t.integer  "landing_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "author_profession"
+  end
+
+  add_index "reviews", ["landing_id"], name: "index_reviews_on_landing_id", using: :btree
 
   create_table "search_keywords", force: true do |t|
     t.string   "name"

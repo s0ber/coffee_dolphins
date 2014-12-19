@@ -1,5 +1,5 @@
 class Admin::LandingsController < Admin::BaseController
-  before_filter :load_landing, only: [:show, :update, :destroy]
+  before_filter :load_landing, only: [:show, :edit, :update, :destroy]
 
   def index
     @landings = Landing.includes(:category, :position).all.decorate
@@ -20,9 +20,14 @@ class Admin::LandingsController < Admin::BaseController
     render_success(redirect: edit_landing_path(@landing), notice: 'Лендинг успешно создан')
   end
 
+  def edit
+    @landing = @landing.decorate
+    respond_with(@landing)
+  end
+
   def update
     @landing.update_attributes!(landing_params)
-    render_success(redirect: position_path(@landing.position), notice: 'Лендинг обновлен')
+    render_success(redirect: edit_landing_path(@landing), notice: 'Лендинг обновлен')
   end
 
   def destroy
@@ -37,6 +42,19 @@ private
   end
 
   def landing_params
-    params.require(:landing).permit(:title, :slug, :category_id)
+    params
+      .fetch(:landing, {})
+      .permit(:title,
+              :slug,
+              :video_id,
+              :short_description,
+              :why_question,
+              :description_title,
+              :description_text,
+              :advantages_title,
+              :advantages_text,
+              :reviews_title,
+              :category_id,
+              reviews_attributes: [:id, :author, :author_gender, :text, :landing_id, :author_profession])
   end
 end
