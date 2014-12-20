@@ -35,6 +35,14 @@ class Admin::LandingsController < Admin::BaseController
     render_success(notice: 'Лендинг успешно удален')
   end
 
+  def upload_image
+    landing_image = LandingImage.new(image: params[:qqfile])
+    landing_image.landing = Landing.find(params[:landing_id])
+
+    landing_image.save!
+    render_success(image_path: landing_image.image.url)
+  end
+
 private
 
   def load_landing

@@ -1,13 +1,14 @@
 class LandingImage < ActiveRecord::Base
-  validates :image, :key, :landing_id, presence: true
-  validates :alt_text, presence: true, on: :update, if: :landing_published?
+  validates :image, :landing_id, presence: true
+  validates :key, presence: true, on: :update
   validates :key, uniqueness: true
+  validates :alt_text, presence: true, on: :update, if: :landing_published?
 
   belongs_to :landing
 
   default_scope { order(:created_at) }
 
-  mount_uploader :image, ImageUploader
+  mount_uploader :image, LandingImageUploader
 
   def landing_published?
     self.landing.published?
