@@ -5,6 +5,10 @@ class LandingDecorator < ApplicationDecorator
     h.public_landing_path(object.category.slug, object.slug)
   end
 
+  def public_button
+    h.link_to 'Показать черновик &rarr;'.html_safe, public_path, class: 'small_button', target: '_blank'
+  end
+
   def human_status
     h.content_tag :b, (object.draft? ? 'Черновик' : 'Опубликован')
   end
