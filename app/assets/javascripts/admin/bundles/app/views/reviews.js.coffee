@@ -8,9 +8,6 @@ class App.Views.Reviews extends Dolphin.View
   events:
     'click @reviews-add': 'addReview'
 
-  initialize: ->
-    @reviewsCounter = @$reviews().length
-
   addReview: ->
     @$emptyMessage().hide()
 
@@ -20,13 +17,19 @@ class App.Views.Reviews extends Dolphin.View
       name = $(field).attr('name')
       $(field)
         .removeAttr('id')
-        .attr(name: name.replace('0', @reviewsCounter))
+        .attr(name: name.replace('0', @reviewsCounter()))
 
     @append(@$reviewsContainer(), $review)
     $review.autofocus()
-    @reviewsCounter++
+    @incrementReviewsCounter()
 
 # getter
 
   reviewTemplate: ->
     @$el.data('review-template')
+
+  reviewsCounter: ->
+    @_reviewsCounter ?= @$reviews().length
+
+  incrementReviewsCounter: ->
+    @_reviewsCounter++
