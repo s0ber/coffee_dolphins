@@ -153,6 +153,7 @@ GEM
     request_store (1.1.0)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
+    rmagick (2.13.2)
     routing-filter (0.4.0.pre)
       actionpack
     sass (3.2.19)
@@ -238,6 +239,7 @@ DEPENDENCIES
   rb-readline
   remotipart (~> 1.2)
   responders
+  rmagick (= 2.13.2)
   routing-filter (= 0.4.0.pre)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)

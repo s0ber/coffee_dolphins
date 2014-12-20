@@ -1,4 +1,5 @@
 #= require jquery
+#= require jquery.migrate
 #= require jquery_ujs
 #= require jquery.remotipart
 #= require jquery.role
@@ -24,6 +25,8 @@
 #= require codemirror/addon/edit/matchbrackets.js
 #= require codemirror/addon/edit/closetag.js
 #= require codemirror/addon/edit/matchtags.js
+
+#= require fileuploader-custom
 
 #= require stacktrace-js/stacktrace
 #= require jquery.caret
