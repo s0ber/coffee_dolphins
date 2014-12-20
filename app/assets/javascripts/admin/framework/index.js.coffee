@@ -1,4 +1,3 @@
-#= require ./vendor
 #= require ./views_factory
 #= require_tree ./initializers
 #= require_tree ./extensions

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141219001031) do
+ActiveRecord::Schema.define(version: 20141220133649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,19 @@ ActiveRecord::Schema.define(version: 20141219001031) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "landing_images", force: true do |t|
+    t.string   "image"
+    t.string   "alt_text"
+    t.string   "key"
+    t.integer  "position"
+    t.boolean  "for_gallery", default: false
+    t.integer  "landing_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "landing_images", ["landing_id"], name: "index_landing_images_on_landing_id", using: :btree
 
   create_table "landings", force: true do |t|
     t.string   "title"

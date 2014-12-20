@@ -1,0 +1,10 @@
+.panel_item
+  .panel_item-header
+    | Преимущества
+  .panel_item-body
+    .form-fields
+      = f.input :advantages_title, label: 'Заголовок блока'
+      = f.input :advantages_text,
+        label: 'Текст с преимуществами и характеристиками товара',
+        input_html: {data: {view: 'app#editable_html'}},
+        hint: 'Допустимо использование HTML-разметки'

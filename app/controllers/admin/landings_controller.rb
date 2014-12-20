@@ -35,6 +35,14 @@ class Admin::LandingsController < Admin::BaseController
     render_success(notice: 'Лендинг успешно удален')
   end
 
+  def upload_image
+    landing_image = LandingImage.new(image: params[:qqfile])
+    landing_image.landing = Landing.find(params[:landing_id])
+
+    landing_image.save!
+    render_success(notice: 'Картинка успешно загружена', image: {id: landing_image.id, path: landing_image.image.thumb.url})
+  end
+
 private
 
   def load_landing
@@ -55,6 +63,7 @@ private
               :advantages_text,
               :reviews_title,
               :category_id,
-              reviews_attributes: [:id, :author, :author_gender, :text, :landing_id, :author_profession])
+              reviews_attributes: [:id, :author, :author_gender, :text, :landing_id, :author_profession],
+              landing_images_attributes: [:id, :key, :alt_text, :for_gallery, :_destroy])
   end
 end

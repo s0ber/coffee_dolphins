@@ -7,73 +7,20 @@
     | Редактирование лендинга
 
   .fl_r
-    = link_to 'Показать черновик &rarr;'.html_safe, @landing.public_path, class: 'small_button', target: '_blank'
+    = @landing.public_button
 
 .page-body
   .panel
     = neo_form_for @landing do |f|
       .form
-        .panel_item
-          .panel_item-header
-            | Основные параметры
-          .panel_item-body
-            .form-fields
-              = f.association :category, label: 'Категория', prompt: 'Выберите категорию лендинга'
-              = f.input :video_id,
-                label: 'ID видео на ютубе',
-                hint: 'Пример: nyM52jsO4vo'
-
-        .panel_item
-          .panel_item-header
-            | Блок с основной информацией
-          .panel_item-body
-            .form-fields
-              = f.input :title,
-                label: 'Заголовок товара',
-                hint: 'Допустимо использование HTML-разметки'
-              = f.input :short_description,
-                label: 'Краткое описание',
-                input_html: {data: {view: 'app#editable_html'}},
-                hint: 'Допустимо использование HTML-разметки'
-              = f.input :why_question,
-                label: 'Вопрос "Почему?"',
-                hint: 'Пример: "Почему этот товар — незаменимая вещь в хозяйстве?"'
-
-        .panel_item
-          .panel_item-header
-            | Изображения
-          .panel_item-body
-            .form-fields
-
-        .panel_item
-          .panel_item-header
-            | Блок с описанием товара
-          .panel_item-body
-            .form-fields
-              = f.input :description_title, label: 'Заголовок блока'
-              = f.input :description_text,
-                label: 'Текст с описанием товара',
-                hint: 'Вы можете поместить видео внутри этого текста с помощью плейсхолдера %VIDEO%'
-
-        .panel_item
-          .panel_item-header
-            | Преимущества
-          .panel_item-body
-            .form-fields
-              = f.input :advantages_title, label: 'Заголовок блока'
-              = f.input :advantages_text,
-                label: 'Текст с преимуществами и характеристиками товара',
-                input_html: {data: {view: 'app#editable_html'}},
-                hint: 'Допустимо использование HTML-разметки'
-
-        = render 'reviews_edit', landing: @landing, f: f
-
-        .panel_item
-          .panel_item-header
-            | SEO
-          .panel_item-body
-            .form-fields
-              = f.input :slug, as: :slug, label: 'URL slug'
+        = render 'admin/landings/form/landing_setup', landing: @landing, f: f
+        = render 'admin/landings/form/main_info', landing: @landing, f: f
+        = render 'admin/landings/form/images', landing: @landing, f: f
+        = render 'admin/landings/form/description', landing: @landing, f: f
+        = render 'admin/landings/form/advantages', landing: @landing, f: f
+        = render 'admin/landings/form/reviews', landing: @landing, f: f
+        = render 'admin/landings/form/reviews', landing: @landing, f: f
+        = render 'admin/landings/form/seo', landing: @landing, f: f
 
         .panel-footer
           .fl_r

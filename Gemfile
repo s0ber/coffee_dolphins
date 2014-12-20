@@ -32,6 +32,9 @@ gem 'routing-filter', '0.4.0.pre'
 # automatically turn http:// text into links
 gem 'rails_autolink'
 
+# images upload
+gem 'rmagick', '2.13.2', require: 'RMagick'  # ImageMagick bindings
+gem 'carrierwave'
 
 # Automatically add vendor prefixes for styles
 gem 'autoprefixer-rails'

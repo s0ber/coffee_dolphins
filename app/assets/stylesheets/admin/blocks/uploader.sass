@@ -1,0 +1,82 @@
+@import 'admin/imports'
+
+/* Block for drag and drop uploader */
+.uploader
+  position: relative
+  width: 100%
+  height: 125px
+  cursor: pointer
+
+.uploader-button
+  display: block
+  height: 100%
+  text-align: center
+  color: $text_color_light
+
+  input
+    font-size: 350px !important
+    width: 4850px !important
+    height: 100% !important
+
+  .uploader-button_inner
+    display: block
+    position: absolute
+    padding: 4px
+    border: 1px dashed $blue_medium
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    line-height: 117px
+    border-radius: 5px
+    box-sizing: border-box
+
+  .uploader-button_title
+    display: inline-block
+    padding: 0 10px
+    text-align: left
+    vertical-align: middle
+
+  &.is-hover
+    color: #fff
+    cursor: pointer
+    border-radius: 2px
+
+  &.is-focus
+    outline: none
+
+.uploader-button_content
+  display: block
+  height: 100%
+  background: $blue_light
+  border-radius: 5px
+
+.uploader-drop_area
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  border-color: #5397DE
+  color: $blue_dark
+  text-shadow: 0 1px rgba(255, 255, 255, .75)
+  box-sizing: border-box
+  border-radius: 5px
+  z-index: 2
+
+  .uploader-button_inner
+    border-color: $blue_dark
+
+  .uploader-button_content
+    background: $blue_light
+
+  &.is-active
+    box-shadow: none
+
+    .uploader-button_inner
+      border-color: $blue_dark
+
+    .uploader-button_content
+      background: $blue_dark
+      color: #fff
+      text-shadow: none

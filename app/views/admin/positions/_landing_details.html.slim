@@ -5,7 +5,7 @@
         | Лендинг
       .fl_r
         = link_to fa_icon('pencil'), edit_landing_path(landing), class: 'small_button is-icon'
-        = link_to 'Показать черновик &rarr;'.html_safe, landing.public_path, class: 'small_button', target: '_blank'
+        = landing.public_button
     .panel_item-body
       .panel_list
         = list_item 'Статус', landing.human_status
