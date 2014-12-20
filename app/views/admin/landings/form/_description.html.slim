@@ -1,0 +1,10 @@
+.panel_item
+  .panel_item-header
+    | Блок с описанием товара
+  .panel_item-body
+    .form-fields
+      = f.input :description_title, label: 'Заголовок блока'
+      = f.input :description_text,
+        label: 'Текст с описанием товара',
+        hint: 'Вы можете поместить видео внутри этого текста с помощью плейсхолдера %VIDEO%'
+

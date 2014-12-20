@@ -1,0 +1,15 @@
+.panel_item
+  .panel_item-header
+    | Блок с основной информацией
+  .panel_item-body
+    .form-fields
+      = f.input :title,
+        label: 'Заголовок товара',
+        hint: 'Допустимо использование HTML-разметки'
+      = f.input :short_description,
+        label: 'Краткое описание',
+        input_html: {data: {view: 'app#editable_html'}},
+        hint: 'Допустимо использование HTML-разметки'
+      = f.input :why_question,
+        label: 'Вопрос "Почему?"',
+        hint: 'Пример: "Почему этот товар — незаменимая вещь в хозяйстве?"'

@@ -36,9 +36,11 @@ Rails.application.routes.draw do
     end
 
     resources :categories
+
     resources :landings do
       post :upload_image, on: :member
     end
+
     resource :statistics, only: [:show]
     resource :finances, only: [:show]
     resources :users

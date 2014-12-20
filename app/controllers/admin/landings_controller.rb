@@ -40,7 +40,7 @@ class Admin::LandingsController < Admin::BaseController
     landing_image.landing = Landing.find(params[:landing_id])
 
     landing_image.save!
-    render_success(image_path: landing_image.image.url)
+    render_success(image: {id: landing_image.id, path: landing_image.image.current_path})
   end
 
 private
