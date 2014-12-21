@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141221143322) do
+ActiveRecord::Schema.define(version: 20141221175439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 20141221143322) do
 
   create_table "landing_images", force: true do |t|
     t.string   "image"
-    t.string   "alt_text"
-    t.string   "key"
+    t.string   "alt_text",    default: ""
+    t.string   "key",         default: ""
     t.integer  "position"
     t.boolean  "for_gallery", default: false
     t.integer  "landing_id"
