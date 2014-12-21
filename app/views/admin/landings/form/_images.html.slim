@@ -23,7 +23,8 @@
 
 .panel_item data-view='app#images_list' data={landing_id: landing.id,
                                               upload_image_path: upload_image_landing_path(landing),
-                                              image_template: {html: image_template}.to_json}
+                                              image_template: {html: image_template}.to_json,
+                                              reorder_path: reorder_images_landing_path(landing)}
   .panel_item-header
     | Изображения
 
