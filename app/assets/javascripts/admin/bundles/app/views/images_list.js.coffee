@@ -8,6 +8,11 @@ class App.Views.ImagesList extends Dolphin.View
   initialize: ->
     @initFileUploader()
 
+    @initSorting()
+    @listen('page:loaded', @resetSorting)
+
+    @$imagesContainer().on('sortupdate', @reorderImages.bind(@))
+
   initFileUploader: ->
     new Utils.FileUploader
       element: @$uploader()[0]
@@ -18,6 +23,25 @@ class App.Views.ImagesList extends Dolphin.View
       onComplete: (id, fileName, json) =>
         @addImage(json)
         @showNotice(json.notice) if json.notice?
+
+  initSorting: ->
+    @$imagesContainer().sortable(handle: '@images_list-sorting_handle')
+
+  unloadSorting: ->
+    @$imagesContainer().sortable('destroy')
+
+  resetSorting: ->
+    @unloadSorting()
+    @initSorting()
+
+  reorderImages: ->
+    $images = @$images()
+
+    indexes = for i in [0...$images.length]
+      $images.eq(i).data('id')
+
+    $.post(@reorderPath(), _method: 'put', indexes: indexes).done (json) =>
+      @showNotice(json.notice) if json.notice
 
   addImage: (json) ->
     $image = $(@imageTemplate().html)
@@ -31,6 +55,7 @@ class App.Views.ImagesList extends Dolphin.View
         .attr(name: name.replace('0', @imagesCounter()))
 
     $image
+      .attr('data-id': json.image.id)
       .find('@images_list-image_tag')
         .attr(src: json.image.path)
         .end()
@@ -41,6 +66,7 @@ class App.Views.ImagesList extends Dolphin.View
     $image.autofocus()
 
     @incrementImagesCounter()
+    @resetSorting()
 
 # getters
 
@@ -52,6 +78,9 @@ class App.Views.ImagesList extends Dolphin.View
 
   uploadPath: ->
     @$el.data('upload-image-path')
+
+  reorderPath: ->
+    @$el.data('reorder-path')
 
   imageTemplate: ->
     @$el.data('image-template')

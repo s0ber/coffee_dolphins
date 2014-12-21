@@ -47,6 +47,7 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
         .onResolve(=>
           frames.render(true)
           dfd.resolve()
+          @emit('page:loaded')
         )
 
   processLinkClick: (e) ->
@@ -79,6 +80,7 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
         .onFrameReceive((id, html) -> frames.addFrame(id, html))
         .onResolve(=>
           frames.render(true)
+          @emit('page:loaded')
         )
 
   reloadCurrentPage: ->

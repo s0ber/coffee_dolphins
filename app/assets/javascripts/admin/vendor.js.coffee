@@ -27,6 +27,7 @@
 #= require codemirror/addon/edit/matchtags.js
 
 #= require fileuploader-custom
+#= require html5sortable/jquery.sortable
 
 #= require stacktrace-js/stacktrace
 #= require jquery.caret

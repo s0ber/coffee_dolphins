@@ -48,7 +48,7 @@ class Admin::LandingsController < Admin::BaseController
     landing_images_ids = params[:indexes]
 
     landing_images_ids.each_with_index do |landing_image_id, index|
-      landing_images.where(id: landing_image_id).update_attribute(:position, index)
+      landing_images.where(id: landing_image_id).update_all(position: index)
     end
 
     render_success(notice: 'Порядок картинок изменен')

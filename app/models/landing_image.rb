@@ -5,8 +5,6 @@ class LandingImage < ActiveRecord::Base
   belongs_to :landing
   acts_as_list scope: :landing
 
-  default_scope { order(:created_at) }
-
   mount_uploader :image, ImageUploader
 
   def landing_published?
