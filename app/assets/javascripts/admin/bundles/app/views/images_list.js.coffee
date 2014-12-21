@@ -5,6 +5,12 @@ class App.Views.ImagesList extends Dolphin.View
     imagesContainer: '@images_list-container'
     images: '@images_list-image'
 
+  # those events fix Chrome's behavior,
+  # when you can't select text with CTRL+A in draggable inputs
+  events:
+    'focus input': 'unloadSorting'
+    'blur input': 'initSorting'
+
   initialize: ->
     @initFileUploader()
 
