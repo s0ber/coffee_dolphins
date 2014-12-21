@@ -5,6 +5,8 @@ class LandingImage < ActiveRecord::Base
   belongs_to :landing
   acts_as_list scope: :landing
 
+  scope :for_gallery, -> { where(for_gallery: true) }
+
   mount_uploader :image, ImageUploader
 
   def landing_published?
