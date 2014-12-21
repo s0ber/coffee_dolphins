@@ -9,7 +9,7 @@ class App.Views.ImagesList extends Dolphin.View
   # when you can't select text with CTRL+A in draggable inputs
   events:
     'focus input': 'unloadSorting'
-    'blur input': 'initSorting'
+    'blur input': 'resetSorting'
 
   initialize: ->
     @initFileUploader()
