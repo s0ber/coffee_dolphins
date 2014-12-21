@@ -5,9 +5,13 @@ class App.Views.PhotosSlider extends View
     previews: '.js-photo_preview'
     prevArrow: '.js-show_prev_photo'
     nextArrow: '.js-show_next_photo'
+    previewsContainer: '.js-photos_previews_container'
 
   initialize: ->
     @previewsNum = @$previews.length
+    @photosRange = [0..3]
+
+    @$previews.first().addClass('is-active')
 
     @$previews.on('click', _.bind(@selectPhoto, @))
     @$prevArrow.on('click', _.bind(@selectPrevPhoto, @))
@@ -31,6 +35,9 @@ class App.Views.PhotosSlider extends View
     @selectPhotoByIndex(previewIndex)
 
   selectPhotoByIndex: (index) ->
+    unless index in @photosRange
+      @adjustPhotosRangeToIndex(index)
+
     $preview = @$previews.eq(index)
     imagePath = $preview.find('img').attr('src')
 
@@ -50,7 +57,22 @@ class App.Views.PhotosSlider extends View
       @selectNextPhoto() if Utils.isElementInViewport(@$mainPhoto)
     , 4000)
 
+  adjustPhotosRangeToIndex: (index) ->
+    if index >= 0
+      if index < @photosRange[0]
+        @photosRange = [index..index+3]
+      else
+        @photosRange = [index-3..index]
+    else
+      @photosRange = [@previewsNum+index-3..@previewsNum+index]
+
+    offsetIndex = @photosRange[0]
+    @$previewsContainer.css('margin-left': - offsetIndex * @previewWidth())
+
 # private
+
+  previewWidth: ->
+    @$previews.eq(-1).outerWidth(true)
 
   $activePreview: ->
     @$previews.filter('.is-active')

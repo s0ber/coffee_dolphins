@@ -10,8 +10,8 @@
     .photos_slider-arrow_right.js-show_next_photo
       = fa_icon 'chevron-right'
     .photos_slider-previews
-      .clearfix
-        .photos_slider-previews_item.is-active.js-photo_preview
+      .photos_slider-previews_inner.clearfix.js-photos_previews_container
+        .photos_slider-previews_item.js-photo_preview
           .photos_slider-previews_item_inner
             img src=image_path('public/test_photo.jpg')
         .photos_slider-previews_item.js-photo_preview
@@ -23,3 +23,9 @@
         .photos_slider-previews_item.js-photo_preview
           .photos_slider-previews_item_inner
             img src=image_path('public/test_photo4.jpg')
+        .photos_slider-previews_item.js-photo_preview
+          .photos_slider-previews_item_inner
+            img src=image_path('public/test_photo2.jpg')
+        .photos_slider-previews_item.js-photo_preview
+          .photos_slider-previews_item_inner
+            img src=image_path('public/test_photo3.jpg')

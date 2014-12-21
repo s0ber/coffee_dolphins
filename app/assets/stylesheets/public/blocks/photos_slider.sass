@@ -54,11 +54,17 @@
 
 .photos_slider-previews
   clear: both
-  margin: 0 65px
-  padding-top: 10px
+  margin: 0 65px 0 60px
+  padding: 10px 5px 5px
+  width: 330px
+  white-space: nowrap
+  overflow: hidden
+
+.photos_slider-previews_inner
+  transition: margin-left .4s
 
 .photos_slider-previews_item
-  float: left
+  display: inline-block
   margin-left: 10px
   height: 75px
   width: 75px
@@ -78,6 +84,7 @@
   img
     width: 100%
     height: auto
+    margin-top: -2px
     display: inline-block
     vertical-align: middle
 
@@ -97,6 +104,9 @@
   .photos_slider-arrow_right
     height: 270px
     line-height: 270px
+
+  .photos_slider-previews
+    width: 270px
 
   .photos_slider-previews_item
     width: 60px
