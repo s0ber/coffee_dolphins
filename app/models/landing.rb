@@ -28,7 +28,7 @@ class Landing < ActiveRecord::Base
   belongs_to :category
   belongs_to :position
   has_many :reviews, dependent: :destroy
-  has_many :landing_images, dependent: :destroy
+  has_many :landing_images, -> { order(position: :asc) }, dependent: :destroy
 
   accepts_nested_attributes_for :reviews, allow_destroy: true
   accepts_nested_attributes_for :landing_images, allow_destroy: true

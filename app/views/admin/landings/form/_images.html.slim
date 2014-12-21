@@ -4,12 +4,13 @@
 
   = neo_fields_for dummy_landing do |f|
     = f.association :landing_images do |image_form|
-      .panel
+      .panel data-role='images_list-image'
         .panel-body.is-stand_alone
           .panel_list.is-table
             .panel_list-inner
-              .panel_list-photo
+              .panel_list-photo.has-reorder_icon data-role='images_list-sorting_handle'
                 img src='' data-role='images_list-image_tag'
+                = fa_icon 'arrows-v'
               .panel_list-items
                 = list_item 'Уникальный ID' do
                   = image_form.input :key, label: false
@@ -23,7 +24,8 @@
 
 .panel_item data-view='app#images_list' data={landing_id: landing.id,
                                               upload_image_path: upload_image_landing_path(landing),
-                                              image_template: {html: image_template}.to_json}
+                                              image_template: {html: image_template}.to_json,
+                                              reorder_path: reorder_images_landing_path(landing)}
   .panel_item-header
     | Изображения
 
@@ -32,4 +34,20 @@
 
     .panels data-role='images_list-container'
       = f.simple_fields_for :landing_images do |image_form|
-        = render 'admin/landings/form/image', image_form: image_form
+        .panel data-role='images_list-image' data={id: image_form.object.id}
+          .panel-body.is-stand_alone
+            .panel_list.is-table
+              .panel_list-inner
+                .panel_list-photo.has-reorder_icon data-role='images_list-sorting_handle'
+                  img src=image_form.object.image.thumb.url data-role='images_list-image_tag'
+                  = fa_icon 'arrows-v'
+                .panel_list-items
+                  = list_item 'Уникальный ID' do
+                    = image_form.input :key, label: false
+                  = list_item 'Alt-текст' do
+                    = image_form.input :alt_text, label: false
+                  = list_item 'Для галереи?' do
+                    = image_form.input :for_gallery, label: false
+                  = list_item 'Удалить?' do
+                    = image_form.input :_destroy, as: :boolean, label: false
+                  = image_form.input :id, as: :hidden, label: false, input_html: {data: {role: 'images_list-image_id'}}

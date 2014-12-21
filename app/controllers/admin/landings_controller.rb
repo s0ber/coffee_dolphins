@@ -1,5 +1,5 @@
 class Admin::LandingsController < Admin::BaseController
-  before_filter :load_landing, only: [:show, :edit, :update, :destroy]
+  before_filter :load_landing, only: [:show, :edit, :update, :destroy, :reorder_images]
 
   def index
     @landings = Landing.includes(:category, :position).all.decorate
@@ -41,6 +41,17 @@ class Admin::LandingsController < Admin::BaseController
 
     landing_image.save!
     render_success(notice: 'Картинка успешно загружена', image: {id: landing_image.id, path: landing_image.image.thumb.url})
+  end
+
+  def reorder_images
+    landing_images = @landing.landing_images
+    landing_images_ids = params[:indexes]
+
+    landing_images_ids.each_with_index do |landing_image_id, index|
+      landing_images.where(id: landing_image_id).update_all(position: index)
+    end
+
+    render_success(notice: 'Порядок картинок изменен')
   end
 
 private

@@ -3,8 +3,7 @@ class LandingImage < ActiveRecord::Base
   validates :alt_text, presence: true, on: :update, if: :landing_published?
 
   belongs_to :landing
-
-  default_scope { order(:created_at) }
+  acts_as_list scope: :landing
 
   mount_uploader :image, ImageUploader
 

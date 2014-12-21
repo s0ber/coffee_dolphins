@@ -15,6 +15,7 @@
     "stacktrace-js": "0.6.2",
     "jquery-autosize": "~>1.18.15",
     "codemirror": "~>4.8.0",
+    "html5sortable": "farhadi/html5sortable#b90b6baac95cdc0df1ec1682b7181ff94b1f7820",
 
     "backbone-factory": "https://raw.githubusercontent.com/SupportBee/Backbone-Factory/ca14482bf13b4670128bc0291dd108fcc4cbeec0/public/javascripts/backbone-factory.js",
     "faker": "https://raw.githubusercontent.com/Marak/Faker.js/1bd1d73d29222c4e2f52d63a4282345b63a324df/Faker.js",

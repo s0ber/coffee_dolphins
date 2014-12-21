@@ -64,6 +64,9 @@ gem 'responders'
 # Authentification
 gem 'sorcery'
 
+# Model enhancements
+gem 'acts_as_list', git: 'https://github.com/swanandp/acts_as_list.git' #orderable model
+
 # Forms
 gem 'simple_form', '~> 3.0.2'
 gem 'neo_form', path: 'gems/neo_form'

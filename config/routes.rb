@@ -39,6 +39,7 @@ Rails.application.routes.draw do
 
     resources :landings do
       post :upload_image, on: :member
+      put :reorder_images, on: :member
     end
 
     resource :statistics, only: [:show]
