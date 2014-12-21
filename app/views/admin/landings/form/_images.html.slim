@@ -8,8 +8,9 @@
         .panel-body.is-stand_alone
           .panel_list.is-table
             .panel_list-inner
-              .panel_list-photo
+              .panel_list-photo.has-reorder_icon
                 img src='' data-role='images_list-image_tag'
+                = fa_icon 'arrows-v'
               .panel_list-items
                 = list_item 'Уникальный ID' do
                   = image_form.input :key, label: false
