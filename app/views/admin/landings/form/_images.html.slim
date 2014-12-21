@@ -32,7 +32,7 @@
   .panel_item-body.has-p15
     .wrapper.has-mb15 data-role='images_list-uploader'
 
-    .panels.is-images_list data-role='images_list-container'
+    .panels data-role='images_list-container'
       = f.simple_fields_for :landing_images do |image_form|
         .panel data-role='images_list-image' data={id: image_form.object.id}
           .panel-body.is-stand_alone
