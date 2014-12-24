@@ -26,6 +26,7 @@ class Dolphin.View extends Frames.View
     @unload?()
     delete @node
     @remove()
+    @unsubscribe()
 
   utils: Utils
 
