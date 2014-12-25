@@ -1,6 +1,10 @@
 class LandingDecorator < ApplicationDecorator
   decorates_association :position
 
+  def edit_button
+    h.link_to(h.fa_icon('pencil'), h.edit_landing_path(object), class: 'small_button is-icon')
+  end
+
   def public_path
     h.public_landing_path(object.category.slug, object.slug)
   end
