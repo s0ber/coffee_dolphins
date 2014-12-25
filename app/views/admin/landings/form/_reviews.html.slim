@@ -9,7 +9,7 @@
             = review_form.input :id, as: :hidden
             = review_form.input :author,
               label: 'Автор',
-              hint: 'Оставьте это поле пустым, и этот отзыв будет удален при сабмите формы'
+              hint: 'Оставьте это поле пустым, и этот отзыв будет удален при сабмите формы.'
             = review_form.input :author_profession, label: 'Профессия автора'
             = review_form.input :author_gender, as: :radio_buttons, label: 'Пол автора', collection: {'Парень' => true, 'Девушка' => false}
             = review_form.input :text, label: 'Текст отзыва'
@@ -33,7 +33,7 @@
               = review_form.input :id, as: :hidden
               = review_form.input :author,
                 label: 'Автор',
-                hint: 'Оставьте это поле пустым, и этот отзыв будет удален при сабмите формы'
+                hint: 'Оставьте это поле пустым, и этот отзыв будет удален при сабмите формы.'
               = review_form.input :author_profession, label: 'Профессия автора'
               = review_form.input :author_gender, as: :radio_buttons, label: 'Пол автора', collection: {'Парень' => true, 'Девушка' => false}
               = review_form.input :text, label: 'Текст отзыва'

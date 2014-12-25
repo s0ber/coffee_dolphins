@@ -17,6 +17,10 @@ class LandingDecorator < ApplicationDecorator
     h.content_tag :b, (object.draft? ? 'Черновик' : 'Опубликован')
   end
 
+  def html_title
+    object.html_title.presence || 'SaveMoneyShop.Ru — уникальные товары по уникальным ценам.'
+  end
+
   def title
     object.title.presence || 'Заголовок товара'
   end

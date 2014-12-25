@@ -20,7 +20,6 @@ class Landing < ActiveRecord::Base
             :video_id,
             :color,
             :apishops_article_id,
-            :meta_description,
             :html_title,
             :meta_description,
             :footer_title,

@@ -75,6 +75,8 @@ private
               :reviews_title,
               :category_id,
               :footer_title,
+              :html_title,
+              :meta_description,
               reviews_attributes: [:id, :author, :author_gender, :text, :landing_id, :author_profession],
               landing_images_attributes: [:id, :alt_text, :for_gallery, :_destroy])
   end
