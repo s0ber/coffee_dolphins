@@ -23,6 +23,7 @@ class Landing < ActiveRecord::Base
             :meta_description,
             :html_title,
             :meta_description,
+            :footer_title,
               presence: true, on: :update, if: :published?
 
   belongs_to :category

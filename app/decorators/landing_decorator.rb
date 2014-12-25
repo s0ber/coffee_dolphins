@@ -52,6 +52,10 @@ class LandingDecorator < ApplicationDecorator
     object.reviews_title.presence || 'Заголовок блока с отзывами'
   end
 
+  def footer_title
+    object.footer_title.presence || 'Заголовок нижнего блока с формой заказа'
+  end
+
 protected
 
   def confirm_remove_message
