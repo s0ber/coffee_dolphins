@@ -34,25 +34,24 @@ class LandingDecorator < ApplicationDecorator
   end
 
   def description_text
-    if !object.description_text.blank? && object.video_id
-      video_iframe_tag = "<iframe src=\"//www.youtube.com/embed/#{object.video_id}\" frameborder=\"0\" allowfullscreen=\"true\"></iframe>"
-      text = object.description_text.presence.sub('%VIDEO%', h.content_tag(:div, video_iframe_tag.html_safe, class: 'section-video'))
-    else
-      text = object.description_text
+    text = object.description_text.presence || 'Текст с описанием товара.'
+
+    if object.video_id
+      text = add_video_to_text(text)
     end
 
-    text = add_images_to_text(text)
-
-    h.simple_format(text.presence || 'Текст с описанием товара.', {class: 'section-text'}, sanitize: false)
+    add_images_to_text(text)
   end
-
-  def advantages_text
-    add_images_to_text(object.advantages_text)
-  end
-
 
   def advantages_title
     object.advantages_title.presence || 'Заголовок блока с преимуществами товара'
+  end
+
+  def advantages_text
+    text = object.advantages_text.presence || "<div class=\"columns\">" +
+                                                "<div class=\"column is-10 offset is-by_3\">Текст с описанием преимуществ товара.</div>" +
+                                              "</div>"
+    add_images_to_text(text)
   end
 
   def reviews_title
@@ -70,6 +69,13 @@ protected
   end
 
 private
+
+  def add_video_to_text(text)
+    text.sub(/%VIDEO%/) do |s|
+      video_iframe_tag = "<iframe src=\"//www.youtube.com/embed/#{object.video_id}\" frameborder=\"0\" allowfullscreen=\"true\"></iframe>"
+      h.content_tag(:span, video_iframe_tag.html_safe, class: 'section-video')
+    end
+  end
 
   def add_images_to_text(text)
     text.gsub(/%IMAGE_(\d+)%/) do |s|
