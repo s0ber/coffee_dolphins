@@ -67,6 +67,9 @@ class App.Views.ImagesList extends Dolphin.View
         .end()
       .find('@images_list-image_id')
         .val(json.image.id)
+        .end()
+      .find('@images_list-image_uniq_id')
+        .text(json.image.id)
 
     @append(@$imagesContainer(), $image)
     $image.autofocus()

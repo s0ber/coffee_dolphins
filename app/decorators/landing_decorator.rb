@@ -41,8 +41,15 @@ class LandingDecorator < ApplicationDecorator
       text = object.description_text
     end
 
+    text = add_images_to_text(text)
+
     h.simple_format(text.presence || 'Текст с описанием товара.', {class: 'section-text'}, sanitize: false)
   end
+
+  def advantages_text
+    add_images_to_text(object.advantages_text)
+  end
+
 
   def advantages_title
     object.advantages_title.presence || 'Заголовок блока с преимуществами товара'
@@ -60,5 +67,18 @@ protected
 
   def confirm_remove_message
     "Удалить лендинг #{object.title}?"
+  end
+
+private
+
+  def add_images_to_text(text)
+    text.gsub(/%IMAGE_(\d+)%/) do |s|
+      landing_image = LandingImage.find_by_id($1)
+      if landing_image.nil?
+        h.content_tag :div, "Картинки с ID #{$1} не существует", class: 'empty_image'
+      else
+        "<img src=\"#{landing_image.image.gallery.url}\" alt=\"#{landing_image.alt_text}\" />"
+      end
+    end
   end
 end
