@@ -13,7 +13,7 @@
                 = fa_icon 'arrows-v'
               .panel_list-items
                 = list_item 'Уникальный ID' do
-                  = image_form.input :key, label: false
+                  = image_form.object.id
                 = list_item 'Alt-текст' do
                   = image_form.input :alt_text, label: false
                 = list_item 'Для галереи?' do
@@ -43,7 +43,7 @@
                   = fa_icon 'arrows-v'
                 .panel_list-items
                   = list_item 'Уникальный ID' do
-                    = image_form.input :key, label: false
+                    = image_form.object.id
                   = list_item 'Alt-текст' do
                     = image_form.input :alt_text, label: false
                   = list_item 'Для галереи?' do
