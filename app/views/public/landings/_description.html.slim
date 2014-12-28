@@ -2,18 +2,18 @@
   .columns
     .column.is-16
       .section-title
-        .section-title_inner
+        h2.section-title_inner
           = @landing.description_title
 
   .columns
     .column.is-10.offset.is-by_3
-      = @landing.description_text
+      = @landing.description_text.html_safe
 
 .section.is-dark_gradient
   .columns
     .column.is-16
       .section-title
-        .section-title_inner
+        h2.section-title_inner
           = @landing.advantages_title
 
   - if @landing.advantages_text

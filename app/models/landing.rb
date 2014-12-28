@@ -20,9 +20,9 @@ class Landing < ActiveRecord::Base
             :video_id,
             :color,
             :apishops_article_id,
-            :meta_description,
             :html_title,
             :meta_description,
+            :footer_title,
               presence: true, on: :update, if: :published?
 
   belongs_to :category

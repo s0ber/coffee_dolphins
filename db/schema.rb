@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141221175439) do
+ActiveRecord::Schema.define(version: 20141225193243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 20141221175439) do
   create_table "landing_images", force: true do |t|
     t.string   "image"
     t.string   "alt_text",    default: ""
-    t.string   "key",         default: ""
     t.integer  "position"
     t.boolean  "for_gallery", default: false
     t.integer  "landing_id"
@@ -62,6 +61,7 @@ ActiveRecord::Schema.define(version: 20141221175439) do
     t.text     "advantages_text"
     t.string   "why_question"
     t.string   "reviews_title"
+    t.string   "footer_title"
   end
 
   add_index "landings", ["category_id"], name: "index_landings_on_category_id", using: :btree

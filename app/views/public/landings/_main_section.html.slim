@@ -3,7 +3,7 @@
     .column.is-7.offset.is-by_2
       .cta
         .cta_inner
-          .cta-title
+          h1.cta-title
             = @landing.title.html_safe
 
           .cta-description
@@ -21,7 +21,7 @@
       .why_to_buy-inner data-section-name='description'
         img src=image_path('public/woman.png')
         .why_to_buy-text
-          = @landing.why_question
+          h3= @landing.why_question
           br
           .why_to_buy-click_me
             | Нажмите сюда, чтобы узнать &darr;
