@@ -3,7 +3,7 @@ class LandingImage < ActiveRecord::Base
   validates :alt_text, presence: true, on: :update, if: :landing_published?
 
   belongs_to :landing
-  acts_as_list scope: :landing
+  acts_as_list scope: :landing, top_of_list: 0
 
   scope :for_gallery, -> { where(for_gallery: true) }
 
