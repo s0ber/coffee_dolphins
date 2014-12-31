@@ -7,3 +7,7 @@
       = f.input :video_id,
         label: 'ID видео на ютубе',
         hint: 'Пример: nyM52jsO4vo.'
+      = f.input :color,
+        as: :radio_buttons,
+        collection: Landing::COLOR_SCHEMES.map { |k, v| [k.capitalize, v] },
+        label: 'Цветовая схема'

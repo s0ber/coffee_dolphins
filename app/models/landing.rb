@@ -1,4 +1,11 @@
 class Landing < ActiveRecord::Base
+  COLOR_SCHEMES = {
+    blue: 0,
+    green: 1,
+    red: 2,
+    pink: 3
+  }
+
   include StatusHolder
 
   before_validation :set_as_draft, on: :create
@@ -43,6 +50,10 @@ class Landing < ActiveRecord::Base
 
   def set_as_draft
     self._status = :draft
+  end
+
+  def color_scheme
+    COLOR_SCHEMES.invert[self.color]
   end
 
   def set_as_published
