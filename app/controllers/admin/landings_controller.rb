@@ -65,6 +65,7 @@ private
       .fetch(:landing, {})
       .permit(:title,
               :slug,
+              :color,
               :video_id,
               :short_description,
               :why_question,
