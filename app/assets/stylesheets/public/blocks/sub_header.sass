@@ -1,0 +1,99 @@
+@import 'public/imports'
+
+.sub_header
+  position: fixed
+  top: 51px
+  left: 0
+  right: 0
+  height: 40px
+  padding: 5px 0
+  text-align: center
+  background: linear-gradient(lighten($transparent_10, 3%), $transparent_10)
+  box-shadow: 0 2px 3px rgba(0, 0, 0, .25)
+  z-index: 110
+
+.sub_header-inner
+  display: inline-block
+  text-align: left
+
+.sub_header-title
+  float: left
+  font-weight: bold
+  line-height: 20px
+  margin-right: 25px
+
+.sub_header-price
+  float: left
+  margin-right: 25px
+  line-height: 20px
+  text-align: center
+
+.sub_header-arrow
+  float: left
+  margin-right: 25px
+  font-size: 13px
+  line-height: 40px
+
+.sub_header-new_price
+  font-size: 18px
+  line-height: 26px
+  font-weight: bold
+  display: block
+
+  .fa-chevron-right
+    font-size: 12px
+
+.sub_header-old_price
+  display: block
+  line-height: 14px
+  color: $text_light
+  font-size: 13px
+  color: $red
+
+  span
+    text-decoration: line-through
+
+.sub_header-time_left_message
+  float: left
+  margin-right: 15px
+  font-size: 12px
+  line-height: 40px
+
+.sub_header-timer
+  float: left
+  margin-right: 25px
+
+.sub_header-timer_delimiter
+  float: left
+  font-size: 14px
+  line-height: 33px
+  margin-right: 5px
+
+.sub_header-hours,
+.sub_header-minutes,
+.sub_header-seconds
+  float: left
+  margin-right: 5px
+  height: 40px
+  width: 25px
+  text-align: center
+  color: $text_light
+  font-size: 9px
+  line-height: 7px
+
+  span
+    display: block
+    margin-bottom: 1px
+    height: 33px
+    line-height: 33px
+    background: $text_light
+    color: #fff
+    font-size: 14px
+    border-radius: 3px
+
+.sub_header-seconds
+  margin-right: 0
+
+.sub_header-button
+  float: left
+

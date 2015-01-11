@@ -26,3 +26,36 @@
             span.top_menu-item_dashed
               | FAQ
 
+.sub_header.clearfix
+  .columns
+    .column.is-12.offset.is-by_2
+      .sub_header-inner
+        .sub_header-title
+          = @landing.title.html_safe
+        .sub_header-arrow
+          = fa_icon 'chevron-right'
+        .sub_header-price
+          span.sub_header-new_price
+            | 990 рублей
+          span.sub_header-old_price
+            | вместо <span>1490 рублей</span>
+        .sub_header-arrow
+          = fa_icon 'chevron-right'
+        .sub_header-time_left_message
+          | До конца акции осталось
+        .sub_header-timer
+          .sub_header-hours
+            | <span>1</span> час
+          .sub_header-timer_delimiter
+            | :
+          .sub_header-minutes
+            | <span>59</span> мин.
+          .sub_header-timer_delimiter
+            | :
+          .sub_header-seconds
+            | <span>59</span> сек.
+        .sub_header-arrow
+          = fa_icon 'chevron-right'
+        .sub_header-button
+          | Заказать со скидкой 40%
+
