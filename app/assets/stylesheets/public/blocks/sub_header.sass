@@ -95,7 +95,8 @@
 .sub_header-seconds
   margin-right: 0
 
-.sub_header-button
+.sub_header-button,
+.sub_header-ipad_button
   float: left
   margin: 2px 0
   height: 36px
@@ -109,3 +110,41 @@
     font-size: 15px
     vertical-align: -1px
 
+.sub_header-ipad_button
+  display: none
+
+.layout.is-big_tablet
+  .sub_header-title,
+  .sub_header-price,
+  .sub_header-timer,
+  .sub_header-arrow
+    margin-right: 10px
+
+  .sub_header-time_left_message
+    margin-top: 5px
+    margin-right: 10px
+    max-width: 85px
+    text-align: right
+    font-size: 11px
+    line-height: 14px
+
+  .sub_header-button
+    display: none
+
+  .sub_header-ipad_button
+    display: block
+    position: relative
+    width: 150px
+    line-height: 14px
+    padding: 3px 65px 3px 5px
+    text-align: center
+
+    b
+      position: absolute
+      margin: 0
+      top: 0
+      right: 7px
+      bottom: 0
+      font-size: 16px
+      line-height: 34px
+      word-spacing: -2px

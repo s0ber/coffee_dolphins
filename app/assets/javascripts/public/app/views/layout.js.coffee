@@ -44,5 +44,5 @@ class App.Views.Layout extends View
       sectionTop = $section.offset().top - SCROLL_OFFSET_PX
       sectionBottom = sectionTop + $section.outerHeight(true)
 
-      if topPos >= sectionTop and topPos <= sectionBottom
+      if topPos >= sectionTop and topPos < sectionBottom
         @pub('menu_item_changed', $section.data('section'))
