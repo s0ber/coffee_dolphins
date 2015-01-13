@@ -20,6 +20,7 @@
   z-index: 2
 
 .photos_slider-photo_inner
+  position: relative
   margin: 10px
   border: 1px solid #E8E8E9
   height: 308px
@@ -96,6 +97,22 @@
   line-height: 69px
   overflow: hidden
 
+.photos_slider-zoom_button
+  position: absolute
+  top: 10px
+  right: 10px
+  width: 30px
+  height: 30px
+  color: #fff
+  background: rgba(0, 0, 0, .3)
+  font-size: 15px
+  line-height: 30px
+  border-radius: 3px
+  cursor: pointer
+
+  &:hover
+    background: rgba(0, 0, 0, .5)
+
 .layout.is-small_screen .photos_slider,
 .layout.gt-big_tablet .photos_slider.for-footer
 
@@ -124,7 +141,6 @@
 
 .photos_slider.for-footer
   margin-top: 0 !important
-  margin-bottom: 25px
 
 .layout.lt-small_screen
   .photos_slider-wrap

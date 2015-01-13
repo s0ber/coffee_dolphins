@@ -6,6 +6,7 @@ class App.Views.Layout extends View
 
   initialize: ->
     new App.Behaviors.Modals($el: @$el)
+    new App.Behaviors.SmartScrollBar($el: @$el)
 
     @$window = $(window)
     @headersHeight = @$('[data-view="app#header"]').first().height() + @$('[data-view="app#sub_header"]').height()
