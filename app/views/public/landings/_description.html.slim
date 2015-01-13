@@ -1,25 +1,28 @@
-.section data-section='description'
-  .columns
-    .column.is-16
-      .section-title
-        h2.section-title_inner
-          = @landing.description_title
+div data-section='description'
+  .section
+    .js-scroll_fix
+      .columns
+        .column.is-16
+          .section-title
+            h2.section-title_inner
+              = @landing.description_title
 
-  .columns
-    .column.is-10.offset.is-by_3
-      = @landing.description_text.html_safe
+      .columns
+        .column.is-10.offset.is-by_3
+          = @landing.description_text.html_safe
 
-.section.is-dark_gradient
-  .columns
-    .column.is-16
-      .section-title
-        h2.section-title_inner
-          = @landing.advantages_title
+  .section.is-dark_gradient
+    .js-scroll_fix
+      .columns
+        .column.is-16
+          .section-title
+            h2.section-title_inner
+              = @landing.advantages_title
 
-  - if @landing.advantages_text
-    = @landing.advantages_text.html_safe
-  - else
-    .columns
-      .column.is-10.offset.is-by_3
-        p.section-text
-          | Текст с описанием преимуществ товара.
+      - if @landing.advantages_text
+        = @landing.advantages_text.html_safe
+      - else
+        .columns
+          .column.is-10.offset.is-by_3
+            p.section-text
+              | Текст с описанием преимуществ товара.

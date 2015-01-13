@@ -7,6 +7,9 @@ class App.Views.Modal extends View
     @locate()
     @$window.on('resize.modal:position', @locate.bind(@))
 
+    @sub 'relocate_modal', =>
+      @locate(true)
+
   unload: ->
     @$window.off('.modal:position')
 

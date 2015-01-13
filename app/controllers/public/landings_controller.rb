@@ -6,6 +6,11 @@ class Public::LandingsController < Public::BaseController
   def show
   end
 
+  def images
+    @images = @landing.landing_images.for_gallery
+    render_modal(@landing.position.title)
+  end
+
 private
 
   def load_landing

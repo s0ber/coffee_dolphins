@@ -20,6 +20,7 @@
   z-index: 2
 
 .photos_slider-photo_inner
+  position: relative
   margin: 10px
   border: 1px solid #E8E8E9
   height: 308px
@@ -96,8 +97,26 @@
   line-height: 69px
   overflow: hidden
 
-.layout.lt-big_screen .photos_slider,
-.photos_slider.for-footer
+.photos_slider-zoom_button
+  position: absolute
+  top: 10px
+  right: 10px
+  width: 30px
+  height: 30px
+  color: #fff
+  background: rgba(0, 0, 0, .3)
+  font-size: 15px
+  line-height: 30px
+  border-radius: 3px
+  transition: background 0.2s
+  cursor: pointer
+  +no_select
+
+  &:hover
+    background: rgba(0, 0, 0, .5)
+
+.layout.is-small_screen .photos_slider,
+.layout.gt-big_tablet .photos_slider.for-footer
 
   .photos_slider-photo_inner
     width: 248px
@@ -119,9 +138,19 @@
     height: 54px
     line-height: 54px
 
-.layout.lt-big_screen .photos_slider
+.layout.is-small_screen .photos_slider
   margin-top: 60px
 
 .photos_slider.for-footer
   margin-top: 0 !important
-  margin-bottom: 25px
+
+.layout.lt-small_screen
+  .photos_slider-wrap
+    width: 100%
+
+  .photos_slider
+    margin-bottom: 40px
+
+  .photos_slider.for-footer
+    margin-bottom: 0
+
