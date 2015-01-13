@@ -9,7 +9,16 @@ Vtree.onNodeInit (node) ->
     return null
 
   console.log "Initialize view '#{viewName}'"
+
+  node.setData('viewName', viewName)
   node.setData('view', new ViewClass(node))
+
+Vtree.onNodeUnload (node) ->
+  view = node.getData('view')
+  viewName = node.getData('viewName')
+
+  view.onUnload()
+  console.log "Unload view '#{viewName}'"
 
 $ ->
   Vtree.initNodes()

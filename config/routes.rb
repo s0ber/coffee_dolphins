@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     categories = ->(req) { Category.where(slug: req.params[:category]).any? }
     get '/:category' => 'categories#show', as: :public_category, constraints: categories
     get '/:category/:landing' => 'landings#show', as: :public_landing, constraints: categories
+    get '/:category/:landing/images' => 'landings#images', as: :public_landing_images, constraints: categories
     get '/privacy' => 'pages#privacy'
   end
 
