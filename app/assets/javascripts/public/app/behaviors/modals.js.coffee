@@ -17,19 +17,14 @@ class App.Behaviors.Modals extends View
     $link = $(e.currentTarget)
     return if $link.hasClass('is-disabled')
 
-    # @createNewRequest(
-    #   $.getJSON($link.data('modal')).done @showModal.bind(@, $link)
-    # )
+    $link.addClass('is-disabled')
 
-    @showModal($link)
+    $.getJSON($link.data('modal'))
+      .done((json) => @showModal($link, json))
+      .always(=> $link.removeClass('is-disabled'))
 
   showModal: ($link, json) ->
-    # @$modal = @$renderTemplate('modal',
-    #   title: json.title,
-    #   html: json.html
-    # ).data('view-options', $modalSourceButton: $link)
-    #
-    @$modal = $($('#modal_template').data('template').html)
+    @$modal = $(@renderModal(json.title, json.html)).data('view-options', $modalSourceButton: $link)
 
     @showOverlay()
     @html(@$modalsContainer, @$modal)
@@ -43,6 +38,21 @@ class App.Behaviors.Modals extends View
     @$modal?.remove()
     @$modal = null
     @hideOverlay()
+
+  renderModal: (title, html) ->
+    """
+    <div class="modal" data-view="app#modal">
+      <div class="modal-header">
+        #{title}
+        <div class="fl_r">
+          <div class="modal-close js-close_modal">
+            <i class="fa fa-close"></i>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">#{html}</div>
+    </div>
+    """
 
 # private
 
