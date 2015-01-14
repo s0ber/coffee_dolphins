@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     get '/:category/:landing/success' => 'landings#success', as: :public_landing_success, constraints: categories
     get '/:category/:landing/success_modal' => 'landings#success_modal', as: :public_landing_success_modal, constraints: categories
     get '/privacy' => 'pages#privacy'
+    get '/about' => 'pages#about'
+    get '/delivery' => 'pages#delivery'
+    get '/guarantees' => 'pages#guarantees'
+    get '/faq' => 'pages#faq'
   end
 
   scope module: :admin do
