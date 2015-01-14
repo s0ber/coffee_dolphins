@@ -13,6 +13,8 @@ class App.Behaviors.Modals extends View
     @$el.on('click', '[data-modal]', _.bind(@loadModal, @))
     @$el.on('click', '.js-close_modal', _.bind(@closeModal, @))
 
+    @sub('load_modal', @loadModalByPath)
+
   loadModal: (e) ->
     $link = $(e.currentTarget)
     return if $link.hasClass('is-disabled')
@@ -20,13 +22,17 @@ class App.Behaviors.Modals extends View
     $link.addClass('is-disabled')
 
     $.getJSON($link.data('modal'))
-      .done((json) => @showModal($link, json))
+      .done((json) => @showModal(json))
       .always(=> $link.removeClass('is-disabled'))
 
-  showModal: ($link, json) ->
-    @$modal = $(@renderModal(json.title, json.html)).data('view-options', $modalSourceButton: $link)
+  loadModalByPath: (path, allowToClose = true) ->
+    $.getJSON(path).done (json) => @showModal(json, allowToClose)
+
+  showModal: (json, allowToClose = true) ->
+    @$modal = $(@renderModal(json.title, json.html))
 
     @showOverlay()
+    @bindCloseEvents() if allowToClose is true
     @html(@$modalsContainer, @$modal)
 
   closeModal: (e) ->
@@ -37,22 +43,31 @@ class App.Behaviors.Modals extends View
   hideModal: ->
     @$modal?.remove()
     @$modal = null
+
+    @unbindCloseEvents()
     @hideOverlay()
 
   renderModal: (title, html) ->
-    """
-    <div class="modal" data-view="app#modal">
-      <div class="modal-header">
-        #{title}
-        <div class="fl_r">
-          <div class="modal-close js-close_modal">
-            <i class="fa fa-close"></i>
+    if title?
+      """
+      <div class="modal" data-view="app#modal">
+        <div class="modal-header">
+          #{title}
+          <div class="fl_r">
+            <div class="modal-close js-close_modal">
+              <i class="fa fa-close"></i>
+            </div>
           </div>
         </div>
+        <div class="modal-body">#{html}</div>
       </div>
-      <div class="modal-body">#{html}</div>
-    </div>
-    """
+      """
+    else
+      """
+      <div class="modal has-no_header" data-view="app#modal">
+        <div class="modal-body">#{html}</div>
+      </div>
+      """
 
 # private
 
@@ -60,10 +75,8 @@ class App.Behaviors.Modals extends View
     @$el.css('overflowY', 'hidden')
     @$modalsBg.show()
     @$modalsLayer.show()
-    @bindCloseEvents()
 
   hideOverlay: ->
-    @unbindCloseEvents()
     @$modalsLayer.hide()
     @$modalsBg.hide()
     @$el.css('overflowY', 'auto')
