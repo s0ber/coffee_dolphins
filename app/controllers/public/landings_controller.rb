@@ -11,6 +11,14 @@ class Public::LandingsController < Public::BaseController
     render_modal(@landing.position.title)
   end
 
+  def success
+    render(action: :show)
+  end
+
+  def success_modal
+    render_modal
+  end
+
 private
 
   def load_landing

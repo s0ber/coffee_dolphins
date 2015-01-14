@@ -28,7 +28,7 @@ protected
     }
   end
 
-  def render_modal(title)
+  def render_modal(title = nil)
     render json: {
       title: title,
       html: render_to_string(action: action_name, layout: false, formats: [:html])

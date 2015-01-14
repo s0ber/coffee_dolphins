@@ -13,7 +13,7 @@
             img src=image_path("public/icons/#{@landing.color_scheme}/guarantee.png")
         .column.is-7
           .guarantee-title
-            .g-dashed
+            .g-dashed data-modal=guarantees_path
               | 100% гарантия удачной покупки
           .guarantee-text
             | Если товар не устроит Вас, мы вернем Вам деньги.
@@ -24,7 +24,7 @@
             img src=image_path("public/icons/#{@landing.color_scheme}/ship_everywhere.png")
         .column.is-7
           .guarantee-title
-            .g-dashed
+            .g-dashed data-modal=delivery_path
               | Доставка по всей России
           .guarantee-text
             | Доставка по всей России. Доставка курьером, в пункты самовывоза или почтовые отделения по всей РФ, в том числе без предоплаты.
@@ -42,5 +42,5 @@
     .columns
       .column.is-16
         .section-read_more
-          .g-dashed_light
+          .g-dashed_light data-modal=guarantees_path
             | Нажмите, чтобы прочитать более <b>подробную информацию о предоставляемых гарантиях</b>

@@ -2,7 +2,7 @@ SCROLL_BASE = 'html, body'
 ANIMATION_SPEED = 600
 SCROLL_OFFSET_PX = 5
 
-class App.Views.Layout extends View
+class App.Views.LandingLayout extends View
 
   initialize: ->
     new App.Behaviors.Modals($el: @$el)
