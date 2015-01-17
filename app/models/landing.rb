@@ -3,7 +3,8 @@ class Landing < ActiveRecord::Base
     blue: 0,
     green: 1,
     red: 2,
-    pink: 3
+    pink: 3,
+    test: 4
   }
 
   include StatusHolder
