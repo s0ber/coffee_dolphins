@@ -9,5 +9,5 @@
         hint: 'Пример: nyM52jsO4vo.'
       = f.input :color,
         as: :radio_buttons,
-        collection: Landing::COLOR_SCHEMES.map { |k, v| [k.capitalize, v] },
+        collection: Landing::COLOR_SCHEMES.map { |k, v| [k.to_s.humanize, v] },
         label: 'Цветовая схема'

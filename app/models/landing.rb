@@ -4,7 +4,12 @@ class Landing < ActiveRecord::Base
     green: 1,
     red: 2,
     pink: 3,
-    test: 4
+    blue_light: 4,
+    purple: 5,
+    olive: 6,
+    bronze: 7,
+    cocoa: 8,
+    test: 9
   }
 
   include StatusHolder
