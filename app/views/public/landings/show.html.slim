@@ -12,3 +12,7 @@ body data-view='app#landing_layout'
 
   - if params[:order_id]
     div data-view='app#success' data={modal_path: public_landing_success_modal_path(order_id: params[:order_id])}
+
+  - if @landing.draft?
+    = render 'color_selector'
+

@@ -1,0 +1,3 @@
+.color_selector data-view='app#color_selector'
+  - Landing::COLORS.each do |color, color_hex|
+    .color_selector-color.js-color_selector-color class=('is-active' if @landing.color_scheme == color) style="background: #{color_hex};" data-color=color

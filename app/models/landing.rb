@@ -13,6 +13,20 @@ class Landing < ActiveRecord::Base
     purple_light: 10
   }
 
+  COLORS = {
+    blue: '#54709b',
+    green: '#509353',
+    red: '#bf363d',
+    pink: '#B64361',
+    blue_light: '#54799e',
+    purple: '#83628e',
+    olive: '#6d8769',
+    bronze: '#887f67',
+    cocoa: '#9c755c',
+    aquamarine: '#618d8d',
+    purple_light: '#63708e'
+  }
+
   include StatusHolder
 
   before_validation :set_as_draft, on: :create
