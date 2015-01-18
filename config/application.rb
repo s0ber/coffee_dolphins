@@ -35,7 +35,7 @@ module CoffeeDolphinsApp
     config.assets.precompile += ['admin/application.js', 'admin/application.css']
 
     # color schemes for public landings
-    %w(blue green pink red blue_light purple olive bronze cocoa test).each do |color|
+    %w(blue green pink red blue_light purple olive bronze cocoa aquamarine purple_light).each do |color|
       config.assets.precompile.push "public/color_schemes/#{color}.css"
     end
 
