@@ -1,5 +1,7 @@
 class App.Views.ColorSelector extends View
 
+  ICONS_IMAGES_PATTERN = /assets\/public\/icons\/(\w+)\/\w+.png/
+
   els:
     colors: '.js-color_selector-color'
 
@@ -20,5 +22,7 @@ class App.Views.ColorSelector extends View
       $img = $(img)
       src = $img.attr('src')
 
-      if /images\/public\/icons/.test(src)
-        $(img).attr(src: src.replace(''))
+      newSrc = src.replace ICONS_IMAGES_PATTERN, (string, oldColor) ->
+        string.replace(oldColor, color)
+
+      $(img).attr(src: newSrc)
