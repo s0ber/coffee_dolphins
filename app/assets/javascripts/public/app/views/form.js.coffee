@@ -6,7 +6,12 @@ class App.Views.Form extends View
 
   initialize: ->
     @redrawButtonText()
+    @initCustomPlaceholder()
+
     @$select.on('change', _.bind(@redrawButtonText, @))
+
+  initCustomPlaceholder: ->
+    @$('input, textarea').placeholder()
 
   redrawButtonText: (e) ->
     quantity = parseInt(@$select.val(), 10)

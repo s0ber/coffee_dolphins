@@ -8,3 +8,5 @@
 #= require backbone/backbone
 #= require async_fn/build/async_fn
 #= require vtree/build/vtree
+
+#= require jquery-placeholder/jquery.placeholder

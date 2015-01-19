@@ -1,3 +1,4 @@
+#= require modernizr.custom
 #= require jquery
 #= require jquery.migrate
 #= require jquery_ujs
