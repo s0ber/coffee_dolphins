@@ -2,6 +2,8 @@ class App.Views.Modal extends View
 
   initialize: ->
     @$window = $(window)
+
+    @$modalsLayer = $('.js-modals-layer')
     @$modalsContainer = $('.js-modals-container')
 
     @locate()
@@ -14,6 +16,8 @@ class App.Views.Modal extends View
     @$window.off('.modal:position')
 
   locate: (force) ->
+    @$modalsLayer.scrollTop(0)
+
     winHeight = @$window.height()
     screenWidth = @$modalsContainer.width()
 
