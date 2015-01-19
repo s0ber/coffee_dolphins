@@ -15,7 +15,7 @@ class Landing < ActiveRecord::Base
 
   COLORS = {
     blue: '#54709b',
-    green: '#509353',
+    green: '#50914f',
     red: '#bf363d',
     pink: '#B64361',
     blue_light: '#54799e',
