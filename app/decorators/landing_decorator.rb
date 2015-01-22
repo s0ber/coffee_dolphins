@@ -13,6 +13,20 @@ class LandingDecorator < ApplicationDecorator
     h.link_to 'Показать черновик &rarr;'.html_safe, public_path, class: 'small_button', target: '_blank'
   end
 
+  def apishops_button
+    unless object.apishops_site_id.nil?
+      h.link_to 'Открыть на Apishops.com &rarr;'.html_safe, "http://www.apishops.com/Webmaster/Website/SiteProducts.jsp?siteId=#{object.apishops_site_id}", class: 'small_button', target: '_blank'
+    end
+  end
+
+  def public_price
+    (object.price.presence || object.position.price).to_i
+  end
+
+  def public_price_without_discount
+    (public_price * ((100.to_f + object.discount.to_f) / 100)).to_i.round(-1)
+  end
+
   def human_status
     h.content_tag :b, (object.draft? ? 'Черновик' : 'Опубликован')
   end

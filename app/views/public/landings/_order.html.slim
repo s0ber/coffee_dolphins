@@ -7,7 +7,7 @@
             = @landing.footer_title
 
         .section-description
-          | Только <b>27 ноября 2014</b> со <b>скидкой 40%</b>!
+          | Только <b>#{l(Time.now, format: :date)}</b> со <b>скидкой #{@landing.discount}%</b>!
 
     .columns
       .photos_slider-wrap.column.is-7

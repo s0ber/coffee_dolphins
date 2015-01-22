@@ -97,4 +97,5 @@ ru:
     formats:
       default: ! '%a, %-d %B %Y, %H:%M:%S'
       long: ! '%-d %B %Y, %H:%M'
+      date: ! '%-d %B %Y года'
       short: ! '%d %b, %H:%M'

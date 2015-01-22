@@ -38,9 +38,9 @@
             = fa_icon 'chevron-right'
           .sub_header-price
             span.sub_header-new_price
-              | 990 рублей
+              | #{@landing.public_price} рублей
             span.sub_header-old_price
-              | вместо <span>1490 рублей</span>
+              | вместо <span>#{@landing.public_price_without_discount} рублей</span>
           .sub_header-arrow
             = fa_icon 'chevron-right'
           .sub_header-time_left_message
@@ -59,7 +59,7 @@
           .sub_header-arrow
             = fa_icon 'chevron-right'
           .sub_header-button
-            | Заказать со скидкой <b>40%</b> &rarr;
+            | Заказать со скидкой <b>#{@landing.discount}%</b> &rarr;
           .sub_header-ipad_button
-            | Заказать<br>со скидкой <b>40% &rarr;</b>
+            | Заказать<br>со скидкой <b>#{@landing.discount}% &rarr;</b>
 
