@@ -21,5 +21,7 @@ class App.Views.Form extends View
     else
       @$button.html("Заказать #{quantity} шт. за <b>#{@fullPrice() * quantity}</b> рублей &rarr;")
 
+    @$el.autofocus()
+
   fullPrice: ->
     @$el.data('full-price')
