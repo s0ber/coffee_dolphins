@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150122185824) do
+ActiveRecord::Schema.define(version: 20150122211948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,8 +42,6 @@ ActiveRecord::Schema.define(version: 20150122185824) do
     t.string   "title"
     t.string   "slug"
     t.decimal  "price"
-    t.decimal  "old_price"
-    t.decimal  "max_click_cost"
     t.string   "video_id"
     t.integer  "color",               limit: 2, default: 0
     t.string   "apishops_article_id"

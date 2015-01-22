@@ -26,7 +26,14 @@ class Admin::LandingsController < Admin::BaseController
   end
 
   def update
+    if params[:landing][:published] == '1'
+      @landing.set_as_published
+    else
+      @landing.set_as_draft
+    end
+
     @landing.update_attributes!(landing_params)
+
     render_success(redirect: edit_landing_path(@landing), notice: 'Лендинг обновлен')
   end
 

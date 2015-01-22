@@ -28,7 +28,7 @@ class LandingDecorator < ApplicationDecorator
   end
 
   def human_status
-    h.content_tag :b, (object.draft? ? 'Черновик' : 'Опубликован')
+    h.content_tag :b, (object.draft? ? 'Черновик' : '<span class="status is-green">Опубликован</span>'.html_safe)
   end
 
   def html_title
