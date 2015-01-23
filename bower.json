@@ -17,6 +17,7 @@
     "codemirror": "~>4.8.0",
     "html5sortable": "farhadi/html5sortable#b90b6baac95cdc0df1ec1682b7181ff94b1f7820",
 
+    "jquery.cookie": "1.4.1",
     "jquery-placeholder": "2.1.0",
 
     "backbone-factory": "https://raw.githubusercontent.com/SupportBee/Backbone-Factory/ca14482bf13b4670128bc0291dd108fcc4cbeec0/public/javascripts/backbone-factory.js",

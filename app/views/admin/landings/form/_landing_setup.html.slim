@@ -1,9 +1,33 @@
 .panel_item
   .panel_item-header
-    | Основные параметры
+    span
+      | Основные параметры
+    .fl_r
+      = @landing.apishops_button
+
   .panel_item-body
     .form-fields
       = f.association :category, label: 'Категория', prompt: 'Выберите категорию лендинга'
+      = f.association :position do |position_form|
+        = position_form.input :price,
+          as: :string,
+          label: 'Цена товара без наценки',
+          hint: 'Это цена самого товара без наценки (цена позиции).'
+      = f.input :price,
+        as: :string,
+        label: 'Цена товара с наценкой',
+        hint: 'Это цена, за которую мы будем продавать товар. Включает нашу комиссию. Лучше, чтобы она заканчивалась на 90. Например, 990.'
+      = f.input :discount,
+        as: :radio_buttons,
+        collection: Landing::DISCOUNTS,
+        label: 'Скидка'
+      = f.input :apishops_article_id,
+        as: :string,
+        label: 'Артикул товара'
+      = f.input :apishops_site_id,
+        as: :string,
+        label: 'Apishops Site ID',
+        hint: 'ID лендинга на Apishops.com'
       = f.input :video_id,
         label: 'ID видео на ютубе',
         hint: 'Пример: nyM52jsO4vo.'

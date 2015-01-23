@@ -7,6 +7,7 @@ class App.Views.LandingLayout extends View
   initialize: ->
     new App.Behaviors.Modals($el: @$el)
     new App.Behaviors.SmartScrollBar($el: @$el)
+    new App.Behaviors.Autofocus($el: @$el)
 
     @$window = $(window)
     @headersHeight = @$('[data-view="app#header"]').first().height() + @$('[data-view="app#sub_header"]').height()

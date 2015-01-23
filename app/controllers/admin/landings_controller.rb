@@ -26,7 +26,14 @@ class Admin::LandingsController < Admin::BaseController
   end
 
   def update
+    if params[:landing][:published] == '1'
+      @landing.set_as_published
+    else
+      @landing.set_as_draft
+    end
+
     @landing.update_attributes!(landing_params)
+
     render_success(redirect: edit_landing_path(@landing), notice: 'Лендинг обновлен')
   end
 
@@ -65,6 +72,7 @@ private
       .fetch(:landing, {})
       .permit(:title,
               :slug,
+              :price,
               :color,
               :video_id,
               :short_description,
@@ -78,6 +86,10 @@ private
               :footer_title,
               :html_title,
               :meta_description,
+              :apishops_article_id,
+              :apishops_site_id,
+              :discount,
+              position_attributes: [:id, :price],
               reviews_attributes: [:id, :author, :author_gender, :text, :landing_id, :author_profession],
               landing_images_attributes: [:id, :alt_text, :for_gallery, :_destroy])
   end

@@ -27,6 +27,13 @@ class Landing < ActiveRecord::Base
     purple_light: '#63708e'
   }
 
+  DISCOUNTS = {
+    30 => '30%',
+    40 => '40%',
+    50 => '50%',
+    70 => '70%'
+  }.invert
+
   include StatusHolder
 
   before_validation :set_as_draft, on: :create
@@ -41,17 +48,16 @@ class Landing < ActiveRecord::Base
             :advantages_text,
             :why_question,
             :reviews_title,
-            :price,
-            :old_price,
-            :apishops_price,
-            :max_click_cost,
             :video_id,
             :color,
             :apishops_article_id,
+            :apishops_site_id,
             :html_title,
             :meta_description,
             :footer_title,
               presence: true, on: :update, if: :published?
+
+  validates :price, :discount, presence: true, on: :update
 
   belongs_to :category
   belongs_to :position
@@ -60,6 +66,7 @@ class Landing < ActiveRecord::Base
 
   accepts_nested_attributes_for :reviews, allow_destroy: true
   accepts_nested_attributes_for :landing_images, allow_destroy: true
+  accepts_nested_attributes_for :position
 
   default_scope { order(:created_at) }
 

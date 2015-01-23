@@ -21,6 +21,7 @@
               .panel_list-photo
                 img src=@position.image_url title=@position.title
               .panel_list-items
+                = list_item 'ID позиции', @position.apishops_position_id
                 = list_item 'Категория', @position.category
                 = list_item 'Цена', @position.price
                 = list_item 'Прибыль', @position.profit

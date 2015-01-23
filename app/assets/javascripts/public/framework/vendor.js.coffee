@@ -9,4 +9,5 @@
 #= require async_fn/build/async_fn
 #= require vtree/build/vtree
 
+#= require jquery.cookie/jquery.cookie
 #= require jquery-placeholder/jquery.placeholder

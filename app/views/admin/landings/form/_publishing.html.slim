@@ -1,0 +1,10 @@
+.panel_item
+  .panel_item-header
+    | Настройки публикации
+  .panel_item-body
+    .form-fields
+      = f.input :published,
+        as: :boolean,
+        label: 'Опубликовать?',
+        hint: '<b class="g-red">Внимание!</b> При публикации лендинга, он станет доступен для поисковых систем и для обычных посетителей.'.html_safe,
+        input_html: {checked: @landing.published?}

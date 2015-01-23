@@ -10,9 +10,9 @@
             .cta-description
               = @landing.short_description.html_safe
             .cta-warning
-              | Успейте заказать этот уникальный <b>товар из ограниченной серии</b> по&nbsp;суперцене (<b>скидка действительна до 27 ноября 2014</b>).
+              | Успейте заказать этот уникальный <b>товар из ограниченной серии</b> по&nbsp;суперцене (<b>скидка действительна до #{l(Time.now, format: :date)}</b>).
 
-            = render 'cta_form'
+            = render 'cta_form', form_id: :top_form
 
       .photos_slider-wrap.column.is-7
         = render 'photos_slider'

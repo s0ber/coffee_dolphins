@@ -38,28 +38,28 @@
             = fa_icon 'chevron-right'
           .sub_header-price
             span.sub_header-new_price
-              | 990 рублей
+              | #{@landing.public_price} рублей
             span.sub_header-old_price
-              | вместо <span>1490 рублей</span>
+              | вместо <span>#{@landing.public_price_without_discount} рублей</span>
           .sub_header-arrow
             = fa_icon 'chevron-right'
           .sub_header-time_left_message
             | До конца акции осталось
-          .sub_header-timer
+          .sub_header-timer data-view='app#timer'
             .sub_header-hours
-              | <span>1</span> час
+              | <span class="js-hours">&ndash;</span> час
             .sub_header-timer_delimiter
               | :
             .sub_header-minutes
-              | <span>59</span> мин.
+              | <span class="js-minutes">&ndash;</span> мин.
             .sub_header-timer_delimiter
               | :
             .sub_header-seconds
-              | <span>59</span> сек.
+              | <span class="js-seconds">&ndash;</span> сек.
           .sub_header-arrow
             = fa_icon 'chevron-right'
-          .sub_header-button
-            | Заказать со скидкой <b>40%</b> &rarr;
-          .sub_header-ipad_button
-            | Заказать<br>со скидкой <b>40% &rarr;</b>
+          .sub_header-button data-section-name='main'
+            | Заказать со скидкой <b>#{@landing.discount}%</b> &rarr;
+          .sub_header-ipad_button data-section-name='main'
+            | Заказать<br>со скидкой <b>#{@landing.discount}% &rarr;</b>
 
