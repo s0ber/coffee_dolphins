@@ -1,28 +1,37 @@
 - modifier ||= nil
 - options = (1..10).map { |items_num| ["Мне нужно #{items_num} шт.", items_num] }
 
-.cta_form class=("for-#{modifier}" if modifier) data-view='app#form' data={full_price: @landing.public_price}
+.cta_form class=("for-#{modifier}" if modifier) data-view='app#form' data={full_price: @landing.public_price,
+                                                                           product_id: @landing.position.apishops_position_id,
+                                                                           site_id: @landing.apishops_site_id,
+                                                                           article_id: @landing.apishops_article_id,
+                                                                           success_path: @landing.success_path}
   .cta_form-wrap
-    .cta_form-inner
+    form.cta_form-inner id=form_id method='post' action='#'
       .clearfix
         .cta_form-field
           = fa_icon 'phone'
-          input type='text' placeholder='Ваш телефон'
+          input type='text' placeholder='Ваш телефон' name='apishopsFormPhone' pattern='.{3,}'
         .cta_form-quantity data-view='app#select'
           span.js-select-label
             | Мне нужно 1 шт.
-          select.js-select-input
+          select.js-select-input name='apishopsFormCount'
             - options.each do |name, value|
               option selected=(value == 1) value=value
                 = name
           = fa_icon 'sort-down'
 
-      button.cta_form-button.js-order_button
-        | Заказать за <b>990</b> рублей &rarr;
+        = hidden_field_tag 'apishopsFormAddress', 'Необходимо уточнить у клиента'
+        = hidden_field_tag 'apishopsFormFio', 'Необходимо уточнить у клиента'
+
+      button.cta_form-button.js-order_button onclick='$(this).closest("form").submit(); return false;'
+        | Заказать за <b>#{@landing.public_price}</b> рублей &rarr;
+
     .cta_form-info
       ' Артикул товара: <b>##{@landing.apishops_article_id}</b>. Оставьте ваш телефон, и мы перезвоним вам в течение нескольких&nbsp;минут,
       ' или&nbsp;позвоните нам по&nbsp;телефону
       | <b>#{fa_icon('phone')} 8-804-333-00-69</b> (круглосуточно,&nbsp;бесплатно,&nbsp;24/7).
+
   .price_tag
     .price_tag-inner
       | &ndash; #{@landing.discount}%

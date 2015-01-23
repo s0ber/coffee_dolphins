@@ -9,8 +9,12 @@ class LandingDecorator < ApplicationDecorator
     h.public_landing_path(object.category.slug, object.slug)
   end
 
+  def success_path
+    h.public_landing_success_path(object.category.slug, object.slug)
+  end
+
   def public_button
-    h.link_to 'Показать черновик &rarr;'.html_safe, public_path, class: 'small_button', target: '_blank'
+    h.link_to "Показать #{object.published? ? 'опубликованный лендинг' : 'черновик'} &rarr;".html_safe, public_path, class: 'small_button', target: '_blank'
   end
 
   def apishops_button
