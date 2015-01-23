@@ -7,7 +7,6 @@ class App.Views.LandingLayout extends View
   initialize: ->
     new App.Behaviors.Modals($el: @$el)
     new App.Behaviors.SmartScrollBar($el: @$el)
-    new App.Behaviors.Autofocus($el: @$el)
 
     @$window = $(window)
     @headersHeight = @$('[data-view="app#header"]').first().height() + @$('[data-view="app#sub_header"]').height()
@@ -23,7 +22,9 @@ class App.Views.LandingLayout extends View
     screenHeight = @$window.height()
     documentHeight = @$el.height()
 
-    sectionTopPos = @$sectionByName(section).offset().top
+    $section = @$sectionByName(section)
+    sectionTopPos = $section.offset().top
+
     # fix for sticky header
     sectionTopPos -= @headersHeight + SCROLL_OFFSET_PX
 
@@ -31,7 +32,8 @@ class App.Views.LandingLayout extends View
     if screenHeight + sectionTopPos > documentHeight
       sectionTopPos = documentHeight - screenHeight
 
-    $(SCROLL_BASE).animate(scrollTop: sectionTopPos, ANIMATION_SPEED)
+    $(SCROLL_BASE).animate scrollTop: sectionTopPos, ANIMATION_SPEED, ->
+      $section.autofocus() if section is 'main'
 
   $sections: ->
     @_$sections ?= $('[data-section]')
