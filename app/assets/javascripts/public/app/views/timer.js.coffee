@@ -41,7 +41,7 @@ class App.Views.Timer extends View
     $.cookie('timer_start_time', @currentTime() + TIME_LEFT)
 
 # private
-#
+
   currentTime: ->
     Math.round(+new Date() / 1000)
 
