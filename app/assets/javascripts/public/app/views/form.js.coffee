@@ -7,7 +7,6 @@ class App.Views.Form extends View
   initialize: ->
     @initCustomPlaceholder()
 
-    @redrawButtonText()
     @$select.on('change', _.bind(@redrawButtonText, @))
 
     @initApishopsForm()
