@@ -16,7 +16,10 @@ class App.Views.ColorSelector extends View
       .siblings().removeClass('is-active').end()
       .addClass('is-active')
 
-    $('link[rel="stylesheet"]').attr(href: "/assets/public/color_schemes/#{color}.css?body=1")
+    if gon.env is 'development'
+      $('link[rel="stylesheet"]').attr(href: "/assets/public/color_schemes/#{color}.css?body=1")
+    else if gon.env is 'production'
+      $('link[rel="stylesheet"]').attr(href: '/assets' + gon["#{color}_color_scheme"])
 
     $('img').each (i, img) ->
       $img = $(img)
