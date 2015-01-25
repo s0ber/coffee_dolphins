@@ -12,10 +12,13 @@ class App.Views.Gallery extends View
 
   initialize: ->
     @images = @$el.data('images')
-
     @currentIndex = 0
 
-    @relocateModal()
+    @applyCustomModalStyles()
+
+    @resizeImageToFitScreen()
+    $(window).on("resize.#{@cid}", _.bind(@resizeImageToFitScreen, @))
+
     @preloadImages()
 
     @$prevButton.on('click', _.bind(@showPrevImage, @))
@@ -26,14 +29,27 @@ class App.Views.Gallery extends View
   unload: ->
     @unbindKeyboardNavigation()
 
-  relocateModal: ->
+  resizeImageToFitScreen: ->
+    $currentImage = @$imageWrapper.find('img')
+    maxHeight = $(window).height() - 210
+
+    currentImage = @images[@currentIndex]
+
+    unless currentImage.height <= maxHeight
+      SCALE_FACTOR = (maxHeight / currentImage.height).toFixed(2)
+
+      $currentImage.attr
+        height: maxHeight
+        width: currentImage.width * SCALE_FACTOR
+
+    @pub 'relocate_modal'
+
+  applyCustomModalStyles: ->
     @$modal = @$el.closest('[data-view="app#modal"]')
 
     @$modal.css
       width: 'auto'
       display: 'inline-block'
-
-    @pub 'relocate_modal'
 
   bindKeyboardNavigation: ->
     $('body').on "keydown.#{@cid}", (e) =>
@@ -76,5 +92,5 @@ class App.Views.Gallery extends View
     @$imageNumber.text(@currentIndex + 1)
     @$imageTitle.text(image.alt)
 
-    @pub 'relocate_modal'
+    @resizeImageToFitScreen()
 
