@@ -50,6 +50,7 @@ class Landing < ActiveRecord::Base
             :advantages_text,
             :why_question,
             :reviews_title,
+            :reviews_footer,
             :video_id,
             :color,
             :apishops_article_id,
