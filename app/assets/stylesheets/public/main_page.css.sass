@@ -6,30 +6,110 @@ $base: #54709b
 @import 'global'
 @import 'layout'
 
+=title
+  font-size: 25px
+  line-height: 35px
+  font-weight: bold
+
+=sub_title
+  font-size: 18px
+  line-height: 27px
+  font-weight: bold
+
+.main
+  margin: 0 auto
+  width: 1000px
+  padding: 0 35px
+  min-height: 100%
+  height: auto !important
+  height: 100%
+
+
 .header
+  margin-bottom: 40px
+  padding-top: 20px
+
 .header-title
+  font-size: 29px
+  line-height: 45px
+  font-weight: bold
+
 .header-slogan
+  font-size: 14px
+
 
 .products_list
+  +clearfix
+  margin-bottom: 40px
+
 .products_list-title
+  +title
+  margin-bottom: 20px
+
 .products_list-wrapper
 
 .product
+  +clearfix
+  margin-bottom: 20px
+
+  &:first-child
+    margin-bottom: 0
+
 .product-image
-  img
+  margin-right: 25px
+  border: 1px solid #e8e8e9
+  width: 200px
+  height: 200px
+  background-position: center
+  background-size: 100%
+  background-repeat: no-repeat
+  border-radius: 2px
+  vertical-align: middle
+
 .product-info
+  width: 500px
+
 .product-title
+  +sub_title
+  margin-bottom: 15px
+
 .product-description
+  margin-bottom: 15px
+
 .product-details
+  +clearfix
+
 .product-prices
+  font-size: 18px
+  line-height: 36px
+  font-weight: bold
+
 .product-new_price
+
 .product-price_delimeter
+  margin: 0 5px
+  font-size: 25px
+  vertical-align: top
+  font-weight: normal
+
 .product-old_price
+  color: $red
+
   span
+    text-decoration: line-through
+
 .product-button
+  margin: 0
+  padding: 0 15px
+  height: 37px
+  text-align: center
+  line-height: 35px
+  +orange_button
 
 .guarantees
+  +clearfix
 .guarantees-title
+  +title
 .guarantees-info
 
 .guarantee
@@ -39,9 +119,19 @@ $base: #54709b
 .guarantee-text
 
 .shipping
+  +clearfix
+.shipping-title
+  +title
+.shipping-info
+
 .shipping_item
 .shipping_item-image
   img
 .shipping_item-title
 .shipping_item-number
 .shipping_item-text
+
+.footer
+  +clearfix
+.footer-copy
+.footer-privacy
