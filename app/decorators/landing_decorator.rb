@@ -80,6 +80,10 @@ class LandingDecorator < ApplicationDecorator
     object.reviews_title.presence || 'Заголовок блока с отзывами'
   end
 
+  def reviews_footer
+    object.reviews_footer.presence || 'Футер блока с отзывами, должен содержать финальное побуждение к покупке'
+  end
+
   def footer_title
     object.footer_title.presence || 'Заголовок нижнего блока с формой заказа'
   end

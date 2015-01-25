@@ -24,6 +24,11 @@
 
   .panel_item-body.has-p15
     = f.input :reviews_title, label: 'Заголовок блока'
+    = f.input :reviews_footer,
+      label: 'Футер блока',
+      hint: 'Должен содержать финальное побуждение к покупке. ' + \
+        'Пример: "Станьте и вы счастливым обладателем этого товара, сделайте заказ прямо сейчас!". ' + \
+        'Допустимо использование HTML-разметки.'
 
     .panels data-role='reviews-container'
       = f.simple_fields_for :reviews do |review_form|

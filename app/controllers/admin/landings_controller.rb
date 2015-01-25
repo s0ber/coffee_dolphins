@@ -82,6 +82,7 @@ private
               :advantages_title,
               :advantages_text,
               :reviews_title,
+              :reviews_footer,
               :category_id,
               :footer_title,
               :html_title,
