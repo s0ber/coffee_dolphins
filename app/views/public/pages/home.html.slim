@@ -1,1 +1,101 @@
-| OLOLO
+- content_for :stylesheet do
+  = stylesheet_link_tag 'public/main_page'
+
+body
+  .header
+    .header-title
+      | SaveMoneyShop.ru
+    .header-slogan
+      | Уникальные товары по низким ценам, акции и щедрые скидки.
+
+  .products_list
+    .products_list-title
+      | Действующие акции
+    .products_list-wrapper
+      - @landings.each do |landing|
+        .product
+          .product-image.fl_l
+            img src=landing.landing_images.first.image.url
+          .product-info.g-overflow
+            .product-title
+              = landing.title
+            .product-description
+              = landing.meta_description
+            .product-details
+              .product-prices
+                span.product-new_price
+                  | #{landing.public_price} рублей
+                span.product-price_delimeter
+                  | /
+                span.product-old_price
+                  | вместо <span>#{landing.public_price_without_discount} рублей</span>
+              .product-button
+                | посмотреть акцию &rarr;
+
+  .guarantees
+    .guarantees-title
+      | Предоставляемые гарантии
+    .guarantees-info
+      .guarantee
+        .guarantee-image
+          img src=image_path('public/icons/blue/guarantee.png')
+        .guarantee-title
+          | 100% гарантия удачной покупки
+        .guarantee-text
+          | Если товар не устроит Вас, мы вернем Вам деньги.
+
+      .guarantee
+        .guarantee-image
+          img src=image_path('public/icons/blue/ship_everywhere.png')
+        .guarantee-title
+          | Доставка по всей России
+        .guarantee-text
+          | Доставка курьером, в пункты самовывоза или почтовые отделения по всей РФ, в том числе без предоплаты.
+
+      .guarantee
+        .guarantee-image
+          img src=image_path('public/icons/blue/discount.png')
+        .guarantee-title
+          | Низкие цены
+        .guarantee-text
+          | Мы работаем напрямую с производителем, поэтому можем позволить себе проводить акции.
+
+  .shipping
+    .shipping_item
+      .shipping_item-image
+        img src=image_path('public/icons/blue/order.png')
+      .shipping_item-title
+        span.shipping_item-number>
+          | 1
+        span.shipping_item-text
+          | Вы оставляете заявку на сайте или по телефону
+    .shipping_item
+      .shipping_item-image
+        img src=image_path('public/icons/blue/phone_call.png')
+      .shipping_item-title
+        span.shipping_item-number>
+          | 2
+        span.shipping_item-text
+          | Менеджер связывается с Вами для подтверждения заказа
+    .shipping_item
+      .shipping_item-image
+        img src=image_path('public/icons/blue/shipping.png')
+      .shipping_item-title
+        span.shipping_item-number>
+          | 3
+        span.shipping_item-text
+          | Мы быстро доставляем Вашу посылку по указанному адресу
+    .shipping_item
+      .shipping_item-image
+        img src=image_path('public/icons/blue/good_delivered.png')
+      .shipping_item-title
+        span.shipping_item-number>
+          | 4
+        span.shipping_item-text
+          | Вы получаете свой товар и платите за него на почте или курьеру
+
+  .footer
+    .footer-copy
+      | &copy; SaveMoneyShop.ru — это уникальные товары по низким ценам, акции&nbsp;и&nbsp;щедрые&nbsp;скидки.
+    .footer-privacy
+      | Политика конфиденциальности
