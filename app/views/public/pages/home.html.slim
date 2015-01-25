@@ -32,7 +32,7 @@ body
                       span.product-old_price
                         | вместо <span>#{landing.public_price_without_discount} рублей</span>
                     .fl_r
-                      .product-button
+                      = link_to landing.public_path, class: 'product-button' do
                         | Посмотреть акцию &rarr;
 
     .guarantees
