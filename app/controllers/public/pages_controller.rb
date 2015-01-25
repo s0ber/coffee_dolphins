@@ -1,4 +1,7 @@
 class Public::PagesController < Public::BaseController
+  def home
+  end
+
   def privacy
     render_modal('Политика конфиденциальности')
   end

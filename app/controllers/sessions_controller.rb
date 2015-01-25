@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
 protected
 
   def redirect_logged_user
-    redirect_to(root_url) if logged_in?
+    redirect_to(positions_path) if logged_in?
   end
 
 private

@@ -10,10 +10,6 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordInvalid, with: :process_failed_validation
 
-  def root
-    redirect_to positions_path
-  end
-
 protected
 
   def render_success(options = {})
