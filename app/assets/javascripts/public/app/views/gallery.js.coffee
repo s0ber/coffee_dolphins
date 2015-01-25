@@ -1,5 +1,8 @@
 class App.Views.Gallery extends View
 
+  LEFT_ARROW_KEY_CODE = 37
+  RIGHT_ARROW_KEY_CODE = 39
+
   els:
     prevButton: '.js-gallery-prev_button'
     nextButton: '.js-gallery-next_button'
@@ -9,23 +12,56 @@ class App.Views.Gallery extends View
 
   initialize: ->
     @images = @$el.data('images')
-
     @currentIndex = 0
 
-    @relocateModal()
+    @applyCustomModalStyles()
+
+    @resizeImageToFitScreen()
+    $(window).on("resize.#{@cid}", _.bind(@resizeImageToFitScreen, @))
+
     @preloadImages()
 
     @$prevButton.on('click', _.bind(@showPrevImage, @))
     @$nextButton.on('click', _.bind(@showNextImage, @))
 
-  relocateModal: ->
+    @bindKeyboardNavigation()
+
+  unload: ->
+    @unbindKeyboardNavigation()
+
+  resizeImageToFitScreen: ->
+    $currentImage = @$imageWrapper.find('img')
+    maxHeight = $(window).height() - 210
+
+    currentImage = @images[@currentIndex]
+
+    unless currentImage.height <= maxHeight
+      SCALE_FACTOR = (maxHeight / currentImage.height).toFixed(2)
+
+      $currentImage.attr
+        height: maxHeight
+        width: currentImage.width * SCALE_FACTOR
+
+    @pub 'relocate_modal'
+
+  applyCustomModalStyles: ->
     @$modal = @$el.closest('[data-view="app#modal"]')
 
     @$modal.css
       width: 'auto'
       display: 'inline-block'
 
-    @pub 'relocate_modal'
+  bindKeyboardNavigation: ->
+    $('body').on "keydown.#{@cid}", (e) =>
+      return if e.keyCode isnt LEFT_ARROW_KEY_CODE and e.keyCode isnt RIGHT_ARROW_KEY_CODE
+
+      if e.keyCode is LEFT_ARROW_KEY_CODE
+        @showPrevImage()
+      else
+        @showNextImage()
+
+  unbindKeyboardNavigation: ->
+    $('body').off ".#{@cid}"
 
   preloadImages: ->
     for image in @images
@@ -56,5 +92,5 @@ class App.Views.Gallery extends View
     @$imageNumber.text(@currentIndex + 1)
     @$imageTitle.text(image.alt)
 
-    @pub 'relocate_modal'
+    @resizeImageToFitScreen()
 
