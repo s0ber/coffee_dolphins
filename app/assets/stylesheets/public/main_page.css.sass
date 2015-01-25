@@ -10,6 +10,7 @@ $base: #54709b
   font-size: 25px
   line-height: 35px
   font-weight: bold
+  margin-bottom: 20px
 
 =sub_title
   font-size: 18px
@@ -18,7 +19,7 @@ $base: #54709b
 
 .main
   margin: 0 auto
-  width: 1000px
+  width: 730px
   padding: 0 35px
   min-height: 100%
   height: auto !important
@@ -44,16 +45,15 @@ $base: #54709b
 
 .products_list-title
   +title
-  margin-bottom: 20px
 
 .products_list-wrapper
 
 .product
   +clearfix
-  margin-bottom: 20px
+  margin-top: 20px
 
   &:first-child
-    margin-bottom: 0
+    margin-top: 0
 
 .product-image
   margin-right: 25px
@@ -67,7 +67,6 @@ $base: #54709b
   vertical-align: middle
 
 .product-info
-  width: 500px
 
 .product-title
   +sub_title
@@ -108,14 +107,34 @@ $base: #54709b
 
 .guarantees
   +clearfix
+  margin-bottom: 40px
+
 .guarantees-title
   +title
 .guarantees-info
 
 .guarantee
+  +clearfix
+  margin-top: 25px
+
+  &:first-child
+    margin-top: 0
+
 .guarantee-image
+  padding: 0 30px
+  width: 140px
+  margin-right: 25px
+
   img
+    width: 100%
+    height: auto
+
 .guarantee-title
+  margin-top: 35px
+  margin-bottom: 5px
+  font-weight: bold
+  font-size: 15px
+
 .guarantee-text
 
 .shipping

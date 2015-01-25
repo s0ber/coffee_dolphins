@@ -15,7 +15,7 @@ body
       .products_list-wrapper
         - @landings.each do |landing|
           .product
-            .product-image.fl_l style="background-image: url(#{landing.landing_images.first.image.url});"
+            .product-image.fl_l style="background-image: url(#{landing.landing_images.first.image.gallery.url});"
             .product-info.g-overflow
               .product-title
                 = landing.title.gsub('<br>', ' ')
@@ -38,28 +38,31 @@ body
         | Предоставляемые гарантии
       .guarantees-info
         .guarantee
-          .guarantee-image
+          .guarantee-image.fl_l
             img src=image_path('public/icons/blue/guarantee.png')
-          .guarantee-title
-            | 100% гарантия удачной покупки
-          .guarantee-text
-            | Если товар не устроит Вас, мы вернем Вам деньги.
+          .g-overflow
+            .guarantee-title
+              | 100% гарантия удачной покупки
+            .guarantee-text
+              | Если товар не устроит Вас, мы вернем Вам деньги.
 
         .guarantee
-          .guarantee-image
+          .guarantee-image.fl_l
             img src=image_path('public/icons/blue/ship_everywhere.png')
-          .guarantee-title
-            | Доставка по всей России
-          .guarantee-text
-            | Доставка курьером, в пункты самовывоза или почтовые отделения по всей РФ, в том числе без предоплаты.
+          .g-overflow
+            .guarantee-title
+              | Доставка по всей России
+            .guarantee-text
+              | Доставка курьером, в пункты самовывоза или почтовые отделения по всей РФ, в том числе без предоплаты.
 
         .guarantee
-          .guarantee-image
+          .guarantee-image.fl_l
             img src=image_path('public/icons/blue/discount.png')
-          .guarantee-title
-            | Низкие цены
-          .guarantee-text
-            | Мы работаем напрямую с производителем, поэтому можем позволить себе проводить акции.
+          .g-overflow
+            .guarantee-title
+              | Низкие цены
+            .guarantee-text
+              | Мы работаем напрямую с производителем, поэтому можем позволить себе проводить акции.
 
     .shipping
       .shipping-title
