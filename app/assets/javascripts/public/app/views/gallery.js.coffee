@@ -1,5 +1,8 @@
 class App.Views.Gallery extends View
 
+  LEFT_ARROW_KEY_CODE = 37
+  RIGHT_ARROW_KEY_CODE = 39
+
   els:
     prevButton: '.js-gallery-prev_button'
     nextButton: '.js-gallery-next_button'
@@ -18,6 +21,11 @@ class App.Views.Gallery extends View
     @$prevButton.on('click', _.bind(@showPrevImage, @))
     @$nextButton.on('click', _.bind(@showNextImage, @))
 
+    @bindKeyboardNavigation()
+
+  unload: ->
+    @unbindKeyboardNavigation()
+
   relocateModal: ->
     @$modal = @$el.closest('[data-view="app#modal"]')
 
@@ -26,6 +34,18 @@ class App.Views.Gallery extends View
       display: 'inline-block'
 
     @pub 'relocate_modal'
+
+  bindKeyboardNavigation: ->
+    $('body').on "keydown.#{@cid}", (e) =>
+      return if e.keyCode isnt LEFT_ARROW_KEY_CODE and e.keyCode isnt RIGHT_ARROW_KEY_CODE
+
+      if e.keyCode is LEFT_ARROW_KEY_CODE
+        @showPrevImage()
+      else
+        @showNextImage()
+
+  unbindKeyboardNavigation: ->
+    $('body').off ".#{@cid}"
 
   preloadImages: ->
     for image in @images

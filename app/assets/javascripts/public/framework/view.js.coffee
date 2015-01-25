@@ -14,6 +14,7 @@ class @View
 
   onUnload: ->
     @unsub()
+    @unload?()
 
   $: (selector) ->
     @$el.find(selector)
