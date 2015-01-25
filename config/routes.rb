@@ -3,14 +3,14 @@ require 'routing_filters/helper_params'
 Rails.application.routes.draw do
   filter :helper_params
 
-  root 'application#root'
-
   get 'login' => 'sessions#new'
   get 'logout' => 'sessions#destroy'
 
   resources :sessions, only: [:new, :create, :destroy]
 
   scope module: :public do
+    root 'pages#home'
+
     categories = ->(req) { Category.where(slug: req.params[:category]).any? }
     get '/:category' => 'categories#show', as: :public_category, constraints: categories
     get '/:category/:landing' => 'landings#show', as: :public_landing, constraints: categories

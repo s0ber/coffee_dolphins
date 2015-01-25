@@ -71,6 +71,8 @@ class Landing < ActiveRecord::Base
   accepts_nested_attributes_for :landing_images, allow_destroy: true
   accepts_nested_attributes_for :position
 
+  scope :published, -> { where(_status: :published) }
+
   default_scope { order(:created_at) }
 
   def mark_empty_reviews_for_destruction

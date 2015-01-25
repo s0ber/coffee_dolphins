@@ -1,4 +1,6 @@
 class Public::BaseController < ApplicationController
+  layout 'public'
+
   before_filter :pass_variables_to_front
 
   def pass_variables_to_front

@@ -1,4 +1,8 @@
 class Public::PagesController < Public::BaseController
+  def home
+    @landings = Landing.published.includes(:position, :landing_images).decorate
+  end
+
   def privacy
     render_modal('Политика конфиденциальности')
   end
