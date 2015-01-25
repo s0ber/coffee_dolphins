@@ -6,6 +6,9 @@ class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
 
+  # Automatically optimize images
+  include CarrierWave::ImageOptimizer
+
   # Choose what kind of storage to use for this uploader:
   storage :file
   # storage :fog
@@ -40,16 +43,14 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
 
   process resize_to_limit: [1200, 1200]
-  process quality: 100
+  process optimize: [{ quality: 70 }]
 
   version :gallery do
     process resize_to_limit: [620, 620]
-    process quality: 100
   end
 
   version :thumb do
     process resize_to_fill: [290, 290]
-    process quality: 100
   end
 
   def dimensions
