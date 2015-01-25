@@ -36,6 +36,9 @@ gem 'rails_autolink'
 gem 'rmagick', '2.13.2', require: 'RMagick'  # ImageMagick bindings
 gem 'carrierwave'
 
+# automatically optimize images sizes
+gem 'carrierwave-imageoptimizer'
+
 # Automatically add vendor prefixes for styles
 gem 'autoprefixer-rails'
 
