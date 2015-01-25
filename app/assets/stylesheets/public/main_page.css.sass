@@ -10,7 +10,7 @@ $base: #54709b
   font-size: 25px
   line-height: 35px
   font-weight: bold
-  margin-bottom: 20px
+  margin-bottom: 30px
 
 =sub_title
   font-size: 18px
@@ -41,7 +41,7 @@ $base: #54709b
 
 .products_list
   +clearfix
-  margin-bottom: 40px
+  margin-bottom: 50px
 
 .products_list-title
   +title
@@ -49,11 +49,26 @@ $base: #54709b
 .products_list-wrapper
 
 .product
-  +clearfix
-  margin-top: 20px
+  position: relative
+  margin-top: 40px
+  padding-top: 40px
+
+  &:before
+    content: ''
+    position: absolute
+    top: 0
+    left: 320px
+    right: 320px
+    background: darken($transparent_10, 5%)
+    height: 1px
 
   &:first-child
     margin-top: 0
+    border-top: 0
+    padding-top: 0
+
+    &:before
+      display: none
 
 .product-image
   margin-right: 25px
@@ -107,7 +122,7 @@ $base: #54709b
 
 .guarantees
   +clearfix
-  margin-bottom: 40px
+  margin-bottom: 50px
 
 .guarantees-title
   +title
@@ -137,20 +152,66 @@ $base: #54709b
 
 .guarantee-text
 
+
 .shipping
   +clearfix
+  margin-bottom: 20px
+
 .shipping-title
   +title
+
 .shipping-info
 
+.shipping-list
+  +clearfix
+  margin-right: -30px
+
 .shipping_item
+  float: left
+  margin-bottom: 30px
+  padding-right: 30px
+  width: 50%
+  text-align: center
+  box-sizing: border-box
+
 .shipping_item-image
+  margin: 0 95px 20px
+
   img
+    width: 100%
+    height: auto
+
 .shipping_item-title
+  text-align: left
+
 .shipping_item-number
+  float: left
+  margin-right: 10px
+  width: 28px
+  height: 28px
+  font-size: 14px
+  line-height: 28px
+  background: $light_400
+  color: #fff
+  text-align: center
+  font-weight: normal
+  vertical-align: top
+  border-radius: 50%
+
 .shipping_item-text
+  display: block
+  overflow: hidden
+  font-size: 13px
+  line-height: 20px
+  font-weight: bold
 
 .footer
   +clearfix
+  padding-bottom: 10px
+  font-size: 13px
+  text-align: center
+
 .footer-copy
+
 .footer-privacy
+
