@@ -9,30 +9,31 @@ body
       .header-slogan
         | Уникальные товары по низким ценам, акции и щедрые скидки.
 
-    .products_list
-      .products_list-title
-        | Действующие акции
-      .products_list-wrapper
-        - @landings.each do |landing|
-          .product
-            .clearfix
-              .product-image.fl_l style="background-image: url(#{landing.landing_images.first.image.gallery.url});"
-              .product-info.g-overflow
-                .product-title
-                  = landing.title.gsub('<br>', ' ')
-                .product-description
-                  = landing.meta_description
-                .product-details
-                  .product-prices.fl_l
-                    span.product-new_price
-                      | #{landing.public_price} рублей
-                    span.product-price_delimeter
-                      | /
-                    span.product-old_price
-                      | вместо <span>#{landing.public_price_without_discount} рублей</span>
-                  .fl_r
-                    .product-button
-                      | Посмотреть акцию &rarr;
+    - if @landings.any?
+      .products_list
+        .products_list-title
+          | Действующие акции
+        .products_list-wrapper
+          - @landings.each do |landing|
+            .product
+              .clearfix
+                .product-image.fl_l style="background-image: url(#{landing.landing_images.first.image.gallery.url});"
+                .product-info.g-overflow
+                  .product-title
+                    = landing.title.gsub('<br>', ' ')
+                  .product-description
+                    = landing.meta_description
+                  .product-details
+                    .product-prices.fl_l
+                      span.product-new_price
+                        | #{landing.public_price} рублей
+                      span.product-price_delimeter
+                        | /
+                      span.product-old_price
+                        | вместо <span>#{landing.public_price_without_discount} рублей</span>
+                    .fl_r
+                      .product-button
+                        | Посмотреть акцию &rarr;
 
     .guarantees
       .guarantees-title
