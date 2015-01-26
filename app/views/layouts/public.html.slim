@@ -22,7 +22,7 @@ html.layout
     = javascript_include_tag 'public/application'
 
     - if content_for?(:script)
-      - content_for(:script)
+      = content_for(:script)
 
     javascript:
       syze
