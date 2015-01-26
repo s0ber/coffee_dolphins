@@ -1,9 +1,6 @@
 @import 'public/imports'
 
 .timer
-  &.for-subheader
-    float: left
-    margin-right: 25px
 
 .timer-message
   float: left
@@ -48,4 +45,33 @@
 
 .timer-seconds
   margin-right: 0
+
+// modifiers
+
+.timer.for-sub_header
+  float: left
+  margin-right: 25px
+
+.timer.for-home_page
+  display: inline-block
+
+  .timer-message
+    font-size: 13px
+    font-weight: bold
+
+  .timer-hours,
+  .timer-minutes,
+  .timer-seconds
+    height: 50px
+    width: 30px
+    font-size: 11px
+
+    span
+      font-size: 18px
+      height: 38px
+      line-height: 38px
+      margin-bottom: 4px
+
+      &.animate-zoom
+        font-size: 15px
 

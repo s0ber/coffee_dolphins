@@ -44,20 +44,7 @@
           .sub_header-arrow
             = fa_icon 'chevron-right'
 
-          .timer.for-subheader data-view='app#timer' data={landing_id: @landing.id}
-            .timer-message
-              | До конца акции осталось
-            .timer-wrapper
-              .timer-hours
-                | <span class="js-hours">&ndash;</span> час
-              .timer-delimiter
-                | :
-              .timer-minutes
-                | <span class="js-minutes">&ndash;</span> мин.
-              .timer-delimiter
-                | :
-              .timer-seconds
-                | <span class="js-seconds">&ndash;</span> сек.
+          = render 'public/shared/timer', landing: @landing, modifier_class: 'for-sub_header'
 
           .sub_header-arrow
             = fa_icon 'chevron-right'

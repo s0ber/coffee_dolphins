@@ -1,6 +1,8 @@
 class App.Views.Timer extends View
 
-  TIME_LEFT = 60 * 60 * 2
+  TIME_LEFT_MIN = 60 * 60 * 1
+  TIME_LEFT_AVERAGE = 60 * 60 * 2
+  TIME_LEFT_MAX = 60 * 60 * 3
 
   els:
     hours: '.js-hours'
@@ -35,13 +37,28 @@ class App.Views.Timer extends View
       $el.text(val)
 
   timerEndTime: ->
-    $.cookie('timer_start_time')
+    $.cookie("timer_end_time_#{@landingId()}")
 
   setTimerEndTime: ->
-    $.cookie('timer_start_time', @currentTime() + TIME_LEFT)
+    timeLeft =
+      if @forHomePage()
+        @getRandomInt(TIME_LEFT_MIN, TIME_LEFT_MAX)
+      else
+        TIME_LEFT_AVERAGE
+
+    $.cookie("timer_end_time_#{@landingId()}", @currentTime() + timeLeft, path: '/')
+
+  getRandomInt: (min, max) ->
+     Math.floor(Math.random() * (max - min + 1)) + min
 
 # private
 
   currentTime: ->
     Math.round(+new Date() / 1000)
+
+  landingId: ->
+    @_landingId ?= @$el.data('landing-id')
+
+  forHomePage: ->
+    @_forHomePage ?= @$el.data('for-home-page')
 
