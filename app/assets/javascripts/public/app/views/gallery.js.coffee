@@ -36,11 +36,11 @@ class App.Views.Gallery extends View
     currentImage = @images[@currentIndex]
 
     unless currentImage.height <= maxHeight
-      SCALE_FACTOR = (maxHeight / currentImage.height).toFixed(2)
+      scaleFactor = (maxHeight / currentImage.height).toFixed(2)
 
       $currentImage.attr
         height: maxHeight
-        width: currentImage.width * SCALE_FACTOR
+        width: currentImage.width * scaleFactor
 
     @pub 'relocate_modal'
 
