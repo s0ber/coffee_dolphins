@@ -1,0 +1,51 @@
+@import 'public/imports'
+
+.timer
+  &.for-subheader
+    float: left
+    margin-right: 25px
+
+.timer-message
+  float: left
+  margin-right: 15px
+  font-size: 12px
+  line-height: 40px
+
+.timer-wrapper
+  float: left
+
+.timer-delimiter
+  float: left
+  font-size: 14px
+  line-height: 33px
+  margin-right: 5px
+
+.timer-hours,
+.timer-minutes,
+.timer-seconds
+  float: left
+  margin-right: 5px
+  height: 40px
+  width: 25px
+  text-align: center
+  color: $text_light
+  font-size: 9px
+  line-height: 7px
+
+  span
+    display: block
+    margin-bottom: 1px
+    height: 33px
+    line-height: 33px
+    background: $text_light
+    color: #fff
+    font-size: 16px
+    border-radius: 3px
+    transition: font-size .1s
+
+    &.animate-zoom
+      font-size: 13px
+
+.timer-seconds
+  margin-right: 0
+
