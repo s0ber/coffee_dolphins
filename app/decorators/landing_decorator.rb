@@ -36,7 +36,7 @@ class LandingDecorator < ApplicationDecorator
   end
 
   def html_title
-    object.html_title.presence || 'SaveMoneyShop.Ru — уникальные товары по уникальным ценам.'
+    object.html_title.presence || 'SaveMoneyShop.Ru&trade; — уникальные товары по уникальным ценам.'
   end
 
   def title
