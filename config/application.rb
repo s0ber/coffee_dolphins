@@ -42,7 +42,7 @@ module CoffeeDolphinsApp
     # Explicitly register the extensions we are interested in compiling
     config.assets.precompile.push(Proc.new do |path|
       File.extname(path).in? [
-        '.png',  '.gif', '.jpg', '.jpeg', '.svg', # Images
+        '.png',  '.gif', '.jpg', '.jpeg', '.ico', '.svg', # Images
         '.eot',  '.otf', '.svc', '.woff', '.ttf' # Fonts
       ]
     end)

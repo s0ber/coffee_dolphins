@@ -10,6 +10,8 @@ html.layout
     - if content_for?(:meta_description)
       = content_for(:meta_description)
 
+    link rel='shortcut icon' href=image_url('public/favicon.ico')
+
     meta charset='utf-8'
     meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'
     meta name='viewport' content='width=device-width, initial-scale=1.0'
