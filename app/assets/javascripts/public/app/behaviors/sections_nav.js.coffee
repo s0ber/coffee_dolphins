@@ -2,12 +2,9 @@ SCROLL_BASE = 'html, body'
 ANIMATION_SPEED = 600
 SCROLL_OFFSET_PX = 5
 
-class App.Views.LandingLayout extends View
+class App.Behaviors.SectionsNav extends View
 
   initialize: ->
-    new App.Behaviors.Modals($el: @$el)
-    new App.Behaviors.SmartScrollBar($el: @$el)
-
     @$window = $(window)
     @headersHeight = @$('[data-view="app#header"]').first().height() + @$('[data-view="app#sub_header"]').height()
     @$el.on('click', '[data-section-name]', _.bind(@goToSection, @))

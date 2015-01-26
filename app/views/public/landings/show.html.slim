@@ -10,7 +10,7 @@
 - content_for :script do
   = javascript_include_tag 'http://img.apishops.org/SinglePageWebsites/custom/js/apishopsForm.utf8.js'
 
-body data-view='app#landing_layout'
+body data-view='app#layout'
   = render 'header'
   = render 'main_section'
   = render 'description'
@@ -20,7 +20,7 @@ body data-view='app#landing_layout'
   = render 'order'
   = render 'footer'
 
-  = render 'modal'
+  = render 'public/shared/modals'
 
   - if params[:order_id]
     div data-view='app#success' data={modal_path: public_landing_success_modal_path(order_id: params[:order_id])}
