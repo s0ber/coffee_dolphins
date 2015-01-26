@@ -48,10 +48,10 @@ class App.Views.Timer extends View
 
     $.cookie("timer_end_time_#{@landingId()}", @currentTime() + timeLeft, path: '/')
 
+# private
+
   getRandomInt: (min, max) ->
      Math.floor(Math.random() * (max - min + 1)) + min
-
-# private
 
   currentTime: ->
     Math.round(+new Date() / 1000)
