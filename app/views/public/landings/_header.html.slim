@@ -43,19 +43,9 @@
               | вместо <span>#{@landing.public_price_without_discount} рублей</span>
           .sub_header-arrow
             = fa_icon 'chevron-right'
-          .sub_header-time_left_message
-            | До конца акции осталось
-          .sub_header-timer data-view='app#timer'
-            .sub_header-hours
-              | <span class="js-hours">&ndash;</span> час
-            .sub_header-timer_delimiter
-              | :
-            .sub_header-minutes
-              | <span class="js-minutes">&ndash;</span> мин.
-            .sub_header-timer_delimiter
-              | :
-            .sub_header-seconds
-              | <span class="js-seconds">&ndash;</span> сек.
+
+          = render 'public/shared/timer', landing: @landing, modifier_class: 'for-sub_header'
+
           .sub_header-arrow
             = fa_icon 'chevron-right'
           .sub_header-button data-section-name='main'

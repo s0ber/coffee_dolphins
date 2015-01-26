@@ -1,0 +1,17 @@
+- modifier_class ||= ''
+- for_home_page ||= false
+
+.timer class=modifier_class data-view='app#timer' data={landing_id: landing.id, for_home_page: for_home_page.to_s}
+  .timer-message
+    | До конца акции осталось
+  .timer-wrapper
+    .timer-hours
+      | <span class="js-hours">&ndash;</span> час
+    .timer-delimiter
+      | :
+    .timer-minutes
+      | <span class="js-minutes">&ndash;</span> мин.
+    .timer-delimiter
+      | :
+    .timer-seconds
+      | <span class="js-seconds">&ndash;</span> сек.
