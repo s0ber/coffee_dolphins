@@ -19,6 +19,8 @@ class App.Views.PhotosSlider extends View
 
     @switchPhotosByInterval()
 
+    @__trackOpenGallery()
+
   selectPrevPhoto: (e) ->
     prevPhotoIndex = (@$activePreview().index() - 1) % @previewsNum
     @selectPhotoByIndex(prevPhotoIndex)
@@ -76,3 +78,7 @@ class App.Views.PhotosSlider extends View
 
   $activePreview: ->
     @$previews.filter('.is-active')
+
+  __trackOpenGallery: ->
+    @$('.js-open_gallery').on 'click', ->
+      gaWidget.trackEvent 'Картинки', 'Увеличить'

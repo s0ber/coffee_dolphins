@@ -21,8 +21,12 @@ class App.Behaviors.Modals extends View
 
     $link.addClass('is-disabled')
 
+    path = $link.data('modal')
     $.getJSON($link.data('modal'))
-      .done((json) => @showModal(json))
+      .done((json) =>
+        @__trackModalShow(path)
+        @showModal(json)
+      )
       .always(=> $link.removeClass('is-disabled'))
 
   loadModalByPath: (path, allowToClose = true) ->
@@ -93,3 +97,6 @@ class App.Behaviors.Modals extends View
 
   unbindCloseEvents: ->
     @$el.off('.modals:hide')
+
+  __trackModalShow: (modalPath) ->
+    gaWidget.trackEvent 'Модальные окна', 'Просмотр', modalPath
