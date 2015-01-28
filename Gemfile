@@ -104,3 +104,5 @@ gem 'capistrano-rbenv', github: "capistrano/rbenv"
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# Misc
+gem 'rails_config'

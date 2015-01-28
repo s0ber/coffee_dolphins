@@ -24,7 +24,7 @@
         = hidden_field_tag 'apishopsFormAddress', 'Необходимо уточнить у клиента'
         = hidden_field_tag 'apishopsFormFio', 'Необходимо уточнить у клиента'
 
-      button.cta_form-button.js-order_button onclick='$(this).closest("form").submit(); return false;'
+      .cta_form-button.js-order_button
         | Заказать за <b>#{@landing.public_price}</b> рублей &rarr;
 
     .cta_form-info

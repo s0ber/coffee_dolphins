@@ -11,6 +11,14 @@ class App.Views.Form extends View
 
     @initApishopsForm()
 
+    @$button.on('click', _.bind(@submitForm, @))
+
+    @__trackSuccessfulOrder()
+
+  submitForm: ->
+    @$form().submit()
+    false
+
   initApishopsForm: ->
     @$form().apishopsForm
       type: 'inline'
@@ -38,5 +46,19 @@ class App.Views.Form extends View
   $form: ->
     @$el.find('form')
 
+  $phoneField: ->
+    @$el.find('input[type="text"]')
+
   fullPrice: ->
     @$el.data('full-price')
+
+# private
+
+  __trackSuccessfulOrder: ->
+    @$form().on 'submit', =>
+      return if $.trim(@$phoneField().val()) is ''
+
+      if @$form().is('#top_form')
+        gaWidget.trackEvent 'Оформление заказа', 'Кнопка заказать', 'Верхняя форма'
+      else
+        gaWidget.trackEvent 'Оформление заказа', 'Кнопка заказать', 'Нижняя форма'
