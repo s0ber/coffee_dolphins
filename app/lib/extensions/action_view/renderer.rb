@@ -6,7 +6,12 @@ module ActionViewRendererExtension
 
   def render_iframe_body(context, options)
     @__iframe_rendering = true
-    ActionView::IframeStreamingTemplateRenderer.new(@lookup_context).render(context, options)
+
+    if options[:partial]
+      ActionView::IframeStreamingPartialRenderer.new(@lookup_context).render(context, options, nil)
+    else
+      ActionView::IframeStreamingTemplateRenderer.new(@lookup_context).render(context, options)
+    end
   end
 end
 
