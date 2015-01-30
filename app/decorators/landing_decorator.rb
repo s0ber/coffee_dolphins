@@ -28,7 +28,7 @@ class LandingDecorator < ApplicationDecorator
   end
 
   def public_price_without_discount
-    (public_price * ((100.to_f + object.discount.to_f) / 100)).to_i.round(-1)
+    ((public_price / (100.to_f - object.discount.to_f)) * 100).to_i.round(-1)
   end
 
   def human_status
