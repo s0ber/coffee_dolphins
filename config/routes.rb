@@ -11,12 +11,12 @@ Rails.application.routes.draw do
   scope module: :public do
     root 'pages#home'
 
-    categories = ->(req) { Category.where(slug: req.params[:category]).any? }
-    get '/:category' => 'categories#show', as: :public_category, constraints: categories
-    get '/:category/:landing' => 'landings#show', as: :public_landing, constraints: categories
-    get '/:category/:landing/images' => 'landings#images', as: :public_landing_images, constraints: categories
-    get '/:category/:landing/success' => 'landings#success', as: :public_landing_success, constraints: categories
-    get '/:category/:landing/success_modal' => 'landings#success_modal', as: :public_landing_success_modal, constraints: categories
+    landings = ->(req) { Landing.where(slug: req.params[:landing]).any? }
+    # get '/:category' => 'categories#show', as: :public_category, constraints: categories
+    get '/:landing' => 'landings#show', as: :public_landing, constraints: landings
+    get '/:landing/images' => 'landings#images', as: :public_landing_images, constraints: landings
+    get '/:landing/success' => 'landings#success', as: :public_landing_success, constraints: landings
+    get '/:landing/success_modal' => 'landings#success_modal', as: :public_landing_success_modal, constraints: landings
     get '/privacy' => 'pages#privacy'
     get '/about' => 'pages#about'
     get '/delivery' => 'pages#delivery'
