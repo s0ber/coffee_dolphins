@@ -10,6 +10,12 @@
 - content_for :script do
   = javascript_include_tag 'http://img.apishops.org/SinglePageWebsites/custom/js/apishopsForm.utf8.js'
 
+  - if @landing.published?
+    = render 'public/shared/counters'
+  - else
+    javascript:
+      window.gaWidget = new Widgets.GoogleAnalytics()
+
 = render 'header'
 = render 'main_section'
 = render 'description'
