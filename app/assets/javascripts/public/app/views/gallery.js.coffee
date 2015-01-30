@@ -31,7 +31,7 @@ class App.Views.Gallery extends View
 
   resizeImageToFitScreen: ->
     $currentImage = @$imageWrapper.find('img')
-    maxHeight = $(window).height() - 210
+    maxHeight = $(window).height() - 250
 
     currentImage = @images[@currentIndex]
 
