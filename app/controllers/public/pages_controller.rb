@@ -20,6 +20,7 @@ class Public::PagesController < Public::BaseController
   end
 
   def faq
+    @landing = Landing.find(params[:landing_id])
     render_modal('Вопросы и ответы')
   end
 end

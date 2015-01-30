@@ -34,8 +34,6 @@ class Landing < ActiveRecord::Base
     70 => '70%'
   }.invert
 
-  PHONE = '8-804-333-55-15'
-
   include StatusHolder
 
   before_validation :set_as_draft, on: :create
