@@ -44,6 +44,7 @@ class Landing < ActiveRecord::Base
   validates :title, :slug, :category_id, :position_id, :_status, presence: true
   validates :slug, uniqueness: true
   validates :short_description,
+            :subheader_title,
             :description_title,
             :description_text,
             :advantages_title,

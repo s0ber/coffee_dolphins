@@ -6,6 +6,9 @@
       = f.input :title,
         label: 'Заголовок товара',
         hint: 'Заголовок в <h1> теге. Важно для SEO (но меньше, чем HTML заголовок страницы), рекомендуется включить сюда ключевые слова. Допустимо использование HTML-разметки.'
+      = f.input :subheader_title,
+        label: 'Заголовок товара в счетчике',
+        hint: 'Допустимо использование HTML-разметки.'
       = f.input :short_description,
         label: 'Краткое описание',
         input_html: {data: {view: 'app#editable_html'}},

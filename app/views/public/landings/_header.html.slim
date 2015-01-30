@@ -33,7 +33,11 @@
       .column.is-16
         .sub_header-inner
           .sub_header-title
-            = @landing.title.html_safe
+            .sub_header-title_inner
+              - if @landing.subheader_title
+                = @landing.subheader_title.html_safe
+              - else
+                = @landing.title.html_safe
           .sub_header-arrow
             = fa_icon 'chevron-right'
           .sub_header-price

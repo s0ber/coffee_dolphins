@@ -71,6 +71,7 @@ private
     params
       .fetch(:landing, {})
       .permit(:title,
+              :subheader_title,
               :slug,
               :price,
               :color,
