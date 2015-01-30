@@ -12,9 +12,6 @@
 
   - if @landing.published?
     = render 'public/shared/counters'
-  - else
-    javascript:
-      window.gaWidget = new Widgets.GoogleAnalytics()
 
 = render 'header'
 = render 'main_section'

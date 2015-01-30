@@ -24,6 +24,9 @@ html.layout
 
     = javascript_include_tag 'public/application'
 
+
+    = render 'public/shared/fake_counters'
+
     - if content_for?(:script)
       = content_for(:script)
 
