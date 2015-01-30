@@ -12,7 +12,7 @@
             .cta-warning
               | Успейте заказать этот <b>уникальный товар</b> по&nbsp;суперцене
               br
-              | (<b>скидка действительна до&nbsp;#{l(Time.now, format: :date)} включительно</b>).
+              | (<b>скидка действительна до&nbsp;#{l(Time.zone.now, format: :date)} включительно</b>).
 
             = render 'cta_form', form_id: :top_form
 
