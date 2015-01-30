@@ -10,7 +10,9 @@
             .cta-description
               = @landing.short_description.html_safe
             .cta-warning
-              | Успейте заказать этот уникальный <b>товар из ограниченной серии</b> по&nbsp;суперцене (<b>скидка действительна до #{l(Time.now, format: :date)}</b>).
+              | Успейте заказать этот <b>уникальный товар</b> по&nbsp;суперцене
+              br
+              | (<b>скидка действительна до&nbsp;#{l(Time.now, format: :date)} включительно</b>).
 
             = render 'cta_form', form_id: :top_form
 
