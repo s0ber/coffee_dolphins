@@ -10,7 +10,7 @@ class LandingDecorator < ApplicationDecorator
   end
 
   def success_path
-    h.public_landing_success_path(object.category.slug, object.slug)
+    h.public_landing_success_path(object.slug)
   end
 
   def public_button
