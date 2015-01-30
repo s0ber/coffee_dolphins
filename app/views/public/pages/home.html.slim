@@ -21,7 +21,7 @@
                   .product-image.fl_l style="background-image: url(#{landing.landing_images.first.image.gallery.url});"
                   .product-info.g-overflow
                     .product-title
-                      = landing.title.gsub('<br>', ' ')
+                      = landing.title.gsub('<br>', ' ').html_safe
                     .product-description
                       = landing.meta_description
                     .product-timer
