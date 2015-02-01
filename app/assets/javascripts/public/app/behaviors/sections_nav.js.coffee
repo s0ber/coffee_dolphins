@@ -12,10 +12,21 @@ class App.Behaviors.SectionsNav extends View
     setTimeout(_.bind(@adjustMenuItemToScroll, @), 50)
     @$window.on('scroll', _.bind(@adjustMenuItemToScroll, @))
 
+    @$window.on 'hashchange', (e) =>
+      e.preventDefault()
+      sectionName = window.location.hash.replace(/^#/, '')
+      @goToSectionByName(sectionName, false)
+      return false
+
   goToSection: (e) ->
     e.preventDefault()
     $link = $(e.currentTarget)
-    section = $link.data('section-name')
+
+    @goToSectionByName($link.data('section-name')).done (sectionName) ->
+      window.location.hash = sectionName
+
+  goToSectionByName: (section, animate = true) ->
+    dfd = new $.Deferred()
     screenHeight = @$window.height()
     documentHeight = @$el.height()
 
@@ -29,8 +40,16 @@ class App.Behaviors.SectionsNav extends View
     if screenHeight + sectionTopPos > documentHeight
       sectionTopPos = documentHeight - screenHeight
 
-    $(SCROLL_BASE).animate scrollTop: sectionTopPos, ANIMATION_SPEED, ->
+    if animate
+      $(SCROLL_BASE).animate scrollTop: sectionTopPos, ANIMATION_SPEED, ->
+        $section.autofocus() if section is 'main'
+        dfd.resolve(section)
+    else
+      $(SCROLL_BASE).scrollTop(sectionTopPos)
       $section.autofocus() if section is 'main'
+      dfd.resolve(section)
+
+    dfd.promise()
 
   $sections: ->
     @_$sections ?= $('[data-section]')
