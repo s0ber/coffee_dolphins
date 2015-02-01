@@ -9,6 +9,10 @@ class Public::LandingsController < Public::BaseController
     render_modal(@landing.position.title)
   end
 
+  def phone
+    render_modal('Информация о заказе по телефону')
+  end
+
   def success
     render(action: :show)
   end

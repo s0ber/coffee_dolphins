@@ -1,0 +1,19 @@
+div data-view='app#phone_modal'
+  h3
+    | Хотите сделать заказ по телефону?
+  p
+    | Нет ничего проще! Просто позвоните нам по телефону нашей горячей линии:
+  .phone_number.for-modal
+    .phone_number-phone
+      | #{fa_icon('phone')} #{Settings.phone}
+  p
+    | <b>Звонок бесплатный для всех жителей РФ!</b>
+  p
+    | Обязательно скажите нашему оператору артикул товара:
+    br
+    b
+      | ##{@landing.apishops_article_id}
+    br
+    | И его наименование:
+    br
+    b= @landing.title.gsub('<br>', ' ').html_safe

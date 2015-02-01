@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     # get '/:category' => 'categories#show', as: :public_category, constraints: categories
     get '/:landing' => 'landings#show', as: :public_landing, constraints: landings
     get '/:landing/images' => 'landings#images', as: :public_landing_images, constraints: landings
+    get '/:landing/phone' => 'landings#phone', as: :public_landing_phone, constraints: landings
     get '/:landing/success' => 'landings#success', as: :public_landing_success, constraints: landings
     get '/:landing/success_modal' => 'landings#success_modal', as: :public_landing_success_modal, constraints: landings
     get '/privacy' => 'pages#privacy'

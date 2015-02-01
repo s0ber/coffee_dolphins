@@ -2,30 +2,38 @@
   .js-scroll_fix
     .columns
       .column.is-16
-        .top_menu
-          .top_menu-item.is-active.js-top_menu-item data-section-name='main'
-            .top_menu-item_inner
-              | Форма заказа
-          .top_menu-item.js-top_menu-item data-section-name='description'
-            .top_menu-item_inner
-              | Описание товара
-          .top_menu-item.js-top_menu-item data-section-name='reviews'
-            .top_menu-item_inner
-              | Отзывы
-          .top_menu-item.js-top_menu-item data-section-name='guarantees'
-            .top_menu-item_inner
-              | Гарантия
-          .top_menu-item.js-top_menu-item data-section-name='shipping'
-            .top_menu-item_inner
-              | Доставка
-          .top_menu-item data-modal=about_path
-            .top_menu-item_inner
-              span.top_menu-item_dashed
-                | О магазине
-          .top_menu-item data-modal=faq_path(landing_id: @landing.id)
-            .top_menu-item_inner
-              span.top_menu-item_dashed
-                | FAQ
+        .header-inner
+          .top_menu
+            .top_menu-item data-modal=about_path
+              .top_menu-item_inner
+                span.top_menu-item_dashed
+                  | О магазине
+            .top_menu-item data-modal=faq_path(landing_id: @landing.id)
+              .top_menu-item_inner
+                span.top_menu-item_dashed
+                  | FAQ
+            .top_menu-item.js-top_menu-item data-section-name='description'
+              .top_menu-item_inner
+                | Описание товара
+            .top_menu-item.js-top_menu-item data-section-name='reviews'
+              .top_menu-item_inner
+                | Отзывы
+            .top_menu-item.js-top_menu-item data-section-name='guarantees'
+              .top_menu-item_inner
+                | Гарантия
+            .top_menu-item.js-top_menu-item data-section-name='shipping'
+              .top_menu-item_inner
+                | Доставка
+            .top_menu-item.js-top_menu-item data-modal=public_landing_phone_path
+              .top_menu-item_inner
+                .phone_number
+                  .phone_number-icon.fl_l
+                    = fa_icon('phone')
+                  .fl_r
+                    .phone_number-phone
+                      = Settings.phone
+                    .phone_number-text
+                      | бесплатно, 24/7
 
 .sub_header.clearfix data-view='app#sub_header'
   .js-scroll_fix
@@ -34,7 +42,7 @@
         .sub_header-inner
           .sub_header-title
             .sub_header-title_inner
-              - if @landing.subheader_title
+              - if !@landing.subheader_title.blank?
                 = @landing.subheader_title.html_safe
               - else
                 = @landing.title.html_safe
