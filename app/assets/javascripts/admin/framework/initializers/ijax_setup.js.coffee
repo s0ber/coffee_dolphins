@@ -7,4 +7,7 @@ Ijax.configure
       location.href = options.path
       return false
 
+  onResponseFail: (path) ->
+    Dolphin.broker.publish('flash_message:alert', path)
+
 window.ijax = new Ijax()
