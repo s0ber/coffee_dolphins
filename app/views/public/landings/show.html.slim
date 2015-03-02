@@ -10,7 +10,9 @@
 - content_for :script do
   = javascript_include_tag 'http://img.apishops.org/SinglePageWebsites/custom/js/apishopsForm.utf8.js'
 
-- unless params[:ver] == 'new'
+- if params[:ver] == 'new'
+  = render 'public/landings/new/header'
+- else
   = render 'header'
 
 - if params[:ver] == 'new'
