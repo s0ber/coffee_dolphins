@@ -20,6 +20,45 @@
 .cta-description
   margin: 20px 0
 
+.cta-price
+  position: relative
+  margin: 30px 0
+  font-size: 25px
+  line-height: 40px
+  font-weight: bold
+
+  &:before
+    content: ''
+    position: absolute
+    left: -90px
+    top: -38px
+    +hidpi-inline('public/rounded_arrow.png')
+
+.cta-price_new
+
+.cta-price_delimeter
+  margin: 0 7px
+  font-size: 33px
+  vertical-align: top
+  font-weight: normal
+
+.cta-price_old
+  color: $red
+
+.cta-button
+  display: inline-block
+  margin: 5px 0 10px
+  padding: 0 50px
+  height: 67px
+  text-align: center
+  line-height: 65px
+  font-size: 25px
+  +orange_button
+
+  b
+    font-weight: bold
+    margin: 0 5px
+
 .cta-warning
   font-size: 13px
   line-height: 20px
@@ -35,3 +74,24 @@
 
   .cta-inner
     margin-bottom: 40px
+
+.layout.v-new
+  .cta_inner
+    margin: 0
+
+  .cta-title
+    margin-top: 10px
+    font-size: 35px
+    line-height: 45px
+
+  .cta-description
+    margin: 30px 0
+    font-size: 20px
+    line-height: 30px
+
+    p
+      margin: 10px 0 0
+
+      &:first-child
+        margin-top: 0
+

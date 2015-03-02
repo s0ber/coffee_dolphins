@@ -10,8 +10,14 @@
 - content_for :script do
   = javascript_include_tag 'http://img.apishops.org/SinglePageWebsites/custom/js/apishopsForm.utf8.js'
 
-= render 'header'
-= render 'main_section'
+- unless params[:ver] == 'new'
+  = render 'header'
+
+- if params[:ver] == 'new'
+  = render 'public/landings/new/main_section'
+- else
+  = render 'main_section'
+
 = render 'description'
 = render 'reviews'
 = render 'guarantees'

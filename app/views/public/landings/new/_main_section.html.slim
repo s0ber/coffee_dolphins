@@ -1,0 +1,29 @@
+.section.is-dark_gradient data-section='main'
+  .js-scroll_fix
+    .columns
+      .cta-wrap.column.is-7.offset.is-by_2
+        .cta
+          .cta_inner
+            h1.cta-title
+              = @landing.title.html_safe
+
+            .cta-description
+              = @landing.short_description.html_safe
+
+            .cta-price
+              span.cta-price_new
+                | #{@landing.public_price} рублей
+              span.cta-price_delimeter
+                | /
+              span.cta-price_old
+                | вместо <span>#{@landing.public_price_without_discount} рублей</span>
+
+            .cta-button.js-order_button
+              | Заказать сейчас в <b>1 клик</b> &rarr;
+
+            .cta-warning
+              | <b>Гарантия качества</b>, оплата при получении товара, доставка от одного дня.
+
+      .photos_slider-wrap.column.is-7
+        = render 'photos_slider'
+
