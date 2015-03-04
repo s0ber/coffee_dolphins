@@ -6,11 +6,34 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1)
 
 .header-inner
+  position: relative
   +acts_as_layout_row
   height: 70px
-  text-align: center
 
 .header-logo
   padding: 13px 0 15px
-  height: 100%
-  width: auto
+  width: 166px
+  height: 70px
+  position: absolute
+  top: 0
+  left: 50%
+  margin-left: -88px
+
+.header-phone
+  float: right
+  margin-top: 10px
+  text-align: center
+
+.header-phone_icon
+  margin-right: 10px
+
+.header-phone_icon,
+.header-phone_number,
+.header-phone_text
+  font-size: 20px
+  line-height: 30px
+  font-weight: bold
+
+.header-phone_article
+  font-size: 15px
+  line-height: 20px

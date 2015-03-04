@@ -1,3 +1,12 @@
 .header
   .header-inner
+    .header-phone
+      span.header-phone_icon
+        = fa_icon 'phone'
+      span.header-phone_number>
+        = Settings.phone
+      span.header-phone_text
+        | (бесплатно)
+      .header-phone_article
+        | Артикул товара: <b>#123456789</b>
     img.header-logo src=image_path('public/logo.png')
