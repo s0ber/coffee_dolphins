@@ -60,3 +60,22 @@
 
 .photo_slider-arrow_right
   right: -60px
+
+.photo_slider-zoom_button
+  position: absolute
+  top: 10px
+  right: 10px
+  width: 30px
+  height: 30px
+  color: #fff
+  background: rgba(0, 0, 0, .3)
+  font-size: 15px
+  line-height: 30px
+  border-radius: 3px
+  transition: background 0.2s
+  cursor: pointer
+  +no_select
+
+  &:hover
+    background: rgba(0, 0, 0, .5)
+

@@ -15,6 +15,8 @@
             .photo_slider-photo_wrap
               .photo_slider-photo_inner
                 .photo_slider-photo style="background-image: url(#{photos.first.image.gallery.url});"
+                .photo_slider-zoom_button.js-open_gallery data-modal=public_landing_images_path
+                  = fa_icon 'search-plus'
             .photo_slider-arrow_right
               = fa_icon 'chevron-right'
 
