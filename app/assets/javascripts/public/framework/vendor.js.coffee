@@ -11,3 +11,4 @@
 
 #= require jquery.cookie/jquery.cookie
 #= require jquery-placeholder/jquery.placeholder
+#= require transition-events

@@ -1,15 +1,15 @@
-.main_headline
+.main_headline data-view='app#headline'
   .main_headline-bg
     img.main_headline-bg_image src=image_path('public/background.jpg')
   .main_headline-inner
-    .main_headline-title
+    .main_headline-title.js-headline-title
       = landing.title.html_safe
 
     .main_headline-info
       .main_headline-info_inner
         .main_headline-left
           - photos = landing.landing_images.for_gallery
-          .photo_slider
+          .photo_slider.js-headline-photos
             .photo_slider-arrow_left
               = fa_icon 'chevron-left'
             .photo_slider-photo_wrap
@@ -21,10 +21,10 @@
               = fa_icon 'chevron-right'
 
         .main_headline-right
-          .main_headline-description
+          .main_headline-description.js-headline-description
             = landing.short_description.html_safe
 
-    .cta
+    .cta.js-headline-cta
       .clearfix
         .cta-price
           span.cta-price_new

@@ -1,7 +1,16 @@
 @import 'public/new_template/imports'
 
 .cta
+  position: relative
   text-align: center
+
+  opacity: 0
+  top: -20px
+  transition: all .5s
+
+  +animate_show
+    opacity: 1
+    top: 0
 
 .cta-price
   position: relative
