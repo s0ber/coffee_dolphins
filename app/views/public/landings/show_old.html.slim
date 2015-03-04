@@ -1,0 +1,29 @@
+- content_for :title do
+  = @landing.html_title
+
+- content_for :meta_description do
+  meta name='description' content=@landing.meta_description
+
+- content_for :stylesheet do
+  = stylesheet_link_tag "public/old_template/color_schemes/#{@landing.color_scheme}"
+
+- content_for :script do
+  = javascript_include_tag 'http://img.apishops.org/SinglePageWebsites/custom/js/apishopsForm.utf8.js'
+
+= render 'public/landings/templates/old/header'
+= render 'public/landings/templates/old/main_section'
+= render 'public/landings/templates/old/description'
+= render 'public/landings/templates/old/reviews'
+= render 'public/landings/templates/old/guarantees'
+= render 'public/landings/templates/old/shipping'
+= render 'public/landings/templates/old/order'
+= render 'public/landings/templates/old/footer'
+
+= render 'public/shared/modals'
+
+- if params[:order_id]
+  div data-view='app#success' data={modal_path: public_landing_success_modal_path(order_id: params[:order_id])}
+
+- if @landing.draft?
+  = render 'public/landings/templates/old/color_selector'
+

@@ -2,6 +2,9 @@ class Public::LandingsController < Public::BaseController
   before_filter :load_landing, :restrict_access_to_unpublished
 
   def show
+    unless params[:ver] == 'new'
+      render action: 'show_old'
+    end
   end
 
   def images
