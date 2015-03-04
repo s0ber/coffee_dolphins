@@ -1,0 +1,34 @@
+.main_headline
+  .main_headline-bg
+    img.main_headline-bg_image src=image_path('public/background.jpg')
+  .main_headline-inner
+    .main_headline-title
+      = landing.title.html_safe
+
+    .clearfix
+      .main_headline-left
+        | ololo
+        .photo_gallery
+          .photo_gallery-arrow_left
+          .photo_gallery-photo
+            .photo_gallery-photo_inner
+          .photo_gallery-arrow_right
+
+      .main_headline-right
+        .main_headline-description
+          = landing.short_description.html_safe
+
+    .cta
+      .clearfix
+        .cta-price
+          span.cta-price_new
+            | #{landing.public_price} рублей
+          span.cta-price_delimeter
+            | /
+          span.cta-price_old
+            | вместо <span>#{landing.public_price_without_discount} рублей</span>
+        .cta-button
+          .big_button
+            | Заказать сейчас в <b>1 клик</b> &rarr;
+      .cta-additional_info
+        | <b>Гарантия качества</b>, оплата при получении товара, доставка от одного дня.

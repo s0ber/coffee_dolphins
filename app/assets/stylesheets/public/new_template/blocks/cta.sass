@@ -1,0 +1,48 @@
+@import 'public/new_template/imports'
+
+.cta
+  text-align: center
+
+.cta-price
+  position: relative
+  display: inline-block
+  margin: 30px 0
+  padding: 10px 15px
+  font-size: 25px
+  line-height: 40px
+  font-weight: bold
+  background: rgba(255, 255, 255, .2)
+  border-radius: 3px
+
+  &:before
+    content: ''
+    position: absolute
+    left: -90px
+    top: -27px
+    +hidpi-inline('public/rounded_arrow_white.png')
+
+.cta-price_new
+
+.cta-price_delimeter
+  margin: 0 7px
+  font-size: 33px
+  vertical-align: top
+  font-weight: normal
+
+.cta-price_old
+  color: $red
+  font-size: 20px
+  text-shadow: 0 1px 2px rgba(255, 255, 255, .5)
+
+.cta-button
+  display: inline-block
+  margin-left: 15px
+
+.cta-price,
+.cta-additional_info
+  color: #fff
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .5)
+
+.cta-additional_info
+  font-size: 13px
+  line-height: 20px
