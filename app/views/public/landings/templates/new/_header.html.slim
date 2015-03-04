@@ -1,5 +1,13 @@
 .header
   .header-inner
+    ul.menu.for-header
+      li.menu-item
+        | О магазине
+      li.menu-item
+        | О доставке
+      li.menu-item
+        | Гарантии
+    img.header-logo src=image_path('public/logo.png')
     .header-phone
       span.header-phone_icon
         = fa_icon 'phone'
@@ -9,4 +17,3 @@
         | (бесплатно)
       .header-phone_article
         | Артикул товара: <b>#123456789</b>
-    img.header-logo src=image_path('public/logo.png')

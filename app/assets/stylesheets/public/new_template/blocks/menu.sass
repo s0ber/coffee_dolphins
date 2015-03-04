@@ -1,0 +1,26 @@
+@import 'public/new_template/imports'
+
+.menu
+  margin: 0
+  padding: 0
+  font-size: 15px
+  line-height: 70px
+
+  &.for-header
+    float: left
+
+.menu-item
+  float: left
+  margin: 0
+  padding: 0
+  margin-left: 30px
+  list-style-type: none
+  cursor: pointer
+  color: lighten($text, 5%)
+  transition: color .2s
+
+  &:first-child
+    margin-left: 0
+
+  &:hover
+    color: darken($text, 15%)
