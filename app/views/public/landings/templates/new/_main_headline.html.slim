@@ -5,18 +5,22 @@
     .main_headline-title
       = landing.title.html_safe
 
-    .clearfix
-      .main_headline-left
-        | ololo
-        .photo_gallery
-          .photo_gallery-arrow_left
-          .photo_gallery-photo
-            .photo_gallery-photo_inner
-          .photo_gallery-arrow_right
+    .main_headline-info
+      .main_headline-info_inner
+        .main_headline-left
+          - photos = landing.landing_images.for_gallery
+          .photo_slider
+            .photo_slider-arrow_left
+              = fa_icon 'chevron-left'
+            .photo_slider-photo_wrap
+              .photo_slider-photo_inner
+                .photo_slider-photo style="background-image: url(#{photos.first.image.gallery.url});"
+            .photo_slider-arrow_right
+              = fa_icon 'chevron-right'
 
-      .main_headline-right
-        .main_headline-description
-          = landing.short_description.html_safe
+        .main_headline-right
+          .main_headline-description
+            = landing.short_description.html_safe
 
     .cta
       .clearfix
