@@ -15,10 +15,11 @@
 
     .main_headline-cta.js-headline-cta
       .main_headline-timer
-        .main_headline-timer_message
-          span>
-            | Внимание, акция!
-          | Сделайте заказ сегодня, и получите <b>монопод Kjstar Z07-5</b> всего&nbsp;за&nbsp;<b>#{landing.public_price}&nbsp;рублей</b>!
+        .main_headline-timer_message_wrap
+          .main_headline-timer_message
+            span>
+              | Внимание, акция!
+            | Сделайте заказ сегодня, и получите <b>монопод Kjstar Z07-5</b> всего&nbsp;за&nbsp;<b>#{landing.public_price}&nbsp;рублей</b>!
         = render 'public/shared/timer',
           landing: landing,
           modifier_class: 'for-new_template',
