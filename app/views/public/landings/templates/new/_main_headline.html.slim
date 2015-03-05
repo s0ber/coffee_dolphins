@@ -13,17 +13,28 @@
           .main_headline-description.js-headline-description
             = landing.short_description.html_safe
 
-    .cta.js-headline-cta
-      .clearfix
-        .cta-price
-          span.cta-price_new
-            | #{landing.public_price} рублей
-          span.cta-price_delimeter
-            | /
-          span.cta-price_old
-            | вместо <span>#{landing.public_price_without_discount} рублей</span>
-        .cta-button
-          .big_button
-            | Заказать сейчас в <b>1 клик</b> &rarr;
-      .cta-additional_info
-        | <b>Гарантия качества</b>, оплата при получении товара, доставка от одного дня.
+    .main_headline-cta.js-headline-cta
+      .main_headline-timer
+        .main_headline-timer_message
+          span>
+            | Внимание, акция!
+          | Сделайте заказ сегодня, и получите <b>монопод Kjstar Z07-5</b> всего&nbsp;за&nbsp;<b>#{landing.public_price}&nbsp;рублей</b>!
+        = render 'public/shared/timer',
+          landing: landing,
+          modifier_class: 'for-new_template',
+          timer_message: 'Скидка действительна в течение'
+
+      .cta
+        .clearfix
+          .cta-price
+            span.cta-price_new
+              | #{landing.public_price} рублей
+            span.cta-price_delimeter
+              | /
+            span.cta-price_old
+              | #{landing.public_price_without_discount} рублей
+          .cta-button
+            .big_button
+              | Заказать сейчас в <b>1 клик</b> &rarr;
+        .cta-additional_info
+          | <b>Гарантия качества</b>, оплата при получении товара, доставка от одного дня.

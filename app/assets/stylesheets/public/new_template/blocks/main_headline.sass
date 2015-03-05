@@ -32,7 +32,7 @@
   font-weight: bold
 
   opacity: 0
-  transition: opacity .5s
+  transition: opacity .7s
 
   +animate_show
     opacity: 1
@@ -41,7 +41,7 @@
   display: table
   table-layout: fixed
   width: 100%
-  margin: 40px 0
+  margin: 35px 0
 
 .main_headline-info_inner
   display: table-row
@@ -58,7 +58,8 @@
   vertical-align: middle
 
 .main_headline-title,
-.main_headline-description
+.main_headline-description,
+.main_headline-timer_message
   color: #fff
   text-shadow: 0 1px 2px rgba(0, 0, 0, .5)
 
@@ -71,7 +72,7 @@
 
   opacity: 0
   top: -20px
-  transition: all .5s
+  transition: all .7s
 
   +animate_show
     opacity: 1
@@ -82,3 +83,27 @@
 
     &:first-child
       margin-top: 0
+
+.main_headline-cta
+  position: relative
+
+  opacity: 0
+  top: -20px
+  transition: all .7s
+
+  +animate_show
+    opacity: 1
+    top: 0
+
+.main_headline-timer
+  text-align: center
+
+.main_headline-timer_message
+  font-size: 23px
+  line-height: 35px
+
+  span
+    font-size: 27px
+    color: $red
+    text-shadow: 0 1px 1px rgba(255, 255, 255, .7)
+    font-weight: bold

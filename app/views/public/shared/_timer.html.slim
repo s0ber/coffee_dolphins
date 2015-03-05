@@ -1,9 +1,10 @@
 - modifier_class ||= ''
 - for_home_page ||= false
+- timer_message ||= 'До конца акции осталось'
 
 .timer class=modifier_class data-view='app#timer' data={landing_id: landing.id, for_home_page: for_home_page.to_s}
   .timer-message
-    | До конца акции осталось
+    = timer_message
   .timer-wrapper
     .timer-hours
       | <span class="js-hours">&ndash;</span> час
