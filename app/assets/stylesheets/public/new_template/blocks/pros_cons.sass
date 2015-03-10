@@ -23,16 +23,71 @@
   line-height: 30px
 
 .pros_cons-table
-.pros_cons-cell
-.pros_cons-header
-  .pros_cons-cell
+  display: table
+  table-layout: fixed
+  margin: 50px 100px
+  background: #F5F7FA
 
-.pros_cons-body
-.pros_cons-row
-.pros_cons-row_title
+.pros_cons-header
+  display: table-header-group
   .pros_cons-cell
+    text-align: center
+    font-weight: bold
+    font-size: 17px
+    line-height: 30px
+
+    &:first-child
+      background: #fff
+
+.pros_cons-row
+  display: table-row
+  &.is-last
+    .pros_cons-cell
+      padding: 10px
+      &:first-child
+        background: #fff
+
+  &.has-only_title
+    .pros_cons-cell
+      text-align: center
+
+.pros_cons-cell
+  display: table-cell
+  width: 38%
+  padding: 10px 15px
+  border: 2px solid #fff
+  text-align: left
+
+  &:first-child
+    width: 24%
+    vertical-align: middle
+    font-size: 17px
+    padding: 10px 15px
+    font-weight: bold
+
+  &.is-winner
+    background: darken(#F5F7FA, 5%)
+
+  &.is-true
+    background: lighten(#C2E5DF, 7%)
+    &.is-winner
+      background: lighten(#C2E5DF, 2%)
+
+  &.is-false
+    background: lighten(#EDC9CF, 7%)
+    &.is-winner
+      background: lighten(#EDC9CF, 2%)
 
 .pros_cons-cell_title
+  font-weight: bold
+  line-height: 20px
+  text-transform: uppercase
+
 .pros_cons-cell_description
+  margin-top: 10px
+  font-size: 13px
+  line-height: 20px
+
 .pros_cons-row.is-last
+
 .pros_cons-button
