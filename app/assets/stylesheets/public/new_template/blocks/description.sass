@@ -1,0 +1,37 @@
+@import 'public/new_template/imports'
+
+.description
+  border-bottom: 1px solid $bd
+
+.description-inner
+  +acts_as_layout_row
+  padding-top: 50px
+  padding-bottom: 40px
+
+.description-title
+  +acts_as_section_title
+
+.description-list
+  text-align: center
+
+.description-item
+  display: inline-block
+  width: 33%
+  padding: 0 20px 40px
+  vertical-align: top
+
+.description-item_img
+  margin-bottom: 20px
+
+  img
+    width: 100%
+    height: auto
+    vertical-align: top
+    border-radius: 3px
+
+.description-item_title
+  font-size: 17px
+  font-weight: bold
+
+.description-more
+  +acts_as_section_footer
