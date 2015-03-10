@@ -25,7 +25,7 @@
 .pros_cons-table
   display: table
   table-layout: fixed
-  margin: 50px 100px
+  margin: 50px 100px 20px
   background: #F5F7FA
 
 .pros_cons-header
@@ -50,6 +50,8 @@
   &.has-only_title
     .pros_cons-cell
       text-align: center
+      &:first-child
+        text-align: left
 
 .pros_cons-cell
   display: table-cell
