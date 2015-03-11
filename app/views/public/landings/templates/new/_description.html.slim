@@ -1,6 +1,6 @@
 .description
   .description-inner
-    .description-title
+    .description-title.animate-show_fast
       | С палкой для селфи Kjstar Z07-5...
 
     - features = ['Вам не нужно просить незнакомых людей сфотографировать вас',
@@ -10,12 +10,12 @@
       'Делайте групповые селфи']
     .description-list.has-5_items
       - features.each_with_index do |feature, i|
-        .description-item class=("is-#{i + 1}")
+        .description-item.animate-show_zoom class=("is-#{i + 1}")
           .description-item_img
             img src=image_path("public/palka/#{i + 1}.jpg")
           .description-item_info
             .description-item_title
               = feature
 
-    .description-more
+    .description-more.animate-show_fast
       | И многое другое, список возможностей ограничен лишь вашей фантазией!

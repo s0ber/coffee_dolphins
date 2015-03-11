@@ -8,7 +8,7 @@ class App.Behaviors.Sticky extends View
     @$clonedEl.hide().addClass('is-fixed js-fixed')
     @appendAsync($('body'), @$clonedEl)
 
-    @$window.on('scroll', _.bind(@processScroll, @))
+    @$window.on('scroll', _.throttle(_.bind(@processScroll, @), 50))
 
   processScroll: ->
     isFixed = @$window.scrollTop() > @topPos

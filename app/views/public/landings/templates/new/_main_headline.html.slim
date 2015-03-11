@@ -1,8 +1,8 @@
-.main_headline data-view='app#headline'
+.main_headline
   .main_headline-bg
     img.main_headline-bg_image src=image_path('public/background.jpg')
   .main_headline-inner
-    .main_headline-title.js-headline-title
+    .main_headline-title.animate-show
       = landing.title.html_safe
 
     .main_headline-info
@@ -10,10 +10,10 @@
         .main_headline-left
           = render 'public/landings/templates/new/photo_slider', landing: landing
         .main_headline-right
-          .main_headline-description.js-headline-description
+          .main_headline-description.animate-show_fast
             = landing.short_description.html_safe
 
-    .main_headline-cta.js-headline-cta
+    .main_headline-cta.animate-show
       .main_headline-timer
         .main_headline-timer_message_wrap
           .main_headline-timer_message

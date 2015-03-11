@@ -1,5 +1,8 @@
-Utils.isElementInViewport = ($el) ->
-  el = $el[0]
+Utils.isElementInViewport = (el) ->
+
+  if el instanceof jQuery
+    el = el[0]
+
   rect = el.getBoundingClientRect()
 
   rect.top >= 0 and
