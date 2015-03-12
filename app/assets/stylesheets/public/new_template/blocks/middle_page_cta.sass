@@ -1,0 +1,71 @@
+@import 'public/new_template/imports'
+
+.middle_page_cta
+  position: relative
+  border-bottom: 1px solid $bd
+  color: #fff
+  text-shadow: 1px 2px rgba(0, 0, 0, .5)
+  background: rgba(0, 0, 0, .6)
+  overflow: hidden
+
+.middle_page_cta-bg
+  position: absolute
+  top: 0
+  left: 50%
+  text-align: center
+  height: 100%
+  width: auto
+  z-index: -1
+
+.middle_page_cta-bg_image
+  margin-left: -100%
+  width: auto
+  height: 100%
+
+.middle_page_cta-inner
+  +acts_as_layout_row
+  padding-top: 50px
+  min-height: 200px
+
+.middle_page_cta-title
+  +acts_as_section_title
+
+.middle_page_cta-row
+  text-align: center
+
+.middle_page_cta-img_wrap
+  display: inline-block
+  width: 28%
+  vertical-align: bottom
+
+.middle_page_cta-img
+  width: 100%
+  img
+    width: 140%
+    margin-left: -40px
+    height: auto
+    vertical-align: top
+
+.middle_page_cta-img_description
+
+.middle_page_cta-info
+  display: inline-block
+  padding: 10px 40px 40px 70px
+  width: 72%
+  vertical-align: middle
+  text-align: left
+  font-size: 22px
+  line-height: 35px
+  text-align: center
+
+.middle_page_cta-info_text
+  display: block
+  margin: 20px 10px 20px 0
+
+.middle_page_cta-info_title
+  text-transform: uppercase
+  font-weight: bold
+
+.middle_page_cta-actions
+  margin: 0 -25px
+

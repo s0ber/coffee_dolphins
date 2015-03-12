@@ -17,23 +17,17 @@
       .main_headline-timer
         .main_headline-timer_message_wrap
           .main_headline-timer_message
-            span>
+            .main_headline-timer_message_red>
               | Внимание, акция!
-            | Сделайте заказ сегодня, и получите <b>монопод Kjstar Z07-5</b> всего&nbsp;за&nbsp;<b>#{landing.public_price}&nbsp;рублей</b>!
+            span
+              | Сделайте заказ сегодня, и получите <b>монопод Kjstar Z07-5</b> всего&nbsp;за&nbsp;<b>#{landing.public_price}&nbsp;рублей</b>!
         = render 'public/shared/timer',
           landing: landing,
-          modifier_class: 'for-new_template',
           timer_message: 'Скидка действительна в течение'
 
       .cta
         .clearfix
-          .cta-price
-            span.cta-price_new
-              | #{landing.public_price} рублей
-            span.cta-price_delimeter
-              | /
-            span.cta-price_old
-              | #{landing.public_price_without_discount} рублей
+          = render 'public/landings/templates/new/price', landing: landing, modifier_class: 'for-cta'
           .cta-button
             .big_button
               | Заказать сейчас в <b>1 клик</b> &rarr;

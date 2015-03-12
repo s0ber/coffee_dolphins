@@ -4,7 +4,7 @@
   position: relative
   border-bottom: 1px solid $bd
   overflow: hidden
-  background: rgba(0, 0, 0, .4)
+  background: rgba(0, 0, 0, .6)
 
 .main_headline-bg
   position: absolute
@@ -83,10 +83,17 @@
   padding-bottom: 3px
   font-size: 23px
   line-height: 35px
-  border-bottom: 1px solid rgba(255, 255, 255, .7)
-
   span
-    font-size: 27px
-    color: $red
-    text-shadow: 0 1px rgba(255, 255, 255, .35)
-    font-weight: bold
+    border-bottom: 1px solid rgba(255, 255, 255, .7)
+
+.main_headline-timer_message_red
+  display: inline-block
+  margin-right: 5px
+  padding: 0 5px
+  font-size: 27px
+  color: desaturate($red, 20%)
+  text-shadow: 0 1px rgba(255, 255, 255, .35)
+  font-weight: bold
+  background: rgba(#fff, .2)
+  border-radius: 3px
+
