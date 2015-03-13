@@ -1,0 +1,81 @@
+@import 'public/new_template/imports'
+
+.faq
+  border-bottom: 1px solid $bd
+  background: linear-gradient(#424242, #A0A0A0)
+
+.faq-inner
+  +acts_as_layout_row
+  padding-top: 50px
+  padding-bottom: 50px
+
+.faq-title
+  +acts_as_section_title
+  color: #fff
+  text-shadow: 0 1px rgba(0, 0, 0, .9)
+
+.faq-section
+  margin: 40px 90px 0
+  padding-bottom: 23px
+  background: #fff
+  text-align: center
+  border-radius: 3px
+
+  &:first-child
+    margin-top: 0
+
+.faq-section_title
+  +acts_as_section_footer
+  line-height: 60px
+  margin-bottom: 20px
+  border-bottom: 1px solid $bd
+
+.faq-section_columns
+  +clearfix
+
+.faq-section_column
+  float: left
+  width: 50%
+
+.faq-item
+  text-align: left
+  padding: 40px 20px 0
+
+  &:first-child
+    padding-top: 0
+
+.faq-question
+  margin: 0 15px 25px
+  text-transform: uppercase
+  font-weight: bold
+
+.faq-answer
+  position: relative
+  padding: 10px 15px
+  border: 1px solid #E7E7E7
+  border-radius: 3px
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, .1)
+  background: #FCF6EA
+
+  &:before,
+  &:after
+    content: ''
+    position: absolute
+    width: 0
+    height: 0
+
+  &:before
+    top: -20px
+    left: 30px
+    border-top: 0 solid transparent
+    border-bottom: 20px solid #e7e7e7
+    border-left: 0 solid transparent
+    border-right: 30px solid transparent
+
+  &:after
+    top: -18px
+    left: 31px
+    border-top: 0 solid transparent
+    border-bottom: 18px solid #FCF6EA
+    border-left: 0 solid transparent
+    border-right: 27px solid transparent
