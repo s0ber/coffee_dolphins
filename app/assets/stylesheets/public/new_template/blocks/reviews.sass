@@ -31,6 +31,7 @@
   color: #7491B4
   cursor: pointer
   border-radius: 3px
+  +no_select
 
   &:hover
     background: lighten(#7491B4, 40%)
@@ -45,7 +46,9 @@
   right: -60px
 
 .reviews-list
+  display: inline-block
   line-height: 25px
+  vertical-align: middle
 
 .reviews-item
   display: none
@@ -75,6 +78,7 @@
     width: 100%
     height: auto
     border-radius: 50%
+    vertical-align: top
 
 .review-author
   float: left

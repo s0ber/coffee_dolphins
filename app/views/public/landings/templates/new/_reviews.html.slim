@@ -5,18 +5,18 @@
   .reviews-inner
     .reviews-title
       | Что говорят наши клиенты
-    .reviews-wrap
-      .reviews-arrow_left
+    .reviews-wrap data-view='app#reviews'
+      .reviews-arrow_left.js-reviews-arrow_left
         = fa_icon 'chevron-left'
-      .reviews-arrow_right
+      .reviews-arrow_right.js-reviews-arrow_right
         = fa_icon 'chevron-right'
 
       .reviews-list
-        - landing.reviews.each_with_index do |review|
-          .reviews-item
-            .reviews-text
+        - landing.reviews.each_with_index do |review, i|
+          .reviews-item.js-reviews-item class=('is-active' if i == 0)
+            .reviews-text.js-reviews-item_text
               | <span>&laquo;</span>#{review.text}&raquo;
-            .reviews-info
+            .reviews-info.js-reviews-item_info
               .review-img
                 - if review.by_male?
                   img src=image_path("public/review_author_man#{man_reviews += 1}.jpg")
