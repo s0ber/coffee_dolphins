@@ -1,0 +1,90 @@
+@import 'public/new_template/imports'
+
+.reviews
+  border-bottom: 1px solid $bd
+
+.reviews-inner
+  +acts_as_layout_row
+  padding-top: 50px
+  padding-bottom: 50px
+  text-align: center
+
+.reviews-title
+  +acts_as_section_title
+
+.reviews-wrap
+  position: relative
+  display: inline-block
+  width: 780px
+  padding: 0 35px 0 40px
+  text-align: left
+
+.reviews-arrow_left,
+.reviews-arrow_right
+  position: absolute
+  top: 0
+  width: 60px
+  height: 250px
+  font-size: 25px
+  line-height: 250px
+  text-align: center
+  color: #7491B4
+  cursor: pointer
+  border-radius: 3px
+
+  &:hover
+    background: lighten(#7491B4, 40%)
+
+  .fa
+    vertical-align: middle
+
+.reviews-arrow_left
+  left: -60px
+
+.reviews-arrow_right
+  right: -60px
+
+.reviews-list
+  line-height: 25px
+
+.reviews-item
+  display: none
+
+  &:first-child
+    display: block
+
+.reviews-text
+  font-size: 20px
+  line-height: 40px
+  font-style: italic
+
+  span
+    margin-left: -7px
+
+.reviews-info
+  +clearfix
+  margin-top: 20px
+  margin-left: 20px
+
+.review-img
+  float: left
+  width: 90px
+  height: 90px
+
+  img
+    width: 100%
+    height: auto
+    border-radius: 50%
+
+.review-author
+  float: left
+  margin-left: 25px
+  font-size: 15px
+  line-height: 90px
+
+.review-author_name
+  text-transform: uppercase
+  font-weight: bold
+
+.review-author_city
+  font-weight: normal
