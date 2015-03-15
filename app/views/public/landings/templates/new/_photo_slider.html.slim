@@ -1,6 +1,7 @@
 - photos = landing.landing_images.for_gallery
+- modifier_class ||= nil
 
-.photo_slider.animate-show_fast
+.photo_slider.animate-show_fast class=(modifier_class if modifier_class)
   .photo_slider-arrow_left
     = fa_icon 'chevron-left'
   .photo_slider-photo_wrap
