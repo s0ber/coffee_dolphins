@@ -5,12 +5,9 @@ class App.Behaviors.Modals extends View
     modalsLayer: '.js-modals-layer'
     modalsContainer: '.js-modals-container'
 
-  events:
-    'click [data-modal]': 'loadModal'
-    'click .js-close_modal': 'closeModal'
-
   initialize: ->
     @$el.on('click', '[data-modal]', _.bind(@loadModal, @))
+    @$el.on('click', '[data-inline-modal]', _.bind(@showInlineModal, @))
     @$el.on('click', '.js-close_modal', _.bind(@closeModal, @))
 
     @sub('load_modal', @loadModalByPath)
@@ -32,8 +29,14 @@ class App.Behaviors.Modals extends View
   loadModalByPath: (path, allowToClose = true) ->
     $.getJSON(path).done (json) => @showModal(json, allowToClose)
 
-  showModal: (json, allowToClose = true) ->
-    @$modal = $(@renderModal(json.title, json.html))
+  showInlineModal: (e) ->
+    modalId = $(e.currentTarget).data('inline-modal')
+    $modalTemplate = $("##{modalId}")
+
+    @showModal(title: $modalTemplate.data('title'), html: $modalTemplate.html())
+
+  showModal: (options, allowToClose = true) ->
+    @$modal = $(@renderModal(options.title, options.html))
 
     @showOverlay()
     @bindCloseEvents() if allowToClose is true
