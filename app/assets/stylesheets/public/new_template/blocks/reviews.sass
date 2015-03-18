@@ -51,10 +51,23 @@
   vertical-align: middle
 
 .reviews-item
+  position: relative
   display: none
 
   &:first-child
     display: block
+
+.reviews-quote
+  position: absolute
+  top: -40px
+  left: -45px
+  z-index: -1
+  width: 159px
+  height: 140px
+  opacity: .8
+
+  img
+    vertical-align: top
 
 .reviews-text
   font-size: 20px
