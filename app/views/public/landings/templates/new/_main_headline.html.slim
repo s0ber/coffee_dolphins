@@ -1,6 +1,4 @@
-.main_headline
-  .main_headline-bg
-    img.main_headline-bg_image src=image_path('public/background.jpg')
+.main_headline.js-scroll_fix
   .main_headline-inner
     .main_headline-title.animate-show
       = landing.title.html_safe
@@ -33,3 +31,6 @@
               | Заказать сейчас в <b>1 клик</b> &rarr;
         .cta-additional_info
           | <b>Гарантия качества</b>, оплата при получении товара, доставка от одного дня.
+
+  .main_headline-bg
+    img.main_headline-bg_image src=image_path('public/background.jpg')
