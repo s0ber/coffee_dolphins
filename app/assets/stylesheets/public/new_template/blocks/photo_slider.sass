@@ -1,0 +1,87 @@
+@import 'public/new_template/imports'
+
+.photo_slider
+  position: relative
+  display: inline-block
+  vertical-align: middle
+  text-align: center
+
+  &.is-white
+    .photo_slider-photo_wrap,
+    .photo_slider-arrow_left:hover,
+    .photo_slider-arrow_right:hover
+      background: rgba(255, 255, 255, .3)
+
+.photo_slider-photo_wrap
+  position: relative
+  float: left
+  background: rgba(0, 0, 0, .2)
+  border-radius: 3px
+  box-shadow: 0 0 3px rgba(0, 0, 0, .2)
+  z-index: 2
+
+.photo_slider-photo_inner
+  position: relative
+  margin: 7px
+  height: 270px
+  width: 270px
+  background: #fff
+  border-radius: 3px
+
+.photo_slider-photo
+  vertical-align: middle
+  width: 100%
+  height: 100%
+  background-position: center
+  background-size: 100%
+  background-repeat: no-repeat
+  border-radius: 2px
+
+.photo_slider-arrow_left,
+.photo_slider-arrow_right
+  +no_select
+  position: absolute
+  top: 0
+  bottom: 0
+  width: 50px
+  color: #fff
+  font-size: 20px
+  border-radius: 3px
+  text-align: center
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .5)
+
+  &:hover
+    background: rgba(#000, .2)
+    cursor: pointer
+
+  .fa
+    position: absolute
+    top: 50%
+    left: 50%
+    margin-top: -10px
+    margin-left: -6px
+
+.photo_slider-arrow_left
+  left: -60px
+
+.photo_slider-arrow_right
+  right: -60px
+
+.photo_slider-zoom_button
+  position: absolute
+  top: 10px
+  right: 10px
+  width: 30px
+  height: 30px
+  color: #fff
+  background: rgba(0, 0, 0, .3)
+  font-size: 15px
+  line-height: 30px
+  border-radius: 3px
+  transition: background 0.2s
+  cursor: pointer
+  +no_select
+
+  &:hover
+    background: rgba(0, 0, 0, .5)
+

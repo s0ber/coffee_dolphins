@@ -1,0 +1,31 @@
+.section.is-dark_gradient data-section='main'
+  .js-scroll_fix
+    .columns
+      .cta-wrap.column.is-7.offset.is-by_2
+        .cta
+          .cta_inner
+            h1.cta-title
+              = @landing.title.html_safe
+
+            .cta-description
+              = @landing.short_description.html_safe
+            .cta-warning
+              | Успейте заказать этот <b>уникальный товар</b> по&nbsp;выгодной&nbsp;цене
+              br
+              | (<b>скидка действительна до&nbsp;#{l(Time.zone.now, format: :date)} включительно</b>).
+
+            = render 'public/landings/templates/old/cta_form', form_id: :top_form
+
+      .photos_slider-wrap.column.is-7
+        = render 'public/landings/templates/old/photos_slider'
+
+    .columns
+      .why_to_buy
+        .why_to_buy-inner data-view='app#why_area' data-section-name='description'
+          img src=image_path('public/woman.png')
+          .why_to_buy-text
+            h3= @landing.why_question
+            br
+            .why_to_buy-click_me
+              | Нажмите сюда, чтобы узнать &darr;
+

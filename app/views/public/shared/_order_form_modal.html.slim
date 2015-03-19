@@ -1,0 +1,38 @@
+- options = (1..10).map { |items_num| ["Мне нужно #{items_num} шт.", items_num] }
+
+.modal-inner
+  .order_form data-view='app#form' data={full_price: landing.public_price,
+                                        product_id: landing.position.apishops_position_id,
+                                        site_id: landing.apishops_site_id,
+                                        article_id: landing.apishops_article_id,
+                                        success_path: landing.success_path}
+
+    .order_form-inner
+      form#modal_order_form action='#' method='post'
+        .order_form-message
+          | Оставьте номер вашего телефона, и наш оператор свяжется с вами в течение нескольких минут для обсуждения деталей заказа.
+        .clearfix
+          .order_form-phone
+            .order_form-field.has-icon
+              = fa_icon 'phone'
+              input name='apishopsFormPhone' pattern='.{3,}' placeholder='Ваш телефон' type='text'
+
+          .order_form-quantity_wrapper
+            .order_form-quantity data-view='app#select'
+              span.js-select-label
+                | Мне нужно 1 шт.
+              select.js-select-input name='apishopsFormCount'
+                - options.each do |name, value|
+                  option selected=(value == 1) value=value
+                    = name
+              = fa_icon 'sort-down'
+
+        .order_form-promocode
+          .order_form-field
+            input name='apishopsFormPromocode' placeholder='Промокод (если есть)' type='text'
+
+        = hidden_field_tag 'apishopsFormAddress', 'Необходимо уточнить у клиента'
+        = hidden_field_tag 'apishopsFormFio', 'Необходимо уточнить у клиента'
+
+        button.big_button.for-order_form.js-order_button data-show-price='false'
+          | Заказать

@@ -1,0 +1,16 @@
+.section.is-dark data-section='footer_order'
+  .js-scroll_fix
+    .columns
+      .column.is-16
+        .section-title
+          h2.section-title_inner
+            = @landing.footer_title
+
+        .section-description
+          | Только <b>#{l(Time.zone.now, format: :date)}</b> со <b>скидкой #{@landing.discount}%</b>!
+
+    .columns
+      .photos_slider-wrap.column.is-7
+        = render 'public/landings/templates/old/photos_slider', modifier: 'footer'
+      .cta-wrap.column.is-7
+        = render 'public/landings/templates/old/cta_form', modifier: 'footer', form_id: :bottom_form

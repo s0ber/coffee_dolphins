@@ -1,0 +1,132 @@
+@import 'public/old_template/imports'
+
+.cta_form
+  position: relative
+  margin: 10px 10px 0 0
+
+  &.for-footer
+    margin: 35px 0 0 0
+
+.cta_form-wrap
+  position: relative
+  border: 1px solid $dark_600
+  padding: 8px
+  background: lighten($light_500, 5%)
+  background: linear-gradient(lighten($light_500, 5%), $light_500)
+  border-radius: 3px
+  z-index: 2
+
+.cta_form-inner
+  border: 1px solid $light_500
+  border-radius: 3px
+  padding: 15px
+  background: lighten($transparent_10, 3%)
+  background: linear-gradient(lighten($transparent_10, 3%), $transparent_10)
+
+.cta_form-field
+  position: relative
+  float: left
+  padding-right: 170px
+  width: 100%
+  margin-bottom: 10px
+  box-sizing: border-box
+  z-index: 1
+
+  input
+    padding: 0 10px 0 30px
+    width: 100%
+    height: 40px
+    font-size: 14px
+    line-height: 14px
+    border-radius: 3px
+    border: 1px solid $bd
+    box-sizing: border-box
+
+    &:focus
+      border-color: $light_200
+      box-shadow: 0 0 7px rgba($light_200, .7)
+      outline: 0
+
+    &::-webkit-input-placeholder
+      color: #ABABAB
+    &:-moz-placeholder
+      color: #ABABAB
+    &:-ms-input-placeholder
+      color: #ABABAB
+    &.placeholder
+      color: #ABABAB
+
+  .fa-phone
+    position: absolute
+    top: 50%
+    left: 10px
+    margin-top: -8px
+    font-size: 15px
+    color: #aaa
+
+.cta_form-quantity
+  position: relative
+  float: left
+  margin-left: -160px
+  padding: 0 10px
+  width: 160px
+  height: 40px
+  line-height: 38px
+  z-index: 2
+  border: 1px solid $bd
+  background: darken(#F8F8F8, 3%)
+  border-radius: 3px
+  text-shadow: 0 1px 1px rgba(255, 255, 255, .5)
+  box-sizing: border-box
+  cursor: pointer
+
+  &.is-focused
+    border-color: $light_200
+    box-shadow: 0 0 7px rgba($light_200, .7)
+    outline: 0
+
+  select
+    position: absolute
+    left: 0
+    top: 0
+    margin: -1px 0 0 -1px
+    width: 160px
+    height: 40px
+    border: 1px solid $bd
+    box-sizing: border-box
+    opacity: 0
+
+  .fa-sort-down
+    position: absolute
+    top: 10px
+    right: 10px
+    font-size: 13px
+    text-shadow: none
+
+.cta_form-button
+  margin: 0
+  padding: 0
+  width: 100%
+  height: 47px
+  text-align: center
+  line-height: 45px
+  +orange_button
+
+  b
+    font-size: 23px
+    vertical-align: -2px
+    margin: 0 5px
+
+.cta_form-info
+  margin-top: 10px
+  color: lighten($transparent_50, 10%)
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .7)
+  font-size: 12px
+  line-height: 15px
+
+  b
+    font-size: 13px
+    white-space: nowrap
+    vertical-align: -1px
+    color: lighten($transparent_50, 15%)
+    letter-spacing: 0.3px

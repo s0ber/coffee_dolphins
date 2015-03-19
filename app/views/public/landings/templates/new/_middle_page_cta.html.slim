@@ -1,0 +1,27 @@
+.middle_page_cta.js-scroll_fix
+  .middle_page_cta-inner
+    .middle_page_cta-title
+      | Спешите воспользоваться ограниченным предложением!
+    .middle_page_cta-row
+      .middle_page_cta-img_wrap
+        .middle_page_cta-img
+          img src=image_path('public/palka/main_page_cta/monopod.png')
+        .middle_page_cta-img_description
+      .middle_page_cta-info
+        .middle_page_cta-info_title
+          | Распродажа только до 15 марта 2015 года
+        .middle_page_cta-info_text
+          | Успей купить <b>монопод Kjstar&nbsp;Z05-7</b> всего&nbsp;за&nbsp;<b>1390&nbsp;рублей</b>!
+        | Вы сэкономите <b>600&nbsp;рублей</b>, сделав заказ сегодня!
+
+        .middle_page_cta-price
+          = render 'public/landings/templates/new/price', landing: landing, modifier_class: 'is-white'
+
+        .middle_page_cta-actions
+          = render 'public/shared/timer', modifier_class: 'for-middle_page_cta', timer_message: 'Акция закончится через'
+
+          .big_button.for-middle_page_cta data-inline-modal='order_form_modal'
+            | Заказать монопод &rarr;
+
+  .middle_page_cta-bg
+    img.middle_page_cta-bg_image src=image_path('public/palka/main_page_cta/bg.jpg')

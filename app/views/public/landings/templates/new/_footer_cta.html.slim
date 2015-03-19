@@ -1,0 +1,35 @@
+.footer_cta.js-scroll_fix
+  .footer_cta-inner
+    .footer_cta-title
+      | Делай неповторимые селфи с моноподом Kjstar Z05-7
+    .footer_cta-info
+      .footer_cta-info_inner
+        .footer_cta-left
+          = render 'public/landings/templates/new/photo_slider',
+            landing: landing,
+            modifier_class: 'is-white'
+        .footer_cta-right
+          .footer_cta-description
+            .footer_cta-description_main
+              | Получите хит этого сезона <b>только до 15 марта 2015 года</b>
+              br
+              | всего за <b>1390 рублей</b>!
+            | Вы сэкономите 600 рублей, сделав заказ сегодня!
+          = render 'public/landings/templates/new/price',
+            landing: landing,
+            modifier_class: 'is-white'
+          = render 'public/shared/timer', timer_message: 'Скидка действительна в течение', modifier_class: 'is-white'
+          .footer_cta-button
+            .big_button.for-footer data-inline-modal='order_form_modal'
+              | Заказать монопод Kjstar Z05-7 &rarr;
+          .footer_cta-phone
+            span.footer_cta-phone_message
+              | Наша горячая линия
+            span.footer_cta-phone_number
+              = fa_icon 'phone'
+              = Settings.phone
+            span.footer_cta-phone_info
+              | (звонок по РФ бесплатный)
+
+  .footer_cta-bg
+    img.footer_cta-bg_image src=image_path('public/palka/footer_cta/bg.jpg')

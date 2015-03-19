@@ -1,0 +1,114 @@
+@import 'public/old_template/imports'
+
+.sub_header
+  position: fixed
+  top: 50px
+  left: 0
+  right: 0
+  height: 40px
+  padding: 5px 0
+  text-align: center
+  background: lighten($transparent_10, 3%)
+  background: linear-gradient(lighten($transparent_10, 5%), $transparent_10)
+  box-shadow: 0 2px 3px rgba(0, 0, 0, .25)
+  z-index: 110
+  display: none
+
+.sub_header-inner
+  display: inline-block
+  text-align: left
+  margin: 0 -100px
+
+.sub_header-title
+  float: left
+  font-weight: bold
+  line-height: 40px
+  margin-right: 25px
+
+.sub_header-title_inner
+  display: inline-block
+  margin-top: -3px
+  line-height: 20px
+  vertical-align: middle
+
+.sub_header-price
+  float: left
+  margin-right: 25px
+  line-height: 20px
+  text-align: center
+
+.sub_header-arrow
+  float: left
+  margin-right: 25px
+  font-size: 13px
+  line-height: 40px
+
+.sub_header-new_price
+  font-size: 18px
+  line-height: 26px
+  font-weight: bold
+  display: block
+
+  .fa-chevron-right
+    font-size: 12px
+
+.sub_header-old_price
+  display: block
+  line-height: 14px
+  color: $text_light
+  font-size: 13px
+  color: $red
+
+.sub_header-button,
+.sub_header-ipad_button
+  float: left
+  margin: 2px 0
+  height: 36px
+  padding: 0 15px
+  font-size: 13px
+  line-height: 34px
+  +orange_button
+
+  b
+    margin: 0 1px
+    font-size: 15px
+    vertical-align: -1px
+
+.sub_header-ipad_button
+  display: none
+
+.layout.lt-small_screen
+  .sub_header-title,
+  .sub_header-price,
+  .sub_header-timer,
+  .sub_header-arrow
+    margin-right: 10px
+
+  .sub_header-time_left_message
+    margin-top: 5px
+    margin-right: 10px
+    max-width: 85px
+    text-align: right
+    font-size: 11px
+    line-height: 14px
+
+  .sub_header-button
+    display: none
+
+  .sub_header-ipad_button
+    display: block
+    position: relative
+    width: 150px
+    line-height: 14px
+    padding: 3px 65px 3px 5px
+    text-align: center
+
+    b
+      position: absolute
+      margin: 0
+      top: 0
+      right: 7px
+      bottom: 0
+      font-size: 16px
+      line-height: 34px
+      word-spacing: -2px

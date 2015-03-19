@@ -1,0 +1,40 @@
+@import 'public/new_template/imports'
+
+=animate
+  position: relative
+
+  .debug_mode &
+    transition: none
+    @content
+
+  .no-transitions &
+    transition: none
+
+  .no-transitions &,
+  &.is-animated
+    @content
+
+.animate-show_fast
+  transform: translateY(-30px)
+  opacity: 0
+  transition: all .3s
+  +animate
+    transform: translateY(0)
+    opacity: 1
+
+.animate-show
+  transform: translateY(-30px)
+  opacity: 0
+  transition: all .7s
+  +animate
+    transform: translateY(0)
+    opacity: 1
+
+.animate-show_zoom
+  transform: scale(1.1)
+  opacity: 0
+  transition: all .3s
+  +animate
+    transform: translateY(0) scale(1)
+    opacity: 1
+

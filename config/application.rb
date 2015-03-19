@@ -32,11 +32,11 @@ module CoffeeDolphinsApp
     # We don't want the default of everything that isn't js or css, because it pulls too many things in
     config.assets.precompile.shift
 
-    config.assets.precompile += ['admin/application.js', 'admin/application.css', 'public/main_page.css']
+    config.assets.precompile += ['admin/application.js', 'admin/application.css', 'public/old_template/main_page.css', 'public/new_template/all.css']
 
     # color schemes for public landings
     %w(blue green pink red blue_light purple olive bronze cocoa aquamarine purple_light).each do |color|
-      config.assets.precompile.push "public/color_schemes/#{color}.css"
+      config.assets.precompile.push "public/old_template/color_schemes/#{color}.css"
     end
 
     # Explicitly register the extensions we are interested in compiling

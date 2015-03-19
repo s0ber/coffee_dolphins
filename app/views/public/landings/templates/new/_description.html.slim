@@ -1,0 +1,38 @@
+.description.js-scroll_fix
+  .section_anchor#photos
+  .description-inner
+    .description-title.animate-show_fast
+      | С палкой для селфи Kjstar Z07-5...
+
+    - features = ['Вам не нужно просить незнакомых людей сфотографировать вас',
+      'Вы сделаете отличные снимки, даже если вокруг ни души',
+      'Делайте селфи на фоне красивых пейзажей',
+      'Снимайте себя в движении',
+      'Делайте групповые селфи']
+    .description-list
+      - features.each_with_index do |feature, i|
+        .description-item.animate-show_zoom class=("is-#{i + 1}")
+          .description-item_img
+            img src=image_path("public/palka/#{i + 1}.jpg")
+          .description-item_info
+            .description-item_title
+              = feature
+
+    .description-list
+      .description-item.is-video.animate-show_zoom
+        .description-youtube_info
+          .description-youtube_rank
+            img src=image_path('public/youtube_rank.png')
+          .description-youtube_views_num
+            | 22 381 просмотр
+          .description-youtube_image
+            img src=image_path('public/youtube_logo.png')
+
+        .description-item_video data-view='app#youtube_video'
+          iframe width='500' height='281' src="//www.youtube.com/embed/#{landing.video_id}" frameborder=0 allowfullscreen=true
+        .description-item_info
+          .description-item_title
+            | Создавайте потрясные видеоролики
+
+    .description-more.animate-show_fast
+      | И многое другое, список возможностей ограничен лишь вашей фантазией!

@@ -1,0 +1,50 @@
+@import 'public/new_template/imports'
+
+.header
+  border-top: 2px solid #7390B5
+  border-bottom: 1px solid $bd
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1)
+  background: rgba(255, 255, 255, .95)
+
+  &.is-fixed
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    z-index: 100
+
+  &.is-hidden
+    opacity: 0
+
+.header-inner
+  position: relative
+  +acts_as_layout_row
+  height: 70px
+
+.header-logo
+  padding: 13px 0 15px
+  width: 166px
+  height: 70px
+  position: absolute
+  top: 0
+  left: 50%
+  margin-left: -88px
+
+.header-phone
+  float: right
+  margin-top: 10px
+  text-align: center
+
+.header-phone_icon
+  margin-right: 10px
+
+.header-phone_icon,
+.header-phone_number,
+.header-phone_text
+  font-size: 20px
+  line-height: 30px
+  font-weight: bold
+
+.header-phone_article
+  font-size: 15px
+  line-height: 20px

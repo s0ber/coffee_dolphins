@@ -8,9 +8,11 @@ class App.Views.PhotosSlider extends View
     previewsContainer: '.js-photos_previews_container'
 
   initialize: ->
-    @previewsNum = @$previews.length
+    @photos = @$el.data('photos')
+    @photosNum = @photos.length
     @photosRange = [0..3]
 
+    @activePhotoIndex = 0
     @$previews.first().addClass('is-active')
 
     @$previews.on('click', _.bind(@selectPhoto, @))
@@ -22,11 +24,11 @@ class App.Views.PhotosSlider extends View
     @__trackOpenGallery()
 
   selectPrevPhoto: (e) ->
-    prevPhotoIndex = (@$activePreview().index() - 1) % @previewsNum
+    prevPhotoIndex = (@activePhotoIndex - 1) % @photosNum
     @selectPhotoByIndex(prevPhotoIndex)
 
   selectNextPhoto: (e) ->
-    nextPhotoIndex = (@$activePreview().index() + 1) % @previewsNum
+    nextPhotoIndex = (@activePhotoIndex + 1) % @photosNum
     @selectPhotoByIndex(nextPhotoIndex)
 
   selectPhoto: (e) ->
@@ -37,11 +39,15 @@ class App.Views.PhotosSlider extends View
     @selectPhotoByIndex(previewIndex)
 
   selectPhotoByIndex: (index) ->
+    index = (@photosNum + index) if index < 0
+    @activePhotoIndex = index
+
     unless index in @photosRange
       @adjustPhotosRangeToIndex(index)
 
     $preview = @$previews.eq(index)
-    imagePath = $preview.find('img').attr('src')
+
+    imagePath = @photos[index]
 
     @$previews.removeClass('is-active')
     $preview.addClass('is-active')
@@ -49,15 +55,17 @@ class App.Views.PhotosSlider extends View
     @$mainPhoto
       .hide()
       .css('background-image': "url(#{imagePath})")
-      .fadeIn()
+      .fadeIn('fast')
 
     @switchPhotosByInterval()
 
   switchPhotosByInterval: ->
     clearInterval(@photosInterval) if @photosInterval?
     @photosInterval = setInterval(=>
+      isModalOpened = $('[data-view="app#modal"]:visible').length > 0
+      return if isModalOpened
       @selectNextPhoto() if Utils.isElementInViewport(@$mainPhoto)
-    , 4000)
+    , 2000)
 
   adjustPhotosRangeToIndex: (index) ->
     if index >= 0
@@ -66,7 +74,7 @@ class App.Views.PhotosSlider extends View
       else
         @photosRange = [index-3..index]
     else
-      @photosRange = [@previewsNum+index-3..@previewsNum+index]
+      @photosRange = [@photosNum+index-3..@photosNum+index]
 
     offsetIndex = @photosRange[0]
     @$previewsContainer.css('margin-left': - offsetIndex * @previewWidth())
@@ -75,9 +83,6 @@ class App.Views.PhotosSlider extends View
 
   previewWidth: ->
     @$previews.eq(-1).outerWidth(true)
-
-  $activePreview: ->
-    @$previews.filter('.is-active')
 
   __trackOpenGallery: ->
     @$('.js-open_gallery').on 'click', ->

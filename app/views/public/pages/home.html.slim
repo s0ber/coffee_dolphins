@@ -1,5 +1,5 @@
 - content_for :stylesheet do
-  = stylesheet_link_tag 'public/main_page'
+  = stylesheet_link_tag 'public/old_template/main_page'
 
 .layout
   .js-scroll_fix
@@ -25,7 +25,7 @@
                     .product-description
                       = landing.meta_description
                     .product-timer
-                      = render 'public/shared/timer', landing: landing, for_home_page: true, modifier_class: 'for-home_page'
+                      = render 'public/shared/timer', modifier_class: 'for-home_page'
                     .product-details
                       .product-prices.fl_l
                         span.product-new_price

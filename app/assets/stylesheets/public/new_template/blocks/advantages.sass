@@ -1,0 +1,77 @@
+@import 'public/new_template/imports'
+
+.advantages
+  border-bottom: 1px solid $bd
+  color: #fff
+  background: #7491B4
+  text-shadow: 0 1px rgba(0, 0, 0, .9)
+
+.advantages-inner
+  +acts_as_layout_row
+  padding-top: 50px
+  padding-bottom: 40px
+
+.advantages-title
+  +acts_as_section_title
+
+.advantages-list
+  margin-top: 50px
+  text-align: center
+
+.advantages-item
+  display: inline-block
+  width: 25%
+  padding: 0 20px 40px
+  vertical-align: top
+
+.advantages-item_img
+  display: inline-block
+  width: 165px
+  height: 165px
+  line-height: 165px
+  margin-bottom: 20px
+  border-radius: 50%
+  background: #fff
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .3)
+  text-align: center
+
+  img
+    width: 60%
+    height: auto
+    vertical-align: middle
+    border-radius: 3px
+
+.advantages-item_title
+  font-size: 17px
+
+.advantages-more
+  +acts_as_section_footer
+
+.advantages-more_info
+  margin: 30px 0 15px
+  text-align: center
+
+.advantages-more_img
+  display: inline-block
+  overflow: hidden
+  margin-right: 70px
+  width: 230px
+  height: 230px
+  line-height: 230px
+  text-align: center
+  border-radius: 50%
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .3)
+  background: #fff
+  vertical-align: middle
+
+  img
+    width: 80%
+    vertical-align: middle
+
+.advantages-more_text
+  display: inline-block
+  width: 50%
+  font-size: 20px
+  line-height: 35px
+  text-align: left
+  vertical-align: middle

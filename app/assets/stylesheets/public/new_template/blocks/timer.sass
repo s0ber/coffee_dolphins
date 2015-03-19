@@ -1,0 +1,92 @@
+@import 'public/new_template/imports'
+
+.timer
+  display: inline-block
+  margin: 20px 0 35px
+  vertical-align: top
+
+.timer-message
+  float: left
+  margin-right: 15px
+  font-size: 18px
+  line-height: 50px
+
+.timer-wrapper
+  float: left
+
+.timer-delimiter
+  float: left
+  margin-right: 5px
+  font-size: 20px
+  line-height: 50px
+
+.timer-message,
+.timer-days,
+.timer-hours,
+.timer-minutes,
+.timer-seconds
+  color: #fff
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .5)
+
+.timer-days,
+.timer-hours,
+.timer-minutes,
+.timer-seconds
+  float: left
+  margin-right: 5px
+  text-align: center
+  height: 50px
+  width: 35px
+  font-size: 13px
+  line-height: 20px
+
+  span
+    display: block
+    height: 50px
+    font-size: 23px
+    line-height: 50px
+    text-shadow: none
+    background: rgba(0, 0, 0, .25)
+    margin-bottom: 1px
+    color: #fff
+    border-radius: 3px
+    transition: font-size .1s
+
+    &.animate-zoom
+      font-size: 18px
+
+.timer-seconds
+  margin-right: 0
+
+.timer.is-white
+  color: #fff
+  text-shadow: 0 1px rgba(0, 0, 0, .5)
+
+  .timer-days,
+  .timer-hours,
+  .timer-minutes,
+  .timer-seconds
+    span
+      text-shadow: 0 1px rgba(0, 0, 0, .5)
+      background: rgba(255, 255, 255, .5)
+
+.timer.for-middle_page_cta
+  text-align: center
+  vertical-align: middle
+  margin: 0 25px 25px
+
+  .timer-message,
+  .timer-wrapper
+    float: none
+    margin-right: 0
+
+  .timer-wrapper
+    display: inline-block
+
+  .timer-days,
+  .timer-hours,
+  .timer-minutes,
+  .timer-seconds
+    span
+      text-shadow: 0 1px rgba(0, 0, 0, .5)
+      background: rgba(255, 255, 255, .5)

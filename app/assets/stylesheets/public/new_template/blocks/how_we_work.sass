@@ -1,0 +1,73 @@
+@import 'public/new_template/imports'
+
+.how_we_work
+  position: relative
+  border-bottom: 1px solid $bd
+  color: #fff
+  background: linear-gradient(#7491B4, #fff)
+  text-shadow: 0 1px rgba(0, 0, 0, .9)
+
+.how_we_work-inner
+  +acts_as_layout_row
+  padding-top: 50px
+  padding-bottom: 40px
+
+.how_we_work-title
+  +acts_as_section_title
+
+.how_we_work-list
+  margin-top: 50px
+  margin-bottom: 30px
+  text-align: center
+
+.how_we_work-item
+  display: inline-block
+  width: 25%
+  padding: 0 20px
+  vertical-align: top
+  color: $text
+  text-shadow: 0 1px rgba(255, 255, 255, .9)
+
+.how_we_work-item_img
+  position: relative
+  display: inline-block
+  width: 185px
+  height: 185px
+  line-height: 180px
+  margin-bottom: 20px
+  border-radius: 50%
+  background: #fff
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .3)
+  text-align: center
+
+  img
+    width: 65%
+    height: auto
+    vertical-align: middle
+    border-radius: 3px
+
+.how_we_work-item_counter
+  position: absolute
+  top: 12px
+  left: 12px
+  height: 30px
+  width: 30px
+  color: #fff
+  font-size: 15px
+  line-height: 30px
+  text-align: center
+  background: #7491B4
+  border-radius: 50%
+  text-shadow: 0 1px rgba(0, 0, 0, .9)
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, .1)
+
+.how_we_work-item_title
+  margin-bottom: 10px
+  font-size: 18px
+  font-weight: bold
+
+.how_we_work-more
+  +acts_as_section_footer
+  color: $text
+  text-shadow: 0 1px rgba(255, 255, 255, .9)
+

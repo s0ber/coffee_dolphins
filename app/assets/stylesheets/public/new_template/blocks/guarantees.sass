@@ -1,0 +1,60 @@
+@import 'public/new_template/imports'
+
+.guarantees
+  position: relative
+  border-bottom: 1px solid $bd
+  background: linear-gradient(#7491B4, #fff)
+  color: #fff
+  text-shadow: 0 1px rgba(0, 0, 0, .9)
+
+.guarantees-inner
+  +acts_as_layout_row
+  padding-top: 50px
+  padding-bottom: 40px
+
+.guarantees-title
+  +acts_as_section_title
+
+.guarantees-list
+  margin-top: 50px
+  margin-bottom: 30px
+  text-align: center
+
+.guarantees-item
+  display: inline-block
+  width: 25%
+  padding: 0 20px
+  vertical-align: top
+  color: $text
+  text-shadow: 0 1px rgba(255, 255, 255, .9)
+
+.guarantees-item_img
+  display: inline-block
+  width: 205px
+  height: 205px
+  line-height: 200px
+  margin-bottom: 20px
+  border-radius: 50%
+  background: #fff
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .3)
+  text-align: center
+
+  img
+    width: 65%
+    height: auto
+    vertical-align: middle
+    border-radius: 3px
+
+.guarantees-item_title
+  margin-bottom: 10px
+  font-size: 18px
+  font-weight: bold
+  text-transform: uppercase
+
+.guarantees-item_description
+  font-size: 15px
+
+.guarantees-more
+  +acts_as_section_footer
+  color: $text
+  text-shadow: 0 1px rgba(255, 255, 255, .9)

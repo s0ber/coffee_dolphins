@@ -1,0 +1,93 @@
+@import 'rails-sass-images'
+
+$text: #555
+$bd: #E7E7E7
+$red: #D20A2F
+
+=acts_as_layout_row
+  margin: 0 auto
+  max-width: 1280px
+  padding-left: 50px
+  padding-right: 50px
+
+=acts_as_section_title
+  margin-bottom: 30px
+  font-size: 27px
+  line-height: 40px
+  font-weight: bold
+  text-transform: uppercase
+  text-align: center
+
+=acts_as_section_footer
+  font-size: 22px
+  line-height: 40px
+  font-weight: bold
+  text-align: center
+
+=lh_100p
+  &:after
+    display: inline-block
+    content: ''
+    height: 100%
+    width: 0
+    vertical-align: top
+
+=no_select
+  -webkit-touch-callout: none
+  -webkit-user-select: none
+  -khtml-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+
+=allow_select
+  -webkit-touch-callout: all
+  -webkit-user-select: all
+  -khtml-user-select: all
+  -moz-user-select: all
+  -ms-user-select: all
+  user-select: all
+
+=text_overflow
+  display: block
+  overflow: hidden !important
+  white-space: nowrap
+  text-overflow: ellipsis
+
+=clearfix
+  &:before,
+  &:after
+    content: ""
+    display: table
+
+  &:after
+    clear: both
+
+  &
+    zoom: 1
+
+=orange_button
+  background: #e46c37
+  border: 1px solid #a65915
+  color: #fff
+  text-shadow: 0 -1px 1px rgba(0,0,0,0.45)
+  border-radius: 3px
+  box-sizing: border-box
+  cursor: pointer
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, .25)
+
+  &:focus
+    // box-shadow: 0 0 10px rgba($light_200, .7)
+    outline: 0
+
+  &:hover
+    background: #c56236
+
+  &:active
+    background: #d7590d
+    text-shadow: none
+    box-shadow: inset 0 0 7px rgba(0, 0, 0, .15)
+
+  b
+    font-weight: normal
+

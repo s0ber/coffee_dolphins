@@ -1,0 +1,21 @@
+- modifier ||= nil
+- photos = @landing.landing_images.for_gallery
+
+- if photos.any?
+  .photos_slider class=("for-#{modifier}" if modifier) data-view='app#photos_slider' data={photos: photos.map { |photo| photo.image.gallery.url }.to_json}
+    .photos_slider-inner
+      .photos_slider-arrow_left.js-show_prev_photo
+        = fa_icon 'chevron-left'
+      .photos_slider-photo_wrap
+        .photos_slider-photo_inner
+          .photos_slider-photo.js-main_photo style="background-image: url(#{photos.first.image.gallery.url});"
+          .photos_slider-zoom_button.js-open_gallery data-modal=public_landing_images_path
+            = fa_icon 'search-plus'
+      .photos_slider-arrow_right.js-show_next_photo
+        = fa_icon 'chevron-right'
+      .photos_slider-previews
+        .photos_slider-previews_inner.clearfix.js-photos_previews_container
+          - photos.each do |photo|
+            .photos_slider-previews_item.js-photo_preview
+              .photos_slider-previews_item_inner
+                img src=photo.image.gallery.url alt=photo.alt_text

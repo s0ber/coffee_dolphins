@@ -1,0 +1,17 @@
+- photos = landing.landing_images.for_gallery
+- modifier_class ||= nil
+
+.photo_slider.animate-show_fast[
+  class=(modifier_class if modifier_class)
+  data-view='app#photos_slider'
+  data={photos: photos.map { |photo| photo.image.gallery.url }.to_json}
+]
+  .photo_slider-arrow_left.js-show_prev_photo
+    = fa_icon 'chevron-left'
+  .photo_slider-photo_wrap
+    .photo_slider-photo_inner
+      .photo_slider-photo.js-main_photo style="background-image: url(#{photos.first.image.gallery.url});"
+      .photo_slider-zoom_button.js-open_gallery data-inline-modal='gallery_modal'
+        = fa_icon 'search-plus'
+  .photo_slider-arrow_right.js-show_next_photo
+    = fa_icon 'chevron-right'

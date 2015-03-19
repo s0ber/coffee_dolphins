@@ -1,0 +1,19 @@
+.header.js-scroll_fix data-view='app#header'
+  .header-inner
+    ul.menu.for-header
+      li.menu-item data-inline-modal='about_modal'
+        | О магазине
+      li.menu-item data-section-name='shipping'
+        | О доставке
+      li.menu-item data-section-name='guarantees'
+        | Гарантии
+    img.header-logo src=image_path('public/logo.png')
+    .header-phone
+      span.header-phone_icon
+        = fa_icon 'phone'
+      span.header-phone_number>
+        = Settings.phone
+      span.header-phone_text
+        | (бесплатно)
+      .header-phone_article
+        | Артикул товара: <b>#123456789</b>

@@ -1,0 +1,41 @@
+@import 'public/old_template/imports'
+
+.footer
+  position: relative
+  margin-top: -1px
+  padding: 15px 0
+  border-top: 1px solid $dark_600
+  height: 66px
+  color: #fff
+  font-size: 13px
+  line-height: 22px
+  background: $base
+  z-index: 2
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .7)
+
+  img
+    vertical-align: top
+    margin-left: -6px
+
+  a
+    color: #fff
+
+.footer-copy
+  float: left
+  width: 70%
+
+.footer-privacy
+  float: right
+  cursor: pointer
+
+  span
+    +no_select
+    padding-bottom: 3px
+    border-bottom: 1px dashed #fff
+
+.layout.lt-small_screen
+  .footer
+    height: 46px
+
+  .footer-about_us
+    display: none

@@ -1,0 +1,32 @@
+.section data-section='reviews'
+  = section_anchor 'reviews'
+  .js-scroll_fix
+    .columns
+      .column.is-16
+        .section-title
+          h2.section-title_inner
+            = @landing.reviews_title
+
+    .columns
+      .column.is-10.offset.is-by_3
+        - woman_reviews = 0
+        - man_reviews = 0
+
+        - @landing.reviews.each do |review|
+          .review
+            .review-text
+              = fa_icon 'quote-left'
+              = review.text
+            .review-author
+              - if review.by_male?
+                img.review-image src=image_path("public/review_author_man#{man_reviews += 1}.jpg")
+              - else
+                img.review-image src=image_path("public/review_author_woman#{woman_reviews += 1}.jpg")
+
+              | <b>#{review.author}</b>, #{review.author_profession}
+
+    .columns
+      .column.is-16
+        .section-read_more.for-reviews
+          b
+            = @landing.reviews_footer.html_safe

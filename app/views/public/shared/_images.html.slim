@@ -1,0 +1,15 @@
+- images_data = images.map { |image| {url: image.image.url, alt: image.alt_text, width: image.image.dimensions[0], height: image.image.dimensions[1]} }
+
+.gallery data-view='app#gallery' data-images=images_data.to_json
+  .gallery-photo.js-gallery-image_wrap
+    img src=images.first.image.url width=images.first.image.dimensions[0] height=images.first.image.dimensions[1]
+  .gallery-title.js-gallery-image_title
+    = images.first.alt_text
+
+  .gallery-nav
+    span.js-gallery-prev_button
+      | &larr; Предыдущая
+    span.gallery-nav_current_image_number
+      | <span class="js-gallery-current_image_number">1</span> из #{images.length}
+    span.g-dashed.js-gallery-next_button
+      | Следующая &rarr;

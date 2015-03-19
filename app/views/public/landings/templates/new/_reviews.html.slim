@@ -1,0 +1,30 @@
+- woman_reviews = 0
+- man_reviews = 0
+
+.reviews.js-scroll_fix
+  .section_anchor#reviews
+  .reviews-inner
+    .reviews-title.animate-show_fast
+      | Что говорят наши покупатели
+    .reviews-wrap.animate-show_zoom data-view='app#reviews'
+      .reviews-arrow_left.js-reviews-arrow_left
+        = fa_icon 'chevron-left'
+      .reviews-arrow_right.js-reviews-arrow_right
+        = fa_icon 'chevron-right'
+
+      .reviews-list
+        - landing.reviews.each_with_index do |review, i|
+          .reviews-item.js-reviews-item class=('is-active' if i == 0)
+            .reviews-quote
+              img src=image_path('public/quote.png')
+            .reviews-text.js-reviews-item_text
+              | <span>&laquo;</span>#{review.text}&raquo;
+            .reviews-info.js-reviews-item_info
+              .review-img
+                - if review.by_male?
+                  img src=image_path("public/review_author_man#{man_reviews += 1}.jpg")
+                - else
+                  img src=image_path("public/review_author_woman#{woman_reviews += 1}.jpg")
+              .review-author
+                | <span class="review-author_name">#{review.author}</span>,
+                  <span class="review-author_city">г. Самара</span>

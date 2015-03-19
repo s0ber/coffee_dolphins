@@ -1,0 +1,228 @@
+$base: #54709b
+
+@import 'normalize-css/normalize'
+@import 'font-awesome'
+@import 'global'
+@import 'layout'
+
+@import '../shared/blocks/modals/*'
+@import 'blocks/timer'
+
+=title
+  font-size: 25px
+  line-height: 35px
+  font-weight: bold
+  margin-bottom: 30px
+
+=sub_title
+  font-size: 18px
+  line-height: 27px
+  font-weight: bold
+
+.layout
+  background: $transparent_10
+  background: linear-gradient(#fff, darken($transparent_10, 2%))
+
+.main
+  margin: 0 auto
+  width: 730px
+  padding: 0 35px
+  min-height: 100%
+  height: auto !important
+  height: 100%
+
+
+.header
+  margin-bottom: 40px
+  padding-top: 20px
+
+.header-title
+  font-size: 29px
+  line-height: 45px
+  font-weight: bold
+
+.header-slogan
+  font-size: 14px
+
+
+.products_list
+  +clearfix
+  margin-bottom: 50px
+
+.products_list-title
+  +title
+
+.products_list-wrapper
+
+.product
+  position: relative
+  margin-top: 40px
+  padding-top: 40px
+
+  &:before
+    content: ''
+    position: absolute
+    top: 0
+    left: 320px
+    right: 320px
+    background: darken($transparent_10, 5%)
+    height: 1px
+
+  &:first-child
+    margin-top: 0
+    border-top: 0
+    padding-top: 0
+
+    &:before
+      display: none
+
+.product-image
+  margin: 5px 25px 0 0
+  border: 1px solid #e8e8e9
+  width: 200px
+  height: 200px
+  background-position: center
+  background-size: 100%
+  background-repeat: no-repeat
+  border-radius: 2px
+  vertical-align: middle
+
+.product-info
+
+.product-title
+  +sub_title
+  margin-bottom: 15px
+
+.product-description
+  margin-bottom: 15px
+
+.product-details
+  +clearfix
+
+.product-timer
+  margin: 20px 0 15px -10px
+  text-align: center
+
+.product-prices
+  font-size: 18px
+  line-height: 36px
+  font-weight: bold
+
+.product-new_price
+
+.product-price_delimeter
+  margin: 0 5px
+  font-size: 25px
+  vertical-align: top
+  font-weight: normal
+
+.product-old_price
+  color: $red
+
+  span
+    text-decoration: line-through
+
+.product-button
+  display: block
+  margin: 0
+  padding: 0 15px
+  height: 37px
+  text-align: center
+  line-height: 35px
+  +orange_button
+
+.guarantees
+  +clearfix
+  margin-bottom: 50px
+
+.guarantees-title
+  +title
+.guarantees-info
+
+.guarantee
+  +clearfix
+  margin-top: 25px
+
+  &:first-child
+    margin-top: 0
+
+.guarantee-image
+  padding: 0 30px
+  width: 140px
+  margin-right: 25px
+
+  img
+    width: 100%
+    height: auto
+
+.guarantee-title
+  margin-top: 35px
+  margin-bottom: 5px
+  font-weight: bold
+  font-size: 15px
+
+.guarantee-text
+
+
+.shipping
+  +clearfix
+  margin-bottom: 20px
+
+.shipping-title
+  +title
+
+.shipping-info
+
+.shipping-list
+  +clearfix
+  margin-right: -30px
+
+.shipping_item
+  float: left
+  margin-bottom: 30px
+  padding-right: 30px
+  width: 50%
+  text-align: center
+  box-sizing: border-box
+
+.shipping_item-image
+  margin: 0 95px 20px
+
+  img
+    width: 100%
+    height: auto
+
+.shipping_item-title
+  text-align: left
+
+.shipping_item-number
+  float: left
+  margin-right: 10px
+  width: 28px
+  height: 28px
+  font-size: 14px
+  line-height: 28px
+  background: $light_400
+  color: #fff
+  text-align: center
+  font-weight: normal
+  vertical-align: top
+  border-radius: 50%
+
+.shipping_item-text
+  display: block
+  overflow: hidden
+  font-size: 13px
+  line-height: 20px
+  font-weight: bold
+
+.footer
+  +clearfix
+  padding-bottom: 10px
+  font-size: 13px
+  text-align: center
+
+.footer-copy
+
+.footer-privacy
+

@@ -1,0 +1,46 @@
+@import 'public/new_template/imports'
+
+.clearfix:before,
+.clearfix:after
+  content: ""
+  display: table
+
+.clearfix:after
+  clear: both
+
+.clearfix
+  zoom: 1
+
+.fl_l
+  float: left
+
+.fl_r
+  float: right
+
+.hidden
+  display: none
+
+.hidden_absolutely
+  display: none !important
+
+.clear
+  clear: both
+  display: block
+  overflow: hidden
+  visibility: hidden
+  width: 0
+  height: 0
+
+.overflow
+  overflow: hidden
+
+.g-dashed
+  display: inline
+  border-bottom: 1px dashed
+  padding-bottom: 3px
+  cursor: pointer
+  font-weight: bold
+  +no_select
+
+.no_wrap
+  white-space: nowrap

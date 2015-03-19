@@ -34,7 +34,7 @@ class App.Behaviors.SectionsNav extends View
     sectionTopPos = $section.offset().top
 
     # fix for sticky header
-    sectionTopPos -= @headersHeight + SCROLL_OFFSET_PX
+    sectionTopPos -= @headersHeight
 
     # we don't want to scroll if there is no space to scroll
     if screenHeight + sectionTopPos > documentHeight

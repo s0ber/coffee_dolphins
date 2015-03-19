@@ -1,0 +1,341 @@
+@import 'public/old_template/imports'
+
+.columns
+  +clearfix
+  position: relative
+  width: 1200px
+  margin: 0 auto
+  padding: 0
+
+.column
+  float: left
+  display: inline
+  margin-left: 10px
+  margin-right: 10px
+
+.row
+  +clearfix
+  margin-bottom: 20px
+
+// Nested Column Classes
+.column.is-alpha
+  margin-left: 0
+
+.column.is-omega
+  margin-right: 0
+
+// Base Grid
+.column
+  &.is-1
+    width: 55px
+
+  &.is-2
+    width: 120px
+
+  &.is-3
+    width: 205px
+
+  &.is-4
+    width: 280px
+
+  &.is-5
+    width: 355px
+
+  &.is-6
+    width: 430px
+
+  &.is-7
+    width: 505px
+
+  &.is-8
+    width: 580px
+
+  &.is-9
+    width: 655px
+
+  &.is-10
+    width: 730px
+
+  &.is-11
+    width: 805px
+
+  &.is-12
+    width: 880px
+
+  &.is-13
+    width: 955px
+
+  &.is-14
+    width: 1030px
+
+  &.is-15
+    width: 1105px
+
+  &.is-16
+    width: 1180px
+
+  &.is-one_third
+    width: 380px
+
+  &.is-two_thirds
+    width: 780px
+
+.offset
+  &.is-by_1
+    padding-left: 75px
+
+  &.is-by_2
+    padding-left: 140px
+
+  &.is-by_3
+    padding-left: 225px
+
+  &.is-by_4
+    padding-left: 300px
+
+  &.is-by_5
+    padding-left: 375px
+
+  &.is-by_6
+    padding-left: 430px
+
+  &.is-by_7
+    padding-left: 525px
+
+  &.is-by_8
+    padding-left: 600px
+
+  &.is-by_9
+    padding-left: 675px
+
+  &.is-by_10
+    padding-left: 750px
+
+  &.is-by_11
+    padding-left: 825px
+
+  &.is-by_12
+    padding-left: 900px
+
+  &.is-by_13
+    padding-left: 975px
+
+  &.is-by_14
+    padding-left: 1050px
+
+  &.is-by_15
+    padding-left: 1125px
+
+// Tablet (Portrait)
+// Design for a width of 768px
+@media only screen and (max-width: 959px)
+  .columns
+    width: 768px
+
+  .column
+    &.is-1
+      width: 28px
+
+    &.is-2
+      width: 76px
+
+    &.is-3
+      width: 124px
+
+    &.is-4
+      width: 172px
+
+    &.is-5
+      width: 220px
+
+    &.is-6
+      width: 268px
+
+    &.is-7
+      width: 316px
+
+    &.is-8
+      width: 364px
+
+    &.is-9
+      width: 412px
+
+    &.is-10
+      width: 460px
+
+    &.is-11
+      width: 508px
+
+    &.is-12
+      width: 556px
+
+    &.is-13
+      width: 604px
+
+    &.is-14
+      width: 652px
+
+    &.is-15
+      width: 700px
+
+    &.is-16
+      width: 748px
+
+    &.is-one_third
+      width: 236px
+
+    &.is-two_thirds
+      width: 492px
+
+  .offset
+    &.is-by_1
+      padding-left: 48px
+
+    &.is-by_2
+      padding-left: 96px
+
+    &.is-by_3
+      padding-left: 144px
+
+    &.is-by_4
+      padding-left: 192px
+
+    &.is-by_5
+      padding-left: 240px
+
+    &.is-by_6
+      padding-left: 288px
+
+    &.is-by_7
+      padding-left: 336px
+
+    &.is-by_8
+      padding-left: 384px
+
+    &.is-by_9
+      padding-left: 432px
+
+    &.is-by_10
+      padding-left: 480px
+
+    &.is-by_11
+      padding-left: 528px
+
+    &.is-by_12
+      padding-left: 576px
+
+    &.is-by_13
+      padding-left: 624px
+
+    &.is-by_14
+      padding-left: 672px
+
+    &.is-by_15
+      padding-left: 720px
+
+// Design for a width 1024 Desktop
+@media only screen and (min-width: 960px) and (max-width: 1199px)
+  .columns
+    width: 960px
+
+  .column
+    &.is-1
+      width: 40px
+
+    &.is-2
+      width: 100px
+
+    &.is-3
+      width: 160px
+
+    &.is-4
+      width: 220px
+
+    &.is-5
+      width: 280px
+
+    &.is-6
+      width: 340px
+
+    &.is-7
+      width: 400px
+
+    &.is-8
+      width: 460px
+
+    &.is-9
+      width: 520px
+
+    &.is-10
+      width: 580px
+
+    &.is-11
+      width: 640px
+
+    &.is-12
+      width: 700px
+
+    &.is-13
+      width: 760px
+
+    &.is-14
+      width: 820px
+
+    &.is-15
+      width: 880px
+
+    &.is-16
+      width: 940px
+
+    &.is-one_third
+      width: 300px
+
+    &.is-two_thirds
+      width: 620px
+
+  .offset
+    &.is-by_1
+      padding-left: 60px
+
+    &.is-by_2
+      padding-left: 120px
+
+    &.is-by_3
+      padding-left: 180px
+
+    &.is-by_4
+      padding-left: 240px
+
+    &.is-by_5
+      padding-left: 300px
+
+    &.is-by_6
+      padding-left: 360px
+
+    &.is-by_7
+      padding-left: 420px
+
+    &.is-by_8
+      padding-left: 480px
+
+    &.is-by_9
+      padding-left: 540px
+
+    &.is-by_10
+      padding-left: 600px
+
+    &.is-by_11
+      padding-left: 660px
+
+    &.is-by_12
+      padding-left: 720px
+
+    &.is-by_13
+      padding-left: 780px
+
+    &.is-by_14
+      padding-left: 840px
+
+    &.is-by_15
+      padding-left: 900px
+

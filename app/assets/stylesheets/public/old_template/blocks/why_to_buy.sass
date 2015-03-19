@@ -1,0 +1,42 @@
+@import 'public/old_template/imports'
+
+.why_to_buy
+  margin-bottom: 10px
+  font-size: 14px
+  text-align: center
+
+.why_to_buy-inner
+  +clearfix
+  display: inline-block
+  border: 1px solid $transparent_100
+  min-width: 400px
+  background: lighten($transparent_10, 1.3%)
+  border-radius: 5px
+  cursor: pointer
+  padding-left: 150px
+
+  &:hover
+    background: lighten($transparent_50, 15%)
+
+  img
+    margin-left: -150px
+    float: left
+    width: 150px
+    height: auto
+
+.why_to_buy-text
+  margin: 38px 80px 38px 30px
+  text-align: center
+
+  h3
+    display: inline
+
+.why_to_buy-click_me
+  display: inline
+  border-bottom: 1px dashed $transparent_100
+  padding-bottom: 3px
+  font-weight: bold
+
+.layout.lt-big_screen
+  .why_to_buy-text
+    margin: 38px 50px 38px 0

@@ -1,0 +1,10 @@
+- modifier_class ||= nil
+
+.price class=(modifier_class if modifier_class)
+  span.price_new
+    | #{landing.public_price} рублей
+  span.price_delimeter
+    | /
+  span.price_old
+    | #{landing.public_price_without_discount} рублей
+

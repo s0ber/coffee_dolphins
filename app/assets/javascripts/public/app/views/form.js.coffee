@@ -34,14 +34,15 @@ class App.Views.Form extends View
     @$('input, textarea').placeholder()
 
   redrawButtonText: (e) ->
+    @$el.autofocus()
+    return if @$button.data('show-price') is false
+
     quantity = parseInt(@$select.val(), 10)
 
     if quantity is 1
       @$button.html("Заказать за <b>#{@fullPrice()}</b> рублей &rarr;")
     else
       @$button.html("Заказать #{quantity} шт. за <b>#{@fullPrice() * quantity}</b> рублей &rarr;")
-
-    @$el.autofocus()
 
   $form: ->
     @$el.find('form')
