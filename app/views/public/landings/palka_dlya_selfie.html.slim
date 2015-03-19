@@ -31,3 +31,6 @@
 
 script id='shipping' type='text/template' data-title='Информация о доставке'
   = render 'public/shared/shipping', landing: @landing
+
+script id='order_form' type='text/template' data-title='Оформление заказа'
+  = render 'public/shared/order_form_modal', landing: @landing

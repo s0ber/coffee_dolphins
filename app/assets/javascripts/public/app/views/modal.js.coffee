@@ -12,6 +12,8 @@ class App.Views.Modal extends View
     @sub 'relocate_modal', =>
       @locate(true)
 
+    @$el.autofocus()
+
   unload: ->
     @$window.off('.modal:position')
 
