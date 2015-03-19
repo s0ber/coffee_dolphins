@@ -55,13 +55,15 @@ class App.Views.PhotosSlider extends View
     @$mainPhoto
       .hide()
       .css('background-image': "url(#{imagePath})")
-      .fadeIn()
+      .fadeIn('fast')
 
     @switchPhotosByInterval()
 
   switchPhotosByInterval: ->
     clearInterval(@photosInterval) if @photosInterval?
     @photosInterval = setInterval(=>
+      isModalOpened = $('[data-view="app#modal"]:visible').length > 0
+      return if isModalOpened
       @selectNextPhoto() if Utils.isElementInViewport(@$mainPhoto)
     , 2000)
 
