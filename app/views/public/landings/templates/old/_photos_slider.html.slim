@@ -2,7 +2,7 @@
 - photos = @landing.landing_images.for_gallery
 
 - if photos.any?
-  .photos_slider class=("for-#{modifier}" if modifier) data-view='app#photos_slider'
+  .photos_slider class=("for-#{modifier}" if modifier) data-view='app#photos_slider' data={photos: photos.map { |photo| photo.image.gallery.url }.to_json}
     .photos_slider-inner
       .photos_slider-arrow_left.js-show_prev_photo
         = fa_icon 'chevron-left'
