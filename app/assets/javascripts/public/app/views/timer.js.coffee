@@ -1,64 +1,51 @@
 class App.Views.Timer extends View
 
-  TIME_LEFT_MIN = 60 * 60 * 1
-  TIME_LEFT_AVERAGE = 60 * 60 * 2
-  TIME_LEFT_MAX = 60 * 60 * 3
+  TIME_LEFT = 2 * 24 * 60 * 60 * 1000
 
   els:
+    days: '.js-days'
     hours: '.js-hours'
     minutes: '.js-minutes'
     seconds: '.js-seconds'
 
   initialize: ->
-    @setTimerEndTime() unless @timerEndTime()?
-
     @updateTimer()
     setInterval(_.bind(@updateTimer, @), 1000)
 
   updateTimer: ->
     timeLeft = @timerEndTime() - @currentTime()
-    @setTimerEndTime() if timeLeft <= 0
 
-    hours = Math.floor(timeLeft / 3600)
+    days = Math.floor(timeLeft / 86400)
+    hours = Math.floor(timeLeft / 3600) % 24
     minutes = Math.floor((timeLeft % 3600) / 60)
     seconds = Math.floor((timeLeft % 3600) % 60)
 
-    _.each [{$el: @$hours, val: hours},
+    hours = ('0' + hours) if hours < 10
+    minutes = ('0' + minutes) if minutes < 10
+    seconds = ('0' + seconds) if seconds < 10
+
+    _.each [{$el: @$days, val: days},
+            {$el: @$hours, val: hours},
             {$el: @$minutes, val: minutes},
             {$el: @$seconds, val: seconds}], (timerCell) ->
 
       {$el, val} = timerCell
       curValue = parseInt($el.text(), 10)
 
-      if val isnt curValue
+      if parseInt(val, 10) isnt curValue
         $el.addClass('animate-zoom')
         setTimeout((-> $el.removeClass('animate-zoom')), 100)
 
       $el.text(val)
 
-  timerEndTime: ->
-    $.cookie("timer_end_time_#{@landingId()}")
-
-  setTimerEndTime: ->
-    timeLeft =
-      if @forHomePage()
-        @getRandomInt(TIME_LEFT_MIN, TIME_LEFT_MAX)
-      else
-        TIME_LEFT_AVERAGE
-
-    $.cookie("timer_end_time_#{@landingId()}", @currentTime() + timeLeft, path: '/')
-
 # private
 
-  getRandomInt: (min, max) ->
-     Math.floor(Math.random() * (max - min + 1)) + min
+  timerEndTime: ->
+    @_timerEndTime ?= do ->
+      finishDate = new Date(new Date().getTime() + TIME_LEFT)
+      finishDate = new Date("#{finishDate.getMonth() + 1}/#{finishDate.getDate()}/#{finishDate.getFullYear()} 5:00 AM")
+      Math.round(+finishDate / 1000)
 
   currentTime: ->
     Math.round(+new Date() / 1000)
-
-  landingId: ->
-    @_landingId ?= @$el.data('landing-id')
-
-  forHomePage: ->
-    @_forHomePage ?= @$el.data('for-home-page')
 

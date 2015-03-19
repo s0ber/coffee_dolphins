@@ -19,9 +19,7 @@
               | Внимание, акция!
             span
               | Сделайте заказ сегодня, и получите <b>монопод Kjstar Z07-5</b> всего&nbsp;за&nbsp;<b>#{landing.public_price}&nbsp;рублей</b>!
-        = render 'public/shared/timer',
-          landing: landing,
-          timer_message: 'Скидка действительна в течение'
+        = render 'public/shared/timer', timer_message: 'Скидка действительна в течение'
 
       .cta
         .clearfix

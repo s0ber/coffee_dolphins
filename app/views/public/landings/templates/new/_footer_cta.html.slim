@@ -18,10 +18,7 @@
           = render 'public/landings/templates/new/price',
             landing: landing,
             modifier_class: 'is-white'
-          = render 'public/shared/timer',
-            landing: landing,
-            timer_message: 'Скидка действительна в течение',
-            modifier_class: 'is-white'
+          = render 'public/shared/timer', timer_message: 'Скидка действительна в течение', modifier_class: 'is-white'
           .footer_cta-button
             .big_button.for-footer data-inline-modal='order_form'
               | Заказать монопод Kjstar Z05-7 &rarr;

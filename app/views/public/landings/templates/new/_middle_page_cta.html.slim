@@ -18,10 +18,7 @@
           = render 'public/landings/templates/new/price', landing: landing, modifier_class: 'is-white'
 
         .middle_page_cta-actions
-          = render 'public/shared/timer',
-            landing: landing,
-            modifier_class: 'for-middle_page_cta',
-            timer_message: 'Акция закончится через'
+          = render 'public/shared/timer', modifier_class: 'for-middle_page_cta', timer_message: 'Акция закончится через'
 
           .big_button.for-middle_page_cta data-inline-modal='order_form'
             | Заказать монопод &rarr;
