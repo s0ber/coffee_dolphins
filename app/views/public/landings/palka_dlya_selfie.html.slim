@@ -29,11 +29,11 @@
 
 = render 'public/shared/modals'
 
-script id='shipping' type='text/template' data-title='Информация о доставке'
+script id='shipping_modal' type='text/template' data-title='Информация о доставке'
   = render 'public/shared/shipping', landing: @landing
 
-script id='order_form' type='text/template' data-title='Оформление заказа'
+script id='order_form_modal' type='text/template' data-title='Оформление заказа'
   = render 'public/shared/order_form_modal', landing: @landing
 
-script id='about' type='text/template' data-title='О нашем интернет-магазине'
+script id='about_modal' type='text/template' data-title='О нашем интернет-магазине'
   = render 'public/shared/about', landing: @landing
