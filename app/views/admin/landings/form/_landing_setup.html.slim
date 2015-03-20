@@ -35,3 +35,7 @@
         as: :radio_buttons,
         collection: Landing::COLOR_SCHEMES.map { |k, v| [k.to_s.humanize, v] },
         label: 'Цветовая схема'
+      = f.input :template,
+        as: :radio_buttons,
+        collection: Landing::TEMPLATES.invert,
+        label: 'Шаблон'

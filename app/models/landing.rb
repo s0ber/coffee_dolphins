@@ -34,12 +34,17 @@ class Landing < ActiveRecord::Base
     70 => '70%'
   }.invert
 
+  TEMPLATES = {
+    0 => 'Стандартный',
+    1 => 'Новый'
+  }
+
   include StatusHolder
 
   before_validation :set_as_draft, on: :create
   before_validation :mark_empty_reviews_for_destruction, on: :update
 
-  validates :title, :slug, :category_id, :position_id, :_status, presence: true
+  validates :title, :slug, :category_id, :position_id, :_status, :template, presence: true
   validates :slug, uniqueness: true
   validates :short_description,
             :subheader_title,
@@ -90,6 +95,10 @@ class Landing < ActiveRecord::Base
 
   def set_as_published
     self._status = :published
+  end
+
+  def has_new_template?
+    self.template == 1
   end
 
   def published?

@@ -74,6 +74,7 @@ private
               :subheader_title,
               :slug,
               :price,
+              :template,
               :color,
               :video_id,
               :short_description,
