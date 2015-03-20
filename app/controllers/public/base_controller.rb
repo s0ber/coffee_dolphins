@@ -8,10 +8,8 @@ class Public::BaseController < ApplicationController
       env: Rails.env
     )
 
-    if Rails.env.production?
-      Landing::COLOR_SCHEMES.each do |color, id|
-        gon.push("#{color}_color_scheme" => Rails.application.assets.find_asset("public/old_templates/color_schemes/#{color}.css").digest_path)
-      end
+    Landing::COLOR_SCHEMES.each do |color, id|
+      gon.push("#{color}_color_scheme" => Rails.application.assets.find_asset("public/old_template/color_schemes/#{color}.css").digest_path)
     end
   end
 end
