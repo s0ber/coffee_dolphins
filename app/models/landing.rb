@@ -62,7 +62,7 @@ class Landing < ActiveRecord::Base
   validates :price, :discount, presence: true, on: :update
 
   belongs_to :category
-  belongs_to :position
+  belongs_to :position, touch: true
   has_many :reviews, dependent: :destroy
   has_many :landing_images, -> { order(position: :asc) }, dependent: :destroy
 
