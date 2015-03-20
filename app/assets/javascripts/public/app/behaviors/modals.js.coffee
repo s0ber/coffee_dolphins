@@ -60,10 +60,8 @@ class App.Behaviors.Modals extends View
       <div class="modal" data-view="app#modal">
         <div class="modal-header">
           #{title}
-          <div class="fl_r">
-            <div class="modal-close js-close_modal">
-              <i class="fa fa-close"></i>
-            </div>
+          <div class="modal-close js-close_modal">
+            <i class="fa fa-close"></i>
           </div>
         </div>
         <div class="modal-body">#{html}</div>
