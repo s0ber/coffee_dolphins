@@ -10,7 +10,7 @@ class Public::BaseController < ApplicationController
 
     if Rails.env.production?
       Landing::COLOR_SCHEMES.each do |color, id|
-        gon.push("#{color}_color_scheme" => Rails.application.assets.find_asset("public/color_schemes/#{color}.css").digest_path)
+        gon.push("#{color}_color_scheme" => Rails.application.assets.find_asset("public/old_templates/color_schemes/#{color}.css").digest_path)
       end
     end
   end
