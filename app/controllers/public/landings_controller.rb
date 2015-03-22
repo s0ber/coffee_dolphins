@@ -19,7 +19,11 @@ class Public::LandingsController < Public::BaseController
   end
 
   def success
-    render(action: :show)
+    if @landing.has_new_template?
+      render action: @landing.slug.underscore
+    else
+      render(action: :show_old)
+    end
   end
 
   def success_modal
