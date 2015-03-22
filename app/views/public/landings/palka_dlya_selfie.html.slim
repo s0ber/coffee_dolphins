@@ -39,7 +39,7 @@
   script id='about_modal' type='text/template' data-title='О нашем интернет-магазине'
     = render 'public/shared/about', landing: @landing
 
-  script id='gallery_modal' type='text/template' data-title=@landing.title
+  script id='gallery_modal' type='text/template' data-title=@landing.subheader_title
     = render 'public/shared/images', images: @landing.landing_images.for_gallery
 
 - if params[:order_id]

@@ -77,7 +77,7 @@ $red: #D20A2F
   box-shadow: 0px 1px 3px rgba(0, 0, 0, .25)
 
   &:focus
-    // box-shadow: 0 0 10px rgba($light_200, .7)
+    box-shadow: 0 0 7px rgba(159, 176, 203, .9)
     outline: 0
 
   &:hover
@@ -90,4 +90,12 @@ $red: #D20A2F
 
   b
     font-weight: normal
+
+=screen($startAt)
+  @media only screen and (max-width: $startAt)
+    @content
+
+=screen_1024($startAt: 1142px)
+  +screen($startAt)
+    @content
 
