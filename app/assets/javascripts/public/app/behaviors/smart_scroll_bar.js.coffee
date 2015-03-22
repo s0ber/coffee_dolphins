@@ -6,6 +6,8 @@ class App.Behaviors.SmartScrollBar extends View
     @$modalLayer = @$('.js-modals-layer')
     @$modalContainer = @$('.js-modals-container')
 
+    @minWidth = parseInt(@$body.css('min-width'), 10)
+
     @fixScroll()
 
   # fixes scroll width, so content doesn't jump when scroll disappears
@@ -22,6 +24,8 @@ class App.Behaviors.SmartScrollBar extends View
       sbw = @scrollWidth()
       windowWidth = Math.max(parseInt(w.innerWidth, 10), parseInt(de.clientWidth, 10))
       documentWidth = windowWidth - sbw
+
+      return if documentWidth <= @minWidth
 
       if documentWidth != lastDocumentWidth
         lastDocumentWidth = documentWidth
