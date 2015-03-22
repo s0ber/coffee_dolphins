@@ -11,8 +11,8 @@
         .middle_page_cta-info_title
           | Распродажа только до 15 марта 2015 года
         .middle_page_cta-info_text
-          | Успей купить <b>монопод Kjstar&nbsp;Z05-7</b> всего&nbsp;за&nbsp;<b>1390&nbsp;рублей</b>!
-        | Вы сэкономите <b>600&nbsp;рублей</b>, сделав заказ сегодня!
+          | Успей купить <b>монопод Kjstar&nbsp;Z05-7</b> всего&nbsp;за&nbsp;<b>#{landing.public_price}&nbsp;рублей</b>!
+        | Вы сэкономите <b>#{landing.discount}&nbsp;рублей</b>, сделав заказ сегодня!
 
         .middle_page_cta-price
           = render 'public/landings/templates/new/price', landing: landing, modifier_class: 'is-white'

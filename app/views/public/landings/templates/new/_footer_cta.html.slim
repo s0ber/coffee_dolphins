@@ -13,8 +13,8 @@
             .footer_cta-description_main
               | Получите хит этого сезона <b>только до 15 марта 2015 года</b>
               br
-              | всего за <b>1390 рублей</b>!
-            | Вы сэкономите 600 рублей, сделав заказ сегодня!
+              | всего за <b>#{landing.public_price} рублей</b>!
+            | Вы сэкономите #{landing.discount} рублей, сделав заказ сегодня!
           = render 'public/landings/templates/new/price',
             landing: landing,
             modifier_class: 'is-white'

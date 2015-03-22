@@ -31,6 +31,10 @@ class LandingDecorator < ApplicationDecorator
     ((public_price / (100.to_f - object.discount.to_f)) * 100).to_i.round(-1)
   end
 
+  def discount
+    public_price_without_discount - public_price
+  end
+
   def human_status
     h.content_tag :b, (object.draft? ? 'Черновик' : '<span class="status is-green">Опубликован</span>'.html_safe)
   end
