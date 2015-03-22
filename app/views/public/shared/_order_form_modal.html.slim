@@ -10,7 +10,7 @@
     .order_form-inner
       form#modal_order_form action='#' method='post'
         .order_form-message
-          | Оставьте номер вашего телефона, и наш оператор свяжется с вами в течение нескольких минут для обсуждения деталей заказа.
+          | Оставьте номер вашего телефона, и наш менеджер свяжется с вами в течение нескольких минут для обсуждения деталей заказа.
         .clearfix
           .order_form-phone
             .order_form-field.has-icon
@@ -36,3 +36,15 @@
 
         button.big_button.for-order_form.js-order_button data-show-price='false'
           | Заказать
+
+      .order_form-phone_info
+        .order_form-or
+        | Позвоните нам сами по телефону нашей горячей линии.
+        br
+        b.order_form-phone_number
+          => fa_icon 'phone'
+          = Settings.phone
+          br
+          | (бесплатно на территории РФ)
+        br
+        | Обязательно скажите менеджеру артикул товара: <b>##{landing.apishops_article_id}</b>.

@@ -104,3 +104,38 @@ $bd: darken($bd, 10%)
     font-size: 13px
     text-shadow: none
 
+.order_form-phone_info
+  margin-top: 15px
+  text-align: center
+
+.order_form-or
+  position: relative
+  display: block
+  margin: 20px 0 15px
+  height: 25px
+  line-height: 25px
+  color: $text
+  text-align: center
+
+  &:before
+    content: ''
+    position: absolute
+    top: 50%
+    left: 0
+    right: 0
+    border-top: 1px solid $bd
+
+  &:after
+    content: 'ИЛИ'
+    position: absolute
+    margin-left: -25px
+    top: 0
+    left: 50%
+    width: 50px
+    font-weight: bold
+    background: #fff
+
+.order_form-phone_number
+  display: inline-block
+  margin: 10px 0
+  font-size: 16px
