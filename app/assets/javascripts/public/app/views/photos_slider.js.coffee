@@ -53,9 +53,11 @@ class App.Views.PhotosSlider extends View
     $preview.addClass('is-active')
 
     @$mainPhoto
-      .hide()
-      .css('background-image': "url(#{imagePath})")
-      .fadeIn('fast')
+      .addClass('is-hidden')
+      .afterTransition =>
+        @$mainPhoto
+          .css('background-image': "url(#{imagePath})")
+          .removeClass('is-hidden')
 
     @switchPhotosByInterval()
 
