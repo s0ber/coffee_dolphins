@@ -43,5 +43,8 @@
     = render 'public/shared/images', images: @landing.landing_images.for_gallery
 
 - if params[:order_id]
-  div data-view='app#success' data={modal_path: public_landing_success_modal_path(order_id: params[:order_id])}
+  div data-view='app#success' data={inline: 'true', inline_modal: 'success_modal'}
+
+  script id='success_modal' type='text/template'
+    = render 'public/shared/success_modal', landing: @landing, order_id: params[:order_id]
 

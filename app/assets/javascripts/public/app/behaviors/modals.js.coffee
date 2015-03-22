@@ -11,6 +11,7 @@ class App.Behaviors.Modals extends View
     @$el.on('click', '.js-close_modal', _.bind(@closeModal, @))
 
     @sub('load_modal', @loadModalByPath)
+    @sub('show_modal', @showModal)
 
   loadModal: (e) ->
     $link = $(e.currentTarget)
