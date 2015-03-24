@@ -5,7 +5,9 @@ class Public::BaseController < ApplicationController
 
   def pass_variables_to_front
     gon.push(
-      env: Rails.env
+      env: Rails.env,
+      google_analytics_app_id: Settings.google_analytics.application_id,
+      yandex_metrika_app_id: Settings.yandex_metrika.application_id
     )
 
     Landing::COLOR_SCHEMES.each do |color, id|

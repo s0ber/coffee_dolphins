@@ -22,10 +22,10 @@ html.layout
     - if content_for?(:stylesheet)
       = content_for(:stylesheet)
 
-    = javascript_include_tag 'public/application'
-
     - if Rails.env.production? && !current_user
       = render 'public/shared/counters'
+
+    = javascript_include_tag 'public/application'
 
     - if content_for?(:script)
       = content_for(:script)

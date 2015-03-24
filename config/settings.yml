@@ -1,5 +1,8 @@
 google_analytics:
   application_id: UA-58918320-1
 
+yandex_metrika:
+  application_id: 28180473
+
 phone: '8 (804) 333-55-15'
 

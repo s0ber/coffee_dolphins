@@ -1,4 +1,5 @@
 - googleAnalyticsAppId = Settings.google_analytics.application_id
+- yandexMetrikaAppId = Settings.yandex_metrika.application_id
 
 - if googleAnalyticsAppId
   javascript:
@@ -15,7 +16,8 @@ javascript:
   (function (d, w, c) {
     (w[c] = w[c] || []).push(function() {
         try {
-            w.yaCounter28180473 = new Ya.Metrika({id:28180473,
+            w.yaCounter#{yandexMetrikaAppId} = new Ya.Metrika({id:#{yandexMetrikaAppId},
+                    webvisor:true,
                     clickmap:true,
                     trackLinks:true,
                     accurateTrackBounce:true});
@@ -35,4 +37,4 @@ javascript:
   })(document, window, "yandex_metrika_callbacks");
 
 noscript
-  | <div><img src="//mc.yandex.ru/watch/28180473" style="position:absolute; left:-9999px;" alt="" /></div>
+  | <div><img src="//mc.yandex.ru/watch/#{yandexMetrikaAppId}" style="position:absolute; left:-9999px;" alt="" /></div>
