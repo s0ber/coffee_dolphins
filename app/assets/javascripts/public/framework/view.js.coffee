@@ -41,6 +41,9 @@ class @View
   appendAsync: ($parentEl, $appendedEl) ->
     Vtree.DOM.appendAsync($parentEl, $appendedEl)
 
+  trackEvent: (args...) ->
+    window['ga']?('send', 'event', args...)
+
   __initEls: ->
     return unless @els?
 

@@ -60,6 +60,6 @@ class App.Views.Form extends View
       return if $.trim(@$phoneField().val()) is ''
 
       if @$form().is('#top_form')
-        gaWidget.trackEvent 'Оформление заказа', 'Кнопка заказать', 'Верхняя форма'
+        # @trackEvent 'Оформление заказа', 'Кнопка заказать', 'Верхняя форма'
       else
-        gaWidget.trackEvent 'Оформление заказа', 'Кнопка заказать', 'Нижняя форма'
+        # @trackEvent 'Оформление заказа', 'Кнопка заказать', 'Нижняя форма'

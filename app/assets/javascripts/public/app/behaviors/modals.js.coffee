@@ -101,4 +101,4 @@ class App.Behaviors.Modals extends View
     @$el.off('.modals:hide')
 
   __trackModalShow: (modalPath) ->
-    gaWidget.trackEvent 'Модальные окна', 'Просмотр', modalPath
+    # @trackEvent 'Модальные окна', 'Просмотр', modalPath

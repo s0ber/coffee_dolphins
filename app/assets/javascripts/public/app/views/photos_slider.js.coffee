@@ -88,4 +88,4 @@ class App.Views.PhotosSlider extends View
 
   __trackOpenGallery: ->
     @$('.js-open_gallery').on 'click', ->
-      gaWidget.trackEvent 'Картинки', 'Увеличить'
+      # @trackEvent 'Картинки', 'Увеличить'

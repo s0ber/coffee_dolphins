@@ -15,4 +15,4 @@ class App.Views.SubHeader extends View
 
   __trackBuyButtonNavigation: ->
     $('.js-sub_header-buy').on 'click', ->
-      gaWidget.trackEvent 'Навигация', 'Сабхедер'
+      # @trackEvent 'Навигация', 'Сабхедер'

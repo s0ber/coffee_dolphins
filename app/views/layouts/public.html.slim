@@ -24,9 +24,7 @@ html.layout
 
     = javascript_include_tag 'public/application'
 
-    - if current_user
-      = render 'public/shared/fake_counters'
-    - else
+    - if Rails.env.production? && !current_user
       = render 'public/shared/counters'
 
     - if content_for?(:script)

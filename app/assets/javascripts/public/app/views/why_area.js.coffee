@@ -7,4 +7,4 @@ class App.Views.WhyArea extends View
 
   __trackWhyButtonNavigation: ->
     @$el.on 'click', ->
-      gaWidget.trackEvent 'Навигация', 'Кнопка почему'
+      # @trackEvent 'Навигация', 'Кнопка почему'

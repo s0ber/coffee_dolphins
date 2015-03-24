@@ -19,5 +19,5 @@ class App.Views.Header extends View
 
   __trackNavigation: ->
     @$('[data-section-name]').on 'click', (e) ->
-      gaWidget.trackEvent 'Навигация', 'Верхнее меню', $(e.currentTarget).data('section-name')
+      # @trackEvent 'Навигация', 'Верхнее меню', $(e.currentTarget).data('section-name')
 
