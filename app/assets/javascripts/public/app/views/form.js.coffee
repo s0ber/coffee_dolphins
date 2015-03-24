@@ -13,6 +13,7 @@ class App.Views.Form extends View
 
     @$button.on('click', _.bind(@submitForm, @))
 
+    @__trackOrderFormOpened()
     @__trackSuccessfulOrder()
 
   submitForm: ->
@@ -54,8 +55,14 @@ class App.Views.Form extends View
     @$el.data('full-price')
 
 # private
+  __trackOrderFormOpened: ->
+    return if window.__orderFormOpened
+
+    tracking.trackEvent('order_form_opened')
+    window.__orderFormOpened = true
 
   __trackSuccessfulOrder: ->
     @$form().on 'submit', =>
       return if $.trim(@$phoneField().val()) is ''
+      tracking.trackEvent('order_successed')
 
