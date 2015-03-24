@@ -19,7 +19,7 @@ class Tracking
     return if !allowedGoal and !allowedEvent
 
     if allowedGoal
-      @ga()?('send', 'event', 'goal', eventName)
+      @ga()?('send', 'event', 'goals', eventName)
       @yac()?.reachGoal(eventName)
 
   ga: ->
