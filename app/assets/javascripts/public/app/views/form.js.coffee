@@ -59,7 +59,3 @@ class App.Views.Form extends View
     @$form().on 'submit', =>
       return if $.trim(@$phoneField().val()) is ''
 
-      if @$form().is('#top_form')
-        # @trackEvent 'Оформление заказа', 'Кнопка заказать', 'Верхняя форма'
-      else
-        # @trackEvent 'Оформление заказа', 'Кнопка заказать', 'Нижняя форма'

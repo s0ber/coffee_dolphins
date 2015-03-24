@@ -22,7 +22,6 @@ class App.Behaviors.Modals extends View
     path = $link.data('modal')
     $.getJSON($link.data('modal'))
       .done((json) =>
-        @__trackModalShow(path)
         @showModal(json)
       )
       .always(=> $link.removeClass('is-disabled'))
@@ -100,5 +99,3 @@ class App.Behaviors.Modals extends View
   unbindCloseEvents: ->
     @$el.off('.modals:hide')
 
-  __trackModalShow: (modalPath) ->
-    # @trackEvent 'Модальные окна', 'Просмотр', modalPath

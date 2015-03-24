@@ -21,8 +21,6 @@ class App.Views.PhotosSlider extends View
 
     @switchPhotosByInterval()
 
-    @__trackOpenGallery()
-
   selectPrevPhoto: (e) ->
     prevPhotoIndex = (@activePhotoIndex - 1) % @photosNum
     @selectPhotoByIndex(prevPhotoIndex)
@@ -86,6 +84,3 @@ class App.Views.PhotosSlider extends View
   previewWidth: ->
     @$previews.eq(-1).outerWidth(true)
 
-  __trackOpenGallery: ->
-    @$('.js-open_gallery').on 'click', ->
-      # @trackEvent 'Картинки', 'Увеличить'
