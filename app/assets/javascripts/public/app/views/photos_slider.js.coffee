@@ -21,6 +21,8 @@ class App.Views.PhotosSlider extends View
 
     @switchPhotosByInterval()
 
+    @preloadPhotos()
+
   selectPrevPhoto: (e) ->
     prevPhotoIndex = (@activePhotoIndex - 1) % @photosNum
     @selectPhotoByIndex(prevPhotoIndex)
@@ -78,6 +80,11 @@ class App.Views.PhotosSlider extends View
 
     offsetIndex = @photosRange[0]
     @$previewsContainer.css('margin-left': - offsetIndex * @previewWidth())
+
+  preloadPhotos: ->
+    for photo in @photos
+      $fakePhoto = $("<img src=\"#{photo}\" width=\"0\" height=\"0\" />")
+      @$el.append($fakePhoto)
 
 # private
 
