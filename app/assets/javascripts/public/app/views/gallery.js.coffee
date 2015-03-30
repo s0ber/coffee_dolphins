@@ -23,6 +23,7 @@ class App.Views.Gallery extends View
 
     @$prevButton.on('click', _.bind(@showPrevImage, @))
     @$nextButton.on('click', _.bind(@showNextImage, @))
+    @$imageWrapper.on('click', _.bind(@showNextImage, @))
 
     @bindKeyboardNavigation()
 
@@ -31,7 +32,7 @@ class App.Views.Gallery extends View
 
   resizeImageToFitScreen: ->
     $currentImage = @$imageWrapper.find('img')
-    maxHeight = $(window).height() - 250
+    maxHeight = $(window).height() - 260
 
     currentImage = @images[@currentIndex]
 
@@ -68,13 +69,15 @@ class App.Views.Gallery extends View
       $fakeImage = $("<img src=\"#{image.url}\" width=\"0\" height=\"0\" />").css(float: 'right')
       @$el.append($fakeImage)
 
-  showPrevImage: ->
+  showPrevImage: (e) ->
+    e?.stopPropagation()
     return if @currentIndex is 0
     @currentIndex--
 
     @showImageByIndex(@currentIndex)
 
-  showNextImage: ->
+  showNextImage: (e) ->
+    e?.stopPropagation()
     return if @currentIndex is @images.length - 1
     @currentIndex++
 

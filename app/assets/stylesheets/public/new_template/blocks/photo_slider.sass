@@ -13,6 +13,11 @@
   background: none
   box-shadow: 0 0 3px rgba(0, 0, 0, .2)
   z-index: 2
+  cursor: pointer
+  +no_select
+
+  &:hover .photo_slider-zoom_button
+    background: rgba(0, 0, 0, .5)
 
 .photo_slider-photo_inner
   position: relative
@@ -77,11 +82,6 @@
   line-height: 30px
   border-radius: 3px
   transition: background 0.2s
-  cursor: pointer
-  +no_select
-
-  &:hover
-    background: rgba(0, 0, 0, .5)
 
 .photo_slider.for-footer
   .photo_slider-photo_inner
