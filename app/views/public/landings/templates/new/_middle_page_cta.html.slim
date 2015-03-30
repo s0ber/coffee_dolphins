@@ -15,7 +15,7 @@
         | Вы сэкономите <b>#{landing.discount}&nbsp;рублей</b>, сделав заказ сегодня!
 
         .middle_page_cta-price
-          = render 'public/landings/templates/new/price', landing: landing, modifier_class: 'is-white'
+          = render 'public/landings/templates/new/price', landing: landing
 
         .middle_page_cta-actions
           = render 'public/shared/timer', modifier_class: 'for-middle_page_cta', timer_message: 'Акция закончится через'

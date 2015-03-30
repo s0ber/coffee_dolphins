@@ -7,7 +7,7 @@
         .footer_cta-left
           = render 'public/landings/templates/new/photo_slider',
             landing: landing,
-            modifier_class: 'is-white for-footer'
+            modifier_class: 'for-footer'
         .footer_cta-right
           .footer_cta-description
             .footer_cta-description_main
@@ -15,10 +15,8 @@
               br
               | всего за <b>#{landing.public_price} рублей</b>!
             | Вы сэкономите #{landing.discount} рублей, сделав заказ сегодня!
-          = render 'public/landings/templates/new/price',
-            landing: landing,
-            modifier_class: 'is-white'
-          = render 'public/shared/timer', timer_message: 'Скидка действительна в течение', modifier_class: 'is-white'
+          = render 'public/landings/templates/new/price', landing: landing
+          = render 'public/shared/timer', timer_message: 'Скидка действительна в течение'
           .footer_cta-button
             .big_button.for-footer data-inline-modal='order_form_modal'
               | Заказать монопод Kjstar Z05-7 &rarr;
