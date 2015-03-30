@@ -11,7 +11,7 @@
         .footer_cta-right
           .footer_cta-description
             .footer_cta-description_main
-              | Получите хит этого сезона <b>только до 15 марта 2015 года</b>
+              | Получите хит этого сезона <b>только до #{l(2.days.from_now, format: :date)}</b>
               br
               | всего за <b>#{landing.public_price} рублей</b>!
             | Вы сэкономите #{landing.discount} рублей, сделав заказ сегодня!

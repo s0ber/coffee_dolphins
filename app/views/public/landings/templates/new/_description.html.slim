@@ -11,7 +11,7 @@
       'Делайте групповые селфи']
     .description-list
       - features.each_with_index do |feature, i|
-        .description-item.animate-show_zoom class=("is-#{i + 1}")
+        .description-item.animate-show_fast class=("is-#{i + 1}")
           .description-item_img
             img src=image_path("public/palka/#{i + 1}.jpg")
           .description-item_info
@@ -19,7 +19,7 @@
               = feature
 
     .description-list
-      .description-item.is-video.animate-show_zoom
+      .description-item.is-video.animate-show_fast
         .description-youtube_info
           .description-youtube_rank
             img src=image_path('public/youtube_rank.png')

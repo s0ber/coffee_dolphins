@@ -17,7 +17,7 @@ class App.Behaviors.Animations extends View
       else
         @els = _.toArray($(ANIMATED_ELS))
         @fireAnimations()
-        $(window).on 'scroll', _.throttle(_.bind(@fireAnimations, @), 100)
+        $(window).on 'scroll', _.throttle(_.bind(@fireAnimations, @), 200)
     , 100
 
   fireAnimations: ->
@@ -41,10 +41,13 @@ class App.Behaviors.Animations extends View
 
   showAnimationForEl: (el) ->
     dfd = new $.Deferred()
-    $(el)
-      .addClass('is-animated')
-      .afterTransition ->
-        dfd.resolve()
+    $el = $(el).addClass('is-animated')
+    isDeferred = $el.hasClass('js-wait_animation')
+
+    if isDeferred
+      $el.afterTransition -> dfd.resolve()
+    else
+      setTimeout((-> dfd.resolve()), 150)
 
     dfd.promise()
 

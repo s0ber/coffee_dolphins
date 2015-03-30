@@ -1,8 +1,9 @@
 - photos = landing.landing_images.for_gallery
 - modifier_class ||= nil
+- animate ||= false
 
-.photo_slider.animate-show_fast[
-  class=(modifier_class if modifier_class)
+.photo_slider[
+  class=[(modifier_class if modifier_class), ('animate-show_fast js-wait_animation' if animate)]
   data-view='app#photos_slider'
   data={photos: photos.map { |photo| photo.image.gallery.url }.to_json}
 ]

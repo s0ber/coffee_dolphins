@@ -1,17 +1,17 @@
 .main_headline.js-scroll_fix
   .main_headline-inner
-    .main_headline-title.animate-show
+    .main_headline-title.animate-show.js-wait_animation
       = landing.title.html_safe
 
     .main_headline-info
       .main_headline-info_inner
         .main_headline-left
-          = render 'public/landings/templates/new/photo_slider', landing: landing
+          = render 'public/landings/templates/new/photo_slider', landing: landing, animate: true
         .main_headline-right
-          .main_headline-description.animate-show_fast
+          .main_headline-description.animate-show_fast.js-wait_animation
             = landing.short_description.html_safe
 
-    .main_headline-cta.animate-show
+    .main_headline-cta.animate-show.js-wait_animation
       .main_headline-timer
         .main_headline-timer_message_wrap
           .main_headline-timer_message
