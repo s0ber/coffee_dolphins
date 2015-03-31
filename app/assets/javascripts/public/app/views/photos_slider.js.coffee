@@ -21,7 +21,7 @@ class App.Views.PhotosSlider extends View
 
     @switchPhotosByInterval()
 
-    @preloadPhotos()
+    setTimeout(_.bind(@preloadPhotos, @), 100)
 
   selectPrevPhoto: (e) ->
     prevPhotoIndex = (@activePhotoIndex - 1) % @photosNum
