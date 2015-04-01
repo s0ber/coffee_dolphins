@@ -38,3 +38,4 @@ html.layout
 
   body data-view='app#layout' class=('without_animations' if params[:debug] == 'true' || params[:order_id])
     = yield
+    = render 'public/shared/cart_protector'
