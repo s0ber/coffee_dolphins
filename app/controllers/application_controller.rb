@@ -16,12 +16,8 @@ protected
     render json: {success: true}.merge(options)
   end
 
-  def render_partial(template, options = {})
-    render json: {
-      success: true,
-      notice: options[:notice],
-      html: render_to_string(partial: template, layout: false, formats: [:html], locals: options)
-    }
+  def render_partial(partial, locals = {})
+    respond_with(nil, partial: partial, locals: locals)
   end
 
   def render_modal(title = nil)

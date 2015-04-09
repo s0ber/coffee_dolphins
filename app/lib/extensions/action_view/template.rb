@@ -23,7 +23,7 @@ module ActionViewTemplateExtension
   def render_ajax_layout(view, locals, buffer=nil, &block)
     if locals[:template_type] == :layout
       flat_layout_render(view, locals, buffer, &block)
-    elsif locals[:template_type] == :action
+    elsif locals[:template_type] == :action || locals[:template_type] == :partial
       flat_action_render(view, locals, &block)
     elsif view.output_buffer
       flat_partial_render(view, locals.merge(partial_id: SecureRandom.uuid), &block)
