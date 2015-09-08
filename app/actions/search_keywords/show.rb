@@ -1,5 +1,5 @@
 class SearchKeywordsActions::Show < Actions::Base
-  permit do |performer, search_keyword|
+  def self.permit(perform, search_keyword)
     true if performer
   end
 
