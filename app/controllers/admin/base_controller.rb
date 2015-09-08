@@ -22,9 +22,7 @@ protected
 private
 
   def pass_variables_to_front
-    gon.push(
-      assets_md5_hash: assets_md5_hash
-    )
+    gon.push(assets_md5_hash: assets_md5_hash)
   end
 
   def not_authenticated
