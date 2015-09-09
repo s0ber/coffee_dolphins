@@ -8,6 +8,15 @@ group :development do
   gem 'unicorn-rails'
 end
 
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+  gem 'shoulda-matchers'
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'ffaker'
+  gem 'database_cleaner'
+  gem 'fuubar'
+end
+
 gem 'pg'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
