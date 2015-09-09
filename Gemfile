@@ -16,6 +16,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'fuubar'
   gem 'spring-commands-rspec'
+  gem 'guard-rspec', require: false
 end
 
 gem 'pg'
