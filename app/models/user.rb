@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   authenticates_with_sorcery!
 
   validates :email, presence: true, uniqueness: true, email: true
-  validates :password, confirmation: true, length: {within: 6...128}, allow_blank: true
+  validates :password, confirmation: true, length: {within: 6..128}, allow_blank: true
   validates :full_name, presence: true, length: {maximum: 255}
   before_validation :check_password, on: :create
 
