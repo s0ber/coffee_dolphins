@@ -10,11 +10,12 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails', '~> 4.0'
   gem 'ffaker'
   gem 'database_cleaner'
   gem 'fuubar'
+  gem 'spring-commands-rspec'
 end
 
 gem 'pg'
