@@ -1,7 +1,6 @@
 class Actions::Base
-  def self.inherited(child_class)
-    child_class.extend(ClassMethods)
-    super
+  def self.permit(&block)
+    @permission_check = block
   end
 
   module ClassMethods
@@ -12,5 +11,11 @@ class Actions::Base
 
   def perform
     raise NotImplementedError
+  end
+
+  def check_permissions
+    @response.data.each do |item|
+      @permission_check.call(item)
+    end
   end
 end
