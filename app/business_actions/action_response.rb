@@ -1,14 +1,15 @@
 class ActionResponse
   STATUSES = [:ok, :not_found, :unprocessable_entity, :unathorized]
 
-  class OK; end
-  class NotFound; end
-  class UnprocessableEntity; end
-  class Unathorized; end
-
   attr_reader :status
-  attr_reader :data
+  attr_reader :body
 
-  def initialize
+  def initialize(body: nil, status: :ok)
+    # @body, @status = body, status
+    # raise ArgumentError unless @body.is_a?(Enumerable)
+  end
+
+  def test
+    true
   end
 end
