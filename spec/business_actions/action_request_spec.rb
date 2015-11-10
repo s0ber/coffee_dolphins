@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe ActionRequest do
   before do
     module Actions; module Test; class Test; end; end; end

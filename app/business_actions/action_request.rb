@@ -3,7 +3,7 @@ class ActionRequest
 
   attr_reader :runner, :type
 
-  def initialize(runner:, type:, query:, child_actions: [])
+  def initialize(runner:, type:, query:, piped_requests: [])
     @runner, @type, @query = runner, type, query
 
     unless ALLOWED_TYPES.include?(@type)
