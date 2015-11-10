@@ -1,17 +1,21 @@
 module ActionRunner
   extend self
 
+  StreamParseError = Class.new(StandardError)
   ActionNotFound = Class.new(StandardError)
 
-  def run_action(performer, action_name, query, type: :read)
-    action = find_class(action_name)
-    query = ActionQueryNormalizer.normalize_query(action, query)
-  #
+  def run_action_tree(performer, action_streams)
+    action_streams = ActionStreamsBuilder.build(action_streams)
+    action_request = ActionRequest.new(runner: action_runner, type: :get, query: query)
+
   #   read_response = action.perform_read(performer, query)
   #   read_response = ActionResponse.new(body: action_response, query: query)
   #
   #   read_response = filter_restricted_items(action, performer, read_response)
   #   serialize_response(action, performer, read_response)
+  end
+
+  def build_action_request_tree(action_tree)
   end
 
   def find_class(action_name)

@@ -3,7 +3,7 @@ class ActionRequest
 
   attr_reader :runner, :type
 
-  def initialize(runner:, type:, query:, piped_requests: [])
+  def initialize(runner:, type: :get, query: nil, pipe: nil)
     @runner, @type, @query = runner, type, query
 
     unless ALLOWED_TYPES.include?(@type)
@@ -13,10 +13,40 @@ class ActionRequest
     if !runner.is_a?(Class) || !(runner.name =~ /^Actions::/)
       raise ArgumentError, message: 'ActionRequest#runner should be an Action class'
     end
+
+    (self.piped_requests = pipe) if pipe
   end
 
   def query
-    normalized_query
+    normalized_query if @query
+  end
+
+  def piped_requests=(action_requests)
+    @_piped_requests ||=
+      if action_requests.is_a?(Array)
+        if action_requests.all? { |request| request.is_a?(ActionRequest) }
+          action_requests
+        else
+          raise ArgumentError, message: 'Only ActionRequest instances can be piped'
+        end
+      elsif action_requests.is_a?(ActionRequest)
+        action_requests
+      else
+        raise ArgumentError, message: 'Only ActionRequest instances can be piped'
+      end
+  end
+
+  def piped_requests
+    @_piped_requests
+  end
+
+  protected
+
+  def ==(o)
+    runner == o.runner &&
+      type == o.type &&
+      query == o.query &&
+      piped_requests == o.piped_requests
   end
 
   private

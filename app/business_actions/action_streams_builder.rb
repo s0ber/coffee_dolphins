@@ -26,5 +26,32 @@ module ActionStreamsBuilder
   end
 
   def _build(action_streams)
+    action_streams = action_streams.map do |stream|
+      type = stream[:post] ? :post : :get
+      runner = ActionRunner.find_class(stream[type])
+      request = ActionRequest.new(runner: runner, type: type, query: stream[:query])
+
+      _build_piped_stream(request, stream[:pipe]) if stream[:pipe]
+      request
+    end
+  end
+
+  def _build_piped_stream(accumulator, stream)
+    accumulator.piped_requests =
+      if stream.is_a?(Hash)
+        key, value = stream.first # read only first pair in a hash
+        runner = ActionRunner.find_class(key)
+        request = ActionRequest.new(runner: runner)
+        _build_piped_stream(request, value)
+        request
+      elsif stream.is_a?(Array)
+        stream.map do |s|
+          runner = ActionRunner.find_class(s)
+          ActionRequest.new(runner: runner)
+        end
+      elsif stream.is_a?(String)
+        runner = ActionRunner.find_class(stream)
+        ActionRequest.new(runner: runner)
+      end
   end
 end

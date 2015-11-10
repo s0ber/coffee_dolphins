@@ -78,5 +78,102 @@ describe ActionStreamsBuilder do
   end
 
   describe '._build' do
+    before do
+      module Actions
+        module Test
+          class Action1
+            def self.query_attributes
+              []
+            end
+          end
+        end
+      end
+      module Actions
+        module Test
+          class Action2
+            def self.query_attributes
+              []
+            end
+          end
+        end
+      end
+    end
+
+    context 'given array of streams' do
+      let(:streams) { [{post: 'test#action_1', query: {}},
+                       {get: 'test#action_2', query: {}}] }
+
+      it 'creates an array of action requests' do
+        expect(builder._build(streams)).to eq([
+          ActionRequest.new(runner: Actions::Test::Action1, type: :post, query: {}),
+          ActionRequest.new(runner: Actions::Test::Action2, query: {})
+        ])
+      end
+    end
+
+    context 'given one stream' do
+      let(:streams) { [post: 'test#action_1', query: {}] }
+      specify do
+        expect(builder._build(streams)).to eq([
+          ActionRequest.new(runner: Actions::Test::Action1, type: :post, query: {})
+        ])
+      end
+    end
+
+    context 'given one stream with one piped stream' do
+      let(:streams) { [get: 'test#action_1', pipe: 'test#action_1'] }
+      specify do
+        expect(builder._build(streams)).to eq([
+          ActionRequest.new(runner: Actions::Test::Action1, pipe:
+            ActionRequest.new(runner: Actions::Test::Action1))
+        ])
+      end
+    end
+
+    context 'given one stream with piped stream and one more piped stream' do
+      let(:streams) { [get: 'test#action_1', pipe: {'test#action_1' => 'test#action_1'}] }
+      specify do
+        expect(builder._build(streams)).to eq([
+          ActionRequest.new(runner: Actions::Test::Action1, pipe:
+            ActionRequest.new(runner: Actions::Test::Action1, pipe:
+              ActionRequest.new(runner: Actions::Test::Action1)))
+        ])
+      end
+    end
+
+    context 'given one stream with two piped streams' do
+      let(:streams) { [get: 'test#action_1', pipe: ['test#action_1', 'test#action_1']] }
+      specify do
+        expect(builder._build(streams)).to eq([
+          ActionRequest.new(runner: Actions::Test::Action1, pipe: [
+            ActionRequest.new(runner: Actions::Test::Action1),
+            ActionRequest.new(runner: Actions::Test::Action1)])
+        ])
+      end
+    end
+
+    context 'given one stream with piped stream and two more piped streams' do
+      let(:streams) { [get: 'test#action_1', pipe: {'test#action1' => ['test#action_1', 'test#action_1']}] }
+      specify do
+        expect(builder._build(streams)).to eq([
+          ActionRequest.new(runner: Actions::Test::Action1, pipe:
+            ActionRequest.new(runner: Actions::Test::Action1, pipe: [
+              ActionRequest.new(runner: Actions::Test::Action1),
+              ActionRequest.new(runner: Actions::Test::Action1)]))
+        ])
+      end
+    end
+
+    context 'given one stream with piped stream and one more piped stream and one more piped stream' do
+      let(:streams) { [get: 'test#action_1', pipe: {'test#action1' => {'test#action_1' => 'test#action_1'}}] }
+      specify do
+        expect(builder._build(streams)).to eq([
+          ActionRequest.new(runner: Actions::Test::Action1, pipe:
+            ActionRequest.new(runner: Actions::Test::Action1, pipe:
+              ActionRequest.new(runner: Actions::Test::Action1, pipe:
+                ActionRequest.new(runner: Actions::Test::Action1))))
+        ])
+      end
+    end
   end
 end

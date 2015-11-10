@@ -4,7 +4,7 @@ module ActionQueryNormalizer
   def normalize_query(action, query)
     query = _filter_attributes(action, query)
     query = _filter_included_resources(action, query)
-    _filter_child_actions(action, query)
+    _filter_child_actions(action, query).symbolize_keys
   end
 
   def _filter_attributes(action, query)
