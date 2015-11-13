@@ -44,15 +44,45 @@ describe AStream::BaseAction do
     specify { expect(Actions::Users::Approve.action_name).to eq('users#approve') }
   end
 
+  describe '.permitted_query_attributes' do
+    let(:admin) { create(:user, :admin) }
+    let(:moder) { create(:user, :moder) }
+
+    context 'attributes specified as a list of symbols' do
+      before do
+        Actions::Users::Show.class_eval do
+          query_attributes :full_name, :gender
+        end
+      end
+      specify { expect(show_action.permitted_query_attributes(admin)).to eq [:full_name, :gender] }
+    end
+
+    context 'query attributes is a block' do
+      before do
+        Actions::Users::Show.class_eval do
+          query_attributes do |performer|
+            if performer.admin?
+              [:full_name, :gender]
+            else
+              [:full_name]
+            end
+          end
+        end
+      end
+      specify { expect(show_action.permitted_query_attributes(admin)).to eq [:full_name, :gender] }
+      specify { expect(show_action.permitted_query_attributes(moder)).to eq [:full_name] }
+    end
+  end
+
   describe '.pipe_data_from' do
     context 'connector block is specified' do
       before do
-        Actions::Users::Approve.class_eval do
-          query_by('users#show') { |r| r * 2 }
-        end
-
         Actions::Users::Show.class_eval do
           query_by('users#approve') { |r| r / 2 }
+        end
+
+        Actions::Users::Approve.class_eval do
+          query_by('users#show') { |r| r * 2 }
         end
       end
 

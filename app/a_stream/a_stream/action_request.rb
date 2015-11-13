@@ -63,7 +63,7 @@ module AStream
     private
 
     def normalized_query
-      @normalized_query ||= ActionRequestNormalizer.normalize_query(@runner, @query)
+      @normalized_query ||= ActionRequestNormalizer.normalize_query(@runner, @performer, @query)
     end
   end
 end

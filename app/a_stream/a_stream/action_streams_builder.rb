@@ -48,7 +48,7 @@ module AStream
         key, value = stream.first # read only first pair in a hash
         request = _create_piped_request(key)
 
-        if request.runner.can_accept_action?(accumulator.action_name)
+        if request.runner.can_accept_action?(accumulator.runner)
           accumulator.piped_requests = request
           _build_piped_stream(request, value)
         end
@@ -56,7 +56,7 @@ module AStream
       elsif stream.is_a?(Array)
         accumulator.piped_requests = stream.map do |s|
           request = _create_piped_request(s)
-          if request.runner.can_accept_action?(accumulator.action_name)
+          if request.runner.can_accept_action?(accumulator.runner)
             request
           end
         end.compact
@@ -64,7 +64,7 @@ module AStream
       elsif stream.is_a?(String)
         request = _create_piped_request(stream)
 
-        if request.runner.can_accept_action?(accumulator.action_name)
+        if request.runner.can_accept_action?(accumulator.runner)
           accumulator.piped_requests = request
         end
       end

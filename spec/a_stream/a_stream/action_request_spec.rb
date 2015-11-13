@@ -122,7 +122,7 @@ describe AStream::ActionRequest do
     subject { described_class.new(runner: Actions::Test::Test, query: {dirty: 'query'}) }
 
     it 'returns memoized normalized query' do
-      expect(AStream::ActionRequestNormalizer).to receive(:normalize_query).with(Actions::Test::Test, dirty: 'query').once
+      expect(AStream::ActionRequestNormalizer).to receive(:normalize_query).with(Actions::Test::Test, nil, dirty: 'query').once
       subject.query
       subject.query
       expect(subject.query).to eq(normalized: 'query')
@@ -132,7 +132,7 @@ describe AStream::ActionRequest do
   describe '#query=' do
     before do
       Actions::Test::Test.class_eval do
-        def self.query_attributes; [:new] end
+        query_attributes :new
       end
 
       subject.query = {new: 'query'}

@@ -12,41 +12,41 @@ describe AStream::ActionStreamsRunner do
     module Actions
       module Users
         class Search < AStream::BaseAction
-          def self.query_attributes; [:search] end
-          def self.perform_read(performer, query); end
+          query_attributes :search
           def self.safe_attributes(performer); [:search] end
+          def self.perform_read(performer, query); end
           def self.permit(performer, item); true end
         end
 
         class Show < AStream::BaseAction
           query_by('users#search') { |r| { piped: 'search_response' } }
-          def self.query_attributes; [:piped] end
-          def self.perform_read(performer, query); end
+          query_attributes :piped
           def self.safe_attributes(performer); [:show] end
+          def self.perform_read(performer, query); end
           def self.permit(performer, item); true end
         end
 
         class Approve < AStream::BaseAction
           query_by('users#show') { |r| { piped: 'show_response' } }
-          def self.query_attributes; [:piped] end
-          def self.perform_read(performer, query); end
+          query_attributes :piped
           def self.safe_attributes(performer); [:approve] end
+          def self.perform_read(performer, query); end
           def self.permit(performer, item); true end
         end
 
         class Reject < AStream::BaseAction
           query_by('users#show') { |r| { piped: 'show_response' } }
-          def self.query_attributes; [:piped] end
-          def self.perform_read(performer, query); end
+          query_attributes :piped
           def self.safe_attributes(performer); [:reject] end
+          def self.perform_read(performer, query); end
           def self.permit(performer, item); true end
         end
 
         class Delete < AStream::BaseAction
           query_by('users#show') { |r| { piped: 'show_response' } }
-          def self.query_attributes; [:piped] end
-          def self.perform_read(performer, query); end
+          query_attributes :piped
           def self.safe_attributes(performer); [:delete] end
+          def self.perform_read(performer, query); end
           def self.permit(performer, item); true end
         end
       end
