@@ -10,16 +10,16 @@ module ActionStreamsBuilder
     streams =
       if action_streams.is_a?(String)
         begin
-          JSON.parse(action_streams).with_indifferent_access
+          JSON.parse(action_streams).deep_symbolize_keys!
         rescue JSON::ParserError
-          raise ActionRunner::StreamParseError, message: "Can't parse provided action tree JSON"
+          raise AStream::StreamParseError, message: "Can't parse provided action tree JSON"
         end
       elsif action_streams.is_a?(Hash)
-        action_streams.with_indifferent_access
+        action_streams.deep_symbolize_keys!
       elsif action_streams.is_a?(Array)
         action_streams.map { |child_stream| _parse(child_stream) }
       else
-        raise ActionRunner::StreamParseError, message: 'Action tree should be either a hash, an array, or a valid JSON string'
+        raise AStream::StreamParseError, message: 'Action tree should be either a hash, an array, or a valid JSON string'
       end
 
     [].concat([streams]).flatten
@@ -28,7 +28,7 @@ module ActionStreamsBuilder
   def _build(action_streams)
     action_streams = action_streams.map do |stream|
       type = stream[:post] ? :post : :get
-      runner = ActionRunner.find_class(stream[type])
+      runner = AStream.find_class(stream[type])
       request = ActionRequest.new(runner: runner, type: type, query: stream[:query])
 
       _build_piped_stream(request, stream[:pipe]) if stream[:pipe]
@@ -40,18 +40,18 @@ module ActionStreamsBuilder
     accumulator.piped_requests =
       if stream.is_a?(Hash)
         key, value = stream.first # read only first pair in a hash
-        runner = ActionRunner.find_class(key)
-        request = ActionRequest.new(runner: runner)
+        request = _create_piped_request(key)
         _build_piped_stream(request, value)
         request
       elsif stream.is_a?(Array)
-        stream.map do |s|
-          runner = ActionRunner.find_class(s)
-          ActionRequest.new(runner: runner)
-        end
+        stream.map { |s| _create_piped_request(s) }
       elsif stream.is_a?(String)
-        runner = ActionRunner.find_class(stream)
-        ActionRequest.new(runner: runner)
+        _create_piped_request(stream)
       end
+  end
+
+  def _create_piped_request(action_name)
+    runner = AStream.find_class(action_name)
+    ActionRequest.new(runner: runner)
   end
 end

@@ -4,18 +4,7 @@ describe ActionRequest do
   let(:action_type) { :get }
   subject { described_class.new(runner: Actions::Test::Test, type: action_type) }
 
-  before do
-    module Actions
-      module Test
-        class Test
-          def self.query_attributes
-            [:test]
-          end
-        end
-      end
-    end
-    module Test; class Test; end; end
-  end
+  include_examples 'action classes definition'
 
   context 'not given required data' do
     specify { expect { described_class.new(type: :get) }.to raise_error(ArgumentError) }
@@ -56,7 +45,7 @@ describe ActionRequest do
     context 'given invalid action runner' do
       context 'action runner is not from Actions namespace' do
         it 'throws argument error' do
-          expect { described_class.new(runner: Test::Test) }.to raise_error(ArgumentError,
+          expect { described_class.new(runner: Test::ActionFromWrongNamespace) }.to raise_error(ArgumentError,
                                                                             /ActionRequest#runner should be an Action class/)
         end
       end
@@ -123,17 +112,16 @@ describe ActionRequest do
 
   describe '#query' do
     before do
-      allow(ActionQueryNormalizer).to receive(:normalize_query).and_return(normalized: 'query')
+      allow(ActionRequestNormalizer).to receive(:normalize_query).and_return(normalized: 'query')
     end
 
     subject { described_class.new(runner: Actions::Test::Test, query: {dirty: 'query'}) }
 
     it 'returns memoized normalized query' do
-      expect(ActionQueryNormalizer).to receive(:normalize_query).with(Actions::Test::Test, dirty: 'query').once
+      expect(ActionRequestNormalizer).to receive(:normalize_query).with(Actions::Test::Test, dirty: 'query').once
       subject.query
       subject.query
       expect(subject.query).to eq(normalized: 'query')
     end
   end
-
 end

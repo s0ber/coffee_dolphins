@@ -1,4 +1,4 @@
-module ActionQueryNormalizer
+module ActionRequestNormalizer
   extend self
 
   def normalize_query(action, query)
@@ -51,13 +51,13 @@ module ActionQueryNormalizer
     if action.respond_to?(:child_actions)
       filtered_query[:child_actions] = query[:child_actions].map do |child_action_string|
         begin
-          child_action = ActionRunner.find_class(child_action_string)
+          child_action = AStream.find_class(child_action_string)
           if action.child_actions.include?(child_action)
             child_action
           else
             nil
           end
-        rescue ActionRunner::ActionNotFound => e
+        rescue AStream::ActionNotFound => e
           nil
         end
       end.compact

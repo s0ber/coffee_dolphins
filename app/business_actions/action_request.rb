@@ -22,7 +22,7 @@ class ActionRequest
   end
 
   def piped_requests=(action_requests)
-    @_piped_requests ||=
+    @piped_requests ||=
       if action_requests.is_a?(Array)
         if action_requests.all? { |request| request.is_a?(ActionRequest) }
           action_requests
@@ -37,7 +37,7 @@ class ActionRequest
   end
 
   def piped_requests
-    @_piped_requests
+    @piped_requests
   end
 
   protected
@@ -52,6 +52,6 @@ class ActionRequest
   private
 
   def normalized_query
-    @_normalized_query ||= ActionQueryNormalizer.normalize_query(@runner, @query)
+    @normalized_query ||= ActionRequestNormalizer.normalize_query(@runner, @query)
   end
 end
