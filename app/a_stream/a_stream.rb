@@ -2,7 +2,7 @@ module AStream
   StreamParseError = Class.new(StandardError)
   ActionNotFound = Class.new(StandardError)
   CantPipeAction = Class.new(StandardError)
-  QueryAttributesNotSpecified = Class.new(StandardError)
+  QueryParamsNotSpecified = Class.new(StandardError)
   SafeAttributesNotSpecified = Class.new(StandardError)
   PermissionCheckNotSpecified = Class.new(StandardError)
 

@@ -132,7 +132,7 @@ describe AStream::ActionRequest do
   describe '#query=' do
     before do
       Actions::Test::Test.class_eval do
-        query_attributes :new
+        query_params :new
       end
 
       subject.query = {new: 'query'}

@@ -22,22 +22,22 @@ shared_examples_for 'action classes definition' do
             query_by('test#action4') { |response| {}}
             query_by('test#action5') { |response| {}}
 
-            query_attributes :name
+            query_params :name
           })
         end
 
         class CantPipeAction < AStream::BaseAction
-          query_attributes :name
+          query_params :name
         end
 
         class Test < AStream::BaseAction
-          query_attributes :test
+          query_params :test
         end
       end
 
       module Users
         class Show < AStream::BaseAction
-          query_attributes :test
+          query_params :test
 
           def self.permit(performer, user)
             performer && (performer[:admin] == true || user[:name] == performer[:name])
@@ -47,7 +47,7 @@ shared_examples_for 'action classes definition' do
 
       module Users
         class ShowWithNotes < AStream::BaseAction
-          query_attributes :test
+          query_params :test
 
           def self.include
             [:notes]
@@ -60,7 +60,7 @@ shared_examples_for 'action classes definition' do
 
       module Notes
         class Show < AStream::BaseAction
-          query_attributes :test
+          query_params :test
 
           def self.permit(performer, user)
           end

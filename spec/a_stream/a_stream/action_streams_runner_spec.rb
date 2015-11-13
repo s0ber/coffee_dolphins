@@ -12,7 +12,7 @@ describe AStream::ActionStreamsRunner do
     module Actions
       module Users
         class Search < AStream::BaseAction
-          query_attributes :search
+          query_params :search
           def self.safe_attributes(performer); [:search] end
           def self.perform_read(performer, query); end
           def self.permit(performer, item); true end
@@ -20,7 +20,7 @@ describe AStream::ActionStreamsRunner do
 
         class Show < AStream::BaseAction
           query_by('users#search') { |r| { piped: 'search_response' } }
-          query_attributes :piped
+          query_params :piped
           def self.safe_attributes(performer); [:show] end
           def self.perform_read(performer, query); end
           def self.permit(performer, item); true end
@@ -28,7 +28,7 @@ describe AStream::ActionStreamsRunner do
 
         class Approve < AStream::BaseAction
           query_by('users#show') { |r| { piped: 'show_response' } }
-          query_attributes :piped
+          query_params :piped
           def self.safe_attributes(performer); [:approve] end
           def self.perform_read(performer, query); end
           def self.permit(performer, item); true end
@@ -36,7 +36,7 @@ describe AStream::ActionStreamsRunner do
 
         class Reject < AStream::BaseAction
           query_by('users#show') { |r| { piped: 'show_response' } }
-          query_attributes :piped
+          query_params :piped
           def self.safe_attributes(performer); [:reject] end
           def self.perform_read(performer, query); end
           def self.permit(performer, item); true end
@@ -44,7 +44,7 @@ describe AStream::ActionStreamsRunner do
 
         class Delete < AStream::BaseAction
           query_by('users#show') { |r| { piped: 'show_response' } }
-          query_attributes :piped
+          query_params :piped
           def self.safe_attributes(performer); [:delete] end
           def self.perform_read(performer, query); end
           def self.permit(performer, item); true end

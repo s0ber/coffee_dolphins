@@ -3,7 +3,7 @@ module AStream
     def self.inherited(child)
       child.class_eval do
         @can_accept_actions = {}
-        @query_attributes = nil
+        @query_params = nil
         @safe_attributes = nil
 
         def self.action_name
@@ -24,23 +24,23 @@ module AStream
           @can_accept_actions[action_class.action_name].call(data)
         end
 
-        def self.query_attributes(*args, &block)
+        def self.query_params(*args, &block)
           if block_given?
-            @query_attributes = block
+            @query_params = block
           else
-            @query_attributes = args
+            @query_params = args
           end
         end
 
-        def self.permitted_query_attributes(performer)
-          unless @query_attributes
-            raise QueryAttributesNotSpecified, message: "Please specify permitted query attributes for action #{self}"
+        def self.permitted_query_params(performer)
+          unless @query_params
+            raise QueryParamsNotSpecified, message: "Please specify permitted query params for action #{self}"
           end
 
-          if @query_attributes.is_a?(Proc)
-            @query_attributes.call(performer)
+          if @query_params.is_a?(Proc)
+            @query_params.call(performer)
           else
-            @query_attributes
+            @query_params
           end
         end
       end

@@ -8,7 +8,7 @@ describe AStream::BaseAction do
         end
 
         class Approve < AStream::BaseAction
-          def query_attributes
+          def query_params
             [:number]
           end
         end
@@ -44,23 +44,23 @@ describe AStream::BaseAction do
     specify { expect(Actions::Users::Approve.action_name).to eq('users#approve') }
   end
 
-  describe '.permitted_query_attributes' do
+  describe '.permitted_query_params' do
     let(:admin) { create(:user, :admin) }
     let(:moder) { create(:user, :moder) }
 
-    context 'attributes specified as a list of symbols' do
+    context 'params specified as a list of symbols' do
       before do
         Actions::Users::Show.class_eval do
-          query_attributes :full_name, :gender
+          query_params :full_name, :gender
         end
       end
-      specify { expect(show_action.permitted_query_attributes(admin)).to eq [:full_name, :gender] }
+      specify { expect(show_action.permitted_query_params(admin)).to eq [:full_name, :gender] }
     end
 
-    context 'query attributes is a block' do
+    context 'query params is a block' do
       before do
         Actions::Users::Show.class_eval do
-          query_attributes do |performer|
+          query_params do |performer|
             if performer.admin?
               [:full_name, :gender]
             else
@@ -69,8 +69,8 @@ describe AStream::BaseAction do
           end
         end
       end
-      specify { expect(show_action.permitted_query_attributes(admin)).to eq [:full_name, :gender] }
-      specify { expect(show_action.permitted_query_attributes(moder)).to eq [:full_name] }
+      specify { expect(show_action.permitted_query_params(admin)).to eq [:full_name, :gender] }
+      specify { expect(show_action.permitted_query_params(moder)).to eq [:full_name] }
     end
   end
 

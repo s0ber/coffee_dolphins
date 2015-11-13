@@ -3,12 +3,12 @@ module AStream
     extend self
 
     def normalize_query(action, performer, query)
-      query = _filter_attributes(action, performer, query)
+      query = _filter_params(action, performer, query)
       _filter_included_resources(action, performer, query)
     end
 
-    def _filter_attributes(action, performer, query)
-      allowed_attrs = action.permitted_query_attributes(performer).map do |item|
+    def _filter_params(action, performer, query)
+      allowed_attrs = action.permitted_query_params(performer).map do |item|
         if item.is_a?(Hash)
           item.delete(:included)
           item
