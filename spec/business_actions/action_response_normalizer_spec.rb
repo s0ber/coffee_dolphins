@@ -1,10 +1,11 @@
 require 'rails_helper'
+require 'a_stream_helper'
 
 describe ActionResponseNormalizer do
   subject(:normalizer) { described_class }
 
   describe '.normalize_body' do
-    let(:response) { double('response', unsafe_body: ['unsafe', 'body']) }
+    let(:response) { instance_double('ActionResponse', unsafe_body: ['unsafe', 'body']) }
 
     before do
       allow(normalizer).to receive(:_filter_resources).and_return(['filtered', 'resources'])
@@ -13,7 +14,7 @@ describe ActionResponseNormalizer do
     end
 
     context 'query requests included resources' do
-      let(:request) { double('request', performer: 'fake_performer', runner: 'fake_action', query: {included: [:test]}) }
+      let(:request) { instance_double('ActionRequest', performer: 'fake_performer', runner: 'fake_action', query: {included: [:test]}) }
 
       specify do
         expect(normalizer).to receive(:_filter_resources)
@@ -38,7 +39,7 @@ describe ActionResponseNormalizer do
     end
 
     context 'query does not request included resources' do
-      let(:request) { double('request', performer: 'fake_performer', runner: 'fake_action', query: nil) }
+      let(:request) { instance_double('ActionRequest', performer: 'fake_performer', runner: 'fake_action', query: nil) }
 
       specify do
         expect(normalizer).to receive(:_filter_resources)

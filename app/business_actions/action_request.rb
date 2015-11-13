@@ -3,7 +3,7 @@ class ActionRequest
 
   attr_reader :runner, :type, :performer
 
-  def initialize(runner:, type: :get, query: nil, pipe: nil, performer:)
+  def initialize(runner:, type: :get, query: nil, pipe: nil, performer: nil)
     @runner, @type, @query, @performer = runner, type, query, performer
 
     unless ALLOWED_TYPES.include?(@type)
