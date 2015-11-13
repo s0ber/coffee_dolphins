@@ -2,7 +2,8 @@ require 'rails_helper'
 
 describe ActionRequest do
   let(:action_type) { :get }
-  subject { described_class.new(runner: Actions::Test::Test, type: action_type) }
+  let(:user) { create(:user) }
+  subject { described_class.new(runner: Actions::Test::Test, type: action_type, performer: user) }
 
   include_examples 'action classes definition'
 
@@ -11,11 +12,12 @@ describe ActionRequest do
   end
 
   context 'given required data' do
-    subject { described_class.new(runner: Actions::Test::Test, type: action_type, query: {test: 'query'}) }
+    subject { described_class.new(runner: Actions::Test::Test, type: action_type, performer: user, query: {test: 'query'}) }
 
     specify { expect(subject.runner).to eq(Actions::Test::Test) }
     specify { expect(subject.type).to eq(:get) }
     specify { expect(subject.query).to eq(test: 'query') }
+    specify { expect(subject.performer).to eq(user) }
 
     context 'given valid type' do
       context 'given :get type' do
@@ -33,6 +35,7 @@ describe ActionRequest do
       it 'throws argument error' do
         expect { described_class.new(runner: Actions::Test::Test,
                                      type: :update,
+                                     performer: user,
                                      query: {}) }.to raise_error(ArgumentError,
                                                                  /ActionRequest#type should be either :get or :post, but :update is provided/)
       end
@@ -45,24 +48,28 @@ describe ActionRequest do
     context 'given invalid action runner' do
       context 'action runner is not from Actions namespace' do
         it 'throws argument error' do
-          expect { described_class.new(runner: Test::ActionFromWrongNamespace) }.to raise_error(ArgumentError,
-                                                                            /ActionRequest#runner should be an Action class/)
+          expect { described_class.new(runner: Test::ActionFromWrongNamespace, performer: user) }
+            .to raise_error(ArgumentError, /ActionRequest#runner should be an Action class/)
         end
       end
 
       context 'action runner is not a class' do
         it 'throws argument error' do
-          expect { described_class.new(runner: 'test#test') }.to raise_error(ArgumentError,
-                                                                             /ActionRequest#runner should be an Action class/)
+          expect { described_class.new(runner: 'test#test', performer: user) }
+            .to raise_error(ArgumentError, /ActionRequest#runner should be an Action class/)
         end
+      end
+
+      context 'not given performer' do
+        specify { expect { described_class.new(runner: 'test#test') }.to raise_error(ArgumentError) }
       end
     end
 
     context 'given piped actions' do
-      let(:piped_request) { described_class.new(runner: Actions::Test::Test) }
-      let(:another_piped_request) { described_class.new(runner: Actions::Test::Test) }
+      let(:piped_request) { described_class.new(runner: Actions::Test::Test, performer: user) }
+      let(:another_piped_request) { described_class.new(runner: Actions::Test::Test, performer: user) }
 
-      subject { described_class.new(runner: Actions::Test::Test, pipe: [piped_request, another_piped_request]) }
+      subject { described_class.new(runner: Actions::Test::Test, performer: user, pipe: [piped_request, another_piped_request]) }
       specify { expect(subject.piped_requests).to eq([piped_request, another_piped_request]) }
 
       context 'trying to set value multiple times' do
@@ -75,8 +82,8 @@ describe ActionRequest do
   end
 
   describe '#piped_requests=' do
-    let(:piped_request) { described_class.new(runner: Actions::Test::Test) }
-    let(:another_piped_request) { described_class.new(runner: Actions::Test::Test) }
+    let(:piped_request) { described_class.new(runner: Actions::Test::Test, performer: user) }
+    let(:another_piped_request) { described_class.new(runner: Actions::Test::Test, performer: user) }
 
     context 'given valid action requests' do
       context 'single action' do
@@ -103,10 +110,10 @@ describe ActionRequest do
     end
 
     context 'invalid action requests' do
-      specify { expect { subject.piped_requests = '123' }.to raise_error(ArgumentError,
-                                                                         /Only ActionRequest instances can be piped/) }
-      specify { expect { subject.piped_requests = [piped_request, '123'] }.to raise_error(ArgumentError,
-                                                                                          /Only ActionRequest instances can be piped/) }
+      specify { expect { subject.piped_requests = '123' }
+        .to raise_error(ArgumentError, /Only ActionRequest instances can be piped/) }
+      specify { expect { subject.piped_requests = [piped_request, '123'] }
+        .to raise_error(ArgumentError, /Only ActionRequest instances can be piped/) }
     end
   end
 
@@ -115,7 +122,7 @@ describe ActionRequest do
       allow(ActionRequestNormalizer).to receive(:normalize_query).and_return(normalized: 'query')
     end
 
-    subject { described_class.new(runner: Actions::Test::Test, query: {dirty: 'query'}) }
+    subject { described_class.new(runner: Actions::Test::Test, performer: user, query: {dirty: 'query'}) }
 
     it 'returns memoized normalized query' do
       expect(ActionRequestNormalizer).to receive(:normalize_query).with(Actions::Test::Test, dirty: 'query').once

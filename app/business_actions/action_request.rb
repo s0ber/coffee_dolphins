@@ -1,10 +1,10 @@
 class ActionRequest
   ALLOWED_TYPES = [:get, :post].freeze
 
-  attr_reader :runner, :type
+  attr_reader :runner, :type, :performer
 
-  def initialize(runner:, type: :get, query: nil, pipe: nil)
-    @runner, @type, @query = runner, type, query
+  def initialize(runner:, type: :get, query: nil, pipe: nil, performer:)
+    @runner, @type, @query, @performer = runner, type, query, performer
 
     unless ALLOWED_TYPES.include?(@type)
       raise ArgumentError, message: "ActionRequest#type should be either :get or :post, but :#{@type} is provided"
