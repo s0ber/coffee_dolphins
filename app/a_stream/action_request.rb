@@ -47,6 +47,7 @@ class ActionRequest
   protected
 
   def ==(o)
+    return false unless o
     runner == o.runner &&
       type == o.type &&
       query == o.query &&

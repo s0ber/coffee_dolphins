@@ -2,15 +2,27 @@ shared_examples_for 'action classes definition' do
   before do
     module Actions
       module Test
-        %w(Action1 Action2 Action3 Action4 Action5 Action6 Action7).each do |a|
-          const_set(a, Class.new {
+        %w(Action1 Action2 Action3 Action4 Action5).each do |a|
+          const_set(a, Class.new(AStream::BaseAction) {
+            query_by('test#action1') { |response| {}}
+            query_by('test#action2') { |response| {}}
+            query_by('test#action3') { |response| {}}
+            query_by('test#action4') { |response| {}}
+            query_by('test#action5') { |response| {}}
+
             def self.query_attributes
               []
             end
           })
         end
 
-        class Test
+        class CantPipeAction < AStream::BaseAction
+          def self.query_attributes
+            []
+          end
+        end
+
+        class Test < AStream::BaseAction
           def self.query_attributes
             [:test]
           end
@@ -18,7 +30,7 @@ shared_examples_for 'action classes definition' do
       end
 
       module Users
-        class Show
+        class Show < AStream::BaseAction
           def self.query_attributes
           end
 
@@ -29,7 +41,7 @@ shared_examples_for 'action classes definition' do
       end
 
       module Users
-        class ShowWithNotes
+        class ShowWithNotes < AStream::BaseAction
           def self.query_attributes
           end
 
@@ -43,7 +55,7 @@ shared_examples_for 'action classes definition' do
       end
 
       module Notes
-        class Show
+        class Show < AStream::BaseAction
           def self.query_attributes
           end
 
@@ -54,13 +66,13 @@ shared_examples_for 'action classes definition' do
     end
 
     module Test
-      class ActionFromWrongNamespace
+      class ActionFromWrongNamespace < AStream::BaseAction
       end
     end
   end
 
   after do
-    %w(Action1 Action2 Action3 Action4 Action5 Action6 Action7 Test).each do |a|
+    %w(Action1 Action2 Action3 Action4 Action5 Test CantPipeAction).each do |a|
       Actions::Test.send :remove_const, a.to_sym
     end
 

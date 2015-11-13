@@ -11,6 +11,9 @@ module AStream
     ActionStreamsRunner.run(performer, action_streams)
   end
 
+  def can_pipe_actions(source, receiver)
+  end
+
   def find_class(action_name)
     namespace, action = action_name.split('#')
     raise ActionNotFound, message: 'Action namespace is not specified.' if namespace.blank?
@@ -20,6 +23,18 @@ module AStream
       "Actions::#{namespace.camelize}::#{action.camelize}".constantize
     rescue => e
       raise ActionNotFound, message: "Can't find action #{action_name}."
+    end
+  end
+
+  class BaseAction
+    def self.can_accept_action?(action_name)
+      @can_accept_actions ||= {}
+      !!@can_accept_actions[action_name]
+    end
+
+    def self.query_by(action_name, &block)
+      @can_accept_actions ||= {}
+      @can_accept_actions[action_name] = block
     end
   end
 end

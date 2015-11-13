@@ -43,17 +43,30 @@ class ActionStreamsBuilder
   end
 
   def _build_piped_stream(accumulator, stream)
-    accumulator.piped_requests =
-      if stream.is_a?(Hash)
-        key, value = stream.first # read only first pair in a hash
-        request = _create_piped_request(key)
+    if stream.is_a?(Hash)
+      key, value = stream.first # read only first pair in a hash
+      request = _create_piped_request(key)
+
+      if request.runner.can_accept_action?(accumulator.action_name)
+        accumulator.piped_requests = request
         _build_piped_stream(request, value)
-        request
-      elsif stream.is_a?(Array)
-        stream.map { |s| _create_piped_request(s) }
-      elsif stream.is_a?(String)
-        _create_piped_request(stream)
       end
+
+    elsif stream.is_a?(Array)
+      accumulator.piped_requests = stream.map do |s|
+        request = _create_piped_request(s)
+        if request.runner.can_accept_action?(accumulator.action_name)
+          request
+        end
+      end.compact
+
+    elsif stream.is_a?(String)
+      request = _create_piped_request(stream)
+
+      if request.runner.can_accept_action?(accumulator.action_name)
+        accumulator.piped_requests = request
+      end
+    end
   end
 
   def _create_piped_request(action_name)
