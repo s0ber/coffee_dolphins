@@ -1,10 +1,10 @@
 require 'rails_helper'
-require 'a_stream_helper'
+require 'a_stream/a_stream_helper'
 
-describe ActionResponseNormalizer do
+describe AStream::ActionResponseNormalizer do
   subject(:normalizer) { described_class.new(request, response) }
-  let(:request) { instance_double('ActionRequest', performer: performer, runner: action, query: nil) }
-  let(:response) { instance_double('ActionResponse', unsafe_body: unsafe_body) }
+  let(:request) { instance_double('AStream::ActionRequest', performer: performer, runner: action, query: nil) }
+  let(:response) { instance_double('AStream::ActionResponse', unsafe_body: unsafe_body) }
   let(:action) { double('action') }
   let(:performer) { double('performer') }
   let(:unsafe_body) { ['unsafe', 'body'] }
@@ -17,7 +17,7 @@ describe ActionResponseNormalizer do
     end
 
     context 'query requests included resources' do
-      let(:request) { instance_double('ActionRequest', performer: 'fake_performer', runner: 'fake_action', query: {included: [:test]}) }
+      let(:request) { instance_double('AStream::ActionRequest', performer: 'fake_performer', runner: 'fake_action', query: {included: [:test]}) }
 
       specify do
         expect(normalizer).to receive(:filter_resources)
@@ -42,7 +42,7 @@ describe ActionResponseNormalizer do
     end
 
     context 'query does not request included resources' do
-      let(:request) { instance_double('ActionRequest', performer: 'fake_performer', runner: 'fake_action', query: nil) }
+      let(:request) { instance_double('AStream::ActionRequest', performer: 'fake_performer', runner: 'fake_action', query: nil) }
 
       specify do
         expect(normalizer).to receive(:filter_resources)
@@ -62,7 +62,7 @@ describe ActionResponseNormalizer do
     end
   end
 
-  describe '.filter_resources' do
+  describe '#filter_resources' do
     let(:unsafe_body) { (1..10) }
 
     context 'permit check specified' do
@@ -79,7 +79,7 @@ describe ActionResponseNormalizer do
     end
   end
 
-  describe 'serialize_resources' do
+  describe '#serialize_resources' do
     let(:admin) { create(:user, :admin) }
     let(:moder) { create(:user, :moder) }
 
@@ -133,7 +133,7 @@ describe ActionResponseNormalizer do
     end
   end
 
-  describe '.normalize_included_resources' do
+  describe '#normalize_included_resources' do
     let!(:admin) { create(:user, :admin) }
     let!(:moder) { create(:user, :moder) }
     let(:serialized_admin) { {id: 1, full_name: 'Admin User', gender: true} }

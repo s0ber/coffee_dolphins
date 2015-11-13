@@ -1,10 +1,10 @@
 require 'rails_helper'
-require 'a_stream_helper'
+require 'a_stream/a_stream_helper'
 
-describe ActionResponse do
+describe AStream::ActionResponse do
   subject { described_class.new(body: body, request: request) }
 
-  let(:request) { instance_double('ActionRequest', runner: action) }
+  let(:request) { instance_double('AStream::ActionRequest', runner: action) }
   let(:action) { double('action', to_s: 'TestAction') }
   let(:body) { create_list(:user, 2, :collection) }
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ActionStreamsRunner do
+describe AStream::ActionStreamsRunner do
   subject(:runner) { described_class }
 
   describe '.run' do

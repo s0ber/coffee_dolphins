@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ActionRequest do
+describe AStream::ActionRequest do
   let(:action_type) { :get }
   subject { described_class.new(runner: Actions::Test::Test, type: action_type) }
 
@@ -116,13 +116,13 @@ describe ActionRequest do
 
   describe '#query' do
     before do
-      allow(ActionRequestNormalizer).to receive(:normalize_query).and_return(normalized: 'query')
+      allow(AStream::ActionRequestNormalizer).to receive(:normalize_query).and_return(normalized: 'query')
     end
 
     subject { described_class.new(runner: Actions::Test::Test, query: {dirty: 'query'}) }
 
     it 'returns memoized normalized query' do
-      expect(ActionRequestNormalizer).to receive(:normalize_query).with(Actions::Test::Test, dirty: 'query').once
+      expect(AStream::ActionRequestNormalizer).to receive(:normalize_query).with(Actions::Test::Test, dirty: 'query').once
       subject.query
       subject.query
       expect(subject.query).to eq(normalized: 'query')

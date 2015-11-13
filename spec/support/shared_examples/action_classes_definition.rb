@@ -1,4 +1,16 @@
 shared_examples_for 'action classes definition' do
+  after do
+    %w(Action1 Action2 Action3 Action4 Action5 Test CantPipeAction).each do |a|
+      Actions::Test.send :remove_const, a.to_sym
+    end
+
+    %w(Show ShowWithNotes).each do |a|
+      Actions::Users.send :remove_const, a.to_sym
+    end
+
+    Test.send :remove_const, :ActionFromWrongNamespace
+  end
+
   before do
     module Actions
       module Test
@@ -69,16 +81,5 @@ shared_examples_for 'action classes definition' do
       class ActionFromWrongNamespace < AStream::BaseAction
       end
     end
-  end
-
-  after do
-    %w(Action1 Action2 Action3 Action4 Action5 Test CantPipeAction).each do |a|
-      Actions::Test.send :remove_const, a.to_sym
-    end
-
-    %w(Show ShowWithNotes).each do |a|
-      Actions::Users.send :remove_const, a.to_sym
-    end
-    Test.send :remove_const, :ActionFromWrongNamespace
   end
 end

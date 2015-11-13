@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ActionRequestNormalizer do
+describe AStream::ActionRequestNormalizer do
   subject(:normalizer) { described_class }
 
   describe '.normalize_query' do
