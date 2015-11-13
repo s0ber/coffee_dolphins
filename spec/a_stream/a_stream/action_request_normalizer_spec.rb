@@ -5,7 +5,7 @@ describe AStream::ActionRequestNormalizer do
   let(:performer) { Anonymous.user }
 
   describe '.normalize_query' do
-    let(:action) { Class.new }
+    let(:action) { Class.new(AStream::BaseAction) }
     let(:initial_query) { {property: 'initial query'} }
     let(:query_with_filtered_params) { {property: 'filtered'} }
     let(:query_with_filtered_included_resources) { {include: 'filtered'} }
@@ -83,7 +83,7 @@ describe AStream::ActionRequestNormalizer do
 
   describe '._filter_included_resources' do
     context 'allowed included resources are not specified' do
-      let(:action) { Class.new }
+      let(:action) { Class.new(AStream::BaseAction) }
       let(:query) { {name: 'Test user', included: ['contacts', 'notes']} }
       let(:filtered_query) { {name: 'Test user'} }
       specify { expect(normalizer._filter_included_resources(action, performer, query)).to eq(filtered_query) }
@@ -91,10 +91,8 @@ describe AStream::ActionRequestNormalizer do
 
     context 'allowed included resources are specified' do
       let(:action) do
-        Class.new do
-          def self.included_resources
-            [:notes, :contacts]
-          end
+        Class.new(AStream::BaseAction) do
+          included_resources :notes, :contacts
         end
       end
 

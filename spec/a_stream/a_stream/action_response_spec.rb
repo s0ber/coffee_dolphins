@@ -10,8 +10,8 @@ describe AStream::ActionResponse do
 
   context 'no status provided' do
     specify { expect(subject.status).to eq(:ok) }
-    specify  { expect(subject.request).to eq(request) }
-    specify  { expect(subject.unsafe_body).to eq(body) }
+    specify { expect(subject.request).to eq(request) }
+    specify { expect(subject.unsafe_body).to eq(body) }
   end
 
   context 'valid status is provided' do

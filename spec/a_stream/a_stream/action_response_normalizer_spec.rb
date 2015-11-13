@@ -158,7 +158,7 @@ describe AStream::ActionResponseNormalizer do
         Class.new(AStream::BaseAction) do
           safe_attributes :full_name, :gender
           permit_resource true
-          def self.included_resources; [:notes] end
+          included_resources :notes
         end
       end
 

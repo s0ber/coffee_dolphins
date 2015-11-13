@@ -38,32 +38,22 @@ shared_examples_for 'action classes definition' do
       module Users
         class Show < AStream::BaseAction
           query_params :test
-
-          def self.permit(performer, user)
-            performer && (performer[:admin] == true || user[:name] == performer[:name])
-          end
+          permit_resource { |performer, user| performer && (performer[:admin] == true || user[:name] == performer[:name]) }
         end
       end
 
       module Users
         class ShowWithNotes < AStream::BaseAction
           query_params :test
-
-          def self.include
-            [:notes]
-          end
-
-          def self.permit(performer, user)
-          end
+          included_resources :notes
+          permit_resource true
         end
       end
 
       module Notes
         class Show < AStream::BaseAction
           query_params :test
-
-          def self.permit(performer, user)
-          end
+          permit_resource true
         end
       end
     end

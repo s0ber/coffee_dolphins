@@ -58,7 +58,7 @@ module AStream
     private
 
     def can_read_included_resources?(resource_name)
-      @action.included_resources.include?(resource_name) && @unsafe_body.first.respond_to?(resource_name)
+      @action.allows_to_include_resource?(resource_name) && @unsafe_body.first.respond_to?(resource_name)
     end
 
     def normalize_resources(action, resources)
