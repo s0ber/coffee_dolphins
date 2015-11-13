@@ -6,7 +6,7 @@ describe ActionResponse do
 
   let(:request) { instance_double('ActionRequest', runner: action) }
   let(:action) { double('action', to_s: 'TestAction') }
-  let(:body) { create_list(:user, 5, :collection) }
+  let(:body) { create_list(:user, 2, :collection) }
 
   context 'no status provided' do
     specify { expect(subject.status).to eq(:ok) }
@@ -30,8 +30,7 @@ describe ActionResponse do
     let(:body) { create(:user) }
     specify do
       expect { described_class.new(body: body, request: request) }
-        .to raise_error(ArgumentError,
-                        /Action should always respond with collection, but non-iterateble response specified for action TestAction./)
+        .to raise_error(ArgumentError, /Action should always respond with collection, but non-iterateble response specified for action TestAction./)
     end
   end
 

@@ -1,9 +1,9 @@
 module ActionStreamsBuilder
   extend self
 
-  def build(action_streams)
+  def build(performer, action_streams)
     streams = _parse(action_streams)
-    _build(streams)
+    _build(performer, streams)
   end
 
   def _parse(action_streams)
@@ -25,33 +25,36 @@ module ActionStreamsBuilder
     [].concat([streams]).flatten
   end
 
-  def _build(action_streams)
+  def _build(performer, action_streams)
     action_streams = action_streams.map do |stream|
       type = stream[:post] ? :post : :get
       runner = AStream.find_class(stream[type])
-      request = ActionRequest.new(runner: runner, type: type, query: stream[:query])
+      request = ActionRequest.new(runner: runner,
+                                  performer: performer,
+                                  type: type,
+                                  query: stream[:query])
 
-      _build_piped_stream(request, stream[:pipe]) if stream[:pipe]
+      _build_piped_stream(request, stream[:pipe], performer) if stream[:pipe]
       request
     end
   end
 
-  def _build_piped_stream(accumulator, stream)
+  def _build_piped_stream(accumulator, stream, performer)
     accumulator.piped_requests =
       if stream.is_a?(Hash)
         key, value = stream.first # read only first pair in a hash
-        request = _create_piped_request(key)
-        _build_piped_stream(request, value)
+        request = _create_piped_request(key, performer)
+        _build_piped_stream(request, value, performer)
         request
       elsif stream.is_a?(Array)
-        stream.map { |s| _create_piped_request(s) }
+        stream.map { |s| _create_piped_request(s, performer) }
       elsif stream.is_a?(String)
-        _create_piped_request(stream)
+        _create_piped_request(stream, performer)
       end
   end
 
-  def _create_piped_request(action_name)
+  def _create_piped_request(action_name, performer)
     runner = AStream.find_class(action_name)
-    ActionRequest.new(runner: runner)
+    ActionRequest.new(runner: runner, performer: performer)
   end
 end

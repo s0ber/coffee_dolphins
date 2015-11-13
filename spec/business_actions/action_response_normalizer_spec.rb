@@ -82,8 +82,6 @@ describe ActionResponseNormalizer do
     let(:performer) { double('performer') }
     let(:admin) { create(:user, :admin) }
     let(:moder) { create(:user, :moder) }
-    let(:serialized_admin) { {id: 1, full_name: 'Admin User', gender: true} }
-    let(:serialized_moder) { {id: 2, full_name: 'Moder User', gender: false} }
 
     context 'safe attributes specified for action' do
       let(:action) { double('action', safe_attributes: [:full_name, :gender]) }
@@ -91,7 +89,8 @@ describe ActionResponseNormalizer do
       context 'resources are serializable' do
         it 'leaves only safe attributes and id' do
           expect(normalizer._serialize_resources(action, performer, [admin, moder]))
-            .to eq([serialized_admin, serialized_moder])
+            .to match([{id: an_instance_of(Fixnum), full_name: 'Admin User', gender: true},
+                       {id: an_instance_of(Fixnum), full_name: 'Moder User', gender: false}])
         end
       end
 
