@@ -13,7 +13,7 @@ describe ActionResponseNormalizer do
     before do
       allow(normalizer).to receive(:filter_resources).and_return(['filtered', 'resources'])
       allow(normalizer).to receive(:serialize_resources).and_return(['serialized', 'resources'])
-      allow(normalizer).to receive(:filter_included_resources).and_return(['filtered', 'included', 'resources'])
+      allow(normalizer).to receive(:normalize_included_resources).and_return(['filtered', 'included', 'resources'])
     end
 
     context 'query requests included resources' do
@@ -30,7 +30,7 @@ describe ActionResponseNormalizer do
           .and_return(['serialized', 'resources'])
           .ordered
 
-        expect(normalizer).to receive(:filter_included_resources)
+        expect(normalizer).to receive(:normalize_included_resources)
           .with([:test], ['serialized', 'resources'])
           .and_return(['filtered', 'included', 'resources'])
           .ordered
@@ -133,7 +133,7 @@ describe ActionResponseNormalizer do
     end
   end
 
-  describe '.filter_included_resources' do
+  describe '.normalize_included_resources' do
     let!(:admin) { create(:user, :admin) }
     let!(:moder) { create(:user, :moder) }
     let(:serialized_admin) { {id: 1, full_name: 'Admin User', gender: true} }
@@ -158,7 +158,7 @@ describe ActionResponseNormalizer do
       context 'allowed included resources requested' do
         context 'performer is admin' do
           specify do
-            expect(normalizer.filter_included_resources([:notes], [serialized_admin, serialized_moder])).to match([
+            expect(normalizer.normalize_included_resources([:notes], [serialized_admin, serialized_moder])).to match([
               {id: an_instance_of(Fixnum), full_name: 'Admin User', gender: true, notes: [
                 {id: an_instance_of(Fixnum), title: 'Note Odd'},
                 {id: an_instance_of(Fixnum), title: 'Note Odd'}
@@ -174,7 +174,7 @@ describe ActionResponseNormalizer do
         context 'performer is moder' do
           let(:performer) { moder }
           specify do
-            expect(normalizer.filter_included_resources([:notes], [serialized_admin, serialized_moder])).to match([
+            expect(normalizer.normalize_included_resources([:notes], [serialized_admin, serialized_moder])).to match([
               {id: an_instance_of(Fixnum), full_name: 'Admin User', gender: true, notes: [
                 {id: an_instance_of(Fixnum), title: 'Note Even'},
                 {id: an_instance_of(Fixnum), title: 'Note Even'}
@@ -190,7 +190,7 @@ describe ActionResponseNormalizer do
 
       context 'non-allowed included resources requested' do
         specify do
-          expect(normalizer.filter_included_resources([:notes, :secrets], [serialized_admin, serialized_moder])).to match([
+          expect(normalizer.normalize_included_resources([:notes, :secrets], [serialized_admin, serialized_moder])).to match([
             {id: an_instance_of(Fixnum), full_name: 'Admin User', gender: true, notes: [
               {id: an_instance_of(Fixnum), title: 'Note Odd'},
               {id: an_instance_of(Fixnum), title: 'Note Odd'}
@@ -208,7 +208,7 @@ describe ActionResponseNormalizer do
       let(:action) { double('action') }
 
       it 'returns provided safe collection' do
-        expect(normalizer.filter_included_resources([:notes], [serialized_admin, serialized_moder]))
+        expect(normalizer.normalize_included_resources([:notes], [serialized_admin, serialized_moder]))
           .to eq([serialized_admin, serialized_moder])
       end
     end

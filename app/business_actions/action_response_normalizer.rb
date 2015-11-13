@@ -10,7 +10,7 @@ class ActionResponseNormalizer
     safe_body = serialize_resources(resources: safe_body)
 
     if @query && @query[:included]
-      safe_body = filter_included_resources(@query[:included], safe_body)
+      safe_body = normalize_included_resources(@query[:included], safe_body)
     end
 
     safe_body
@@ -45,20 +45,31 @@ class ActionResponseNormalizer
     end.compact
   end
 
-  def filter_included_resources(requested_included_resources, safe_body)
-    return safe_body unless @action.respond_to?(:included_resources)
+  def normalize_included_resources(requested_included_resources, safe_body)
+    return safe_body if !@action.respond_to?(:included_resources) || @unsafe_body.empty?
 
-    @unsafe_body.each_with_index do |unsafe_resource, i|
-      requested_included_resources.each do |resource_name|
-        if @action.included_resources.include?(resource_name) && unsafe_resource.respond_to?(resource_name)
-          resources = unsafe_resource.send(resource_name)
-          resources_action = AStream.find_class("#{resource_name}#show")
-          filtered_resources = filter_resources(action: resources_action, resources: resources)
-          safe_body[i][resource_name] = serialize_resources(action: resources_action, resources: filtered_resources)
+    requested_included_resources.each do |resource_name|
+      if can_read_included_resources?(resource_name)
+        action = AStream.find_class("#{resource_name}#show")
+
+        safe_body.each_with_index do |item, i|
+          included_resources = @unsafe_body[i].send(resource_name)
+          safe_body[i][resource_name] = normalize_resources(action, included_resources)
         end
       end
     end
 
     safe_body
+  end
+
+  private
+
+  def can_read_included_resources?(resource_name)
+    @action.included_resources.include?(resource_name) && @unsafe_body.first.respond_to?(resource_name)
+  end
+
+  def normalize_resources(action, resources)
+    filtered_resources = filter_resources(action: action, resources: resources)
+    serialize_resources(action: action, resources: filtered_resources)
   end
 end
