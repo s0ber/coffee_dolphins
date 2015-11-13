@@ -5,7 +5,7 @@ describe AStream::ActionResponse do
   subject { described_class.new(body: body, request: request) }
 
   let(:request) { instance_double('AStream::ActionRequest', runner: action) }
-  let(:action) { double('action', to_s: 'TestAction') }
+  let(:action) { Class.new(AStream::BaseAction) { def self.to_s; 'TestAction' end } }
   let(:body) { create_list(:user, 2, :collection) }
 
   context 'no status provided' do

@@ -5,7 +5,7 @@ describe AStream::ActionResponseNormalizer do
   subject(:normalizer) { described_class.new(request, response) }
   let(:request) { instance_double('AStream::ActionRequest', performer: performer, runner: action, query: nil) }
   let(:response) { instance_double('AStream::ActionResponse', unsafe_body: unsafe_body) }
-  let(:action) { double('action', to_s: 'TestAction') }
+  let(:action) { Class.new(AStream::BaseAction) { def self.to_s; 'TestAction' end } }
   let(:performer) { double('performer') }
   let(:unsafe_body) { ['unsafe', 'body'] }
 
@@ -66,7 +66,12 @@ describe AStream::ActionResponseNormalizer do
     let(:unsafe_body) { (1..10) }
 
     context 'permit check specified' do
-      before { allow(action).to receive(:permit) { |performer, item| item % 2 == 0 } }
+      before do
+        action.class_eval do
+          permit_resource { |performer, item| item % 2 == 0 }
+        end
+      end
+
       it 'reduces collection to an array, which satisfy permit rules' do
         expect(normalizer.filter_resources).to eq([2, 4, 6, 8, 10])
       end
@@ -152,17 +157,15 @@ describe AStream::ActionResponseNormalizer do
       let(:action) do
         Class.new(AStream::BaseAction) do
           safe_attributes :full_name, :gender
+          permit_resource true
           def self.included_resources; [:notes] end
-          def self.permit; true end
         end
       end
 
       let(:notes_action) do
         Class.new(AStream::BaseAction) do
           safe_attributes :title
-          def self.permit(performer, note)
-            performer.admin? ? (note.title == 'Note Odd') : (note.title == 'Note Even')
-          end
+          permit_resource { |performer, note| performer.admin? ? (note.title == 'Note Odd') : (note.title == 'Note Even') }
         end
       end
 
@@ -223,7 +226,7 @@ describe AStream::ActionResponseNormalizer do
     end
 
     context 'action has not allowed included resources specified' do
-      let(:action) { double('action') }
+      let(:action) { Class.new(AStream::BaseAction) }
 
       it 'returns provided safe collection' do
         expect(normalizer.normalize_included_resources([:notes], [serialized_admin, serialized_moder]))

@@ -104,6 +104,50 @@ describe AStream::BaseAction do
     end
   end
 
+  describe '.permit_resource?' do
+    let(:admin) { create(:user, :admin) }
+    let(:moder) { create(:user, :moder) }
+
+    context 'permission check specified as a scalar value' do
+      context 'it is truthy' do
+        before do
+          Actions::Users::Show.class_eval do
+            permit_resource true
+          end
+        end
+
+        specify { expect(show_action.permit_resource?(admin, nil)).to eq true }
+      end
+
+      context 'it is falsey' do
+        before do
+          Actions::Users::Show.class_eval do
+            permit_resource false
+          end
+        end
+
+        specify { expect(show_action.permit_resource?(admin, nil)).to eq false }
+      end
+    end
+
+    context 'permission check specified as a block' do
+      before do
+        Actions::Users::Show.class_eval do
+          permit_resource do |performer, resource|
+            if performer.admin?
+              true
+            else
+              false
+            end
+          end
+        end
+      end
+
+      specify { expect(show_action.permit_resource?(admin, nil)).to eq true }
+      specify { expect(show_action.permit_resource?(moder, nil)).to eq false }
+    end
+  end
+
   describe '.pipe_data_from' do
     context 'connector block is specified' do
       before do

@@ -18,13 +18,7 @@ module AStream
     end
 
     def filter_resources(action: @action, resources: @unsafe_body)
-      unless action.respond_to?(:permit)
-        raise AStream::PermissionCheckNotSpecified, message: "Please specify permission check for action #{action}"
-      end
-
-      resources.select do |item|
-        action.permit(@performer, item)
-      end
+      resources.select { |item| action.permit_resource?(@performer, item) }
     end
 
     def serialize_resources(action: @action, resources:)

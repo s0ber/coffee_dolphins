@@ -5,6 +5,7 @@ module AStream
         @can_accept_actions = {}
         @query_params = nil
         @safe_attributes = nil
+        @resource_permission_check = nil
 
         def self.action_name
           @action_name ||= name.underscore.split('/').last(2).join('#')
@@ -25,18 +26,26 @@ module AStream
         end
 
         def self.query_params(*args, &block)
-          if block_given?
-            @query_params = block
-          else
-            @query_params = args
-          end
+          @query_params = block_given? ? block : args
         end
 
         def self.safe_attributes(*args, &block)
-          if block_given?
-            @safe_attributes = block
+          @safe_attributes = block_given? ? block : args
+        end
+
+        def self.permit_resource(*args, &block)
+          @resource_permission_check = block_given? ? block : args[0]
+        end
+
+        def self.permit_resource?(performer, resource)
+          if @resource_permission_check.nil?
+            raise PermissionCheckNotSpecified, message: "Please specify permission check for action #{self}"
+          end
+
+          if @resource_permission_check.is_a?(Proc)
+            !!@resource_permission_check.call(performer, resource)
           else
-            @safe_attributes = args
+            !!@resource_permission_check
           end
         end
 

@@ -14,40 +14,40 @@ describe AStream::ActionStreamsRunner do
         class Search < AStream::BaseAction
           query_params :search
           safe_attributes :search
+          permit_resource true
           def self.perform_read(performer, query); end
-          def self.permit(performer, item); true end
         end
 
         class Show < AStream::BaseAction
           query_by('users#search') { |r| { piped: 'search_response' } }
           query_params :piped
           safe_attributes :show
+          permit_resource true
           def self.perform_read(performer, query); end
-          def self.permit(performer, item); true end
         end
 
         class Approve < AStream::BaseAction
           query_by('users#show') { |r| { piped: 'show_response' } }
           query_params :piped
           safe_attributes :approve
+          permit_resource true
           def self.perform_read(performer, query); end
-          def self.permit(performer, item); true end
         end
 
         class Reject < AStream::BaseAction
           query_by('users#show') { |r| { piped: 'show_response' } }
           query_params :piped
           safe_attributes :reject
+          permit_resource true
           def self.perform_read(performer, query); end
-          def self.permit(performer, item); true end
         end
 
         class Delete < AStream::BaseAction
           query_by('users#show') { |r| { piped: 'show_response' } }
           query_params :piped
           safe_attributes :delete
+          permit_resource true
           def self.perform_read(performer, query); end
-          def self.permit(performer, item); true end
         end
       end
     end
