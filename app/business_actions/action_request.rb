@@ -21,6 +21,10 @@ class ActionRequest
     normalized_query if @query
   end
 
+  def action_name
+    @action_name ||= runner.name.underscore.split('/').last(2).join('#')
+  end
+
   def piped_requests=(action_requests)
     @piped_requests ||=
       if action_requests.is_a?(Array)

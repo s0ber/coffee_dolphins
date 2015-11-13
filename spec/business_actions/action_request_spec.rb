@@ -18,6 +18,7 @@ describe ActionRequest do
     specify { expect(subject.type).to eq(:get) }
     specify { expect(subject.query).to eq(test: 'query') }
     specify { expect(subject.performer).to eq(user) }
+    specify { expect(subject.action_name).to eq('test#test') }
 
     context 'given valid type' do
       context 'given :get type' do
