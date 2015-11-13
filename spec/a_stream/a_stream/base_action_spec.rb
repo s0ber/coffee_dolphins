@@ -74,6 +74,36 @@ describe AStream::BaseAction do
     end
   end
 
+  describe '.permitted_safe_attributes' do
+    let(:admin) { create(:user, :admin) }
+    let(:moder) { create(:user, :moder) }
+
+    context 'safe attributes specified as a list of symbols' do
+      before do
+        Actions::Users::Show.class_eval do
+          safe_attributes :full_name, :gender
+        end
+      end
+      specify { expect(show_action.permitted_safe_attributes(admin)).to eq [:full_name, :gender] }
+    end
+
+    context 'safe attributes specified as a block' do
+      before do
+        Actions::Users::Show.class_eval do
+          safe_attributes do |performer|
+            if performer.admin?
+              [:full_name, :gender]
+            else
+              [:full_name]
+            end
+          end
+        end
+      end
+      specify { expect(show_action.permitted_safe_attributes(admin)).to eq [:full_name, :gender] }
+      specify { expect(show_action.permitted_safe_attributes(moder)).to eq [:full_name] }
+    end
+  end
+
   describe '.pipe_data_from' do
     context 'connector block is specified' do
       before do

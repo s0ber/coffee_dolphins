@@ -13,7 +13,7 @@ describe AStream::ActionStreamsRunner do
       module Users
         class Search < AStream::BaseAction
           query_params :search
-          def self.safe_attributes(performer); [:search] end
+          safe_attributes :search
           def self.perform_read(performer, query); end
           def self.permit(performer, item); true end
         end
@@ -21,7 +21,7 @@ describe AStream::ActionStreamsRunner do
         class Show < AStream::BaseAction
           query_by('users#search') { |r| { piped: 'search_response' } }
           query_params :piped
-          def self.safe_attributes(performer); [:show] end
+          safe_attributes :show
           def self.perform_read(performer, query); end
           def self.permit(performer, item); true end
         end
@@ -29,7 +29,7 @@ describe AStream::ActionStreamsRunner do
         class Approve < AStream::BaseAction
           query_by('users#show') { |r| { piped: 'show_response' } }
           query_params :piped
-          def self.safe_attributes(performer); [:approve] end
+          safe_attributes :approve
           def self.perform_read(performer, query); end
           def self.permit(performer, item); true end
         end
@@ -37,7 +37,7 @@ describe AStream::ActionStreamsRunner do
         class Reject < AStream::BaseAction
           query_by('users#show') { |r| { piped: 'show_response' } }
           query_params :piped
-          def self.safe_attributes(performer); [:reject] end
+          safe_attributes :reject
           def self.perform_read(performer, query); end
           def self.permit(performer, item); true end
         end
@@ -45,7 +45,7 @@ describe AStream::ActionStreamsRunner do
         class Delete < AStream::BaseAction
           query_by('users#show') { |r| { piped: 'show_response' } }
           query_params :piped
-          def self.safe_attributes(performer); [:delete] end
+          safe_attributes :delete
           def self.perform_read(performer, query); end
           def self.permit(performer, item); true end
         end

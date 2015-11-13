@@ -28,11 +28,7 @@ module AStream
     end
 
     def serialize_resources(action: @action, resources:)
-      unless action.respond_to?(:safe_attributes)
-        raise AStream::SafeAttributesNotSpecified, message: "Please specify safe attributes for action #{action}"
-      end
-
-      unless (safe_attrs = action.safe_attributes(@performer)).is_a?(Array)
+      unless (safe_attrs = action.permitted_safe_attributes(@performer)).is_a?(Array)
         raise AStream::SafeAttributesNotSpecified, message: "Safe attributes for action #{action} are not valid array"
       end
 

@@ -85,7 +85,7 @@ describe AStream::ActionResponseNormalizer do
     let(:moder) { create(:user, :moder) }
 
     context 'safe attributes specified for action' do
-      let(:action) { double('action', safe_attributes: [:full_name, :gender]) }
+      let(:action) { Class.new(AStream::BaseAction) { safe_attributes :full_name, :gender } }
 
       context 'resources are serializable' do
         it 'leaves only safe attributes and id' do
@@ -106,7 +106,8 @@ describe AStream::ActionResponseNormalizer do
       end
 
       context 'given non-valid safe attributes' do
-        let(:action) { double('action', safe_attributes: [:full_name, :gender, [:invalid_attribute]]) }
+        let(:action) { Class.new(AStream::BaseAction) { safe_attributes :full_name, :gender, [:invalid_attribute] } }
+
         it 'ignores them' do
           expect(normalizer.serialize_resources(resources: [admin, moder]))
             .to match([{id: an_instance_of(Fixnum), full_name: 'Admin User', gender: true},
@@ -116,7 +117,12 @@ describe AStream::ActionResponseNormalizer do
     end
 
     context 'safe attributes is not an array' do
-      let(:action) { double('action', safe_attributes: 42, to_s: 'TestAction') }
+      let(:action) do
+        Class.new(AStream::BaseAction) do
+          safe_attributes { |performer| 42 }
+          def self.to_s; 'TestAction' end
+        end
+      end
       specify do
         expect { normalizer.serialize_resources(resources: [admin, moder]) }
           .to raise_error(AStream::SafeAttributesNotSpecified,
@@ -125,11 +131,11 @@ describe AStream::ActionResponseNormalizer do
     end
 
     context 'safe attributes are not specified for action' do
-      let(:action) { double('action', to_s: 'TestAction') }
+      let(:action) { Class.new(AStream::BaseAction) { def self.to_s; 'TestAction' end } }
       specify do
         expect { normalizer.serialize_resources(resources: [admin, moder]) }
           .to raise_error(AStream::SafeAttributesNotSpecified,
-                          /Please specify safe attributes for action TestAction/)
+                          /Please specify permitted safe attributes for action TestAction/)
       end
     end
   end
@@ -143,17 +149,28 @@ describe AStream::ActionResponseNormalizer do
     let(:performer) { admin }
 
     context 'action has allowed included resources specified' do
-      let(:action) { double('action', permit: true, included_resources: [:notes], safe_attributes: [:full_name, :gender]) }
-      let(:notes_action) { double('show_notes_action', safe_attributes: [:title]) }
+      let(:action) do
+        Class.new(AStream::BaseAction) do
+          safe_attributes :full_name, :gender
+          def self.included_resources; [:notes] end
+          def self.permit; true end
+        end
+      end
+
+      let(:notes_action) do
+        Class.new(AStream::BaseAction) do
+          safe_attributes :title
+          def self.permit(performer, note)
+            performer.admin? ? (note.title == 'Note Odd') : (note.title == 'Note Even')
+          end
+        end
+      end
 
       before do
         admin.notes << build_list(:note, 4, :zebra)
         moder.notes << build_list(:note, 4, :zebra)
 
         allow(AStream).to receive(:find_class).and_return(notes_action)
-        allow(notes_action).to receive(:permit) do |performer, note|
-          performer.admin? ? (note.title == 'Note Odd') : (note.title == 'Note Even')
-        end
       end
 
       context 'allowed included resources requested' do
