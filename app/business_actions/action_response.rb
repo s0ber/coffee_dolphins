@@ -1,17 +1,22 @@
 class ActionResponse
-  STATUSES = [:ok, :not_found, :unprocessable_entity, :unathorized]
+  STATUSES = [:ok, :not_found, :unprocessable_entity, :unathorized].freeze
 
-  attr_reader :status
+  attr_reader :status, :request
 
   def initialize(status: :ok, body:, request:)
-    @unsafe_body = body
-    @request = request
-    # @body, @status = body, status
-    # raise ArgumentError unless @body.is_a?(Enumerable)
+    @unsafe_body, @request, @status = body, request, status
+
+    unless @unsafe_body.respond_to?(:each)
+      raise ArgumentError, message: "Action should always respond with collection, but non-iterateble response specified for action #{request.runner}."
+    end
+
+    unless STATUSES.include?(@status)
+      raise ArgumentError, message: "Wrong response status is specified"
+    end
   end
 
   def body
-    _filtered_body
+    filtered_body
   end
 
   def unsafe_body
@@ -21,6 +26,6 @@ class ActionResponse
   private
 
   def filtered_body
-    @filtered_body ||= ActionResponseNormalizer::normalize_body(@request, self)
+    @filtered_body ||= ActionResponseNormalizer.normalize_body(@request, self)
   end
 end

@@ -5,6 +5,11 @@ FactoryGirl.define do
     full_name 'Sergey Shishkalov'
     gender true
 
+    trait :collection do
+      sequence(:email) { |n| "test_email#{n}@mail.com" }
+      sequence(:full_name) { |n| "Test User #{n}" }
+    end
+
     trait :admin do
       full_name 'Admin User'
       email 'coffeedolphins@gmail.com'
