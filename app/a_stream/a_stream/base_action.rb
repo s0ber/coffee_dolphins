@@ -3,10 +3,7 @@ module AStream
     def self.inherited(child)
       child.class_eval do
         @can_accept_actions = {}
-        @query_params = nil
-        @safe_attributes = nil
-        @included_resources = nil
-        @resource_permission_check = nil
+        @query_params = @safe_attributes = @included_resources = @resource_permission_check = nil
 
         def self.action_name
           @action_name ||= name.underscore.split('/').last(2).join('#')
