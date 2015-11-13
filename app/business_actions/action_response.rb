@@ -26,6 +26,10 @@ class ActionResponse
   private
 
   def filtered_body
-    @filtered_body ||= ActionResponseNormalizer.normalize_body(@request, self)
+    @filtered_body ||= normalizer.normalize_body
+  end
+
+  def normalizer
+    ActionResponseNormalizer.new(@request, self)
   end
 end

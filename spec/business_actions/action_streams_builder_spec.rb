@@ -2,22 +2,22 @@ require 'rails_helper'
 require 'support/shared_examples/action_classes_definition'
 
 describe ActionStreamsBuilder do
-  subject(:builder) { described_class }
+  subject(:builder) { described_class.new(performer: user) }
   let(:user) { create(:user) }
 
-  describe '.build' do
+  describe '#build' do
     let(:action_stream) { 'some stream' }
     before { allow(builder).to receive(:_parse).and_return([get: 'users#test']) }
     before { allow(builder).to receive(:_build).and_return([{}]) }
 
     specify do
       expect(builder).to receive(:_parse).with(action_stream).ordered
-      expect(builder).to receive(:_build).with(user, [get: 'users#test']).ordered
+      expect(builder).to receive(:_build).with([get: 'users#test']).ordered
     end
-    after { expect(builder.build(user, action_stream)).to eq([{}]) }
+    after { expect(builder.build(action_stream)).to eq([{}]) }
   end
 
-  describe '._parse' do
+  describe '#_parse' do
     let(:expected_action_stream) { {get: 'users#search',
                            query: {active: true},
                            pipe: {:'users#show' => ['users#approve', 'users#reject']}} }
@@ -79,7 +79,7 @@ describe ActionStreamsBuilder do
     end
   end
 
-  describe '._build' do
+  describe '#_build' do
     include_examples 'action classes definition'
 
     context 'given array of streams' do
@@ -87,9 +87,9 @@ describe ActionStreamsBuilder do
                        {get: 'test#action_2', query: {}}] }
 
       it 'creates an array of action requests' do
-        expect(builder._build(user, streams)).to eq([
-          ActionRequest.new(runner: Actions::Test::Action1, type: :post, query: {}),
-          ActionRequest.new(runner: Actions::Test::Action2, query: {})
+        expect(builder._build(streams)).to eq([
+          ActionRequest.new(runner: Actions::Test::Action1, performer: user, type: :post, query: {}),
+          ActionRequest.new(runner: Actions::Test::Action2, performer: user, query: {})
         ])
       end
     end
@@ -97,8 +97,8 @@ describe ActionStreamsBuilder do
     context 'given one stream' do
       let(:streams) { [post: 'test#action_1', query: {}] }
       specify do
-        expect(builder._build(user, streams)).to eq([
-          ActionRequest.new(runner: Actions::Test::Action1, type: :post, query: {})
+        expect(builder._build(streams)).to eq([
+          ActionRequest.new(runner: Actions::Test::Action1, performer: user, type: :post, query: {})
         ])
       end
     end
@@ -106,7 +106,7 @@ describe ActionStreamsBuilder do
     context 'given one stream with one piped stream' do
       let(:streams) { [get: 'test#action_1', pipe: 'test#action_2'] }
       specify do
-        expect(builder._build(user, streams)).to eq([
+        expect(builder._build(streams)).to eq([
           ActionRequest.new(runner: Actions::Test::Action1, performer: user, pipe:
             ActionRequest.new(runner: Actions::Test::Action2, performer: user))
         ])
@@ -116,7 +116,7 @@ describe ActionStreamsBuilder do
     context 'given one stream with piped stream and one more piped stream' do
       let(:streams) { [get: 'test#action_1', pipe: {'test#action_1' => 'test#action_2'}] }
       specify do
-        expect(builder._build(user, streams)).to eq([
+        expect(builder._build(streams)).to eq([
           ActionRequest.new(runner: Actions::Test::Action1, performer: user, pipe:
             ActionRequest.new(runner: Actions::Test::Action1, performer: user, pipe:
               ActionRequest.new(runner: Actions::Test::Action2, performer: user)))
@@ -127,7 +127,7 @@ describe ActionStreamsBuilder do
     context 'given one stream with two piped streams' do
       let(:streams) { [get: 'test#action_1', pipe: ['test#action_2', 'test#action_3']] }
       specify do
-        expect(builder._build(user, streams)).to eq([
+        expect(builder._build(streams)).to eq([
           ActionRequest.new(runner: Actions::Test::Action1, performer: user, pipe: [
             ActionRequest.new(runner: Actions::Test::Action2, performer: user),
             ActionRequest.new(runner: Actions::Test::Action3, performer: user)])
@@ -138,7 +138,7 @@ describe ActionStreamsBuilder do
     context 'given one stream with piped stream and two more piped streams' do
       let(:streams) { [get: 'test#action_1', pipe: {'test#action2' => ['test#action_3', 'test#action_4']}] }
       specify do
-        expect(builder._build(user, streams)).to eq([
+        expect(builder._build(streams)).to eq([
           ActionRequest.new(runner: Actions::Test::Action1, performer: user, pipe:
             ActionRequest.new(runner: Actions::Test::Action2, performer: user, pipe: [
               ActionRequest.new(runner: Actions::Test::Action3, performer: user),
@@ -150,7 +150,7 @@ describe ActionStreamsBuilder do
     context 'given one stream with piped stream and one more piped stream and one more piped stream' do
       let(:streams) { [get: 'test#action_1', pipe: {'test#action2' => {'test#action_3' => 'test#action_4'}}] }
       specify do
-        expect(builder._build(user, streams)).to eq([
+        expect(builder._build(streams)).to eq([
           ActionRequest.new(runner: Actions::Test::Action1, performer: user, pipe:
             ActionRequest.new(runner: Actions::Test::Action2, performer: user, pipe:
               ActionRequest.new(runner: Actions::Test::Action3, performer: user, pipe:

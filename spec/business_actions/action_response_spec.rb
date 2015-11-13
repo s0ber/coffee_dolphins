@@ -35,12 +35,10 @@ describe ActionResponse do
   end
 
   describe '#body' do
-    before do
-      allow(ActionResponseNormalizer).to receive(:normalize_body).and_return(['normalized', 'response'])
-    end
+    let(:normalizer) { double('ActionResponseNormalizer', normalize: ['normalized', 'response']) }
 
-    it 'returns memoized normalized body' do
-      expect(ActionResponseNormalizer).to receive(:normalize_body).with(subject.request, subject).once
+    before do
+      allow(subject).to receive(:normalizer).and_return(normalizer).once
     end
 
     after do

@@ -7,7 +7,7 @@ module AStream
   SafeAttributesNotSpecified = Class.new(StandardError)
 
   def run(performer, action_streams)
-    action_streams = ActionStreamsBuilder.build(action_streams)
+    action_streams = ActionStreamsBuilder.new(performer).build(action_streams)
     ActionStreamsRunner.run(performer, action_streams)
   end
 

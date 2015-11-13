@@ -46,7 +46,8 @@ class ActionRequest
     runner == o.runner &&
       type == o.type &&
       query == o.query &&
-      piped_requests == o.piped_requests
+      piped_requests == o.piped_requests &&
+      performer == o.performer
   end
 
   private
