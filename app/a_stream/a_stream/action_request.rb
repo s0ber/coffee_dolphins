@@ -22,19 +22,23 @@ module AStream
       normalized_query if @query
     end
 
+    def query=(new_query)
+      @query = new_query unless @query
+    end
+
     def action_name
-      @action_name ||= runner.name.underscore.split('/').last(2).join('#')
+      runner.action_name
     end
 
     def piped_requests=(action_requests)
       @piped_requests ||=
         if action_requests.is_a?(Array)
-          if action_requests.all? { |request| request.is_a?(ActionRequest) }
+          if action_requests.all? { |request| request.is_a?(AStream::ActionRequest) }
             action_requests
           else
             raise ArgumentError, message: 'Only ActionRequest instances can be piped'
           end
-        elsif action_requests.is_a?(ActionRequest)
+        elsif action_requests.is_a?(AStream::ActionRequest)
           action_requests
         else
           raise ArgumentError, message: 'Only ActionRequest instances can be piped'

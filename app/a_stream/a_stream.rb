@@ -3,6 +3,7 @@ module AStream
   ActionNotFound = Class.new(StandardError)
   CantPipeAction = Class.new(StandardError)
   SafeAttributesNotSpecified = Class.new(StandardError)
+  PermissionCheckNotSpecified = Class.new(StandardError)
 
   def self.run(performer, action_streams)
     action_streams = ActionStreamsBuilder.new(performer).build(action_streams)
@@ -18,18 +19,6 @@ module AStream
       "Actions::#{namespace.camelize}::#{action.camelize}".constantize
     rescue => e
       raise ActionNotFound, message: "Can't find action #{action_name}."
-    end
-  end
-
-  class BaseAction
-    def self.can_accept_action?(action_name)
-      @can_accept_actions ||= {}
-      !!@can_accept_actions[action_name]
-    end
-
-    def self.query_by(action_name, &block)
-      @can_accept_actions ||= {}
-      @can_accept_actions[action_name] = block
     end
   end
 end

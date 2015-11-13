@@ -128,4 +128,30 @@ describe AStream::ActionRequest do
       expect(subject.query).to eq(normalized: 'query')
     end
   end
+
+  describe '#query=' do
+    before do
+      Actions::Test::Test.class_eval do
+        def self.query_attributes; [:new] end
+      end
+
+      subject.query = {new: 'query'}
+    end
+
+    context 'request has query specified' do
+      subject { described_class.new(runner: Actions::Test::Test, query: {}) }
+
+      it 'cant override value' do
+        expect(subject.query).to eq({})
+      end
+    end
+
+    context 'request has not query specified' do
+      subject { described_class.new(runner: Actions::Test::Test) }
+
+      it 'sets new value' do
+        expect(subject.query).to eq({new: 'query'})
+      end
+    end
+  end
 end

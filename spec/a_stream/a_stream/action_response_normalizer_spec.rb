@@ -5,7 +5,7 @@ describe AStream::ActionResponseNormalizer do
   subject(:normalizer) { described_class.new(request, response) }
   let(:request) { instance_double('AStream::ActionRequest', performer: performer, runner: action, query: nil) }
   let(:response) { instance_double('AStream::ActionResponse', unsafe_body: unsafe_body) }
-  let(:action) { double('action') }
+  let(:action) { double('action', to_s: 'TestAction') }
   let(:performer) { double('performer') }
   let(:unsafe_body) { ['unsafe', 'body'] }
 
@@ -73,8 +73,9 @@ describe AStream::ActionResponseNormalizer do
     end
 
     context 'permit check not specified' do
-      it 'reduces collection to an empty array' do
-        expect(normalizer.filter_resources).to eq([])
+      it 'raises error' do
+        expect { normalizer.filter_resources }.to raise_error(AStream::PermissionCheckNotSpecified,
+                                                             /Please specify permission check for action TestAction/)
       end
     end
   end
