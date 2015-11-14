@@ -8,6 +8,17 @@ group :development do
   gem 'unicorn-rails'
 end
 
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+  gem 'shoulda-matchers', require: false
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'ffaker'
+  gem 'database_cleaner'
+  gem 'fuubar'
+  gem 'spring-commands-rspec'
+  gem 'guard-rspec', require: false
+end
+
 gem 'pg'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -103,6 +114,8 @@ gem 'capistrano-rbenv', github: "capistrano/rbenv"
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+gem 'pry-byebug', group: [:development, :test]
+gem 'pry-rails', group: [:development, :test]
 
 # Misc
 gem 'rails_config'
