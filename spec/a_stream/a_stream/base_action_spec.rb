@@ -2,43 +2,41 @@ require 'rails_helper'
 
 describe AStream::BaseAction do
   before do
-    module Actions
-      module Users
-        class Show < AStream::BaseAction
-        end
+    module Users
+      class Show < AStream::BaseAction
+      end
 
-        class Approve < AStream::BaseAction
-        end
+      class Approve < AStream::BaseAction
       end
     end
   end
 
   after do
-    %w(Show Approve).each { |a| Actions::Users.send(:remove_const, a.to_sym) }
+    %w(Show Approve).each { |a| Users.send(:remove_const, a.to_sym) }
   end
 
-  let(:show_action) { Actions::Users::Show }
-  let(:approve_action) { Actions::Users::Approve }
+  let(:show_action) { Users::Show }
+  let(:approve_action) { Users::Approve }
 
   context 'connector block is specified' do
     before do
-      Actions::Users::Approve.class_eval do
+      Users::Approve.class_eval do
         query_by('users#show') { |r| {number: r * 2} }
       end
     end
 
-    specify { expect(approve_action.can_accept_action?(Actions::Users::Show)).to eq(true) }
-    specify { expect(approve_action.able_accept_action?(Actions::Users::Show)).to eq(true) }
+    specify { expect(approve_action.can_accept_action?(Users::Show)).to eq(true) }
+    specify { expect(approve_action.able_accept_action?(Users::Show)).to eq(true) }
   end
 
   context 'connector block is not specified' do
-    specify { expect(approve_action.can_accept_action?(Actions::Users::Show)).to eq(false) }
-    specify { expect(approve_action.able_accept_action?(Actions::Users::Show)).to eq(false) }
+    specify { expect(approve_action.can_accept_action?(Users::Show)).to eq(false) }
+    specify { expect(approve_action.able_accept_action?(Users::Show)).to eq(false) }
   end
 
   describe '.action_name' do
-    specify { expect(Actions::Users::Show.action_name).to eq('users#show') }
-    specify { expect(Actions::Users::Approve.action_name).to eq('users#approve') }
+    specify { expect(Users::Show.action_name).to eq('users#show') }
+    specify { expect(Users::Approve.action_name).to eq('users#approve') }
   end
 
   describe '.permitted_query_params' do
@@ -47,7 +45,7 @@ describe AStream::BaseAction do
 
     context 'params specified as a list of symbols' do
       before do
-        Actions::Users::Show.class_eval do
+        Users::Show.class_eval do
           query_params :full_name, :gender
         end
       end
@@ -56,7 +54,7 @@ describe AStream::BaseAction do
 
     context 'query params is a block' do
       before do
-        Actions::Users::Show.class_eval do
+        Users::Show.class_eval do
           query_params do |performer|
             if performer.admin?
               [:full_name, :gender]
@@ -77,7 +75,7 @@ describe AStream::BaseAction do
 
     context 'safe attributes specified as a list of symbols' do
       before do
-        Actions::Users::Show.class_eval do
+        Users::Show.class_eval do
           safe_attributes :full_name, :gender
         end
       end
@@ -86,7 +84,7 @@ describe AStream::BaseAction do
 
     context 'safe attributes specified as a block' do
       before do
-        Actions::Users::Show.class_eval do
+        Users::Show.class_eval do
           safe_attributes do |performer|
             if performer.admin?
               [:full_name, :gender]
@@ -108,7 +106,7 @@ describe AStream::BaseAction do
     context 'permission check specified as a scalar value' do
       context 'it is truthy' do
         before do
-          Actions::Users::Show.class_eval do
+          Users::Show.class_eval do
             permit_resource true
           end
         end
@@ -118,7 +116,7 @@ describe AStream::BaseAction do
 
       context 'it is falsey' do
         before do
-          Actions::Users::Show.class_eval do
+          Users::Show.class_eval do
             permit_resource false
           end
         end
@@ -129,7 +127,7 @@ describe AStream::BaseAction do
 
     context 'permission check specified as a block' do
       before do
-        Actions::Users::Show.class_eval do
+        Users::Show.class_eval do
           permit_resource do |performer, resource|
             if performer.admin?
               true
@@ -152,7 +150,7 @@ describe AStream::BaseAction do
 
     context 'included resources are specified' do
       before do
-        Actions::Users::Show.class_eval do
+        Users::Show.class_eval do
           included_resources :notes, :secrets
         end
       end
@@ -167,7 +165,7 @@ describe AStream::BaseAction do
 
     context 'perform_read instance method is specified' do
       before do
-        Actions::Users::Show.class_eval do
+        Users::Show.class_eval do
           def perform_read(performer, query)
             performer.admin? ? query[:number] * 2 : query[:number] / 2
           end
@@ -187,11 +185,11 @@ describe AStream::BaseAction do
   describe '.pipe_data_from' do
     context 'connector block is specified' do
       before do
-        Actions::Users::Show.class_eval do
+        Users::Show.class_eval do
           query_by('users#approve') { |r| r / 2 }
         end
 
-        Actions::Users::Approve.class_eval do
+        Users::Approve.class_eval do
           query_by('users#show') { |r| r * 2 }
         end
       end

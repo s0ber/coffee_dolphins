@@ -27,7 +27,7 @@ module AStream
       filtered_query = query.dup
 
       if action.allows_included_resources?
-        filtered_query[:included] = query[:included].select do |included_resource_name|
+        filtered_query[:included] = [].concat(query[:included]).select do |included_resource_name|
           action.allows_to_include_resource?(included_resource_name.to_sym)
         end
         filtered_query[:included].map!(&:to_sym)

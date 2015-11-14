@@ -7,7 +7,7 @@ module AStream
   PermissionCheckNotSpecified = Class.new(StandardError)
 
   def self.run(performer, action_streams)
-    action_streams = ActionStreamsBuilder.new(performer).build(action_streams)
+    action_streams = ActionStreamsBuilder.new(performer: performer).build(action_streams)
     ActionStreamsRunner.run(performer, action_streams)
   end
 
@@ -17,7 +17,7 @@ module AStream
     raise ActionNotFound, message: 'Action name is not specified.' if action.blank?
 
     begin
-      "Actions::#{namespace.camelize}::#{action.camelize}".constantize
+      "#{namespace.camelize}::#{action.camelize}".constantize
     rescue => e
       raise ActionNotFound, message: "Can't find action #{action_name}."
     end

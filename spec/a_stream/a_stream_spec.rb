@@ -6,15 +6,13 @@ describe AStream do
   describe '.find_class' do
     let(:action_string) { '' }
     before do
-      module Actions
-        module TestNamespace; class TestAction; end; end
-      end
+      module TestNamespace; class TestAction; end; end
     end
 
     context 'namespace and action are specified' do
       let(:action_string) { 'test_namespace#test_action' }
       specify do
-        expect(runner.find_class(action_string)).to eq(Actions::TestNamespace::TestAction)
+        expect(runner.find_class(action_string)).to eq(TestNamespace::TestAction)
       end
     end
 

@@ -4,55 +4,53 @@ require 'support/shared_examples/action_classes_definition'
 describe AStream::ActionStreamsRunner do
   after do
     %w(Search Show Approve Reject Delete).each do |a|
-      Actions::Users.send :remove_const, a.to_sym
+      Users.send :remove_const, a.to_sym
     end
   end
 
   before do
-    module Actions
-      module Users
-        class Search < AStream::BaseAction
-          query_params :search
-          safe_attributes :search
-          permit_resource true
-        end
+    module Users
+      class Search < AStream::BaseAction
+        query_params :search
+        safe_attributes :search
+        permit_resource true
+      end
 
-        class Show < AStream::BaseAction
-          query_by('users#search') { |r| { piped: 'search_response' } }
-          query_params :piped
-          safe_attributes :show
-          permit_resource true
-        end
+      class Show < AStream::BaseAction
+        query_by('users#search') { |r| { piped: 'search_response' } }
+        query_params :piped
+        safe_attributes :show
+        permit_resource true
+      end
 
-        class Approve < AStream::BaseAction
-          query_by('users#show') { |r| { piped: 'show_response' } }
-          query_params :piped
-          safe_attributes :approve
-          permit_resource true
-        end
+      class Approve < AStream::BaseAction
+        query_by('users#show') { |r| { piped: 'show_response' } }
+        query_params :piped
+        safe_attributes :approve
+        permit_resource true
+      end
 
-        class Reject < AStream::BaseAction
-          query_by('users#show') { |r| { piped: 'show_response' } }
-          query_params :piped
-          safe_attributes :reject
-          permit_resource true
-        end
+      class Reject < AStream::BaseAction
+        query_by('users#show') { |r| { piped: 'show_response' } }
+        query_params :piped
+        safe_attributes :reject
+        permit_resource true
+      end
 
-        class Delete < AStream::BaseAction
-          query_by('users#show') { |r| { piped: 'show_response' } }
-          query_params :piped
-          safe_attributes :delete
-          permit_resource true
-        end
+      class Delete < AStream::BaseAction
+        query_by('users#show') { |r| { piped: 'show_response' } }
+        query_params :piped
+        safe_attributes :delete
+        permit_resource true
       end
     end
   end
 
-  let(:search) { Actions::Users::Search }
-  let(:show) { Actions::Users::Show }
-  let(:approve) { Actions::Users::Approve }
-  let(:reject) { Actions::Users::Reject }
-  let(:delete) { Actions::Users::Delete }
+  let(:search) { Users::Search }
+  let(:show) { Users::Show }
+  let(:approve) { Users::Approve }
+  let(:reject) { Users::Reject }
+  let(:delete) { Users::Delete }
   let(:performer) { create(:user) }
 
   describe '.run' do

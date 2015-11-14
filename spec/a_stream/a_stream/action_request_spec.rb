@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe AStream::ActionRequest do
   let(:action_type) { :get }
-  subject { described_class.new(runner: Actions::Test::Test, type: action_type) }
+  subject { described_class.new(runner: Test::Test, type: action_type) }
 
   include_examples 'action classes definition'
 
@@ -11,10 +11,10 @@ describe AStream::ActionRequest do
   end
 
   context 'given required data' do
-    subject { described_class.new(runner: Actions::Test::Test, type: action_type, performer: user, query: {test: 'query'}) }
+    subject { described_class.new(runner: Test::Test, type: action_type, performer: user, query: {test: 'query'}) }
     let(:user) { create(:user) }
 
-    specify { expect(subject.runner).to eq(Actions::Test::Test) }
+    specify { expect(subject.runner).to eq(Test::Test) }
     specify { expect(subject.type).to eq(:get) }
     specify { expect(subject.query).to eq(test: 'query') }
     specify { expect(subject.performer).to eq(user) }
@@ -34,7 +34,7 @@ describe AStream::ActionRequest do
 
     context 'given invalid type' do
       it 'throws argument error' do
-        expect { described_class.new(runner: Actions::Test::Test,
+        expect { described_class.new(runner: Test::Test,
                                      type: :update,
                                      performer: user,
                                      query: {}) }.to raise_error(ArgumentError,
@@ -43,30 +43,30 @@ describe AStream::ActionRequest do
     end
 
     context 'given valid action runner' do
-      specify { expect(subject.runner).to eq(Actions::Test::Test) }
+      specify { expect(subject.runner).to eq(Test::Test) }
     end
 
     context 'given invalid action runner' do
-      context 'action runner is not from Actions namespace' do
+      context 'action runner is not an AStream::BaseAction class' do
         it 'throws argument error' do
-          expect { described_class.new(runner: Test::ActionFromWrongNamespace) }
-            .to raise_error(ArgumentError, /ActionRequest#runner should be an Action class/)
+          expect { described_class.new(runner: Test::WrongAction) }
+            .to raise_error(ArgumentError, /ActionRequest#runner should be an AStream::BaseAction class/)
         end
       end
 
       context 'action runner is not a class' do
         it 'throws argument error' do
           expect { described_class.new(runner: 'test#test') }
-            .to raise_error(ArgumentError, /ActionRequest#runner should be an Action class/)
+            .to raise_error(ArgumentError, /ActionRequest#runner should be an AStream::BaseAction class/)
         end
       end
     end
 
     context 'given piped actions' do
-      let(:piped_request) { described_class.new(runner: Actions::Test::Test) }
-      let(:another_piped_request) { described_class.new(runner: Actions::Test::Test) }
+      let(:piped_request) { described_class.new(runner: Test::Test) }
+      let(:another_piped_request) { described_class.new(runner: Test::Test) }
 
-      subject { described_class.new(runner: Actions::Test::Test, pipe: [piped_request, another_piped_request]) }
+      subject { described_class.new(runner: Test::Test, pipe: [piped_request, another_piped_request]) }
       specify { expect(subject.piped_requests).to eq([piped_request, another_piped_request]) }
 
       context 'trying to set value multiple times' do
@@ -79,8 +79,8 @@ describe AStream::ActionRequest do
   end
 
   describe '#piped_requests=' do
-    let(:piped_request) { described_class.new(runner: Actions::Test::Test) }
-    let(:another_piped_request) { described_class.new(runner: Actions::Test::Test) }
+    let(:piped_request) { described_class.new(runner: Test::Test) }
+    let(:another_piped_request) { described_class.new(runner: Test::Test) }
 
     context 'given valid action requests' do
       context 'single action' do
@@ -119,10 +119,10 @@ describe AStream::ActionRequest do
       allow(AStream::ActionRequestNormalizer).to receive(:normalize_query).and_return(normalized: 'query')
     end
 
-    subject { described_class.new(runner: Actions::Test::Test, query: {dirty: 'query'}) }
+    subject { described_class.new(runner: Test::Test, query: {dirty: 'query'}) }
 
     it 'returns memoized normalized query' do
-      expect(AStream::ActionRequestNormalizer).to receive(:normalize_query).with(Actions::Test::Test, nil, dirty: 'query').once
+      expect(AStream::ActionRequestNormalizer).to receive(:normalize_query).with(Test::Test, nil, dirty: 'query').once
       subject.query
       subject.query
       expect(subject.query).to eq(normalized: 'query')
@@ -131,7 +131,7 @@ describe AStream::ActionRequest do
 
   describe '#query=' do
     before do
-      Actions::Test::Test.class_eval do
+      Test::Test.class_eval do
         query_params :new
       end
 
@@ -139,7 +139,7 @@ describe AStream::ActionRequest do
     end
 
     context 'request has query specified' do
-      subject { described_class.new(runner: Actions::Test::Test, query: {}) }
+      subject { described_class.new(runner: Test::Test, query: {}) }
 
       it 'cant override value' do
         expect(subject.query).to eq({})
@@ -147,7 +147,7 @@ describe AStream::ActionRequest do
     end
 
     context 'request has not query specified' do
-      subject { described_class.new(runner: Actions::Test::Test) }
+      subject { described_class.new(runner: Test::Test) }
 
       it 'sets new value' do
         expect(subject.query).to eq({new: 'query'})

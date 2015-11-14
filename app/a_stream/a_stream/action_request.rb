@@ -11,8 +11,8 @@ module AStream
         raise ArgumentError, message: "ActionRequest#type should be either :get or :post, but :#{@type} is provided"
       end
 
-      if !runner.is_a?(Class) || !(runner.name =~ /^Actions::/)
-        raise ArgumentError, message: 'ActionRequest#runner should be an Action class'
+      if !runner.is_a?(Class) || !runner.ancestors.include?(AStream::BaseAction)
+        raise ArgumentError, message: 'ActionRequest#runner should be an AStream::BaseAction class'
       end
 
       (self.piped_requests = pipe) if pipe
