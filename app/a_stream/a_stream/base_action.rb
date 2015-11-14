@@ -5,6 +5,10 @@ module AStream
         @can_accept_actions = {}
         @query_params = @safe_attributes = @included_resources = @resource_permission_check = nil
 
+        def self.item
+          @item ||= self.new
+        end
+
         def self.action_name
           @action_name ||= name.underscore.split('/').last(2).join('#')
         end
@@ -82,6 +86,10 @@ module AStream
           else
             !!@resource_permission_check
           end
+        end
+
+        def self.perform_read(performer, query)
+          self.item.perform_read(performer, query)
         end
       end
     end

@@ -15,7 +15,6 @@ describe AStream::ActionStreamsRunner do
           query_params :search
           safe_attributes :search
           permit_resource true
-          def self.perform_read(performer, query); end
         end
 
         class Show < AStream::BaseAction
@@ -23,7 +22,6 @@ describe AStream::ActionStreamsRunner do
           query_params :piped
           safe_attributes :show
           permit_resource true
-          def self.perform_read(performer, query); end
         end
 
         class Approve < AStream::BaseAction
@@ -31,7 +29,6 @@ describe AStream::ActionStreamsRunner do
           query_params :piped
           safe_attributes :approve
           permit_resource true
-          def self.perform_read(performer, query); end
         end
 
         class Reject < AStream::BaseAction
@@ -39,7 +36,6 @@ describe AStream::ActionStreamsRunner do
           query_params :piped
           safe_attributes :reject
           permit_resource true
-          def self.perform_read(performer, query); end
         end
 
         class Delete < AStream::BaseAction
@@ -47,7 +43,6 @@ describe AStream::ActionStreamsRunner do
           query_params :piped
           safe_attributes :delete
           permit_resource true
-          def self.perform_read(performer, query); end
         end
       end
     end

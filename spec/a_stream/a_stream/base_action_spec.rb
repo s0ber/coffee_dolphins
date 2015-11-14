@@ -8,9 +8,6 @@ describe AStream::BaseAction do
         end
 
         class Approve < AStream::BaseAction
-          def query_params
-            [:number]
-          end
         end
       end
     end
@@ -161,6 +158,29 @@ describe AStream::BaseAction do
       end
 
       specify { expect(show_action.allows_to_include_resource?(:notes)).to eq true }
+    end
+  end
+
+  describe '.perform_read' do
+    let(:admin) { create(:user, :admin) }
+    let(:moder) { create(:user, :moder) }
+
+    context 'perform_read instance method is specified' do
+      before do
+        Actions::Users::Show.class_eval do
+          def perform_read(performer, query)
+            performer.admin? ? query[:number] * 2 : query[:number] / 2
+          end
+        end
+      end
+
+      specify { expect(show_action.perform_read(admin, number: 2)).to eq 4 }
+      specify { expect(show_action.perform_read(moder, number: 2)).to eq 1 }
+    end
+
+    context 'perform_read instance method is not specified' do
+      specify { expect{ show_action.perform_read(admin, number: 2) }.to raise_error NoMethodError }
+      specify { expect{ show_action.perform_read(moder, number: 2) }.to raise_error NoMethodError }
     end
   end
 
