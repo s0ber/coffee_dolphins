@@ -29,7 +29,12 @@ module AStream
         end
 
         def self.query_params(*args, &block)
-          @query_params = block_given? ? block : args
+          @query_params =
+            if block_given?
+              block
+            else
+              args[0].respond_to?(:each) ? args[0] : args
+            end
         end
 
         def self.permitted_query_params(performer)
@@ -54,7 +59,12 @@ module AStream
         end
 
         def self.safe_attributes(*args, &block)
-          @safe_attributes = block_given? ? block : args
+          @safe_attributes =
+            if block_given?
+              block
+            else
+              args[0].respond_to?(:each) ? args[0] : args
+            end
         end
 
         def self.permitted_safe_attributes(performer)

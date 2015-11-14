@@ -86,11 +86,11 @@ describe AStream::ActionStreamsRunner do
 
         after do
           expect(AStream::ActionStreamsRunner.run(performer, action_streams)).to eq({
-            search_users: {body: [search: 'response']},
-            show_users: {body: [show: 'response']},
-            approve_users: {body: [approve: 'response']},
-            reject_users: {body: [reject: 'response']},
-            delete_users: {body: [delete: 'response']}
+            users_search: {body: [search: 'response']},
+            users_show: {body: [show: 'response']},
+            users_approve: {body: [approve: 'response']},
+            users_reject: {body: [reject: 'response']},
+            users_delete: {body: [delete: 'response']}
           })
         end
       end
@@ -114,7 +114,7 @@ describe AStream::ActionStreamsRunner do
 
         after do
           expect(AStream::ActionStreamsRunner.run(performer, action_streams)).to eq({
-            search_users: {status: :unathorized, body: []}
+            users_search: {status: :unathorized, body: []}
           })
         end
       end
@@ -138,8 +138,8 @@ describe AStream::ActionStreamsRunner do
 
         after do
           expect(AStream::ActionStreamsRunner.run(performer, action_streams)).to eq({
-            search_users: {body: [search: 'response']},
-            show_users: {status: :unprocessable_entity, body: []}
+            users_search: {body: [search: 'response']},
+            users_show: {status: :unprocessable_entity, body: []}
           })
         end
       end
@@ -163,11 +163,11 @@ describe AStream::ActionStreamsRunner do
 
         after do
           expect(AStream::ActionStreamsRunner.run(performer, action_streams)).to eq({
-            search_users: {body: [search: 'response']},
-            show_users: {body: [show: 'response']},
-            approve_users: {status: :not_found, body: []},
-            reject_users: {body: [reject: 'response']},
-            delete_users: {body: [delete: 'response']}
+            users_search: {body: [search: 'response']},
+            users_show: {body: [show: 'response']},
+            users_approve: {status: :not_found, body: []},
+            users_reject: {body: [reject: 'response']},
+            users_delete: {body: [delete: 'response']}
           })
         end
       end

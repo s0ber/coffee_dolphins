@@ -43,10 +43,19 @@ describe AStream::BaseAction do
     let(:admin) { create(:user, :admin) }
     let(:moder) { create(:user, :moder) }
 
-    context 'params specified as a list of symbols' do
+    context 'params specified as a splat list of symbols' do
       before do
         Users::Show.class_eval do
           query_params :full_name, :gender
+        end
+      end
+      specify { expect(show_action.permitted_query_params(admin)).to eq [:full_name, :gender] }
+    end
+
+    context 'params specified as an array of symbols' do
+      before do
+        Users::Show.class_eval do
+          query_params [:full_name, :gender]
         end
       end
       specify { expect(show_action.permitted_query_params(admin)).to eq [:full_name, :gender] }
@@ -73,10 +82,19 @@ describe AStream::BaseAction do
     let(:admin) { create(:user, :admin) }
     let(:moder) { create(:user, :moder) }
 
-    context 'safe attributes specified as a list of symbols' do
+    context 'safe attributes specified as a splat list of symbols' do
       before do
         Users::Show.class_eval do
           safe_attributes :full_name, :gender
+        end
+      end
+      specify { expect(show_action.permitted_safe_attributes(admin)).to eq [:full_name, :gender] }
+    end
+
+    context 'safe attributes specified as an array of symbols' do
+      before do
+        Users::Show.class_eval do
+          safe_attributes [:full_name, :gender]
         end
       end
       specify { expect(show_action.permitted_safe_attributes(admin)).to eq [:full_name, :gender] }

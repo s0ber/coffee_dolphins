@@ -27,7 +27,7 @@ module AStream
       response = ActionResponse.new(status: status, body: response, request: request)
       namespace, action = request.runner.action_name.split('#')
 
-      stream_response[:"#{action}_#{namespace}"] =
+      stream_response[:"#{namespace}_#{action}"] =
         status == :ok ? {body: response.body} : {status: status, body: response.body}
 
       if status == :ok && request.piped_requests
