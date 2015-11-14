@@ -7,13 +7,13 @@ describe AStream::ActionStreamsBuilder do
 
   describe '#build' do
     let(:action_stream) { 'some stream' }
-    before { allow(builder).to receive(:_parse).and_return([get: 'users#test']) }
-    before { allow(builder).to receive(:_build).and_return([{}]) }
+    before { allow(builder).to receive(:_build) }
 
     specify do
-      expect(builder).to receive(:_parse).with(action_stream).ordered
-      expect(builder).to receive(:_build).with([get: 'users#test']).ordered
+      expect(builder).to receive(:_parse).with(action_stream).and_return([get: 'users#test']).ordered
+      expect(builder).to receive(:_build).with([get: 'users#test']).and_return([{}]).ordered
     end
+
     after { expect(builder.build(action_stream)).to eq([{}]) }
   end
 

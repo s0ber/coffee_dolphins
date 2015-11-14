@@ -10,12 +10,6 @@ describe AStream::ActionResponseNormalizer do
   let(:unsafe_body) { ['unsafe', 'body'] }
 
   describe '#normalize_body' do
-    before do
-      allow(normalizer).to receive(:filter_resources).and_return(['filtered', 'resources'])
-      allow(normalizer).to receive(:serialize_resources).and_return(['serialized', 'resources'])
-      allow(normalizer).to receive(:normalize_included_resources).and_return(['filtered', 'included', 'resources'])
-    end
-
     context 'query requests included resources' do
       let(:request) { instance_double('AStream::ActionRequest', performer: 'fake_performer', runner: 'fake_action', query: {included: [:test]}) }
 

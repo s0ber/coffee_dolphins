@@ -10,14 +10,14 @@ describe AStream::ActionRequestNormalizer do
     let(:query_with_filtered_params) { {property: 'filtered'} }
     let(:query_with_filtered_included_resources) { {include: 'filtered'} }
 
-    before do
-      allow(normalizer).to receive(:_filter_params).and_return(query_with_filtered_params)
-      allow(normalizer).to receive(:_filter_included_resources).and_return(query_with_filtered_included_resources)
-    end
-
     specify do
-      expect(normalizer).to receive(:_filter_params).with(action, performer, initial_query).ordered
-      expect(normalizer).to receive(:_filter_included_resources).with(action, performer, query_with_filtered_params).ordered
+      expect(normalizer).to receive(:_filter_params)
+        .with(action, performer, initial_query)
+        .and_return(query_with_filtered_params).ordered
+
+      expect(normalizer).to receive(:_filter_included_resources)
+        .with(action, performer, query_with_filtered_params)
+        .and_return(query_with_filtered_included_resources).ordered
     end
 
     after do

@@ -55,14 +55,6 @@ describe AStream::ActionStreamsRunner do
   let(:delete) { Actions::Users::Delete }
   let(:performer) { create(:user) }
 
-  before do
-    allow(search).to receive(:perform_read).and_return([search: 'response'])
-    allow(show).to receive(:perform_read).and_return([show: 'response'])
-    allow(approve).to receive(:perform_read).and_return([approve: 'response'])
-    allow(reject).to receive(:perform_read).and_return([reject: 'response'])
-    allow(delete).to receive(:perform_read).and_return([delete: 'response'])
-  end
-
   describe '.run' do
     context 'action streams tree given' do
       let(:action_streams) do
@@ -77,24 +69,109 @@ describe AStream::ActionStreamsRunner do
         ]
       end
 
-      specify do
-        expect(search).to receive(:perform_read).with(performer, search: 'query').and_return([search: 'response']).once.ordered
+      context 'successful responses' do
+        specify do
+          expect(search).to receive(:perform_read).with(performer, search: 'query').and_return([search: 'response']).once.ordered
 
-        expect(show).to receive(:pipe_data_from).with(search, [search: 'response']).and_return(piped: 'search_response').once.ordered
-        expect(show).to receive(:perform_read).with(performer, piped: 'search_response').and_return([show: 'response']).once.ordered
+          expect(show).to receive(:pipe_data_from).with(search, [search: 'response']).and_return(piped: 'search_response').once.ordered
+          expect(show).to receive(:perform_read).with(performer, piped: 'search_response').and_return([show: 'response']).once.ordered
 
-        expect(approve).to receive(:pipe_data_from).with(show, [show: 'response']).and_return(piped: 'show_response').once.ordered
-        expect(approve).to receive(:perform_read).with(performer, piped: 'show_response').and_return([approve: 'response']).once.ordered
+          expect(approve).to receive(:pipe_data_from).with(show, [show: 'response']).and_return(piped: 'show_response').once.ordered
+          expect(approve).to receive(:perform_read).with(performer, piped: 'show_response').and_return([approve: 'response']).once.ordered
 
-        expect(reject).to receive(:pipe_data_from).with(show, [show: 'response']).and_return(piped: 'show_response').once.ordered
-        expect(reject).to receive(:perform_read).with(performer, piped: 'show_response').and_return([reject: 'response']).once.ordered
+          expect(reject).to receive(:pipe_data_from).with(show, [show: 'response']).and_return(piped: 'show_response').once.ordered
+          expect(reject).to receive(:perform_read).with(performer, piped: 'show_response').and_return([reject: 'response']).once.ordered
 
-        expect(delete).to receive(:pipe_data_from).with(show, [show: 'response']).and_return(piped: 'show_response').once.ordered
-        expect(delete).to receive(:perform_read).with(performer, piped: 'show_response').and_return([delete: 'response']).once.ordered
+          expect(delete).to receive(:pipe_data_from).with(show, [show: 'response']).and_return(piped: 'show_response').once.ordered
+          expect(delete).to receive(:perform_read).with(performer, piped: 'show_response').and_return([delete: 'response']).once.ordered
+        end
+
+        after do
+          expect(AStream::ActionStreamsRunner.run(performer, action_streams)).to eq({
+            search_users: {body: [search: 'response']},
+            show_users: {body: [show: 'response']},
+            approve_users: {body: [approve: 'response']},
+            reject_users: {body: [reject: 'response']},
+            delete_users: {body: [delete: 'response']}
+          })
+        end
       end
 
-      after do
-        AStream::ActionStreamsRunner.run(performer, action_streams)
+      context 'search request unsuccessful' do
+        specify do
+          expect(search).to receive(:perform_read).with(performer, search: 'query').and_return(status: :unathorized, body: []).once
+
+          expect(show).not_to receive(:pipe_data_from).with(search, [search: 'response'])
+          expect(show).not_to receive(:perform_read).with(performer, piped: 'search_response')
+
+          expect(approve).not_to receive(:pipe_data_from).with(show, [show: 'response'])
+          expect(approve).not_to receive(:perform_read).with(performer, piped: 'show_response')
+
+          expect(reject).not_to receive(:pipe_data_from).with(show, [show: 'response'])
+          expect(reject).not_to receive(:perform_read).with(performer, piped: 'show_response')
+
+          expect(delete).not_to receive(:pipe_data_from).with(show, [show: 'response'])
+          expect(delete).not_to receive(:perform_read).with(performer, piped: 'show_response')
+        end
+
+        after do
+          expect(AStream::ActionStreamsRunner.run(performer, action_streams)).to eq({
+            search_users: {status: :unathorized, body: []}
+          })
+        end
+      end
+
+      context 'show request unsuccessful' do
+        specify do
+          expect(search).to receive(:perform_read).with(performer, search: 'query').and_return([search: 'response']).once.ordered
+
+          expect(show).to receive(:pipe_data_from).with(search, [search: 'response']).and_return(piped: 'search_response').once.ordered
+          expect(show).to receive(:perform_read).with(performer, piped: 'search_response').and_return(status: :unprocessable_entity, body: []).once.ordered
+
+          expect(approve).not_to receive(:pipe_data_from).with(show, [show: 'response'])
+          expect(approve).not_to receive(:perform_read).with(performer, piped: 'show_response')
+
+          expect(reject).not_to receive(:pipe_data_from).with(show, [show: 'response'])
+          expect(reject).not_to receive(:perform_read).with(performer, piped: 'show_response')
+
+          expect(delete).not_to receive(:pipe_data_from).with(show, [show: 'response'])
+          expect(delete).not_to receive(:perform_read).with(performer, piped: 'show_response')
+        end
+
+        after do
+          expect(AStream::ActionStreamsRunner.run(performer, action_streams)).to eq({
+            search_users: {body: [search: 'response']},
+            show_users: {status: :unprocessable_entity, body: []}
+          })
+        end
+      end
+
+      context 'approve request unsuccessful' do
+        specify do
+          expect(search).to receive(:perform_read).with(performer, search: 'query').and_return([search: 'response']).once.ordered
+
+          expect(show).to receive(:pipe_data_from).with(search, [search: 'response']).and_return(piped: 'search_response').once.ordered
+          expect(show).to receive(:perform_read).with(performer, piped: 'search_response').and_return([show: 'response']).once.ordered
+
+          expect(approve).to receive(:pipe_data_from).with(show, [show: 'response']).and_return(piped: 'show_response').once.ordered
+          expect(approve).to receive(:perform_read).with(performer, piped: 'show_response').and_return(status: :not_found, body: []).once.ordered
+
+          expect(reject).to receive(:pipe_data_from).with(show, [show: 'response']).and_return(piped: 'show_response').once.ordered
+          expect(reject).to receive(:perform_read).with(performer, piped: 'show_response').and_return([reject: 'response']).once.ordered
+
+          expect(delete).to receive(:pipe_data_from).with(show, [show: 'response']).and_return(piped: 'show_response').once.ordered
+          expect(delete).to receive(:perform_read).with(performer, piped: 'show_response').and_return([delete: 'response']).once.ordered
+        end
+
+        after do
+          expect(AStream::ActionStreamsRunner.run(performer, action_streams)).to eq({
+            search_users: {body: [search: 'response']},
+            show_users: {body: [show: 'response']},
+            approve_users: {status: :not_found, body: []},
+            reject_users: {body: [reject: 'response']},
+            delete_users: {body: [delete: 'response']}
+          })
+        end
       end
     end
   end
