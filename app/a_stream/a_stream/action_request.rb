@@ -19,7 +19,11 @@ module AStream
     end
 
     def query
-      normalized_query if @query
+      if @query
+        normalized_query
+      else
+        {}
+      end
     end
 
     def query=(new_query)

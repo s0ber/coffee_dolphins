@@ -119,13 +119,24 @@ describe AStream::ActionRequest do
       allow(AStream::ActionRequestNormalizer).to receive(:normalize_query).and_return(normalized: 'query')
     end
 
-    subject { described_class.new(runner: Test::Test, query: {dirty: 'query'}) }
+    context 'query is specified' do
+      subject { described_class.new(runner: Test::Test, query: {dirty: 'query'}) }
 
-    it 'returns memoized normalized query' do
-      expect(AStream::ActionRequestNormalizer).to receive(:normalize_query).with(Test::Test, nil, dirty: 'query').once
-      subject.query
-      subject.query
-      expect(subject.query).to eq(normalized: 'query')
+      it 'returns memoized normalized query' do
+        expect(AStream::ActionRequestNormalizer).to receive(:normalize_query).with(Test::Test, nil, dirty: 'query').once
+        subject.query
+        subject.query
+        expect(subject.query).to eq(normalized: 'query')
+      end
+    end
+
+    context 'query is not specified' do
+      subject { described_class.new(runner: Test::Test) }
+
+      it 'returns empty hash' do
+        expect(AStream::ActionRequestNormalizer).not_to receive(:normalize_query)
+        expect(subject.query).to eq({})
+      end
     end
   end
 
