@@ -27,11 +27,28 @@ describe AStream::ActionRequestNormalizer do
   end
 
   describe '._filter_params' do
+    context 'included resources requested' do
+      context 'param :included is not permitted' do
+        let(:action) { Class.new(AStream::BaseAction) { query_params :name } }
+
+        context 'one type of included resources requested' do
+          specify do
+            expect(normalizer._filter_params(action, performer, included: :notes)).to eq(included: [:notes])
+          end
+        end
+
+        context 'few types of included resources requested' do
+          specify do
+            expect(normalizer._filter_params(action, performer, included: [:notes])).to eq(included: [:notes])
+          end
+        end
+      end
+    end
+
     context 'permitted params are not specified for action' do
       let(:action) { Class.new(AStream::BaseAction) { def self.to_s; 'TestAction' end } }
       specify do
-        expect { normalizer._filter_params(action, performer, {}) }
-          .to raise_error(AStream::QueryParamsNotSpecified, /Please specify permitted query params for action TestAction/)
+        expect(normalizer._filter_params(action, performer, {name: 'Admin', credit_card: true})).to eq({})
       end
     end
 
@@ -56,7 +73,7 @@ describe AStream::ActionRequestNormalizer do
       end
 
       context 'given invalid included resources keys' do
-        let(:query) { {name: 'Test User', credit_card: '1234567', included: [['notes'], 'contacts']} }
+        let(:query) { {name: 'Test User', credit_card: '1234567', included: [{}, 'contacts']} }
         let(:filtered_query) { {name: 'Test User'} }
         specify { expect(normalizer._filter_params(action, performer, query)).to eq(filtered_query) }
       end
@@ -94,6 +111,11 @@ describe AStream::ActionRequestNormalizer do
         Class.new(AStream::BaseAction) do
           included_resources :notes, :contacts
         end
+      end
+
+      context 'included resources are not requested' do
+        let(:query) { {name: 'Test user'} }
+        specify { expect(normalizer._filter_included_resources(action, performer, query)).to eq(query) }
       end
 
       context 'given allowed included resources' do
