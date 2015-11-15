@@ -3,6 +3,7 @@ class Admin::PositionsController < Admin::BaseController
 
   def index
     @position = Position.new
+    @positions = Position.order_by_search_count.includes(:search_keywords, :landing).page(params[:page])
     respond_with(@positions)
   end
 
