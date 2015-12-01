@@ -22,6 +22,7 @@ module CoffeeDolphinsApp
     config.i18n.default_locale = :ru
 
     config.autoload_paths += %W(
+      #{config.root}/a_stream
       #{config.root}/lib
       #{config.root}/lib/validators
     )

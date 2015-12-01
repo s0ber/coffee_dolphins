@@ -3,7 +3,8 @@ module AStream
     def self.inherited(child)
       child.class_eval do
         @can_accept_actions = {}
-        @query_params = @safe_attributes = @included_resources = @resource_permission_check = nil
+        @query_params = []
+        @safe_attributes = @included_resources = @resource_permission_check = nil
 
         def self.item
           @item ||= self.new
@@ -28,14 +29,15 @@ module AStream
         end
 
         def self.query_params(*args, &block)
-          @query_params = block_given? ? block : args
+          @query_params =
+            if block_given?
+              block
+            else
+              args[0].respond_to?(:each) ? args[0] : args
+            end
         end
 
         def self.permitted_query_params(performer)
-          unless @query_params
-            raise QueryParamsNotSpecified, message: "Please specify permitted query params for action #{self}"
-          end
-
           if @query_params.is_a?(Proc)
             @query_params.call(performer)
           else
@@ -57,7 +59,12 @@ module AStream
         end
 
         def self.safe_attributes(*args, &block)
-          @safe_attributes = block_given? ? block : args
+          @safe_attributes =
+            if block_given?
+              block
+            else
+              args[0].respond_to?(:each) ? args[0] : args
+            end
         end
 
         def self.permitted_safe_attributes(performer)
@@ -90,6 +97,10 @@ module AStream
 
         def self.perform_read(performer, query)
           self.item.perform_read(performer, query)
+        end
+
+        def self.perform_update(performer, query)
+          self.item.perform_update(performer, query)
         end
       end
     end

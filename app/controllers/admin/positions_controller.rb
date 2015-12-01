@@ -2,8 +2,8 @@ class Admin::PositionsController < Admin::BaseController
   before_filter :load_position, only: [:cut, :edit, :update, :destroy, :like, :unlike]
 
   def index
-    @positions = Position.order_by_search_count.includes(:search_keywords, :landing).page(params[:page])
     @position = Position.new
+    @positions = Position.order_by_search_count.includes(:search_keywords, :landing).page(params[:page])
     respond_with(@positions)
   end
 

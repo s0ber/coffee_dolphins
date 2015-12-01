@@ -19,12 +19,14 @@ module AStream
         end
       end
 
+      query[:included] &&= [].concat([query[:included]]).flatten
       allowed_attrs = allowed_attrs.compact.push(included: [])
       ActionController::Parameters.new(query).permit(*allowed_attrs).symbolize_keys
     end
 
     def _filter_included_resources(action, performer, query)
       filtered_query = query.dup
+      return query unless query[:included]
 
       if action.allows_included_resources?
         filtered_query[:included] = query[:included].select do |included_resource_name|

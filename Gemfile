@@ -117,5 +117,10 @@ gem 'capistrano-rbenv', github: "capistrano/rbenv"
 gem 'pry-byebug', group: [:development, :test]
 gem 'pry-rails', group: [:development, :test]
 
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
+
 # Misc
 gem 'rails_config'

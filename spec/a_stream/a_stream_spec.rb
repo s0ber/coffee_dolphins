@@ -3,18 +3,37 @@ require 'rails_helper'
 describe AStream do
   subject(:runner) { described_class }
 
+  describe '.run' do
+    let(:performer) { create(:user, :admin) }
+    let(:action_streams) { double('action streams') }
+    let(:streams_builder) { double('ActionStreamsBuilder') }
+    let(:normalized_action_streams) { double('normalized action streams') }
+
+    before do
+      allow(AStream::ActionStreamsBuilder).to receive(:new).and_return(streams_builder)
+    end
+
+    specify do
+      expect(AStream::ActionStreamsBuilder).to receive(:new).with(performer: performer).and_return(streams_builder)
+      expect(streams_builder).to receive(:build).with(action_streams).and_return(normalized_action_streams)
+      expect(AStream::ActionStreamsRunner).to receive(:run).with(performer, normalized_action_streams)
+    end
+
+    after do
+      AStream.run(performer, action_streams)
+    end
+  end
+
   describe '.find_class' do
     let(:action_string) { '' }
     before do
-      module Actions
-        module TestNamespace; class TestAction; end; end
-      end
+      module TestNamespace; class TestAction; end; end
     end
 
     context 'namespace and action are specified' do
       let(:action_string) { 'test_namespace#test_action' }
       specify do
-        expect(runner.find_class(action_string)).to eq(Actions::TestNamespace::TestAction)
+        expect(runner.find_class(action_string)).to eq(TestNamespace::TestAction)
       end
     end
 
