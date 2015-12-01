@@ -15,16 +15,14 @@ module AStream
 
     def run_action(performer, request, stream_response = {})
       response = request.runner.perform_read(performer, request.query)
+      status, body = _parse_response(response)
 
-      if response.is_a?(Hash)
-        status = response[:status]
-        body = response[:body]
-      else
-        status = :ok
-        body = response
+      if status == :ok && request.type == :post
+        response = request.runner.perform_update(performer, request.query)
+        status, body = _parse_response(response)
       end
 
-      response = ActionResponse.new(status: status, body: response, request: request)
+      response = ActionResponse.new(status: status, body: body, request: request)
       namespace, action = request.runner.action_name.split('#')
 
       stream_response[:"#{namespace}_#{action}"] =
@@ -38,6 +36,18 @@ module AStream
       end
 
       stream_response
+    end
+
+    def _parse_response(response)
+      if response.is_a?(Hash)
+        status = response[:status]
+        body = response[:body]
+      else
+        status = :ok
+        body = response
+      end
+
+      [status, body]
     end
   end
 end

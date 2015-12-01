@@ -200,6 +200,29 @@ describe AStream::BaseAction do
     end
   end
 
+  describe '.perform_update' do
+    let(:admin) { create(:user, :admin) }
+    let(:moder) { create(:user, :moder) }
+
+    context 'perform_update instance method is specified' do
+      before do
+        Users::Show.class_eval do
+          def perform_update(performer, query)
+            performer.admin? ? query[:number] * 2 : query[:number] / 2
+          end
+        end
+      end
+
+      specify { expect(show_action.perform_update(admin, number: 2)).to eq 4 }
+      specify { expect(show_action.perform_update(moder, number: 2)).to eq 1 }
+    end
+
+    context 'perform_update instance method is not specified' do
+      specify { expect{ show_action.perform_update(admin, number: 2) }.to raise_error NoMethodError }
+      specify { expect{ show_action.perform_update(moder, number: 2) }.to raise_error NoMethodError }
+    end
+  end
+
   describe '.pipe_data_from' do
     context 'connector block is specified' do
       before do

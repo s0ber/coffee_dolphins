@@ -11,7 +11,8 @@ describe AStream::ActionStreamsRunner do
   before do
     module Users
       class Search < AStream::BaseAction
-        query_params :search
+        query_by('users#approve') { |r| { piped: 'search_response' } }
+        query_params :search, :piped
         safe_attributes :search
         permit_resource true
       end
@@ -25,7 +26,7 @@ describe AStream::ActionStreamsRunner do
 
       class Approve < AStream::BaseAction
         query_by('users#show') { |r| { piped: 'show_response' } }
-        query_params :piped
+        query_params :piped, :approve
         safe_attributes :approve
         permit_resource true
       end
@@ -54,7 +55,7 @@ describe AStream::ActionStreamsRunner do
   let(:performer) { create(:user) }
 
   describe '.run' do
-    context 'action streams tree given' do
+    context 'action streams tree with initial get request given' do
       let(:action_streams) do
         [
           AStream::ActionRequest.new(runner: search, performer: performer, query: {search: 'query'}, pipe: [
@@ -168,6 +169,77 @@ describe AStream::ActionStreamsRunner do
             users_approve: {status: :not_found, body: []},
             users_reject: {body: [reject: 'response']},
             users_delete: {body: [delete: 'response']}
+          })
+        end
+      end
+    end
+
+    context 'action streams tree with initial post request given' do
+      let(:action_streams) do
+        [
+          AStream::ActionRequest.new(runner: approve, type: :post, performer: performer, query: {approve: 'query'}, pipe: [
+            AStream::ActionRequest.new(runner: search, performer: performer, pipe: [
+              AStream::ActionRequest.new(runner: show, performer: performer)
+            ])
+          ])
+        ]
+      end
+
+      context 'successful responses' do
+        specify do
+          expect(approve).to receive(:perform_read).with(performer, approve: 'query').and_return([approve: 'read_response']).once.ordered
+          expect(approve).to receive(:perform_update).with(performer, approve: 'query').and_return([approve: 'update_response']).once.ordered
+
+          expect(search).to receive(:pipe_data_from).with(approve, [approve: 'update_response']).and_return(piped: 'search_response').once.ordered
+          expect(search).to receive(:perform_read).with(performer, piped: 'search_response').and_return([search: 'response']).once.ordered
+
+          expect(show).to receive(:pipe_data_from).with(search, [search: 'response']).and_return(piped: 'search_response').once.ordered
+          expect(show).to receive(:perform_read).with(performer, piped: 'search_response').and_return([show: 'response']).once.ordered
+        end
+
+        after do
+          expect(AStream::ActionStreamsRunner.run(performer, action_streams)).to eq({
+            users_approve: {body: [approve: 'update_response']},
+            users_search: {body: [search: 'response']},
+            users_show: {body: [show: 'response']}
+          })
+        end
+      end
+
+      context 'read response unsuccessful' do
+        specify do
+          expect(approve).to receive(:perform_read).with(performer, approve: 'query').and_return(status: :unprocessable_entity, body: []).once.ordered
+          expect(approve).not_to receive(:perform_update).with(performer, approve: 'query')
+
+          expect(search).not_to receive(:pipe_data_from).with(approve, [approve: 'update_response'])
+          expect(search).not_to receive(:perform_read).with(performer, piped: 'search_response')
+
+          expect(show).not_to receive(:pipe_data_from).with(search, [search: 'response'])
+          expect(show).not_to receive(:perform_read).with(performer, piped: 'search_response')
+        end
+
+        after do
+          expect(AStream::ActionStreamsRunner.run(performer, action_streams)).to eq({
+            users_approve: {status: :unprocessable_entity, body: []}
+          })
+        end
+      end
+
+      context 'update response unsuccessful' do
+        specify do
+          expect(approve).to receive(:perform_read).with(performer, approve: 'query').and_return([approve: 'read_response']).once.ordered
+          expect(approve).to receive(:perform_update).with(performer, approve: 'query').and_return(status: :unathorized).once.ordered
+
+          expect(search).not_to receive(:pipe_data_from).with(approve, [approve: 'update_response'])
+          expect(search).not_to receive(:perform_read).with(performer, piped: 'search_response')
+
+          expect(show).not_to receive(:pipe_data_from).with(search, [search: 'response'])
+          expect(show).not_to receive(:perform_read).with(performer, piped: 'search_response')
+        end
+
+        after do
+          expect(AStream::ActionStreamsRunner.run(performer, action_streams)).to eq({
+            users_approve: {status: :unathorized, body: []}
           })
         end
       end

@@ -98,6 +98,10 @@ module AStream
         def self.perform_read(performer, query)
           self.item.perform_read(performer, query)
         end
+
+        def self.perform_update(performer, query)
+          self.item.perform_update(performer, query)
+        end
       end
     end
   end
