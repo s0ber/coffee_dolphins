@@ -2,6 +2,8 @@ require 'rails_helper'
 require 'support/shared_examples/action_classes_definition'
 
 describe AStream::ActionStreamsRunner do
+  subject { AStream::ActionStreamsRunner.new(performer: performer) }
+
   after do
     %w(Search Show Approve Reject Delete).each do |a|
       Users.send :remove_const, a.to_sym
@@ -86,7 +88,7 @@ describe AStream::ActionStreamsRunner do
         end
 
         after do
-          expect(AStream::ActionStreamsRunner.run(performer, action_streams)).to eq({
+          expect(subject.run(action_streams)).to eq({
             users_search: {body: [search: 'response']},
             users_show: {body: [show: 'response']},
             users_approve: {body: [approve: 'response']},
@@ -114,7 +116,7 @@ describe AStream::ActionStreamsRunner do
         end
 
         after do
-          expect(AStream::ActionStreamsRunner.run(performer, action_streams)).to eq({
+          expect(subject.run(action_streams)).to eq({
             users_search: {status: :unathorized, body: []}
           })
         end
@@ -138,7 +140,7 @@ describe AStream::ActionStreamsRunner do
         end
 
         after do
-          expect(AStream::ActionStreamsRunner.run(performer, action_streams)).to eq({
+          expect(subject.run(action_streams)).to eq({
             users_search: {body: [search: 'response']},
             users_show: {status: :unprocessable_entity, body: []}
           })
@@ -163,7 +165,7 @@ describe AStream::ActionStreamsRunner do
         end
 
         after do
-          expect(AStream::ActionStreamsRunner.run(performer, action_streams)).to eq({
+          expect(subject.run(action_streams)).to eq({
             users_search: {body: [search: 'response']},
             users_show: {body: [show: 'response']},
             users_approve: {status: :not_found, body: []},
@@ -198,7 +200,7 @@ describe AStream::ActionStreamsRunner do
         end
 
         after do
-          expect(AStream::ActionStreamsRunner.run(performer, action_streams)).to eq({
+          expect(subject.run(action_streams)).to eq({
             users_approve: {body: [approve: 'update_response']},
             users_search: {body: [search: 'response']},
             users_show: {body: [show: 'response']}
@@ -219,7 +221,7 @@ describe AStream::ActionStreamsRunner do
         end
 
         after do
-          expect(AStream::ActionStreamsRunner.run(performer, action_streams)).to eq({
+          expect(subject.run(action_streams)).to eq({
             users_approve: {status: :unprocessable_entity, body: []}
           })
         end
@@ -238,7 +240,7 @@ describe AStream::ActionStreamsRunner do
         end
 
         after do
-          expect(AStream::ActionStreamsRunner.run(performer, action_streams)).to eq({
+          expect(subject.run(action_streams)).to eq({
             users_approve: {status: :unathorized, body: []}
           })
         end

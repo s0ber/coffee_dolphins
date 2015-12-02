@@ -7,16 +7,14 @@ describe AStream do
     let(:performer) { create(:user, :admin) }
     let(:action_streams) { double('action streams') }
     let(:streams_builder) { double('ActionStreamsBuilder') }
+    let(:streams_runner) { double('ActionStreamsRunner') }
     let(:normalized_action_streams) { double('normalized action streams') }
-
-    before do
-      allow(AStream::ActionStreamsBuilder).to receive(:new).and_return(streams_builder)
-    end
 
     specify do
       expect(AStream::ActionStreamsBuilder).to receive(:new).with(performer: performer).and_return(streams_builder)
       expect(streams_builder).to receive(:build).with(action_streams).and_return(normalized_action_streams)
-      expect(AStream::ActionStreamsRunner).to receive(:run).with(performer, normalized_action_streams)
+      expect(AStream::ActionStreamsRunner).to receive(:new).with(performer: performer).and_return(streams_runner)
+      expect(streams_runner).to receive(:run).with(normalized_action_streams)
     end
 
     after do

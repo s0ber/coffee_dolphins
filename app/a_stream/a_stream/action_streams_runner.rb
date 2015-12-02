@@ -1,24 +1,27 @@
 module AStream
-  module ActionStreamsRunner
-    extend self
+  class ActionStreamsRunner
 
-    def run(performer, action_streams)
+    def initialize(performer:)
+      @performer = performer
+    end
+
+    def run(action_streams)
       request_data = {}
       response = {}
 
       action_streams.each do |request|
-        response.merge!(run_action(performer, request))
+        response.merge!(run_action(request))
       end
 
       response
     end
 
-    def run_action(performer, request, stream_response = {})
-      response = request.runner.perform_read(performer, request.query)
+    def run_action(request, stream_response = {})
+      response = request.runner.perform_read(@performer, request.query)
       status, body = _parse_response(response)
 
       if status == :ok && request.type == :post
-        response = request.runner.perform_update(performer, request.query)
+        response = request.runner.perform_update(@performer, request.query)
         status, body = _parse_response(response)
       end
 
@@ -31,7 +34,7 @@ module AStream
       if status == :ok && request.piped_requests
         request.piped_requests.each do |piped_request|
           piped_request.query = piped_request.runner.pipe_data_from(request.runner, response.body)
-          run_action(performer, piped_request, stream_response)
+          run_action(piped_request, stream_response)
         end
       end
 

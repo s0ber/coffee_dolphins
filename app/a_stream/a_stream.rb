@@ -8,7 +8,7 @@ module AStream
 
   def self.run(performer, action_streams)
     action_streams = ActionStreamsBuilder.new(performer: performer).build(action_streams)
-    ActionStreamsRunner.run(performer, action_streams)
+    ActionStreamsRunner.new(performer: performer).run(action_streams)
   end
 
   def self.find_class(action_name)
