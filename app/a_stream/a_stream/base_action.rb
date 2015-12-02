@@ -1,14 +1,16 @@
 module AStream
   class BaseAction
+    attr_reader :controller
+
+    def initialize(controller: nil)
+      @controller = controller
+    end
+
     def self.inherited(child)
       child.class_eval do
         @can_accept_actions = {}
         @query_params = []
         @safe_attributes = @included_resources = @resource_permission_check = nil
-
-        def self.item
-          @item ||= self.new
-        end
 
         def self.action_name
           @action_name ||= name.underscore.split('/').last(2).join('#')
@@ -93,14 +95,6 @@ module AStream
           else
             !!@resource_permission_check
           end
-        end
-
-        def self.perform_read(performer, query)
-          self.item.perform_read(performer, query)
-        end
-
-        def self.perform_update(performer, query)
-          self.item.perform_update(performer, query)
         end
       end
     end

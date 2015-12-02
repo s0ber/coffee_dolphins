@@ -1,6 +1,6 @@
 module AStream
   class ActionResponse
-    STATUSES = [:ok, :not_found, :unprocessable_entity, :unathorized].freeze
+    STATUSES = [:ok, :not_found, :unprocessable_entity, :unauthorized].freeze
 
     attr_reader :status, :request
 

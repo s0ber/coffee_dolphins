@@ -17,6 +17,7 @@ describe AStream::BaseAction do
 
   let(:show_action) { Users::Show }
   let(:approve_action) { Users::Approve }
+  let(:controller) { double('fake controller') }
 
   context 'connector block is specified' do
     before do
@@ -177,52 +178,6 @@ describe AStream::BaseAction do
     end
   end
 
-  describe '.perform_read' do
-    let(:admin) { create(:user, :admin) }
-    let(:moder) { create(:user, :moder) }
-
-    context 'perform_read instance method is specified' do
-      before do
-        Users::Show.class_eval do
-          def perform_read(performer, query)
-            performer.admin? ? query[:number] * 2 : query[:number] / 2
-          end
-        end
-      end
-
-      specify { expect(show_action.perform_read(admin, number: 2)).to eq 4 }
-      specify { expect(show_action.perform_read(moder, number: 2)).to eq 1 }
-    end
-
-    context 'perform_read instance method is not specified' do
-      specify { expect{ show_action.perform_read(admin, number: 2) }.to raise_error NoMethodError }
-      specify { expect{ show_action.perform_read(moder, number: 2) }.to raise_error NoMethodError }
-    end
-  end
-
-  describe '.perform_update' do
-    let(:admin) { create(:user, :admin) }
-    let(:moder) { create(:user, :moder) }
-
-    context 'perform_update instance method is specified' do
-      before do
-        Users::Show.class_eval do
-          def perform_update(performer, query)
-            performer.admin? ? query[:number] * 2 : query[:number] / 2
-          end
-        end
-      end
-
-      specify { expect(show_action.perform_update(admin, number: 2)).to eq 4 }
-      specify { expect(show_action.perform_update(moder, number: 2)).to eq 1 }
-    end
-
-    context 'perform_update instance method is not specified' do
-      specify { expect{ show_action.perform_update(admin, number: 2) }.to raise_error NoMethodError }
-      specify { expect{ show_action.perform_update(moder, number: 2) }.to raise_error NoMethodError }
-    end
-  end
-
   describe '.pipe_data_from' do
     context 'connector block is specified' do
       before do
@@ -241,6 +196,14 @@ describe AStream::BaseAction do
 
     context 'connector block is not specified' do
       specify { expect(approve_action.pipe_data_from(show_action, 2)).to eq(nil) }
+    end
+  end
+
+  describe '#controller' do
+    subject { show_action.new(controller: controller) }
+
+    it 'allows to read a controller' do
+      expect(subject.controller).to eq(controller)
     end
   end
 end
