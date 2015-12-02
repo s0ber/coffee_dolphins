@@ -25,6 +25,9 @@ Rails.application.routes.draw do
     get '/faq' => 'pages#faq'
   end
 
+  get '/api' => 'api#get'
+  post '/api' => 'api#post'
+
   scope module: :admin do
     resources :positions do
       collection do

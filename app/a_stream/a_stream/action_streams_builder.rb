@@ -19,7 +19,8 @@ module AStream
             raise AStream::StreamParseError, message: "Can't parse provided action tree JSON"
           end
         elsif action_streams.is_a?(Hash)
-          action_streams.deep_symbolize_keys!
+          action_streams.respond_to?(:deep_symbolize_keys!) ? action_streams.deep_symbolize_keys!
+                                                            : action_streams
         elsif action_streams.is_a?(Array)
           action_streams.map { |child_stream| _parse(child_stream) }
         else
