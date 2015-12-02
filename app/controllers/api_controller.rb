@@ -13,7 +13,7 @@ class ApiController < ApplicationController
 
   def get
     if get_params[:get]
-      response = AStream::run(current_user, get_params)
+      response = AStream::run(current_user, get_params, self)
       render json: {actions: response}
     else
       render json: {}, status: :not_found
@@ -22,7 +22,7 @@ class ApiController < ApplicationController
 
   def post
     if post_params[:post]
-      response = AStream::run(current_user, post_params)
+      response = AStream::run(current_user, post_params, self)
       render json: {actions: response}
     else
       render json: {}, status: :not_found
