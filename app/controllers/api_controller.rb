@@ -1,52 +1,51 @@
 class ApiController < ApplicationController
-  class LoginFilter
-    def self.before(controller)
-      controller.require_login unless login_requested?(controller)
-    end
+  protect_from_forgery with: :exception, unless: -> { action_name == 'post' && params[:post] == 'users#login' }
 
-    def self.login_requested?(controller)
-      controller.action_name == 'post' && controller.params[:post] == 'users#login'
+  before_action do |controller|
+    if !controller.current_user_requested? && !controller.login_credentials_submitted?
+      controller.require_login
     end
   end
 
-  before_action LoginFilter
+  after_action do |controller|
+    if controller.login_credentials_submitted?
+      controller.set_csrf_token_cookie
+    end
+  end
 
   def get
-    if get_params[:get]
-      response = AStream::run(current_user, get_params, self)
-      render json: {actions: response}
+    if params[:get]
+      response = AStream::run(current_user, params, self)
+      render json: response
     else
       render json: {}, status: :not_found
     end
   end
 
   def post
-    if post_params[:post]
-      response = AStream::run(current_user, post_params, self)
-      render json: {actions: response}
+    if params[:post]
+      response = AStream::run(current_user, params, self)
+      render json: response
     else
       render json: {}, status: :not_found
     end
   end
 
   def not_authenticated
-    respond_to do |format|
-      format.html do
-        redirect_to(root_path)
-      end
-      format.json do
-        render json: {success: false}, status: :unauthorized
-      end
-    end
+    render json: {success: false}, status: :unauthorized
   end
 
-  private
+  protected
 
-  def get_params
-    params.permit(:get, :query, :pipe)
+  def set_csrf_token_cookie
+    cookies[:_csrf_token] = form_authenticity_token if protect_against_forgery?
   end
 
-  def post_params
-    params.permit(:post, :query, :pipe)
+  def current_user_requested?
+    action_name == 'get' && params[:get] == 'current_user#show'
+  end
+
+  def login_credentials_submitted?
+    action_name == 'post' && params[:post] == 'current_user#login'
   end
 end

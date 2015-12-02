@@ -51,5 +51,17 @@ module CoffeeDolphinsApp
     config.generators do |g|
       g.test_framework :rspec
     end
+
+    config.middleware.insert_before 0, 'Rack::Cors', :logger => (-> { Rails.logger }) do
+      allow do
+        origins 'http://localhost:4000'
+
+        resource '/api*',
+          :headers => :any,
+          :methods => [:get, :post],
+          :credentials => true,
+          :max_age => 0
+      end
+    end
   end
 end
