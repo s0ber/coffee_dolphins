@@ -1,5 +1,5 @@
 class ApiController < ApplicationController
-  protect_from_forgery with: :exception, unless: -> { action_name == 'post' && params[:post] == 'users#login' }
+  protect_from_forgery with: :exception, unless: -> { action_name == 'post' && params[:post] == 'current_user#login' }
 
   before_action do |controller|
     if !controller.current_user_requested? && !controller.login_credentials_submitted?
@@ -7,11 +7,7 @@ class ApiController < ApplicationController
     end
   end
 
-  after_action do |controller|
-    if controller.login_credentials_submitted?
-      controller.set_csrf_token_cookie
-    end
-  end
+  after_action :set_csrf_token_cookie
 
   def get
     if params[:get]
