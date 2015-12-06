@@ -8,10 +8,6 @@ describe AStream::ActionResponse do
   let(:action) { Class.new(AStream::BaseAction) { def self.to_s; 'TestAction' end } }
   let(:body) { create_list(:user, 2, :collection) }
 
-  context 'no body provided' do
-    specify { expect { described_class.new(request: request) }.to raise_error(ArgumentError) }
-  end
-
   context 'no status provided' do
     specify { expect(subject.status).to eq(:ok) }
     specify { expect(subject.request).to eq(request) }

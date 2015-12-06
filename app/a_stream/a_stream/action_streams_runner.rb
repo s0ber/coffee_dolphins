@@ -45,9 +45,9 @@ module AStream
     private
 
     def parse_response(response)
-      if response.is_a?(Hash) && response[:status]
-        status = response[:status]
-        body = response[:body]
+      if response.is_a?(AStream::Response)
+        status = response.status
+        body = response.body
       else
         status = :ok
         body = response

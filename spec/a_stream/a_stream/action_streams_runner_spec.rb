@@ -114,7 +114,7 @@ describe AStream::ActionStreamsRunner do
         before do
           Users::Search.class_eval do
             def perform_read(performer, query)
-              {status: :unauthorized}
+              AStream::Response.new(status: :unauthorized)
             end
           end
         end
@@ -137,7 +137,7 @@ describe AStream::ActionStreamsRunner do
         before do
           Users::Show.class_eval do
             def perform_read(performer, query)
-              {status: :unprocessable_entity}
+              AStream::Response.new(status: :unprocessable_entity)
             end
           end
         end
@@ -161,7 +161,7 @@ describe AStream::ActionStreamsRunner do
         before do
           Users::Approve.class_eval do
             def perform_read(performer, query)
-              {status: :not_found}
+              AStream::Response.new(status: :not_found)
             end
           end
         end
@@ -215,7 +215,7 @@ describe AStream::ActionStreamsRunner do
         before do
           Users::Approve.class_eval do
             def perform_update(performer, query)
-              {status: :unauthorized}
+              AStream::Response.new(status: :unauthorized)
             end
           end
         end
