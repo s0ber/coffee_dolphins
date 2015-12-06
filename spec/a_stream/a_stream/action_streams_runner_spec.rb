@@ -211,28 +211,7 @@ describe AStream::ActionStreamsRunner do
         end
       end
 
-      context 'read response unsuccessful' do
-        before do
-          Users::Approve.class_eval do
-            def perform_read(performer, query)
-              {status: :unprocessable_entity}
-            end
-          end
-        end
-
-        specify do
-          expect(search).not_to receive(:pipe_data_from).with(approve, [approve: 'update_response'])
-          expect(show).not_to receive(:pipe_data_from).with(search, [search: 'response'])
-        end
-
-        after do
-          expect(subject.run(action_streams)).to eq({
-            users_approve: {status: :unprocessable_entity, body: []}
-          })
-        end
-      end
-
-      context 'update response unsuccessful' do
+      context 'unsuccessful response' do
         before do
           Users::Approve.class_eval do
             def perform_update(performer, query)

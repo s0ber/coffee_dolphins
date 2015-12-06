@@ -18,14 +18,14 @@ module AStream
 
     def run_action(request, stream_response = {})
       action = request.runner.new(controller: @controller)
-      response = action.perform_read(@performer, request.query)
-      status, body = parse_response(response)
 
-      if status == :ok && request.type == :post
+      if request.type == :get
+        response = action.perform_read(@performer, request.query)
+      else
         response = action.perform_update(@performer, request.query)
-        status, body = parse_response(response)
       end
 
+      status, body = parse_response(response)
       response = ActionResponse.new(status: status, body: body, request: request)
       namespace, action_name = request.runner.action_name.split('#')
 

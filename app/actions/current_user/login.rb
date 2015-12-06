@@ -3,14 +3,14 @@ class CurrentUser::Login < AStream::BaseAction
   safe_attributes :full_name
   permit_resource true
 
-  def perform_read(performer, query)
+  def perform_update(performer, query)
     user = User.new(query)
     @user = controller.login(user.email, user.password, user.remember_me)
 
-    {status: @user ? :ok : :unauthorized}
-  end
-
-  def perform_update(performer, query)
-    [@user]
+    if @user
+      [@user]
+    else
+      {status: :unauthorized}
+    end
   end
 end
