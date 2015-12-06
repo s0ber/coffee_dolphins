@@ -116,6 +116,11 @@ describe AStream::BaseAction do
       specify { expect(show_action.permitted_safe_attributes(admin)).to eq [:full_name, :gender] }
       specify { expect(show_action.permitted_safe_attributes(moder)).to eq [:full_name] }
     end
+
+    context 'safe attributes are not specified' do
+      specify { expect(show_action.permitted_safe_attributes(admin)).to eq [] }
+      specify { expect(show_action.permitted_safe_attributes(moder)).to eq [] }
+    end
   end
 
   describe '.permit_resource?' do

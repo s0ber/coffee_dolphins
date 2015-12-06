@@ -125,16 +125,7 @@ describe AStream::ActionResponseNormalizer do
       specify do
         expect { normalizer.serialize_resources(resources: [admin, moder]) }
           .to raise_error(AStream::SafeAttributesNotSpecified,
-                          /Safe attributes for action TestAction are not valid array/)
-      end
-    end
-
-    context 'safe attributes are not specified for action' do
-      let(:action) { Class.new(AStream::BaseAction) { def self.to_s; 'TestAction' end } }
-      specify do
-        expect { normalizer.serialize_resources(resources: [admin, moder]) }
-          .to raise_error(AStream::SafeAttributesNotSpecified,
-                          /Please specify permitted safe attributes for action TestAction/)
+                              /Safe attributes for action TestAction are not valid array/)
       end
     end
   end

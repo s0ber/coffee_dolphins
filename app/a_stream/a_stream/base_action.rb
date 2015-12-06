@@ -10,7 +10,8 @@ module AStream
       child.class_eval do
         @can_accept_actions = {}
         @query_params = []
-        @safe_attributes = @included_resources = @resource_permission_check = nil
+        @safe_attributes = []
+        @included_resources = @resource_permission_check = nil
 
         def self.action_name
           @action_name ||= name.underscore.split('/').last(2).join('#')
@@ -70,10 +71,6 @@ module AStream
         end
 
         def self.permitted_safe_attributes(performer)
-          unless @safe_attributes
-            raise SafeAttributesNotSpecified, message: "Please specify permitted safe attributes for action #{self}"
-          end
-
           if @safe_attributes.is_a?(Proc)
             @safe_attributes.call(performer)
           else
