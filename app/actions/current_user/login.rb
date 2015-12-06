@@ -10,7 +10,7 @@ class CurrentUser::Login < AStream::BaseAction
     if @user
       @user
     else
-      {status: :unauthorized}
+      AStream::Response.new(status: :unauthorized)
     end
   end
 end

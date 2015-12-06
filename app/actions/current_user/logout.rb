@@ -3,6 +3,6 @@ class CurrentUser::Logout < AStream::BaseAction
 
   def perform_update(performer, query)
     controller.logout
-    {status: :ok}
+    AStream::Response.new(status: :ok)
   end
 end
