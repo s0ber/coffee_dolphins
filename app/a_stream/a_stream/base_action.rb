@@ -6,6 +6,10 @@ module AStream
       @controller = controller
     end
 
+    def self.collection_action?
+      false
+    end
+
     def self.inherited(child)
       child.class_eval do
         @can_accept_actions = {}

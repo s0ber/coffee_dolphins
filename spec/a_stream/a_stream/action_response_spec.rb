@@ -27,10 +27,22 @@ describe AStream::ActionResponse do
   end
 
   context 'non-enumerate response body is provided' do
-    let(:body) { create(:user) }
-    specify do
-      expect { described_class.new(body: body, request: request) }
-        .to raise_error(ArgumentError, /Action should always respond with collection, but non-iterateble response specified for action TestAction./)
+    context 'collection action requested' do
+      let(:body) { create(:user) }
+      let(:action) { Class.new(AStream::CollectionAction) { def self.to_s; 'TestAction' end } }
+
+      specify do
+        expect { described_class.new(body: body, request: request) }
+          .to raise_error(ArgumentError, /Action should always respond with collection, but non-iterateble response specified for action TestAction./)
+      end
+    end
+
+    context 'simple action requested' do
+      let(:body) { create(:user) }
+
+      specify do
+        expect { described_class.new(body: body, request: request) }.not_to raise_error
+      end
     end
   end
 
