@@ -3,6 +3,6 @@ class CurrentUser::Show < AStream::BaseAction
   permit_resource true
 
   def perform_read(performer, query)
-    [controller.current_user]
+    controller.current_user
   end
 end

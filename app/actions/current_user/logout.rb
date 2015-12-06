@@ -1,5 +1,4 @@
 class CurrentUser::Logout < AStream::BaseAction
-  safe_attributes []
   permit_resource true
 
   def perform_update(performer, query)

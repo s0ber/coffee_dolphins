@@ -8,7 +8,7 @@ class CurrentUser::Login < AStream::BaseAction
     @user = controller.login(user.email, user.password, user.remember_me)
 
     if @user
-      [@user]
+      @user
     else
       {status: :unauthorized}
     end
