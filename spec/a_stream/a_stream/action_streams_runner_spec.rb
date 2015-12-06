@@ -128,7 +128,7 @@ describe AStream::ActionStreamsRunner do
 
         after do
           expect(subject.run(action_streams)).to eq({
-            users_search: {status: :unauthorized, body: []}
+            users_search: {status: :unauthorized, body: nil}
           })
         end
       end
@@ -152,7 +152,7 @@ describe AStream::ActionStreamsRunner do
         after do
           expect(subject.run(action_streams)).to eq({
             users_search: {body: [search: 'response']},
-            users_show: {status: :unprocessable_entity, body: []}
+            users_show: {status: :unprocessable_entity, body: nil}
           })
         end
       end
@@ -177,7 +177,7 @@ describe AStream::ActionStreamsRunner do
           expect(subject.run(action_streams)).to eq({
             users_search: {body: [search: 'response']},
             users_show: {body: [show: 'response']},
-            users_approve: {status: :not_found, body: []},
+            users_approve: {status: :not_found, body: nil},
             users_reject: {body: [reject: 'response']},
             users_delete: {body: [delete: 'response']}
           })
@@ -227,7 +227,7 @@ describe AStream::ActionStreamsRunner do
 
         after do
           expect(subject.run(action_streams)).to eq({
-            users_approve: {status: :unauthorized, body: []}
+            users_approve: {status: :unauthorized, body: nil}
           })
         end
       end

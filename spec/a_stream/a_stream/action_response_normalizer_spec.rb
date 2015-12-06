@@ -18,16 +18,19 @@ describe AStream::ActionResponseNormalizer do
           .with(no_args)
           .and_return(['filtered', 'resources'])
           .ordered
+          .once
 
         expect(normalizer).to receive(:serialize_resources)
           .with(resources: ['filtered', 'resources'])
           .and_return(['serialized', 'resources'])
           .ordered
+          .once
 
         expect(normalizer).to receive(:normalize_included_resources)
           .with([:test], ['serialized', 'resources'])
           .and_return(['filtered', 'included', 'resources'])
           .ordered
+          .once
       end
 
       after do
@@ -57,8 +60,6 @@ describe AStream::ActionResponseNormalizer do
   end
 
   describe '#filter_resources' do
-    let(:unsafe_body) { (1..10) }
-
     context 'permit check specified' do
       before do
         action.class_eval do
@@ -66,8 +67,24 @@ describe AStream::ActionResponseNormalizer do
         end
       end
 
-      it 'reduces collection to an array, which satisfy permit rules' do
-        expect(normalizer.filter_resources).to eq([2, 4, 6, 8, 10])
+      context 'single resource is provided' do
+        context 'resource satisfies permission check' do
+          let(:unsafe_body) { 4 }
+          specify { expect(normalizer.filter_resources).to eq(4) }
+        end
+
+        context 'resource does not satisfies permission check' do
+          let(:unsafe_body) { 5 }
+          specify { expect(normalizer.filter_resources).to eq(nil) }
+        end
+      end
+
+      context 'collection of resources is provided' do
+        let(:unsafe_body) { (1..10) }
+
+        it 'reduces collection to an array, which satisfy permit rules' do
+          expect(normalizer.filter_resources).to eq([2, 4, 6, 8, 10])
+        end
       end
     end
 
@@ -86,21 +103,42 @@ describe AStream::ActionResponseNormalizer do
     context 'safe attributes specified for action' do
       let(:action) { Class.new(AStream::BaseAction) { safe_attributes :full_name, :gender } }
 
-      context 'resources are serializable' do
-        it 'leaves only safe attributes and id' do
-          expect(normalizer.serialize_resources(resources: [admin, moder]))
-            .to match([{id: an_instance_of(Fixnum), full_name: 'Admin User', gender: true},
-                       {id: an_instance_of(Fixnum), full_name: 'Moder User', gender: false}])
+      context 'single resource is provided' do
+        context 'resource is serializable' do
+          it 'leaves only safe attributes and id' do
+            expect(normalizer.serialize_resources(resources: admin))
+              .to match({id: an_instance_of(Fixnum), full_name: 'Admin User', gender: true})
+          end
+        end
+
+        context 'resource is a valid hash' do
+          let(:admin) { {id: 1, full_name: 'Admin User', secret_info: 'Likes ice-cream'} }
+
+          it 'leaves only safe attributes and id' do
+            expect(normalizer.serialize_resources(resources: admin))
+              .to match({id: an_instance_of(Fixnum), full_name: 'Admin User'})
+          end
         end
       end
 
-      context 'resources are valid hashes' do
-        let(:admin) { {id: 1, full_name: 'Admin User', secret_info: 'Likes ice-cream'} }
-        let(:moder) { {id: 2, full_name: 'Moder User', secret_info: 'Likes vodka'} }
+      context 'collection of resources is provided' do
+        context 'resources are serializable' do
+          it 'leaves only safe attributes and id' do
+            expect(normalizer.serialize_resources(resources: [admin, moder]))
+              .to match([{id: an_instance_of(Fixnum), full_name: 'Admin User', gender: true},
+                         {id: an_instance_of(Fixnum), full_name: 'Moder User', gender: false}])
+          end
+        end
 
-        it 'leaves only safe attributes and id' do
-          expect(normalizer.serialize_resources(resources: [admin, moder]))
-            .to match([{id: an_instance_of(Fixnum), full_name: 'Admin User'}, {id: an_instance_of(Fixnum), full_name: 'Moder User'}])
+        context 'resources are valid hashes' do
+          let(:admin) { {id: 1, full_name: 'Admin User', secret_info: 'Likes ice-cream'} }
+          let(:moder) { {id: 2, full_name: 'Moder User', secret_info: 'Likes vodka'} }
+
+          it 'leaves only safe attributes and id' do
+            expect(normalizer.serialize_resources(resources: [admin, moder]))
+              .to match([{id: an_instance_of(Fixnum), full_name: 'Admin User'},
+                         {id: an_instance_of(Fixnum), full_name: 'Moder User'}])
+          end
         end
       end
 

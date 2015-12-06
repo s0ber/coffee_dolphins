@@ -18,7 +18,11 @@ module AStream
     end
 
     def filter_resources(action: @action, resources: @unsafe_body)
-      resources.select { |item| action.permit_resource?(@performer, item) }
+      if resources.respond_to?(:each)
+        resources.select { |item| action.permit_resource?(@performer, item) }
+      else
+        action.permit_resource?(@performer, resources) ? resources : nil
+      end
     end
 
     def serialize_resources(action: @action, resources:)
@@ -29,13 +33,11 @@ module AStream
       safe_attrs = safe_attrs.select { |attr| attr.is_a?(Symbol) }
       safe_attrs = DEFAULT_SAFE_ATTRIBUTES.concat(safe_attrs)
 
-      resources.map do |r|
-        if r.respond_to?(:serializable_hash)
-          r.serializable_hash.symbolize_keys.slice(*safe_attrs)
-        elsif r.is_a?(Hash)
-          r.slice(*safe_attrs)
-        end
-      end.compact
+      if resources.respond_to?(:each) && !resources.is_a?(Hash)
+        resources.map { |r| serialize_resource(r, safe_attrs) }.compact
+      else
+        serialize_resource(resources, safe_attrs)
+      end
     end
 
     def normalize_included_resources(requested_included_resources, safe_body)
@@ -59,6 +61,14 @@ module AStream
 
     def can_read_included_resources?(resource_name)
       @action.allows_to_include_resource?(resource_name) && @unsafe_body.first.respond_to?(resource_name)
+    end
+
+    def serialize_resource(resource, safe_attrs)
+      if resource.respond_to?(:serializable_hash)
+        resource.serializable_hash.symbolize_keys.slice(*safe_attrs)
+      elsif resource.is_a?(Hash)
+        resource.slice(*safe_attrs)
+      end
     end
 
     def normalize_resources(action, resources)
