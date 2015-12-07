@@ -8,7 +8,7 @@ class CurrentUser::Login < AStream::BaseAction
     @user = controller.login(user.email, user.password, user.remember_me)
 
     if @user
-      @user
+      AStream::Response.new(body: @user, message: 'Вы успешно вошли на сайт.')
     else
       AStream::Response.new(status: :unauthorized)
     end

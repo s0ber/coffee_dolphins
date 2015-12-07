@@ -1,6 +1,5 @@
 module AStream
   class ActionStreamsRunner
-
     def initialize(performer:, controller:)
       @performer, @controller = performer, controller
     end
@@ -25,12 +24,16 @@ module AStream
         response = action.perform_update(@performer, request.query)
       end
 
-      status, body = parse_response(response)
+      status, body, message = parse_response(response)
       response = ActionResponse.new(status: status, body: body, request: request)
       namespace, action_name = request.runner.action_name.split('#')
 
       stream_response[:"#{namespace}_#{action_name}"] =
         status == :ok ? {body: response.body} : {status: status, body: response.body}
+
+      if message
+        stream_response[:"#{namespace}_#{action_name}"][:message] = message
+      end
 
       if status == :ok && request.piped_requests
         request.piped_requests.each do |piped_request|
@@ -48,12 +51,13 @@ module AStream
       if response.is_a?(AStream::Response)
         status = response.status
         body = response.body
+        message = response.message
       else
         status = :ok
         body = response
       end
 
-      [status, body]
+      [status, body, message]
     end
   end
 end

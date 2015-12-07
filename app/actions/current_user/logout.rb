@@ -3,6 +3,6 @@ class CurrentUser::Logout < AStream::BaseAction
 
   def perform_update(performer, query)
     controller.logout
-    AStream::Response.new(status: :ok)
+    AStream::Response.new(status: :ok, message: 'Сессия завершена.')
   end
 end

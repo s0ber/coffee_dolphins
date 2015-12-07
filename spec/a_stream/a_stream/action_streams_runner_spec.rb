@@ -40,7 +40,7 @@ describe AStream::ActionStreamsRunner do
         end
 
         def perform_update(performer, query)
-          [approve: 'update_response']
+          AStream::Response.new(body: [approve: 'update_response'], message: 'User successfully approved.')
         end
       end
 
@@ -204,7 +204,7 @@ describe AStream::ActionStreamsRunner do
 
         after do
           expect(subject.run(action_streams)).to eq({
-            users_approve: {body: [approve: 'update_response']},
+            users_approve: {body: [approve: 'update_response'], message: 'User successfully approved.'},
             users_search: {body: [search: 'response']},
             users_show: {body: [show: 'response']}
           })
