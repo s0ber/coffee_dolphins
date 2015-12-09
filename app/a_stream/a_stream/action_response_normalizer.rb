@@ -41,15 +41,20 @@ module AStream
     end
 
     def normalize_included_resources(requested_included_resources, safe_body)
-      return safe_body if !@action.respond_to?(:included_resources) || @unsafe_body.empty?
+      return safe_body if !@action.respond_to?(:included_resources) || @unsafe_body.nil? || (@action.collection_action? && @unsafe_body.empty?)
 
       requested_included_resources.each do |resource_name|
         if can_read_included_resources?(resource_name)
           action = AStream.find_class("#{resource_name.to_s.pluralize}#show")
 
-          safe_body.each_with_index do |item, i|
-            included_resources = @unsafe_body[i].send(resource_name)
-            safe_body[i][resource_name] = normalize_resources(action, included_resources)
+          if @action.collection_action?
+            safe_body.each_with_index do |item, i|
+              included_resources = @unsafe_body[i].send(resource_name)
+              safe_body[i][resource_name] = normalize_resources(action, included_resources)
+            end
+          else
+            included_resources = @unsafe_body.send(resource_name)
+            safe_body[resource_name] = normalize_resources(action, included_resources)
           end
         end
       end
@@ -60,7 +65,8 @@ module AStream
     private
 
     def can_read_included_resources?(resource_name)
-      @action.allows_to_include_resource?(resource_name) && @unsafe_body.first.respond_to?(resource_name)
+      @action.allows_to_include_resource?(resource_name) && (@action.collection_action? ? @unsafe_body.first.respond_to?(resource_name)
+                                                                                        : @unsafe_body.respond_to?(resource_name))
     end
 
     def serialize_resource(resource, safe_attrs)

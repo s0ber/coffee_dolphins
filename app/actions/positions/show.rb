@@ -1,14 +1,12 @@
-class Positions::Show < AStream::CollectionAction
-  query_params :page
+class Positions::Show < AStream::BaseAction
+  query_params :id
   safe_attributes :title, :image_url, :apishops_position_id, :category, :price, :profit, :availability_level
   permit_resource { |performer| performer }
   included_resources :search_keywords
 
   def perform_read(performer, query)
-    if query[:included]
-      Position.order_by_search_count.includes(*query[:included]).page(query[:page])
-    else
-      Position.order_by_search_count.page(query[:page])
+    if query[:id]
+      Position.includes(*query[:included]).find(query[:id])
     end
   end
 end
