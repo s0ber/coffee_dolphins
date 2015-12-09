@@ -1,10 +1,9 @@
-class Users::Show < AStream::CollectionAction
+class Categories::Show < AStream::CollectionAction
   query_params :page
-  safe_attributes :full_name, :email, :description
+  safe_attributes :title, :description
   permit_resource { |performer| performer }
 
   def perform_read(performer, query)
-    User.all
+    Category.all
   end
 end
-
