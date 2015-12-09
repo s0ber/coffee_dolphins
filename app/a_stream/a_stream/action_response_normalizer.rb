@@ -1,6 +1,6 @@
 module AStream
   class ActionResponseNormalizer
-    DEFAULT_SAFE_ATTRIBUTES = [:id]
+    DEFAULT_SAFE_ATTRIBUTES = [:id].freeze
 
     def initialize(request, response)
       @action, @performer, @query, @unsafe_body = request.runner, request.performer, request.query, response.unsafe_body
@@ -31,7 +31,7 @@ module AStream
       end
 
       safe_attrs = safe_attrs.select { |attr| attr.is_a?(Symbol) }
-      safe_attrs = DEFAULT_SAFE_ATTRIBUTES.concat(safe_attrs)
+      safe_attrs = [].concat(DEFAULT_SAFE_ATTRIBUTES).concat(safe_attrs)
 
       if resources.respond_to?(:each) && !resources.is_a?(Hash)
         resources.map { |r| serialize_resource(r, safe_attrs) }.compact
@@ -45,7 +45,7 @@ module AStream
 
       requested_included_resources.each do |resource_name|
         if can_read_included_resources?(resource_name)
-          action = AStream.find_class("#{resource_name}#show")
+          action = AStream.find_class("#{resource_name.to_s.pluralize}#show")
 
           safe_body.each_with_index do |item, i|
             included_resources = @unsafe_body[i].send(resource_name)
