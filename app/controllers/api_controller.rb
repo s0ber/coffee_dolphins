@@ -11,6 +11,8 @@ class ApiController < ApplicationController
 
   def get
     if params[:get]
+      params[:query] = JSON.parse(params[:query]) if params[:query]
+      params[:pipe] = JSON.parse(params[:pipe]) if params[:pipe]
       response = AStream::run(current_user, params, self)
       render json: response
     else
@@ -20,6 +22,8 @@ class ApiController < ApplicationController
 
   def post
     if params[:post]
+      params[:query] = JSON.parse(params[:query]) if params[:query]
+      params[:pipe] = JSON.parse(params[:pipe]) if params[:pipe]
       response = AStream::run(current_user, params, self)
       render json: response
     else

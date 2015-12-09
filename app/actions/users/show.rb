@@ -1,5 +1,4 @@
 class Users::Show < AStream::CollectionAction
-  query_params :page
   safe_attributes :full_name, :email, :description
   permit_resource { |performer| performer }
 
