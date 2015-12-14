@@ -6,8 +6,9 @@ class Transaction < ActiveRecord::Base
 
   KINDS = {
     0 => :load,
-    1 => :bet_plus,
-    2 => :bet_minus
+    1 => :bet,
+    2 => :result_plus,
+    3 => :result_minus
   }
 
   belongs_to :bookmaker
