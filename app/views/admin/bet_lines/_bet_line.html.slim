@@ -1,0 +1,11 @@
+.panel_item data-view='item' data={item_id: bet_line.id, block_path: bet_line_path(bet_line)}
+  .panel_item-header
+    span data-role='editable_item-title'
+      = l(bet_line.performed_at, format: :long)
+    .fl_r
+      = bet_line.edit_button
+      = bet_line.remove_button
+
+  .panel_item-body data-role='editable_item-info'
+    .panel_list
+      = list_item('Количество вилок', bet_line.forks.size)

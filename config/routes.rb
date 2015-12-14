@@ -49,6 +49,7 @@ Rails.application.routes.draw do
 
     resources :categories
     resources :bookmakers
+    resources :bet_lines
     resources :transactions do
       get :confirm_destroy, on: :member
     end

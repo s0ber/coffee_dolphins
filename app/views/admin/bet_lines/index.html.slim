@@ -1,0 +1,20 @@
+div data-component='app#items_list'
+  .page-title
+    span
+      | Линии ставок
+    .fl_r
+      button.small_button.is-green data-role='items_list-show_form'
+        | Добавить новую
+
+  .page-body
+    .panel.for-new_item.hidden data-view='new_item_form'
+      .panel-header
+        | Форма добавления линии
+      .panel-body
+        = render 'form', bet_line: @bet_line
+
+    .panels data-role='items_list-list_wrapper'
+      = render partial: 'bet_line', collection: @bet_lines
+
+    p.page-text class=('hidden' if @bet_lines.any?) data-role='items_list-empty_list_message'
+      | Нет активных линий.

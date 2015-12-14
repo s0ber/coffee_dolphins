@@ -1,0 +1,15 @@
+- is_new_action = action_name != 'edit'
+
+= neo_form_for bet_line do |f|
+  .form-fields
+    = f.input :performed_at, as: :datetime, label: 'Дата'
+
+  .form-actions
+    .fl_r
+      .small_button data-role=(is_new_action ? 'items_list-cancel' : 'editable_item-cancel_edit')
+        | Отмена
+      button.small_button.is-green type='submit'
+        - if is_new_action
+          | Добавить линию
+        - else
+          | Сохранить линию

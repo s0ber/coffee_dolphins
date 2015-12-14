@@ -11,10 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214195937) do
+ActiveRecord::Schema.define(version: 20151214205330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bet_lines", force: true do |t|
+    t.datetime "performed_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bets", force: true do |t|
+    t.integer  "fork_id"
+    t.integer  "bookmaker_id"
+    t.decimal  "ammount"
+    t.decimal  "prize"
+    t.integer  "result"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "bets", ["bookmaker_id"], name: "index_bets_on_bookmaker_id", using: :btree
+  add_index "bets", ["fork_id"], name: "index_bets_on_fork_id", using: :btree
 
   create_table "bookmakers", force: true do |t|
     t.string   "title"
@@ -34,6 +53,14 @@ ActiveRecord::Schema.define(version: 20151214195937) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "forks", force: true do |t|
+    t.integer  "bet_line_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "forks", ["bet_line_id"], name: "index_forks_on_bet_line_id", using: :btree
 
   create_table "landing_images", force: true do |t|
     t.string   "image"
