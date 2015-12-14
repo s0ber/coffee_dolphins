@@ -16,6 +16,7 @@
         .panel_list-items
           = list_item('Валюта', bookmaker.currency)
           = list_item('Сумма (RUB)', "#{bookmaker.ammount_rub} RUB")
+          = list_row(bookmaker.description)
           - unless bookmaker.currency == :RUB
             = list_item("Сумма (#{bookmaker.currency})", "#{bookmaker.ammount} #{bookmaker.currency}")
             = list_item('Средний курс', "#{bookmaker.exchange_rate} RUB")
