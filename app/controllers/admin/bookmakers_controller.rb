@@ -2,7 +2,7 @@ class Admin::BookmakersController < Admin::BaseController
   before_filter :load_bookmaker, only: [:show, :edit, :update, :destroy]
 
   def index
-    @bookmakers = Bookmaker.all.decorate
+    @bookmakers = BookmakerDecorator.decorate_collection(Bookmaker.by_ammount_rub)
     @bookmaker = Bookmaker.new
     respond_with(@bookmakers)
   end

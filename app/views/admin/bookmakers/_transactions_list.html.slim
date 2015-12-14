@@ -1,0 +1,25 @@
+.wrapper.for-list_row
+  table.pure-table.pure-table-striped
+    thead
+      tr
+        th
+          | Дата
+        th
+          | Сумма (RUB)
+        - unless bookmaker.currency == :RUB
+          th
+            | Сумма (#{bookmaker.currency})
+        th
+    tbody
+      - transactions.each do |transaction|
+        tr
+          td
+            = transaction.performed_at
+          td
+            | #{transaction.ammount_rub} RUB
+          - unless bookmaker.currency == :RUB
+            td
+              | #{transaction.ammount} #{bookmaker.currency}
+          td
+            = transaction.modal_edit_button
+            = transaction.confirm_remove_button

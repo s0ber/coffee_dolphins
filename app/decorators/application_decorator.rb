@@ -20,6 +20,19 @@ class ApplicationDecorator < Draper::Decorator
       data: {role: 'editable_item-edit_button'}
   end
 
+  def modal_edit_button
+    h.content_tag :span, h.fa_icon('pencil'),
+      class: 'small_button is-icon',
+      data: {modal: h.polymorphic_path(object)}
+
+  end
+
+  def confirm_remove_button
+    h.content_tag :span, h.fa_icon('close'),
+      class: 'small_button is-icon is-red',
+      data: {modal: h.polymorphic_path(object, action: :confirm_destroy)}
+  end
+
   def remove_button
     h.link_to h.fa_icon('close'),
       h.polymorphic_path(object),

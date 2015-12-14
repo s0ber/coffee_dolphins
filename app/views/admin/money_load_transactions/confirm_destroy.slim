@@ -1,0 +1,8 @@
+p.modal-text
+  | Удалить транзакцию?
+
+.modal-buttons
+  .fl_r
+    .small_button data-role='close_modal'
+      | Отмена
+    = link_to 'Удалить', money_load_transaction_path(@transaction.id), remote: true, method: :delete, class: 'small_button is-red'

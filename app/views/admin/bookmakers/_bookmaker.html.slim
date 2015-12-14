@@ -15,4 +15,13 @@
           img src=bookmaker.image_url title=bookmaker.title
         .panel_list-items
           = list_item('Валюта', bookmaker.currency)
-          = list_text(bookmaker.description)
+          = list_item('Сумма (RUB)', "#{bookmaker.ammount_rub} RUB")
+          - unless bookmaker.currency == :RUB
+            = list_item("Сумма (#{bookmaker.currency})", "#{bookmaker.ammount} #{bookmaker.currency}")
+            = list_item('Средний курс', "#{bookmaker.exchange_rate} RUB")
+          = list_row do
+            - if bookmaker.money_load_transactions.any?
+              = render 'transactions_list', transactions: bookmaker.money_load_transactions, bookmaker: bookmaker
+            - else
+              p.panel-text
+                | Нет транзакций.

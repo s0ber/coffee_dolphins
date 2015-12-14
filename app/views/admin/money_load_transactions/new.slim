@@ -4,9 +4,9 @@
 
   .modal-fields
     = f.association :bookmaker, as: :hidden, value: params[:bookmaker_id]
-    = f.input :ammount, as: :string, label: 'Сумма'
+    = f.input :ammount_rub, as: :string, label: 'Сумма (RUB)'
+    = f.input :ammount, as: :string, label: 'Сумма (в валюте)'
     = f.input :currency, as: :radio_buttons, collection: Currency::LIST.invert, label: 'Валюта', checked: @bookmaker.currency
-    = f.input :exchange_rate, as: :string, label: 'Курс валюты (в рублях)', input_html: {value: 1}
     = f.input :performed_at, value: Time.zone.now, label: 'Время добавления'
 
   .modal-buttons

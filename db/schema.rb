@@ -80,8 +80,8 @@ ActiveRecord::Schema.define(version: 20151214153642) do
   add_index "landings", ["position_id"], name: "index_landings_on_position_id", using: :btree
 
   create_table "money_load_transactions", force: true do |t|
+    t.decimal  "ammount_rub"
     t.decimal  "ammount"
-    t.decimal  "exchange_rate"
     t.integer  "currency"
     t.integer  "bookmaker_id"
     t.datetime "performed_at"

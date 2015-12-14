@@ -41,6 +41,9 @@ gem 'font-awesome-rails'
 # Sass Images Helpers
 gem 'rails-sass-images'
 
+# pure-css
+gem "pure-css-rails"
+
 # Fix for rails console under ubuntu 14.04
 gem 'rb-readline'
 
