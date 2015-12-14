@@ -2,7 +2,11 @@ class BookmakerDecorator < ApplicationDecorator
   decorates_association :transactions
 
   def ammount_rub
-    "#{object.ammount_rub} RUB"
+    if object.ammount_rub > 0
+      h.content_tag :b, "+#{object.ammount_rub} RUB", class: 'status is-green'
+    elsif object.ammount_rub < 0
+      h.content_tag :b, "#{object.ammount_rub} RUB", class: 'status is-red'
+    end
   end
 
   def ammount
