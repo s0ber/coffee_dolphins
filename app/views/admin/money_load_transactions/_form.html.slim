@@ -1,0 +1,23 @@
+- is_new_action = action_name == 'new'
+= neo_form_for transaction do |f|
+  p.modal-text
+    b
+      = bookmaker.title
+
+  .modal-fields
+    - if is_new_action
+      = f.association :bookmaker, as: :hidden, value: params[:bookmaker_id]
+    = f.input :ammount_rub, as: :string, label: 'Сумма (RUB)'
+    = f.input :currency, as: :radio_buttons, collection: Currency::LIST.invert, label: 'Валюта', checked: bookmaker.currency
+    = f.input :ammount, as: :string, label: 'Сумма (в валюте)'
+    = f.input :performed_at, value: is_new_action ? Time.zone.now : transaction.performed_at, label: 'Время добавления'
+
+  .modal-buttons
+    .fl_r
+      .small_button data-role='close_modal'
+        | Отмена
+      button.small_button.is-green type='submit'
+        - if is_new_action
+          | Сохранить
+        - else
+          | Редактировать

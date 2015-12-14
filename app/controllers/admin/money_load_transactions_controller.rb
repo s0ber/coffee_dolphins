@@ -1,34 +1,45 @@
 class Admin::MoneyLoadTransactionsController < Admin::BaseController
+  before_action :load_transaction, only: [:edit, :update, :confirm_destroy, :destroy]
   def new
     @bookmaker = Bookmaker.find(params[:bookmaker_id])
-    @money_load_transaction = @bookmaker.money_load_transactions.build
+    @transaction = @bookmaker.money_load_transactions.build
     render_modal('Добавление денег для БК')
   end
 
   def create
     transaction = MoneyLoadTransaction.new(money_load_transaction_params)
-    if transaction.currency == 0
-      transaction.ammount = transaction.ammount_rub
-    end
+    transaction.bookmaker_id = params[:bookmaker_id]
     transaction.save!
     render_success(notice: 'Новая транзакция добавлена')
   end
 
+  def edit
+    render_modal('Редактирование транзакции')
+  end
+
+  def update
+    @transaction.update_attributes!(money_load_transaction_params)
+    render_success
+  end
+
   def confirm_destroy
-    @transaction = MoneyLoadTransaction.find(params[:id])
     render_modal('Удалить транзакцию?')
   end
 
   def destroy
-    MoneyLoadTransaction.find(params[:id]).destroy
+    @transaction.destroy
     render_success
   end
 
   protected
 
+  def load_transaction
+    @transaction = MoneyLoadTransaction.find(params[:id])
+  end
+
   def money_load_transaction_params
     params
       .fetch(:money_load_transaction, {})
-      .permit(:ammount_rub, :ammount, :currency, :performed_at, :bookmaker_id)
+      .permit(:ammount_rub, :ammount, :currency, :performed_at)
   end
 end

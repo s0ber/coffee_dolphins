@@ -23,7 +23,7 @@ class ApplicationDecorator < Draper::Decorator
   def modal_edit_button
     h.content_tag :span, h.fa_icon('pencil'),
       class: 'small_button is-icon',
-      data: {modal: h.polymorphic_path(object)}
+      data: {modal: h.polymorphic_path(object, action: :edit)}
 
   end
 
