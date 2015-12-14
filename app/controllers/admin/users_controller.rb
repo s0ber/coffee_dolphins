@@ -27,7 +27,8 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    user = User.find(params[:id])
+    user.destroy unless user.admin?
     render_success
   end
 
