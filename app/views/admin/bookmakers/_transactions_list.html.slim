@@ -3,6 +3,8 @@
     thead
       tr
         th
+          | Тип
+        th
           | Дата
         th
           | Сумма (RUB)
@@ -14,12 +16,14 @@
       - transactions.each do |transaction|
         tr
           td
+            = transaction.kind
+          td
             = transaction.performed_at
           td
-            | #{transaction.ammount_rub} RUB
+            = transaction.ammount_rub
           - unless bookmaker.currency == :RUB
             td
-              | #{transaction.ammount} #{bookmaker.currency}
+              = transaction.ammount
           td
             = transaction.modal_edit_button
             = transaction.confirm_remove_button

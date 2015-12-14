@@ -1,4 +1,15 @@
 class Transaction < ActiveRecord::Base
+  SIGNS = {
+    0 => :plus,
+    1 => :minus
+  }
+
+  KINDS = {
+    0 => :load,
+    1 => :bet_plus,
+    2 => :bet_minus
+  }
+
   belongs_to :bookmaker
   validates :ammount_rub, :currency, :bookmaker_id, presence: true
   before_validation :check_ammount
