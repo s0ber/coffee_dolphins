@@ -1,0 +1,14 @@
+= neo_form_for fork do |f|
+  .form-fields
+    - if is_new_action
+      = f.association :bet_line, as: :hidden
+
+  .form-actions
+    .fl_r
+      .small_button data-role=(is_new_action ? 'items_list-cancel' : 'editable_item-cancel_edit')
+        | Отмена
+      button.small_button.is-green type='submit'
+        - if is_new_action
+          | Добавить вилку
+        - else
+          | Сохранить вилку

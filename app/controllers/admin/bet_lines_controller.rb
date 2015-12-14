@@ -13,7 +13,8 @@ class Admin::BetLinesController < Admin::BaseController
   end
 
   def show
-    render_partial('bet_line', bet_line: @bet_line.decorate)
+    @bet_line = @bet_line.decorate
+    respond_with(@bet_line)
   end
 
   def edit

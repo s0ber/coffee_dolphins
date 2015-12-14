@@ -3,6 +3,14 @@
 @import 'admin/primitives/flexible'
 
 .panel
+  margin-top: 15px
+  margin-bottom: 15px
+
+  &:first-child
+    margin-top: 0
+
+  &:last-child
+    margin-bottom: 0
 
   &.for-new_item
     margin-bottom: 15px
@@ -24,12 +32,6 @@
     text-align: left
 
 .panels
-  .panel
-    margin-bottom: 15px
-
-    &:last-child
-      margin-bottom: 0
-
   &.is-images_list
     margin-top: 15px
 

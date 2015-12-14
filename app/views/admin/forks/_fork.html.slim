@@ -1,0 +1,10 @@
+.panel_item data-view='item' data={item_id: fork.id, block_path: fork_path(fork)}
+  .panel_item-header
+    span data-role='editable_item-title'
+      = fork.id
+    .fl_r
+      = fork.edit_button
+      = fork.remove_button
+
+  .panel_item-body data-role='editable_item-info'
+    .panel_list
