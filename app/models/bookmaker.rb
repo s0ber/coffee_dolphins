@@ -7,6 +7,10 @@ class Bookmaker < ActiveRecord::Base
     Bookmaker.all.sort_by(&:ammount_rub).reverse
   end
 
+  def self.ammount(bookmakers)
+    bookmakers.map { |b| b.model.ammount_rub }.sum.to_s + ' RUB'
+  end
+
   def ammount_rub
     transactions.map(&:ammount_rub).sum
   end

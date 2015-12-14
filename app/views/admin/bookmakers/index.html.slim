@@ -14,7 +14,14 @@ div data-component='app#items_list'
         = render 'form', bookmaker: @bookmaker
 
     .panels data-role='items_list-list_wrapper'
-      = render partial: 'bookmaker', collection: @bookmakers
+      .panel
+        .panel-header
+          | Статистика
+        .panel-body
+          .panel_list
+            = list_item('Общий баланс', Bookmaker.ammount(@bookmakers))
+      .panel
+        = render partial: 'bookmaker', collection: @bookmakers
 
     p.page-text class=('hidden' if @bookmakers.any?) data-role='items_list-empty_list_message'
       | Нет букмейкеров.
