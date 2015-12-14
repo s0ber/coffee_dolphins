@@ -52,6 +52,9 @@ module CoffeeDolphinsApp
       g.test_framework :rspec
     end
 
+    require 'middleware/remotipart_accept_header'
+    config.middleware.insert_after ActionDispatch::ParamsParser, Middleware::RemotipartAcceptHeader
+
     config.middleware.insert_before 0, 'Rack::Cors', :logger => (-> { Rails.logger }) do
       allow do
         origins 'http://localhost:4000'

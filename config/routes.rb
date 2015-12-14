@@ -48,6 +48,7 @@ Rails.application.routes.draw do
     end
 
     resources :categories
+    resources :bookmakers
 
     resources :landings do
       post :upload_image, on: :member

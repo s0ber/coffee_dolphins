@@ -6,6 +6,7 @@
 #= require jquery.role
 #= require jquery.caret
 #= require jquery-autosize/jquery.autosize
+#= require jquery.iframe-transport
 
 #= require sugar/release/sugar.min
 #= require underscore/underscore
