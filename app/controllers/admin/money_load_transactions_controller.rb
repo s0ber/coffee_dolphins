@@ -8,7 +8,7 @@ class Admin::MoneyLoadTransactionsController < Admin::BaseController
 
   def create
     transaction = MoneyLoadTransaction.new(money_load_transaction_params)
-    transaction.bookmaker_id = params[:bookmaker_id]
+    transaction.bookmaker_id = params[:money_load_transaction][:bookmaker_id]
     transaction.save!
     render_success(notice: 'Новая транзакция добавлена')
   end
