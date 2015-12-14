@@ -8,7 +8,11 @@ div data-component='app#items_list'
   .page-body
     .panel.for-new_item.hidden data-view='new_item_form'
       .panel-header
-        | Форма добавления вилки
+        span
+          | Форма добавления вилки
+        .fl_r
+          .small_button.is-green
+            | Добавить ставку
       .panel-body
         = render 'admin/forks/form', bet_line: @bet_line, is_new_action: true, fork: Fork.new(bet_line_id: @bet_line.id)
 

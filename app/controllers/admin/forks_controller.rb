@@ -33,6 +33,6 @@ class Admin::ForksController < Admin::BaseController
   end
 
   def fork_params
-    params.fetch(:fork, {}).permit(bets_attributes: [:id, :ammount_rub, :prize, :bookmaker_id, :fork_id])
+    params.fetch(:fork, {}).permit(bets_attributes: [:id, :ammount_rub, :prize, :bookmaker_id])
   end
 end
