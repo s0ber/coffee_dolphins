@@ -23,6 +23,13 @@ gem 'pg'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
+
+# form objects
+gem 'active_data'
+
+# configure CORS
+gem 'rack-cors', :require => 'rack/cors'
+
 # Use Slim for templates
 gem "slim-rails"
 # javascript templates

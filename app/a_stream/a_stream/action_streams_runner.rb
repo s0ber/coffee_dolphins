@@ -1,53 +1,63 @@
 module AStream
-  module ActionStreamsRunner
-    extend self
+  class ActionStreamsRunner
+    def initialize(performer:, controller:)
+      @performer, @controller = performer, controller
+    end
 
-    def run(performer, action_streams)
+    def run(action_streams)
       request_data = {}
       response = {}
 
       action_streams.each do |request|
-        response.merge!(run_action(performer, request))
+        response.merge!(run_action(request))
       end
 
       response
     end
 
-    def run_action(performer, request, stream_response = {})
-      response = request.runner.perform_read(performer, request.query)
-      status, body = _parse_response(response)
+    def run_action(request, stream_response = {})
+      action = request.runner.new(controller: @controller)
 
-      if status == :ok && request.type == :post
-        response = request.runner.perform_update(performer, request.query)
-        status, body = _parse_response(response)
+      if request.type == :get
+        response = action.perform_read(@performer, request.query)
+      else
+        response = action.perform_update(@performer, request.query)
       end
 
+      status, body, message = parse_response(response)
       response = ActionResponse.new(status: status, body: body, request: request)
-      namespace, action = request.runner.action_name.split('#')
+      namespace, action_name = request.runner.action_name.split('#')
 
-      stream_response[:"#{namespace}_#{action}"] =
+      stream_response[:"#{namespace}_#{action_name}"] =
         status == :ok ? {body: response.body} : {status: status, body: response.body}
+
+      if message
+        stream_response[:"#{namespace}_#{action_name}"][:message] = message
+      end
 
       if status == :ok && request.piped_requests
         request.piped_requests.each do |piped_request|
           piped_request.query = piped_request.runner.pipe_data_from(request.runner, response.body)
-          run_action(performer, piped_request, stream_response)
+          run_action(piped_request, stream_response)
         end
       end
 
       stream_response
     end
 
-    def _parse_response(response)
-      if response.is_a?(Hash)
-        status = response[:status]
-        body = response[:body]
+    private
+
+    def parse_response(response)
+      if response.is_a?(AStream::Response)
+        status = response.status
+        body = response.body
+        message = response.message
       else
         status = :ok
         body = response
       end
 
-      [status, body]
+      [status, body, message]
     end
   end
 end

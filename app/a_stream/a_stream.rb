@@ -6,9 +6,9 @@ module AStream
   SafeAttributesNotSpecified = Class.new(StandardError)
   PermissionCheckNotSpecified = Class.new(StandardError)
 
-  def self.run(performer, action_streams)
+  def self.run(performer, action_streams, controller)
     action_streams = ActionStreamsBuilder.new(performer: performer).build(action_streams)
-    ActionStreamsRunner.run(performer, action_streams)
+    ActionStreamsRunner.new(performer: performer, controller: controller).run(action_streams)
   end
 
   def self.find_class(action_name)

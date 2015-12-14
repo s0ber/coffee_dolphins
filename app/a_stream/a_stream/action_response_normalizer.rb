@@ -1,6 +1,6 @@
 module AStream
   class ActionResponseNormalizer
-    DEFAULT_SAFE_ATTRIBUTES = [:id]
+    DEFAULT_SAFE_ATTRIBUTES = [:id].freeze
 
     def initialize(request, response)
       @action, @performer, @query, @unsafe_body = request.runner, request.performer, request.query, response.unsafe_body
@@ -18,7 +18,11 @@ module AStream
     end
 
     def filter_resources(action: @action, resources: @unsafe_body)
-      resources.select { |item| action.permit_resource?(@performer, item) }
+      if resources.respond_to?(:each)
+        resources.select { |item| action.permit_resource?(@performer, item) }
+      else
+        action.permit_resource?(@performer, resources) ? resources : nil
+      end
     end
 
     def serialize_resources(action: @action, resources:)
@@ -27,27 +31,30 @@ module AStream
       end
 
       safe_attrs = safe_attrs.select { |attr| attr.is_a?(Symbol) }
-      safe_attrs = DEFAULT_SAFE_ATTRIBUTES.concat(safe_attrs)
+      safe_attrs = [].concat(DEFAULT_SAFE_ATTRIBUTES).concat(safe_attrs)
 
-      resources.map do |r|
-        if r.respond_to?(:serializable_hash)
-          r.serializable_hash.symbolize_keys.slice(*safe_attrs)
-        elsif r.is_a?(Hash)
-          r.slice(*safe_attrs)
-        end
-      end.compact
+      if resources.respond_to?(:each) && !resources.is_a?(Hash)
+        resources.map { |r| serialize_resource(r, safe_attrs) }.compact
+      else
+        serialize_resource(resources, safe_attrs)
+      end
     end
 
     def normalize_included_resources(requested_included_resources, safe_body)
-      return safe_body if !@action.respond_to?(:included_resources) || @unsafe_body.empty?
+      return safe_body if !@action.respond_to?(:included_resources) || @unsafe_body.nil? || (@action.collection_action? && @unsafe_body.empty?)
 
       requested_included_resources.each do |resource_name|
         if can_read_included_resources?(resource_name)
-          action = AStream.find_class("#{resource_name}#show")
+          action = AStream.find_class("#{resource_name.to_s.pluralize}#show")
 
-          safe_body.each_with_index do |item, i|
-            included_resources = @unsafe_body[i].send(resource_name)
-            safe_body[i][resource_name] = normalize_resources(action, included_resources)
+          if @action.collection_action?
+            safe_body.each_with_index do |item, i|
+              included_resources = @unsafe_body[i].send(resource_name)
+              safe_body[i][resource_name] = normalize_resources(action, included_resources)
+            end
+          else
+            included_resources = @unsafe_body.send(resource_name)
+            safe_body[resource_name] = normalize_resources(action, included_resources)
           end
         end
       end
@@ -58,7 +65,16 @@ module AStream
     private
 
     def can_read_included_resources?(resource_name)
-      @action.allows_to_include_resource?(resource_name) && @unsafe_body.first.respond_to?(resource_name)
+      @action.allows_to_include_resource?(resource_name) && (@action.collection_action? ? @unsafe_body.first.respond_to?(resource_name)
+                                                                                        : @unsafe_body.respond_to?(resource_name))
+    end
+
+    def serialize_resource(resource, safe_attrs)
+      if resource.respond_to?(:serializable_hash)
+        resource.serializable_hash.symbolize_keys.slice(*safe_attrs)
+      elsif resource.is_a?(Hash)
+        resource.slice(*safe_attrs)
+      end
     end
 
     def normalize_resources(action, resources)

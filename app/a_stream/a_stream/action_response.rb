@@ -1,14 +1,13 @@
 module AStream
   class ActionResponse
-    STATUSES = [:ok, :not_found, :unprocessable_entity, :unathorized].freeze
+    STATUSES = [:ok, :not_found, :unprocessable_entity, :unauthorized].freeze
 
     attr_reader :status, :request
 
-    def initialize(status: :ok, body: [], request:)
+    def initialize(status: :ok, body:, request:)
       @unsafe_body, @request, @status = body, request, status
-      @unsafe_body.nil? && @unsafe_body = []
 
-      unless @unsafe_body.respond_to?(:each)
+      if request.runner.collection_action? && !@unsafe_body.respond_to?(:each)
         raise ArgumentError, message: "Action should always respond with collection, but non-iterateble response specified for action #{request.runner}."
       end
 
