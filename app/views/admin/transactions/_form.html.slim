@@ -1,9 +1,6 @@
 - is_new_action = action_name == 'new'
-= neo_form_for transaction do |f|
-  p.modal-text
-    b
-      = bookmaker.title
 
+= neo_form_for transaction do |f|
   .modal-fields
     - if is_new_action
       = f.association :bookmaker, as: :hidden, value: params[:bookmaker_id]

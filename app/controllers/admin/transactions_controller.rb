@@ -4,7 +4,7 @@ class Admin::TransactionsController < Admin::BaseController
   def new
     @bookmaker = Bookmaker.find(params[:bookmaker_id])
     @transaction = @bookmaker.transactions.build
-    render_modal('Добавление денег для БК')
+    render_modal("Добавление денег для <b>#{@bookmaker.title}</b>")
   end
 
   def create
@@ -15,7 +15,7 @@ class Admin::TransactionsController < Admin::BaseController
   end
 
   def edit
-    render_modal('Редактирование транзакции')
+    render_modal("Редактирование транзакции для <b>#{@transaction.bookmaker.title}</b>")
   end
 
   def update
