@@ -17,9 +17,13 @@ class Admin::ForksController < Admin::BaseController
   end
 
   def update
+    @fork.update_attributes!(fork_params)
+    render_success
   end
 
   def destroy
+    @fork.destroy
+    render_success
   end
 
   protected
@@ -29,6 +33,6 @@ class Admin::ForksController < Admin::BaseController
   end
 
   def fork_params
-    params.fetch(:fork, {}).permit(bets_attributes: [:id])
+    params.fetch(:fork, {}).permit(bets_attributes: [:id, :ammount_rub, :prize, :bookmaker_id, :fork_id])
   end
 end
