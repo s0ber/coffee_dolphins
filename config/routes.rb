@@ -49,6 +49,7 @@ Rails.application.routes.draw do
 
     resources :categories
     resources :bookmakers
+    resources :money_load_transactions
 
     resources :landings do
       post :upload_image, on: :member

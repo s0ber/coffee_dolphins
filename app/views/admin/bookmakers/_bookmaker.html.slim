@@ -3,6 +3,8 @@
     span data-role='editable_item-title'
       = bookmaker.title
     .fl_r
+      .small_button.is-green.is-icon data-modal=new_money_load_transaction_path(bookmaker_id: bookmaker.id)
+        = fa_icon('plus')
       = bookmaker.edit_button
       = bookmaker.remove_button
 
