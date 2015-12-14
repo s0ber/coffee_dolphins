@@ -50,7 +50,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :thumb do
-    process resize_to_fill: [290, 290]
+    process resize_to_limit: [290, 290]
   end
 
   def dimensions

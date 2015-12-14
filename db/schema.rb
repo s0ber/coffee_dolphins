@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150320214819) do
+ActiveRecord::Schema.define(version: 20151214153642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookmakers", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "image"
+    t.integer  "currency",    default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "categories", force: true do |t|
     t.string   "title"
@@ -69,6 +78,18 @@ ActiveRecord::Schema.define(version: 20150320214819) do
 
   add_index "landings", ["category_id"], name: "index_landings_on_category_id", using: :btree
   add_index "landings", ["position_id"], name: "index_landings_on_position_id", using: :btree
+
+  create_table "money_load_transactions", force: true do |t|
+    t.decimal  "ammount_rub"
+    t.decimal  "ammount"
+    t.integer  "currency"
+    t.integer  "bookmaker_id"
+    t.datetime "performed_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "money_load_transactions", ["bookmaker_id"], name: "index_money_load_transactions_on_bookmaker_id", using: :btree
 
   create_table "notes", force: true do |t|
     t.string   "title"

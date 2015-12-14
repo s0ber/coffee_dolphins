@@ -1,0 +1,27 @@
+.panel_item data-view='item' data={item_id: bookmaker.id, block_path: bookmaker_path(bookmaker)}
+  .panel_item-header
+    span data-role='editable_item-title'
+      = bookmaker.title
+    .fl_r
+      .small_button.is-green.is-icon data-modal=new_money_load_transaction_path(bookmaker_id: bookmaker.id)
+        = fa_icon('plus')
+      = bookmaker.edit_button
+      = bookmaker.remove_button
+
+  .panel_item-body data-role='editable_item-info'
+    .panel_list.is-table
+      .panel_list-inner
+        .panel_list-photo
+          img src=bookmaker.image_url title=bookmaker.title
+        .panel_list-items
+          = list_item('Валюта', bookmaker.currency)
+          = list_item('Сумма (RUB)', "#{bookmaker.ammount_rub} RUB")
+          - unless bookmaker.currency == :RUB
+            = list_item("Сумма (#{bookmaker.currency})", "#{bookmaker.ammount} #{bookmaker.currency}")
+            = list_item('Средний курс', "#{bookmaker.exchange_rate} RUB")
+          = list_row do
+            - if bookmaker.money_load_transactions.any?
+              = render 'transactions_list', transactions: bookmaker.money_load_transactions, bookmaker: bookmaker
+            - else
+              p.panel-text
+                | Нет транзакций.

@@ -10,6 +10,7 @@ class App.Behaviors.EditableItem extends Dolphin.View
     'ajax:success @editable_item-edit_button': 'openEditForm'
     'click @editable_item-cancel_edit': 'closeEditForm'
     'ajax:success form': 'updateItem'
+    'modal_button:update [data-modal]': 'updateItem'
 
   initialize: ->
     @applyBehavior 'Dynamic' if @blockPath()

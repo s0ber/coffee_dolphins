@@ -48,6 +48,10 @@ Rails.application.routes.draw do
     end
 
     resources :categories
+    resources :bookmakers
+    resources :money_load_transactions do
+      get :confirm_destroy, on: :member
+    end
 
     resources :landings do
       post :upload_image, on: :member

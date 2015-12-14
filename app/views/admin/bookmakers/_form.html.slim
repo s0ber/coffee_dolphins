@@ -1,0 +1,18 @@
+- is_new_action = action_name != 'edit'
+
+= neo_form_for bookmaker do |f|
+  .form-fields
+    = f.input :title, label: 'Название'
+    = f.input :description, label: 'Описание'
+    = f.input :currency, as: :radio_buttons, collection: Currency::LIST.invert, label: 'Валюта'
+    = f.input :image, as: :file
+
+  .form-actions
+    .fl_r
+      .small_button data-role=(is_new_action ? 'items_list-cancel' : 'editable_item-cancel_edit')
+        | Отмена
+      button.small_button.is-green type='submit'
+        - if is_new_action
+          | Добавить БК
+        - else
+          | Сохранить БК
