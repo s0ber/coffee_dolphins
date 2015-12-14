@@ -1,6 +1,6 @@
 class Bookmaker < ActiveRecord::Base
   validates :title, :description, :currency, :image, presence: true
-  has_many :money_load_transactions, dependent: :destroy
+  has_many :transactions, dependent: :destroy
   mount_uploader :image, ImageUploader
 
   def self.by_ammount_rub
@@ -8,11 +8,11 @@ class Bookmaker < ActiveRecord::Base
   end
 
   def ammount_rub
-    money_load_transactions.map(&:ammount_rub).sum
+    transactions.map(&:ammount_rub).sum
   end
 
   def ammount
-    money_load_transactions.map(&:ammount).sum
+    transactions.map(&:ammount).sum
   end
 
   def exchange_rate

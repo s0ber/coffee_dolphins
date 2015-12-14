@@ -1,4 +1,4 @@
-class MoneyLoadTransactionDecorator < ApplicationDecorator
+class TransactionDecorator < ApplicationDecorator
 protected
 
   def confirm_remove_message

@@ -3,7 +3,7 @@
     span data-role='editable_item-title'
       = bookmaker.title
     .fl_r
-      .small_button.is-green.is-icon data-modal=new_money_load_transaction_path(bookmaker_id: bookmaker.id)
+      .small_button.is-green.is-icon data-modal=new_transaction_path(bookmaker_id: bookmaker.id)
         = fa_icon('plus')
       = bookmaker.edit_button
       = bookmaker.remove_button
@@ -21,8 +21,8 @@
             = list_item("Сумма (#{bookmaker.currency})", "#{bookmaker.ammount} #{bookmaker.currency}")
             = list_item('Средний курс', "#{bookmaker.exchange_rate} RUB")
           = list_row do
-            - if bookmaker.money_load_transactions.any?
-              = render 'transactions_list', transactions: bookmaker.money_load_transactions, bookmaker: bookmaker
+            - if bookmaker.transactions.any?
+              = render 'transactions_list', transactions: bookmaker.transactions, bookmaker: bookmaker
             - else
               p.panel-text
                 | Нет транзакций.

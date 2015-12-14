@@ -1,4 +1,4 @@
-class MoneyLoadTransaction < ActiveRecord::Base
+class Transaction < ActiveRecord::Base
   belongs_to :bookmaker
   validates :ammount_rub, :currency, :bookmaker_id, presence: true
   before_validation :check_ammount

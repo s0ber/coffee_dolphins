@@ -49,7 +49,7 @@ Rails.application.routes.draw do
 
     resources :categories
     resources :bookmakers
-    resources :money_load_transactions do
+    resources :transactions do
       get :confirm_destroy, on: :member
     end
 

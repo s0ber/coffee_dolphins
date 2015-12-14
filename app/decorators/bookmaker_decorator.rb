@@ -1,5 +1,5 @@
 class BookmakerDecorator < ApplicationDecorator
-  decorates_association :money_load_transactions
+  decorates_association :transactions
 
   def description
     h.auto_link(

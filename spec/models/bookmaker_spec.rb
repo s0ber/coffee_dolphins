@@ -6,7 +6,7 @@ describe Bookmaker do
   it { is_expected.to validate_presence_of(:image) }
   it { is_expected.to validate_presence_of(:currency) }
 
-  it { is_expected.to have_many(:money_load_transactions).dependent(:destroy) }
+  it { is_expected.to have_many(:transactions).dependent(:destroy) }
 
   describe '#ammount' do
   end
