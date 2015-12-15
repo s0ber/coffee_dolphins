@@ -14,11 +14,17 @@
           .panel
             .panel-header
               span
-                | BetCityRus
+                | BetCityRus (#{link_to('ссылка', 'http://localhost:3000/statistics', class: 'panel-header_link')})
               .fl_r
                 .small_button.is-icon
                   = fa_icon('pencil')
+                .small_button.is-icon.is-red
+                  = fa_icon('close')
 
             .panel-body
               = list_item('Ставка', '500 RUB')
               = list_item('Выигрыш', '1500 RUB')
+              = list_item('Исход', '1')
+              = list_item 'Результат' do
+                b.status.is-green
+                  | Победитель
