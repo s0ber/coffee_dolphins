@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215203106) do
+ActiveRecord::Schema.define(version: 20151215220322) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20151215203106) do
     t.datetime "updated_at"
     t.string   "title"
     t.integer  "winning_bet_id"
+    t.datetime "played_out_at"
   end
 
   add_index "forks", ["bet_line_id"], name: "index_forks_on_bet_line_id", using: :btree
