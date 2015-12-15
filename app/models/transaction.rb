@@ -1,16 +1,17 @@
 class Transaction < ActiveRecord::Base
   KINDS = {
-    0 => :load,
-    1 => :bet,
-    2 => :result_plus,
-    3 => :result_minus
+    :load => 0,
+    :bet => 1,
+    :result_plus => 2,
+    :result_minus => 3
   }
 
   belongs_to :bookmaker
+  belongs_to :bet
   validates :ammount_rub, :currency, :bookmaker_id, presence: true
   before_validation :check_ammount
 
-  default_scope { order(performed_at: :asc) }
+  default_scope { order(performed_at: :desc) }
 
   def check_ammount
     if self.currency == 0

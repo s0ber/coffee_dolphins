@@ -10,7 +10,13 @@ class TransactionDecorator < ApplicationDecorator
   end
 
   def ammount
-    "#{transaction.ammount} #{currency}"
+    if object.ammount_rub > 0
+      h.content_tag :b, "+#{object.ammount} #{currency}", class: 'status is-green'
+    elsif object.ammount < 0
+      h.content_tag :b, "#{object.ammount} #{currency}", class: 'status is-red'
+    else
+      "#{object.ammount} #{currency}"
+    end
   end
 
   def currency
@@ -22,7 +28,13 @@ class TransactionDecorator < ApplicationDecorator
   end
 
   def kind
-    Transaction::KINDS[object.kind]
+    case Transaction::KINDS.invert[object.kind]
+    when :load
+      'load'
+    when :bet
+      bet_line = object.bet.fork.bet_line
+      h.link_to("bet (line ##{bet_line.id})", h.bet_line_path(bet_line))
+    end
   end
 
 protected
