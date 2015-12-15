@@ -15,7 +15,7 @@
             .panel
               .panel-header
                 span
-                  | #{bet.bookmaker.title} (#{bet.bookmaker.statistics_link('ссылка', class: 'panel-header_link')})
+                  | #{bet.bookmaker.title} (#{bet.bookmaker.statistics_link('статистика', class: 'panel-header_link')})
                 .fl_r
                   = bet.modal_edit_button
                   = bet.confirm_remove_button
@@ -24,9 +24,7 @@
                 = list_item('Ставка', bet.ammount_rub)
                 = list_item('Выигрыш', bet.prize)
                 = list_item('Исход', bet.outcome)
-                = list_item 'Результат' do
-                  b.status.is-green
-                    | Победитель
+                = list_item 'Результат', bet.result_tag
     - else
       p.panel-text
         | Нет ставок для вилки.

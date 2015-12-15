@@ -11,4 +11,12 @@ class Bet < ActiveRecord::Base
       self.errors.add :ammount_rub, :not_enough_bookmaker_money
     end
   end
+
+  def result
+    if self.fork.winning_bet_id
+      self.fork.winning_bet_id == self.id ? :bet_plus : :bet_minus
+    else
+      :pending
+    end
+  end
 end
