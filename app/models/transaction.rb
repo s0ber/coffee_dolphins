@@ -1,9 +1,4 @@
 class Transaction < ActiveRecord::Base
-  SIGNS = {
-    0 => :plus,
-    1 => :minus
-  }
-
   KINDS = {
     0 => :load,
     1 => :bet,
