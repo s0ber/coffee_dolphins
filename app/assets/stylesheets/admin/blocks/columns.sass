@@ -4,11 +4,15 @@
   +clearfix
   margin: 0 -7.5px
 
+  &.has-2cols .column
+    width: 50%
+
+  &.has-3cols .column
+    width: 33.33%
+
 .column
   float: left
+  width: 100%
   box-sizing: border-box
   padding-left: 7.5px
   padding-right: 7.5px
-
-  &.is-33
-    width: 33.33%

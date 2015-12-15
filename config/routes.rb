@@ -53,6 +53,9 @@ Rails.application.routes.draw do
       get :cut, on: :member
     end
     resources :forks
+    resources :bets do
+      get :confirm_destroy, on: :member
+    end
     resources :transactions do
       get :confirm_destroy, on: :member
     end

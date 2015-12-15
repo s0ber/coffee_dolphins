@@ -1,0 +1,8 @@
+p.modal-text
+  | Удалить ставку для вилки <b>#{@bet.fork.title}</b>?
+
+.modal-buttons
+  .fl_r
+    .small_button data-role='close_modal'
+      | Отмена
+    = link_to 'Удалить', bet_path(@bet.id), remote: true, method: :delete, class: 'small_button is-red'

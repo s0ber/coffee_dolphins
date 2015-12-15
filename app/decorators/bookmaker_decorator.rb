@@ -17,9 +17,9 @@ class BookmakerDecorator < ApplicationDecorator
     "#{object.exchange_rate} RUB"
   end
 
-  def statistics_link(title = nil)
+  def statistics_link(title = nil, options = {})
     if object.statistics_url
-      h.link_to(title || bookmaker.statistics_url, bookmaker.statistics_url)
+      h.link_to(title || bookmaker.statistics_url, bookmaker.statistics_url, class: options[:class], data: options[:data])
     end
   end
 

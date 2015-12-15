@@ -1,0 +1,23 @@
+- is_new_action = action_name == 'new'
+
+= neo_form_for bet do |f|
+  .modal-fields
+    - if is_new_action
+      = f.association :fork, as: :hidden, value: fork.id
+    = f.input :bookmaker_id, as: :select,
+      label: 'БК',
+      prompt: 'Выберите букмейкера..',
+      collection: Bookmaker.by_ammount_rub.map { |bookmaker| [bookmaker.title, bookmaker.id] }
+    = f.input :ammount_rub, as: :string, label: 'Сумма ставки (RUB)'
+    = f.input :prize, as: :string, label: 'Выигрыш (RUB)'
+    = f.input :outcome, as: :string, label: 'Исход'
+
+  .modal-buttons
+    .fl_r
+      .small_button data-role='close_modal'
+        | Отмена
+      button.small_button.is-green type='submit'
+        - if is_new_action
+          | Сохранить
+        - else
+          | Редактировать

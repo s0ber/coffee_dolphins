@@ -3,7 +3,7 @@
 = neo_form_for transaction do |f|
   .modal-fields
     - if is_new_action
-      = f.association :bookmaker, as: :hidden, value: params[:bookmaker_id]
+      = f.association :bookmaker, as: :hidden, value: bookmaker.id
     = f.input :ammount_rub, as: :string, label: 'Сумма (RUB)'
     = f.input :currency, as: :radio_buttons, collection: Currency::LIST.invert, label: 'Валюта', checked: bookmaker.currency
     = f.input :ammount, as: :string, label: 'Сумма (в валюте)'

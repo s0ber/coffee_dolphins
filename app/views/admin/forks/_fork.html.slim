@@ -8,23 +8,25 @@
       = fork.remove_button
 
   .panel_item-body.has-p15 data-role='editable_item-info'
-    .columns
-      - 3.times do
-        .column.is-33
-          .panel
-            .panel-header
-              span
-                | BetCityRus (#{link_to('ссылка', 'http://localhost:3000/statistics', class: 'panel-header_link')})
-              .fl_r
-                .small_button.is-icon
-                  = fa_icon('pencil')
-                .small_button.is-icon.is-red
-                  = fa_icon('close')
+    - if fork.bets.any?
+      .columns class=("has-#{fork.bets.size}cols")
+        - fork.bets.each do |bet|
+          .column
+            .panel
+              .panel-header
+                span
+                  | #{bet.bookmaker.title} (#{bet.bookmaker.statistics_link('ссылка', class: 'panel-header_link')})
+                .fl_r
+                  = bet.modal_edit_button
+                  = bet.confirm_remove_button
 
-            .panel-body
-              = list_item('Ставка', '500 RUB')
-              = list_item('Выигрыш', '1500 RUB')
-              = list_item('Исход', '1')
-              = list_item 'Результат' do
-                b.status.is-green
-                  | Победитель
+              .panel-body
+                = list_item('Ставка', bet.ammount_rub)
+                = list_item('Выигрыш', bet.prize)
+                = list_item('Исход', bet.outcome)
+                = list_item 'Результат' do
+                  b.status.is-green
+                    | Победитель
+    - else
+      p.panel-text
+        | Нет ставок для вилки.
