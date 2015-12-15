@@ -30,10 +30,10 @@ class TransactionDecorator < ApplicationDecorator
   def kind
     case Transaction::KINDS.invert[object.kind]
     when :load
-      'load'
+      'Депозит'
     when :bet
-      bet_line = object.bet.fork.bet_line
-      h.link_to("bet (line ##{bet_line.id})", h.bet_line_path(bet_line))
+      fork = object.bet.fork
+      h.link_to("Ставка (#{fork.title})", h.bet_line_path(fork.bet_line))
     end
   end
 
