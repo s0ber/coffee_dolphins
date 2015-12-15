@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214224522) do
+ActiveRecord::Schema.define(version: 20151215220322) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,9 +27,9 @@ ActiveRecord::Schema.define(version: 20151214224522) do
     t.integer  "bookmaker_id"
     t.decimal  "ammount_rub"
     t.decimal  "prize"
-    t.integer  "result"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "outcome"
   end
 
   add_index "bets", ["bookmaker_id"], name: "index_bets_on_bookmaker_id", using: :btree
@@ -39,9 +39,10 @@ ActiveRecord::Schema.define(version: 20151214224522) do
     t.string   "title"
     t.text     "description"
     t.string   "image"
-    t.integer  "currency",    default: 0
+    t.integer  "currency",       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "statistics_url"
   end
 
   create_table "categories", force: true do |t|
@@ -58,6 +59,9 @@ ActiveRecord::Schema.define(version: 20151214224522) do
     t.integer  "bet_line_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
+    t.integer  "winning_bet_id"
+    t.datetime "played_out_at"
   end
 
   add_index "forks", ["bet_line_id"], name: "index_forks_on_bet_line_id", using: :btree
@@ -162,10 +166,11 @@ ActiveRecord::Schema.define(version: 20151214224522) do
     t.datetime "performed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "sign",         default: 0
     t.integer  "kind",         default: 0
+    t.integer  "bet_id"
   end
 
+  add_index "transactions", ["bet_id"], name: "index_transactions_on_bet_id", using: :btree
   add_index "transactions", ["bookmaker_id"], name: "index_transactions_on_bookmaker_id", using: :btree
 
   create_table "users", force: true do |t|

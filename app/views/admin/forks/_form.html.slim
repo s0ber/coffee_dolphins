@@ -12,11 +12,10 @@
             = bet_form.input :prize, as: :string
 
 = neo_form_for fork do |f|
-  .wrapper.has-m15
-
   .form-fields
     - if is_new_action
       = f.association :bet_line, as: :hidden
+    = f.input :title, label: 'Заголовок вилки'
 
   .form-actions
     .fl_r

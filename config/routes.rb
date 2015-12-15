@@ -49,8 +49,16 @@ Rails.application.routes.draw do
 
     resources :categories
     resources :bookmakers
-    resources :bet_lines
-    resources :forks
+    resources :bet_lines do
+      get :cut, on: :member
+    end
+    resources :forks do
+      get :select_winner, on: :member
+      patch :set_winner, on: :member
+    end
+    resources :bets do
+      get :confirm_destroy, on: :member
+    end
     resources :transactions do
       get :confirm_destroy, on: :member
     end

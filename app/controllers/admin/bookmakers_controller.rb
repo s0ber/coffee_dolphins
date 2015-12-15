@@ -36,7 +36,7 @@ private
   end
 
   def bookmaker_params
-    params.require(:bookmaker).permit(:title, :description, :image, :currency)
+    params.require(:bookmaker).permit(:title, :description, :image, :currency, :statistics_url)
   end
 end
 

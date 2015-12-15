@@ -30,6 +30,7 @@ ru:
       invalid: невалидный формат
       taken: уже занято
       inclusion: не входит в допустимый диапазон значений
+      not_enough_bookmaker_money: недостаточно денег на счету у БК
 
   views:
     pagination:

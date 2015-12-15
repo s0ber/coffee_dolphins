@@ -1,0 +1,23 @@
+.panel data-component='app#items_list'
+  .panel-header
+    span
+      | Вилки
+    .fl_r
+      = bet_line.add_fork_button
+  .panel-body.has-p15
+    .panel.for-new_item.hidden data-view='new_item_form'
+      .panel-header
+        span
+          | Форма добавления вилки
+        .fl_r
+          .small_button.is-green
+            | Добавить ставку
+      .panel-body
+        = render 'admin/forks/form', bet_line: bet_line, is_new_action: true, fork: Fork.new(bet_line_id: bet_line.id)
+
+    .panels data-role='items_list-list_wrapper'
+      = render partial: 'admin/forks/fork', collection: bet_line.forks.decorate
+
+    p.page-text class=('hidden' if bet_line.forks.any?) data-role='items_list-empty_list_message'
+      | Нет вилок.
+

@@ -6,6 +6,7 @@
     = f.input :description, label: 'Описание'
     = f.input :currency, as: :radio_buttons, collection: Currency::LIST.invert, label: 'Валюта'
     = f.input :image, as: :file
+    = f.input :statistics_url, as: :string, label: 'URL статистики'
 
   .form-actions
     .fl_r

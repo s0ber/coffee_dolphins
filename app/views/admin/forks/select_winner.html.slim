@@ -1,0 +1,13 @@
+= neo_form_for @fork, url: [:set_winner, @fork] do |f|
+  .modal-fields
+    = f.input :winning_bet_id, as: :select,
+      label: 'Ставка',
+      include_blank: 'Выберите победителя..',
+      collection: @fork.bets_list
+
+  .modal-buttons
+    .fl_r
+      .small_button data-role='close_modal'
+        | Отмена
+      button.small_button.is-green type='submit'
+        | Задать победителя

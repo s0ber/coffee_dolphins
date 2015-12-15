@@ -19,6 +19,8 @@
           - unless bookmaker.currency == :RUB
             = list_item("Сумма (#{bookmaker.currency})", bookmaker.ammount)
             = list_item('Средний курс', bookmaker.exchange_rate)
+          - if bookmaker.statistics_link
+            = list_item('Ссылка статистики', bookmaker.statistics_link)
           = list_row(bookmaker.description)
           = list_row do
             - if bookmaker.transactions.any?

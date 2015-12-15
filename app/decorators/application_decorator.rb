@@ -39,7 +39,7 @@ class ApplicationDecorator < Draper::Decorator
       class: 'small_button is-icon is-red',
       remote: true,
       method: :delete,
-      data: {role: 'item-remove_button', confirm: confirm_remove_message}
+      data: {role: "item-remove_button #{object.class.name.underscore}-remove_button", confirm: confirm_remove_message}
   end
 
 protected
