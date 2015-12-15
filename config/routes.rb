@@ -52,7 +52,10 @@ Rails.application.routes.draw do
     resources :bet_lines do
       get :cut, on: :member
     end
-    resources :forks
+    resources :forks do
+      get :select_winner, on: :member
+      patch :set_winner, on: :member
+    end
     resources :bets do
       get :confirm_destroy, on: :member
     end

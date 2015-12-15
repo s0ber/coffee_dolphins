@@ -23,7 +23,13 @@ class BetLineDecorator < ApplicationDecorator
   end
 
   def profit
-    h.content_tag :b, "+#{object.profit} RUB", class: 'status is-green'
+    if object.profit > 0
+      h.content_tag :b, "+#{object.profit} RUB", class: 'status is-green'
+    elsif object.profit < 0
+      h.content_tag :b, "#{object.profit} RUB", class: 'status is-red'
+    else
+      "#{object.profit} RUB"
+    end
   end
 
   def actual_profit

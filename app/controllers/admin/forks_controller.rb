@@ -1,5 +1,5 @@
 class Admin::ForksController < Admin::BaseController
-  before_filter :load_fork, only: [:show, :edit, :update, :destroy]
+  before_filter :load_fork, only: [:show, :edit, :update, :destroy, :select_winner, :set_winner]
 
   def create
     @fork = Fork.new(fork_params)
@@ -14,6 +14,17 @@ class Admin::ForksController < Admin::BaseController
 
   def edit
     respond_with(@fork)
+  end
+
+  def select_winner
+    @fork = @fork.decorate
+    render_modal("Выберите победителя вилки <b>#{@fork.title}</b>")
+  end
+
+  def set_winner
+    @fork.update_attributes!(played_out_at: Time.zone.now,
+                             winning_bet_id: params[:fork][:winning_bet_id])
+    render_success
   end
 
   def update

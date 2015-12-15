@@ -3,7 +3,7 @@ class Bet < ActiveRecord::Base
   belongs_to :bookmaker
   has_many :transactions, dependent: :destroy
   before_validation :check_bookmaker_has_enough_money
-  after_save :create_bet_transactions
+  after_validation :create_bet_transactions
 
   validates :ammount_rub, :prize, :bookmaker_id, :fork_id, :outcome, presence: true
   default_scope { order(:outcome) }

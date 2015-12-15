@@ -1,10 +1,13 @@
 = list_item 'Количество вилок' do
-  b.status>
-    | #{bet_line.forks.size} всего,
-  b.status.is-green>
-    | #{bet_line.played_out_forks.size} сыграны,
-  b.status.is-red
-    | #{bet_line.pending_forks.size} на ставках
+  b.status
+    | #{bet_line.forks.size} всего
+  ' ,
+  b.status.is-green
+    | #{bet_line.played_out_forks.size} сыграны
+  - if bet_line.pending_forks.any?
+    ' ,
+    b.status.is-red
+      | #{bet_line.pending_forks.size} на ставках
 = list_item 'Денег на ставках', bet_line.ammount_rub
 = list_item 'Ожидаемая прибыль', bet_line.expected_profit
 = list_item 'Актуальный выигрыш', bet_line.prize
