@@ -17,6 +17,12 @@ class BookmakerDecorator < ApplicationDecorator
     "#{object.exchange_rate} RUB"
   end
 
+  def statistics_link(title = nil)
+    if object.statistics_url
+      h.link_to(title || bookmaker.statistics_url, bookmaker.statistics_url)
+    end
+  end
+
   def description
     h.auto_link(
       h.simple_format(h.html_escape(object.description), class: 'panel-text'),
