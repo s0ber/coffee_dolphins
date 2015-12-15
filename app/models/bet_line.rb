@@ -13,6 +13,22 @@ class BetLine < ActiveRecord::Base
   end
 
   def ammount_rub
-    self.forks.map { |fork| fork.bets.map(&:ammount_rub).sum }.sum
+    self.forks.map(&:ammount_rub).sum
+  end
+
+  def min_profit
+    self.forks.map(&:min_profit).sum
+  end
+
+  def max_profit
+    self.forks.map(&:max_profit).sum
+  end
+
+  def min_profit_percent
+    ((self.min_profit / self.ammount_rub) * 100).round(1)
+  end
+
+  def max_profit_percent
+    ((self.max_profit / self.ammount_rub) * 100).round(1)
   end
 end

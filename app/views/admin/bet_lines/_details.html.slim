@@ -6,5 +6,5 @@
   b.status.is-red
     | #{bet_line.pending_forks.size} на ставках
 = list_item 'Денег на ставках', "#{bet_line.ammount_rub} RUB"
-= list_item 'Ожидаемая прибыль', '400-500 RUB (3.3%—5.5%)'
+= list_item 'Ожидаемая прибыль', bet_line.expected_profit
 = list_item 'Актуальная прибыль', '450 RUB (4%)'
