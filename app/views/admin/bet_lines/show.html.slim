@@ -1,7 +1,7 @@
 div data-component='app#items_list'
   .page-title
     span
-      | Линия ставок <b>#{@bet_line.performed_at}</b>
+      | <b>Линия ##{@bet_line.id}</b> (за #{@bet_line.performed_at})
     .fl_r
       = @bet_line.add_fork_button
 

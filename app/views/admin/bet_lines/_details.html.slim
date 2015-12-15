@@ -1,1 +1,10 @@
-= list_item('Количество вилок', bet_line.forks.size)
+= list_item 'Количество вилок' do
+  b.status>
+    | #{bet_line.forks.size} всего,
+  b.status.is-green>
+    | 5 сыграны,
+  b.status.is-red
+    | 3 на ставках
+= list_item 'Денег на ставках', '9500 RUB'
+= list_item 'Ожидаемая прибыль', '400-500 RUB (3.3%—5.5%)'
+= list_item 'Актуальная прибыль', '450 RUB (4%)'

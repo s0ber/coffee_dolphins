@@ -1,5 +1,5 @@
 class Admin::BetLinesController < Admin::BaseController
-  before_filter :load_bet_line, only: [:show, :edit, :update, :destroy]
+  before_filter :load_bet_line, only: [:show, :cut, :edit, :update, :destroy]
 
   def index
     @bet_lines = BetLine.all.decorate
@@ -15,6 +15,11 @@ class Admin::BetLinesController < Admin::BaseController
   def show
     @bet_line = @bet_line.decorate
     respond_with(@bet_line)
+  end
+
+  def cut
+    @bet_line = @bet_line.decorate
+    render_partial('bet_line', bet_line: @bet_line)
   end
 
   def edit
