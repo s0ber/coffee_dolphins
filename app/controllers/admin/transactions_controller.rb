@@ -19,8 +19,10 @@ class Admin::TransactionsController < Admin::BaseController
   end
 
   def update
-    @transaction.update_attributes!(transaction_params)
-    render_success
+    if @transaction.kind_human == :load
+      @transaction.update_attributes!(transaction_params)
+      render_success
+    end
   end
 
   def confirm_destroy

@@ -25,5 +25,6 @@
             td
               = transaction.ammount
           td
-            = transaction.modal_edit_button
-            = transaction.confirm_remove_button
+            - if transaction.kind_human == :load
+              = transaction.modal_edit_button
+              = transaction.confirm_remove_button

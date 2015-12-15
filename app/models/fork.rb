@@ -5,6 +5,8 @@ class Fork < ActiveRecord::Base
   accepts_nested_attributes_for :bets, allow_destroy: true
   default_scope { order(:id) }
 
+  after_save :update_bet_transactions
+
   def status
     self.winning_bet_id ? :played_out : :pending
   end
@@ -35,5 +37,9 @@ class Fork < ActiveRecord::Base
     else
       -self.ammount_rub
     end
+  end
+
+  def update_bet_transactions
+    self.bets.each(&:update_bet_transactions)
   end
 end

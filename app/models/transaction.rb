@@ -22,4 +22,8 @@ class Transaction < ActiveRecord::Base
       end
     end
   end
+
+  def kind_human
+    KINDS.invert[self.kind]
+  end
 end

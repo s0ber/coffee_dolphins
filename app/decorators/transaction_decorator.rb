@@ -28,12 +28,15 @@ class TransactionDecorator < ApplicationDecorator
   end
 
   def kind
-    case Transaction::KINDS.invert[object.kind]
+    case object.kind_human
     when :load
       'Депозит'
     when :bet
       fork = object.bet.fork
       h.link_to("Ставка (#{fork.title})", h.bet_line_path(fork.bet_line))
+    when :result_plus
+      fork = object.bet.fork
+      h.link_to("<b class='status is-green'>Выигрыш</b> (#{fork.title})".html_safe, h.bet_line_path(fork.bet_line))
     end
   end
 
