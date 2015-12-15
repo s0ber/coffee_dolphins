@@ -3,6 +3,7 @@ class Fork < ActiveRecord::Base
   validates :title, presence: true
   has_many :bets, dependent: :destroy
   accepts_nested_attributes_for :bets, allow_destroy: true
+  default_scope { order(:id) }
 
   def status
     self.winning_bet_id ? :played_out : :pending
@@ -13,11 +14,11 @@ class Fork < ActiveRecord::Base
   end
 
   def min_profit
-    self.bets.map(&:prize).min - self.ammount_rub
+    (self.bets.map(&:prize).min || 0) - self.ammount_rub
   end
 
   def max_profit
-    self.bets.map(&:prize).max - self.ammount_rub
+    (self.bets.map(&:prize).max || 0) - self.ammount_rub
   end
 
   def profit

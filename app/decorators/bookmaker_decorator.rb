@@ -19,7 +19,11 @@ class BookmakerDecorator < ApplicationDecorator
 
   def statistics_link(title = nil, options = {})
     if object.statistics_url
-      h.link_to(title || bookmaker.statistics_url, bookmaker.statistics_url, rel: 'noreferrer', class: options[:class], data: options[:data])
+      h.link_to(title || bookmaker.statistics_url, bookmaker.statistics_url,
+                rel: 'noreferrer',
+                target: '_blank',
+                class: options[:class],
+                data: options[:data])
     end
   end
 
