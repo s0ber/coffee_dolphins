@@ -1,5 +1,4 @@
 class TransactionDecorator < ApplicationDecorator
-
   def ammount_rub
     if object.ammount_rub > 0
       h.content_tag :b, "+#{object.ammount_rub} RUB", class: 'status is-green'
