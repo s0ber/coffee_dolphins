@@ -1,29 +1,14 @@
-div data-component='app#items_list'
+div data-view='app#bet_page' data={block_path: bet_line_path(@bet_line)}
   .page-title
     span
       | <b>Линия ##{@bet_line.id}</b> (за #{@bet_line.performed_at})
-    .fl_r
-      = @bet_line.add_fork_button
 
   .page-body
-    .panel.for-new_item.hidden data-view='new_item_form'
-      .panel-header
-        span
-          | Форма добавления вилки
-        .fl_r
-          .small_button.is-green
-            | Добавить ставку
-      .panel-body
-        = render 'admin/forks/form', bet_line: @bet_line, is_new_action: true, fork: Fork.new(bet_line_id: @bet_line.id)
+    .panels
+      .panel
+        .panel-header
+          | Детали
+        .panel-body
+          = render 'details', bet_line: @bet_line
 
-    .panel
-      .panel-header
-        | Детали
-      .panel-body
-        = render 'details', bet_line: @bet_line
-
-    .panels data-role='items_list-list_wrapper'
-      = render partial: 'admin/forks/fork', collection: @bet_line.forks.decorate
-
-    p.page-text.has-margins class=('hidden' if @bet_line.forks.any?) data-role='items_list-empty_list_message'
-      | Нет вилок.
+      = render 'admin/forks/forks', bet_line: @bet_line

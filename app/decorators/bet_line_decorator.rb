@@ -4,7 +4,7 @@ class BetLineDecorator < ApplicationDecorator
   end
 
   def add_fork_button
-    h.content_tag :span, 'Добавить вилку', class: 'small_button is-green', data: {role: 'items_list-show_form'}
+    h.content_tag :span, 'Добавить вилку', class: 'small_button is-green', data: {role: 'items_list-show_form bet_page-new_fork_form'}
   end
 
   protected

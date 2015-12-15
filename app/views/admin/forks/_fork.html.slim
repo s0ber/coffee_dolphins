@@ -1,10 +1,24 @@
 .panel_item data-view='item' data={item_id: fork.id, block_path: fork_path(fork)}
   .panel_item-header
     span data-role='editable_item-title'
-      = fork.id
+      = fork.title
     .fl_r
+      = fork.add_bet_button
       = fork.edit_button
       = fork.remove_button
 
-  .panel_item-body data-role='editable_item-info'
-    .panel_list
+  .panel_item-body.has-p15 data-role='editable_item-info'
+    .columns
+      - 3.times do
+        .column.is-33
+          .panel
+            .panel-header
+              span
+                | BetCityRus
+              .fl_r
+                .small_button.is-icon
+                  = fa_icon('pencil')
+
+            .panel-body
+              = list_item('Ставка', '500 RUB')
+              = list_item('Выигрыш', '1500 RUB')
