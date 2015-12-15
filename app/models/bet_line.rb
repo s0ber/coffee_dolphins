@@ -32,6 +32,10 @@ class BetLine < ActiveRecord::Base
     ((self.max_profit / self.ammount_rub) * 100).round(1)
   end
 
+  def prize
+    self.forks.map(&:prize).sum
+  end
+
   def profit
     self.forks.map(&:profit).sum
   end

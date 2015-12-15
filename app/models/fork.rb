@@ -21,9 +21,17 @@ class Fork < ActiveRecord::Base
     (self.bets.map(&:prize).max || 0) - self.ammount_rub
   end
 
+  def prize
+    if self.status == :played_out
+      self.bets.to_a.filter { |bet| bet.id == self.winning_bet_id }.prize
+    else
+      0
+    end
+  end
+
   def profit
     if self.status == :played_out
-      self.bets.to_a.filter { |bet| bet.id == self.winning_bet_id }.prize - self.ammount_rub
+      self.prize - self.ammount_rub
     else
       0
     end

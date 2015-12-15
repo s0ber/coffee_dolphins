@@ -5,6 +5,7 @@
     | #{bet_line.played_out_forks.size} сыграны,
   b.status.is-red
     | #{bet_line.pending_forks.size} на ставках
-= list_item 'Денег на ставках', "#{bet_line.ammount_rub} RUB"
+= list_item 'Денег на ставках', bet_line.ammount_rub
 = list_item 'Ожидаемая прибыль', bet_line.expected_profit
+= list_item 'Актуальный выигрыш', bet_line.prize
 = list_item 'Актуальная прибыль', bet_line.actual_profit
