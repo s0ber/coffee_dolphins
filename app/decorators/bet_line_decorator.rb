@@ -16,6 +16,11 @@ class BetLineDecorator < ApplicationDecorator
     "#{object.min_profit_percent}%—#{object.max_profit_percent}%"
   end
 
+  def actual_profit
+    profit = h.content_tag :b, "#{object.profit} RUB", class: 'status is-green'
+    "#{profit} (#{object.profit_percent}%)".html_safe
+  end
+
   protected
 
   def confirm_remove_message

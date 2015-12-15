@@ -20,11 +20,11 @@ class Fork < ActiveRecord::Base
     self.bets.map(&:prize).max - self.ammount_rub
   end
 
-  def min_profit_percent
-    (self.min_profit / self.ammount_rub) * 100
-  end
-
-  def max_profit_percent
-    (self.max_profit / self.ammount_rub) * 100
+  def profit
+    if self.status == :played_out
+      self.bets.to_a.filter { |bet| bet.id == self.winning_bet_id }.prize - self.ammount_rub
+    else
+      0
+    end
   end
 end
