@@ -1,7 +1,7 @@
 .panel_item data-view='item' data={item_id: fork.id, block_path: fork_path(fork)}
   .panel_item-header
     span data-role='editable_item-title'
-      = fork.title
+      | #{fork.title} — #{fork.status_tag}
     .fl_r
       = fork.add_bet_button
       = fork.edit_button
