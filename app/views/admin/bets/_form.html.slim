@@ -7,7 +7,7 @@
     = f.input :bookmaker_id, as: :select,
       label: 'БК',
       prompt: 'Выберите букмейкера..',
-      collection: Bookmaker.by_ammount_rub.map { |bookmaker| [bookmaker.title, bookmaker.id] }
+      collection: Bookmaker.by_ammount_rub.map { |bookmaker| ["#{bookmaker.title} (#{bookmaker.ammount_rub} RUB)", bookmaker.id] }
     = f.input :ammount_rub, as: :string, label: 'Сумма ставки (RUB)'
     = f.input :prize, as: :string, label: 'Выигрыш (RUB)'
     = f.input :outcome, as: :string, label: 'Исход'
