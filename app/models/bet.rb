@@ -19,4 +19,10 @@ class Bet < ActiveRecord::Base
       :pending
     end
   end
+
+  def ammount
+    if Currency::LIST[bookmaker.currency] != :RUB
+      self.ammount_rub / bookmaker.exchange_rate
+    end
+  end
 end

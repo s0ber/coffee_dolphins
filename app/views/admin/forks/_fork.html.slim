@@ -21,7 +21,9 @@
                   = bet.confirm_remove_button
 
               .panel-body
-                = list_item('Ставка', bet.ammount_rub)
+                = list_item('Ставка (RUB)', bet.ammount_rub)
+                - if bet.ammount
+                  = list_item("Ставка (#{bet.bookmaker.currency})", bet.ammount)
                 = list_item('Выигрыш', bet.prize)
                 = list_item('Исход', bet.outcome)
                 = list_item 'Результат', bet.result_tag

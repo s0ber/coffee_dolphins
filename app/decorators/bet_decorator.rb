@@ -18,4 +18,10 @@ class BetDecorator < ApplicationDecorator
       h.content_tag(:b, 'Ставка проиграла', class: 'status is-red')
     end
   end
+
+  def ammount
+    if object.ammount
+      h.content_tag(:span, "#{object.ammount.ceil(1)} #{bookmaker.currency}")
+    end
+  end
 end
