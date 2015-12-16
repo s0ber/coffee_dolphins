@@ -11,6 +11,14 @@ class Bookmaker < ActiveRecord::Base
     bookmakers.map { |b| b.model.ammount_rub }.sum.to_s + ' RUB'
   end
 
+  def loaded_ammount_rub
+    transactions.to_a.select { |t| t.kind_human == :load }.map(&:ammount_rub).sum
+  end
+
+  def loaded_ammount
+    transactions.to_a.select { |t| t.kind_human == :load }.map(&:ammount).sum
+  end
+
   def ammount_rub
     transactions.map(&:ammount_rub).sum
   end
@@ -20,10 +28,10 @@ class Bookmaker < ActiveRecord::Base
   end
 
   def exchange_rate
-    if ammount == 0
+    if loaded_ammount == 0
       0
     else
-      ammount_rub / ammount
+      loaded_ammount_rub / loaded_ammount
     end
   end
 end
