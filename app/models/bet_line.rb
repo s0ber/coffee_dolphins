@@ -4,7 +4,7 @@ class BetLine < ActiveRecord::Base
   default_scope { order(performed_at: :desc) }
 
   def pending_forks
-    self.forks.to_a.select { |fork| fork.status == :pending }
+    self.forks.to_a.select { |fork| fork.status != :played_out }
   end
 
 
