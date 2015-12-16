@@ -18,13 +18,9 @@ class BetLineDecorator < ApplicationDecorator
     "#{profit} (#{expected_profit_percents})".html_safe
   end
 
-  def expected_profit_percents
-    "#{object.min_profit_percent}%—#{object.max_profit_percent}%"
-  end
-
   def profit
     if object.profit > 0
-      h.content_tag :b, "+#{object.profit} RUB", class: 'status is-green'
+      h.content_tag :b, "#{object.profit} RUB", class: 'status is-green'
     elsif object.profit < 0
       h.content_tag :b, "#{object.profit} RUB", class: 'status is-red'
     else
@@ -32,12 +28,16 @@ class BetLineDecorator < ApplicationDecorator
     end
   end
 
+  def expected_profit_percents
+    "#{object.min_profit_percent}%—#{object.max_profit_percent}%"
+  end
+
   def actual_profit
     "#{profit} (#{object.profit_percent}%)".html_safe
   end
 
   def prize
-    h.content_tag :b, "+#{object.prize} RUB", class: 'status is-green'
+    h.content_tag :b, "+#{object.ammount_rub + object.prize} RUB", class: 'status is-green'
   end
 
   protected

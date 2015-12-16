@@ -16,11 +16,11 @@ class Fork < ActiveRecord::Base
   end
 
   def min_profit
-    (self.bets.map(&:prize).min || 0) - self.ammount_rub
+    (self.bets.map(&:prize).min || 0)
   end
 
   def max_profit
-    (self.bets.map(&:prize).max || 0) - self.ammount_rub
+    (self.bets.map(&:prize).max || 0)
   end
 
   def prize
@@ -33,7 +33,7 @@ class Fork < ActiveRecord::Base
 
   def profit
     if self.status == :played_out
-      self.prize - self.ammount_rub
+      self.prize
     else
       -self.ammount_rub
     end
