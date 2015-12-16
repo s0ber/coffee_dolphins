@@ -46,7 +46,7 @@ class Bet < ActiveRecord::Base
     if self.fork.status == :played_out && self.id == self.fork.winning_bet_id
       self.transactions << Transaction.create!(bookmaker: self.bookmaker,
                                                kind: Transaction::KINDS[:result_plus],
-                                               ammount_rub: self.ammount_rub + self.prize,
+                                               ammount_rub: self.fork.ammount_rub + self.prize,
                                                ammount: self.ammount && (self.ammount + self.prize_ammount),
                                                currency: self.bookmaker.currency,
                                                performed_at: self.fork.played_out_at)
