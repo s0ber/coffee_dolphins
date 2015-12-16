@@ -7,7 +7,7 @@ class BetDecorator < ApplicationDecorator
 
   def prize
     if object.fork.winning_bet_id == object.id
-      h.content_tag :b, "+#{object.prize} RUB", class: 'status is-green'
+      add_sign(object.prize)
     else
       "#{object.prize} RUB"
     end

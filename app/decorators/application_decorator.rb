@@ -43,6 +43,17 @@ class ApplicationDecorator < Draper::Decorator
   end
 
 protected
+
+  def add_sign(value)
+    if value > 0
+      h.content_tag :b, "+#{value} RUB", class: 'status is-green'
+    elsif value < 0
+      h.content_tag :b, "#{value} RUB", class: 'status is-red'
+    else
+      "#{value} RUB"
+    end
+  end
+
   def confirm_remove_message
     raise NotImplementedError
   end
