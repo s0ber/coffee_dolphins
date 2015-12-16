@@ -1,6 +1,16 @@
 class Admin::ForksController < Admin::BaseController
   before_filter :load_fork, only: [:show, :edit, :update, :destroy, :select_winner, :set_winner]
 
+  def index
+    @forks = Fork.order_by_event_scheduled_at_asc.pending.page(params[:page])
+    respond_with(@forks)
+  end
+
+  def all
+    @forks = Fork.order_by_event_scheduled_at_desc.all.page(params[:page])
+    respond_with(@forks)
+  end
+
   def create
     @fork = Fork.new(fork_params)
     @fork.bet_line_id = params[:fork][:bet_line_id]
@@ -44,6 +54,6 @@ class Admin::ForksController < Admin::BaseController
   end
 
   def fork_params
-    params.fetch(:fork, {}).permit(:title, bets_attributes: [:id, :ammount_rub, :prize, :bookmaker_id])
+    params.fetch(:fork, {}).permit(:title, :event_scheduled_at, bets_attributes: [:id, :ammount_rub, :prize, :bookmaker_id])
   end
 end

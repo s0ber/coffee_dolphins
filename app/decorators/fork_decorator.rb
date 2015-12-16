@@ -10,10 +10,15 @@ class ForkDecorator < ApplicationDecorator
   end
 
   def status_tag
-    if object.status == :pending
-      h.content_tag(:b, 'ожидание результата', class: 'status is-orange')
-    else
-      h.content_tag(:b, 'ставки сыграны', class: 'status is-green')
+    case object.status
+    when :pending_event_time
+      h.content_tag(:b, "добавьте время события", class: 'status is-red')
+    when :pending
+      h.content_tag(:b, "событие пройдет #{h.l(object.event_scheduled_at, format: :long)}", class: 'status is-orange')
+    when :pending_check
+      h.content_tag(:b, "событие прошло #{h.l(object.event_scheduled_at, format: :long)}, выберите результат", class: 'status is-red')
+    when :played_out
+      h.content_tag(:b, "событие прошло #{h.l(object.event_scheduled_at, format: :long)}", class: 'status is-green')
     end
   end
 

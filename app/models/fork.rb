@@ -1,14 +1,29 @@
 class Fork < ActiveRecord::Base
   belongs_to :bet_line
-  validates :title, presence: true
   has_many :bets, dependent: :destroy
+
+  validates :title, :event_scheduled_at, presence: true
+
   accepts_nested_attributes_for :bets, allow_destroy: true
-  default_scope { order(:id) }
+
+  scope :pending, -> { where(winning_bet_id: nil) }
+  scope :order_by_event_scheduled_at_asc, -> { order(event_scheduled_at: :asc) }
+  scope :order_by_event_scheduled_at_desc, -> { order(event_scheduled_at: :desc) }
 
   after_save :update_bet_transactions
 
   def status
-    self.winning_bet_id ? :played_out : :pending
+    if self.event_scheduled_at
+      if self.winning_bet_id
+        :played_out
+      elsif self.event_scheduled_at <= Time.zone.now
+        :pending_check
+      else
+        :pending
+      end
+    else
+      :pending_event_time
+    end
   end
 
   def ammount_rub

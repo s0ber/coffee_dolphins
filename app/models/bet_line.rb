@@ -1,5 +1,5 @@
 class BetLine < ActiveRecord::Base
-  has_many :forks, dependent: :destroy
+  has_many :forks, -> { order(event_scheduled_at: :asc) }, dependent: :destroy
   validates :performed_at, presence: true
   default_scope { order(performed_at: :desc) }
 

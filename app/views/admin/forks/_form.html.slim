@@ -1,21 +1,9 @@
-- bet_template = capture do
-  - dummy_fork = Fork.new
-  - dummy_fork.bets.build
-
-  .panel
-    .panel-body.is-stand_alone
-      .form-fields
-        = neo_fields_for dummy_fork do |f|
-          = f.association :bets do |bet_form|
-            = bet_form.input :id, as: :hidden
-            = bet_form.input :ammount_rub, as: :string
-            = bet_form.input :prize, as: :string
-
 = neo_form_for fork do |f|
   .form-fields
     - if is_new_action
       = f.association :bet_line, as: :hidden
     = f.input :title, label: 'Заголовок вилки'
+    = f.input :event_scheduled_at, label: 'Время проведения события'
 
   .form-actions
     .fl_r

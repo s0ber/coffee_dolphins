@@ -1,0 +1,3 @@
+.filters
+  = link_to 'Активные', forks_path, class: "flat_button #{'is-active' if current_page?(forks_path)}"
+  = link_to 'Все', all_forks_path, class: "flat_button #{'is-active' if current_page?(all_forks_path)}"

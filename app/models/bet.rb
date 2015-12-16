@@ -6,7 +6,7 @@ class Bet < ActiveRecord::Base
   after_save :update_bet_transactions
 
   validates :ammount_rub, :prize, :bookmaker_id, :fork_id, :outcome, presence: true
-  default_scope { order(:outcome) }
+  default_scope { order(:id) }
 
   def check_bookmaker_has_enough_money
     if self.ammount_rub && self.bookmaker && self.bookmaker.ammount_rub < self.ammount_rub

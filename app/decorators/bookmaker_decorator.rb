@@ -6,6 +6,8 @@ class BookmakerDecorator < ApplicationDecorator
       h.content_tag :b, "+#{object.ammount_rub} RUB", class: 'status is-green'
     elsif object.ammount_rub < 0
       h.content_tag :b, "#{object.ammount_rub} RUB", class: 'status is-red'
+    else
+      '0 RUB'
     end
   end
 
