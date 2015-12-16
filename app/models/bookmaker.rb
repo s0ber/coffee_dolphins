@@ -23,7 +23,7 @@ class Bookmaker < ActiveRecord::Base
     if ammount == 0
       0
     else
-      (ammount_rub / ammount).ceil(2)
+      ammount_rub / ammount
     end
   end
 end

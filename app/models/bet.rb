@@ -2,14 +2,21 @@ class Bet < ActiveRecord::Base
   belongs_to :fork
   belongs_to :bookmaker
   has_many :transactions, dependent: :destroy
-  before_validation :check_bookmaker_has_enough_money
+  before_validation :check_bookmaker_has_enough_money_on_create, on: :create
+  before_validation :check_bookmaker_has_enough_money_on_update, on: :update
   after_save :update_bet_transactions
 
   validates :ammount_rub, :prize, :bookmaker_id, :fork_id, :outcome, presence: true
   default_scope { order(:id) }
 
-  def check_bookmaker_has_enough_money
-    if self.ammount_rub && self.bookmaker && self.bookmaker.ammount_rub < self.ammount_rub
+  def check_bookmaker_has_enough_money_on_create
+    if self.ammount_rub && self.bookmaker && (self.bookmaker.ammount_rub < self.ammount_rub)
+      self.errors.add :ammount_rub, :not_enough_bookmaker_money
+    end
+  end
+
+  def check_bookmaker_has_enough_money_on_update
+    if self.ammount_rub && self.bookmaker && (self.bookmaker.ammount_rub + self.ammount_rub_was < self.ammount_rub)
       self.errors.add :ammount_rub, :not_enough_bookmaker_money
     end
   end
@@ -24,13 +31,13 @@ class Bet < ActiveRecord::Base
 
   def ammount
     if Currency::LIST[bookmaker.currency] != :RUB
-      (self.ammount_rub / bookmaker.exchange_rate).round(1)
+      self.ammount_rub / bookmaker.exchange_rate
     end
   end
 
   def prize_ammount
     if Currency::LIST[bookmaker.currency] != :RUB
-      (self.prize / bookmaker.exchange_rate).round(1)
+      self.prize / bookmaker.exchange_rate
     end
   end
 

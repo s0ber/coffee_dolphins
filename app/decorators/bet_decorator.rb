@@ -25,7 +25,7 @@ class BetDecorator < ApplicationDecorator
 
   def ammount
     if object.ammount
-      h.content_tag(:span, "#{object.ammount} #{bookmaker.currency}")
+      h.content_tag(:span, "#{object.ammount.ceil(1)} #{bookmaker.currency}")
     end
   end
 end

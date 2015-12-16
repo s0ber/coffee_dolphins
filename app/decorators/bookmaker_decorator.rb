@@ -12,11 +12,11 @@ class BookmakerDecorator < ApplicationDecorator
   end
 
   def ammount
-    "#{object.ammount} #{currency}"
+    "#{object.ammount.floor(1)} #{currency}"
   end
 
   def exchange_rate
-    "#{object.exchange_rate} RUB"
+    "#{object.exchange_rate.ceil(1)} RUB"
   end
 
   def statistics_link(title = nil, options = {})
