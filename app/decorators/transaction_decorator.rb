@@ -15,7 +15,7 @@ class TransactionDecorator < ApplicationDecorator
     elsif object.ammount < 0
       h.content_tag :b, "#{object.ammount.floor(1)} #{currency}", class: 'status is-red'
     else
-      "#{object.ammount} #{currency}"
+      "#{object.ammount.floor(1)} #{currency}"
     end
   end
 
