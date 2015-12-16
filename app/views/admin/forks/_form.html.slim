@@ -3,6 +3,7 @@
     - if is_new_action
       = f.association :bet_line, as: :hidden
     = f.input :title, label: 'Заголовок вилки'
+    = f.input :event_scheduled_at, label: 'Время проведения события'
 
   .form-actions
     .fl_r

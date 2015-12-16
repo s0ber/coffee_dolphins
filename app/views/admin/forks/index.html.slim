@@ -1,0 +1,17 @@
+div data-component='app#items_list'
+  .page-title
+    span
+      | Активные вилки
+
+  = render 'filters'
+
+  .page-body
+    - if @forks.any?
+      = pagination_for @forks
+      .panels
+        = render partial: 'fork', collection: @forks.decorate
+      = pagination_for @forks
+
+    - else
+      p.page-empty_page_message
+        | Нет активных вилок.
