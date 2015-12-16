@@ -25,11 +25,15 @@ class BetLine < ActiveRecord::Base
   end
 
   def min_profit_percent
-    ((self.min_profit / self.ammount_rub) * 100).round(1)
+    if self.ammount_rub != 0
+      ((self.min_profit / self.ammount_rub) * 100).round(1)
+    end
   end
 
   def max_profit_percent
-    ((self.max_profit / self.ammount_rub) * 100).round(1)
+    if self.ammount_rub != 0
+      ((self.max_profit / self.ammount_rub) * 100).round(1)
+    end
   end
 
   def prize
@@ -41,6 +45,8 @@ class BetLine < ActiveRecord::Base
   end
 
   def profit_percent
-    ((self.profit / self.ammount_rub) * 100).round(1)
+    if self.ammount_rub != 0
+      ((self.profit / self.ammount_rub) * 100).round(1)
+    end
   end
 end
