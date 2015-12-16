@@ -16,7 +16,7 @@ class Fork < ActiveRecord::Base
     if self.event_scheduled_at
       if self.winning_bet_id
         :played_out
-      elsif self.event_scheduled_at <= Time.zone.now
+      elsif (self.event_scheduled_at + (1.5).hours) <= Time.zone.now
         :pending_check
       else
         :pending
