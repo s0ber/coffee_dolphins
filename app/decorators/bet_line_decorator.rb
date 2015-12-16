@@ -38,7 +38,11 @@ class BetLineDecorator < ApplicationDecorator
   end
 
   def prize
-    add_sign(object.ammount_rub + object.prize)
+    if object.prize == 0
+      '0 RUB'
+    else
+      add_sign(object.ammount_rub + object.prize)
+    end
   end
 
   protected
