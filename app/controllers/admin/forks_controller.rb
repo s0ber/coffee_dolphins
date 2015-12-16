@@ -2,7 +2,12 @@ class Admin::ForksController < Admin::BaseController
   before_filter :load_fork, only: [:show, :edit, :update, :destroy, :select_winner, :set_winner]
 
   def index
-    @forks = Fork.pending.page(params[:page])
+    @forks = Fork.order_by_event_scheduled_at_asc.pending.page(params[:page])
+    respond_with(@forks)
+  end
+
+  def all
+    @forks = Fork.order_by_event_scheduled_at_desc.all.page(params[:page])
     respond_with(@forks)
   end
 

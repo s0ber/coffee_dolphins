@@ -53,8 +53,14 @@ Rails.application.routes.draw do
       get :cut, on: :member
     end
     resources :forks do
-      get :select_winner, on: :member
-      patch :set_winner, on: :member
+      member do
+        get :select_winner
+        patch :set_winner
+      end
+
+      collection do
+        get :all
+      end
     end
     resources :bets do
       get :confirm_destroy, on: :member
