@@ -16,6 +16,10 @@ class BetLine < ActiveRecord::Base
     self.forks.map(&:ammount_rub).sum
   end
 
+  def bets_ammount_rub
+    self.forks.to_a.select { |fork| fork.status != :played_out }.map(&:ammount_rub).sum
+  end
+
   def min_profit
     self.forks.map(&:min_profit).sum
   end

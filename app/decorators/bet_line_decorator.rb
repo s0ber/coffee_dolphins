@@ -1,7 +1,9 @@
 class BetLineDecorator < ApplicationDecorator
-  def ammount_rub
-    if object.ammount_rub > 0
-      h.content_tag :b, "-#{object.ammount_rub} RUB", class: 'status is-red'
+  def bets_ammount_rub
+    if object.bets_ammount_rub > 0
+      h.content_tag :b, "-#{object.bets_ammount_rub} RUB", class: 'status is-red'
+    else
+      "#{object.bets_ammount_rub} RUB"
     end
   end
 
@@ -35,14 +37,6 @@ class BetLineDecorator < ApplicationDecorator
 
   def actual_profit
     "#{profit} (#{object.profit_percent}%)".html_safe
-  end
-
-  def prize
-    if object.prize == 0
-      '0 RUB'
-    else
-      add_sign(object.ammount_rub + object.prize)
-    end
   end
 
   protected

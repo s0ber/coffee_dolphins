@@ -8,7 +8,6 @@
     ' ,
     b.status.is-red
       | #{bet_line.pending_forks.size} на ставках
-= list_item 'Денег на ставках', bet_line.ammount_rub
+= list_item 'Денег на ставках', bet_line.bets_ammount_rub
 = list_item 'Ожидаемая прибыль', bet_line.expected_profit
-= list_item 'Возврат инвестиций', bet_line.prize
 = list_item 'Фактическая прибыль', bet_line.actual_profit
