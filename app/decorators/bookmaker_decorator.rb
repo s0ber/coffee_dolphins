@@ -12,11 +12,19 @@ class BookmakerDecorator < ApplicationDecorator
   end
 
   def ammount
-    "#{object.ammount.floor(1)} #{currency}"
+    if object.ammount == 0
+      "0 #{currency}"
+    else
+      "#{object.ammount.floor(1)} #{currency}"
+    end
   end
 
   def exchange_rate
-    "#{object.exchange_rate.ceil(1)} RUB"
+    if object.exchange_rate == 0
+      'Невозможно подсчитать, нет транзакций'
+    else
+      "#{object.exchange_rate.ceil(1)} RUB"
+    end
   end
 
   def statistics_link(title = nil, options = {})
