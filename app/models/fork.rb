@@ -30,6 +30,15 @@ class Fork < ActiveRecord::Base
     self.bets.map(&:ammount_rub).sum
   end
 
+  def ammount
+    return unless self.winning_bet_id
+
+    winning_bet = Bet.find(self.winning_bet_id)
+    if Currency::LIST[winning_bet.bookmaker.currency] != :RUB
+      self.bets.map { |bet| bet.ammount(exchange_rate: winning_bet.bookmaker.exchange_rate) }.sum
+    end
+  end
+
   def min_profit
     (self.bets.map(&:prize).min || 0)
   end

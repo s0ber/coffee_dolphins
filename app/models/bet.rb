@@ -29,8 +29,10 @@ class Bet < ActiveRecord::Base
     end
   end
 
-  def ammount
-    if Currency::LIST[bookmaker.currency] != :RUB
+  def ammount(exchange_rate: nil)
+    if exchange_rate
+      self.ammount_rub / exchange_rate
+    elsif Currency::LIST[bookmaker.currency] != :RUB
       self.ammount_rub / bookmaker.exchange_rate
     end
   end
@@ -54,7 +56,7 @@ class Bet < ActiveRecord::Base
       self.transactions << Transaction.create!(bookmaker: self.bookmaker,
                                                kind: Transaction::KINDS[:result_plus],
                                                ammount_rub: self.fork.ammount_rub + self.prize,
-                                               ammount: self.ammount && (self.ammount + self.prize_ammount),
+                                               ammount: self.fork.ammount && (self.fork.ammount + self.prize_ammount),
                                                currency: self.bookmaker.currency,
                                                performed_at: self.fork.played_out_at)
     end
