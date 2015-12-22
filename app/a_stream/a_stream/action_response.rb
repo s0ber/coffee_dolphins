@@ -8,7 +8,7 @@ module AStream
       @unsafe_body, @request, @status = body, request, status
 
       if request.runner.collection_action? && !@unsafe_body.respond_to?(:each)
-        raise ArgumentError, message: "Action should always respond with collection, but non-iterateble response specified for action #{request.runner}."
+        raise ArgumentError, message: "Collection action should always respond with collection, but non-iterateble response specified for action #{request.runner}."
       end
 
       unless STATUSES.include?(@status)

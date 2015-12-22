@@ -41,7 +41,7 @@ describe AStream::ActionResponse do
 
       specify do
         expect { described_class.new(body: body, request: request) }
-          .to raise_error(ArgumentError, /Action should always respond with collection, but non-iterateble response specified for action TestAction./)
+          .to raise_error(ArgumentError, /Collection action should always respond with collection, but non-iterateble response specified for action TestAction./)
       end
     end
   end

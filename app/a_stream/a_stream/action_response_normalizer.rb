@@ -18,7 +18,7 @@ module AStream
     end
 
     def filter_resources(action: @action, resources: @unsafe_body)
-      if resources.respond_to?(:each)
+      if action.collection_action?
         resources.select { |item| action.permit_resource?(@performer, item) }
       else
         action.permit_resource?(@performer, resources) ? resources : nil
@@ -33,7 +33,7 @@ module AStream
       safe_attrs = safe_attrs.select { |attr| attr.is_a?(Symbol) }
       safe_attrs = [].concat(DEFAULT_SAFE_ATTRIBUTES).concat(safe_attrs)
 
-      if resources.respond_to?(:each) && !resources.is_a?(Hash)
+      if action.collection_action?
         resources.map { |r| serialize_resource(r, safe_attrs) }.compact
       else
         serialize_resource(resources, safe_attrs)
