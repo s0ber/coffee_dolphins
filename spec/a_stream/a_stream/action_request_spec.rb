@@ -12,7 +12,7 @@ describe AStream::ActionRequest do
 
   context 'given required data' do
     subject { described_class.new(runner: Test::Test, type: action_type, performer: user, query: {test: 'query'}) }
-    let(:user) { create(:user) }
+    let(:user) { build_stubbed(:user) }
 
     specify { expect(subject.runner).to eq(Test::Test) }
     specify { expect(subject.type).to eq(:get) }

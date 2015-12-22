@@ -97,8 +97,8 @@ describe AStream::ActionResponseNormalizer do
   end
 
   describe '#serialize_resources' do
-    let(:admin) { create(:user, :admin) }
-    let(:moder) { create(:user, :moder) }
+    let(:admin) { build_stubbed(:user, :admin) }
+    let(:moder) { build_stubbed(:user, :moder) }
 
     context 'safe attributes specified for action' do
       let(:action) { Class.new(AStream::CollectionAction) { safe_attributes :full_name, :gender } }
@@ -169,8 +169,8 @@ describe AStream::ActionResponseNormalizer do
   end
 
   describe '#normalize_included_resources' do
-    let!(:admin) { create(:user, :admin) }
-    let!(:moder) { create(:user, :moder) }
+    let!(:admin) { build_stubbed(:user, :admin) }
+    let!(:moder) { build_stubbed(:user, :moder) }
     let(:serialized_admin) { {id: 1, full_name: 'Admin User', gender: true} }
     let(:serialized_moder) { {id: 2, full_name: 'Moder User', gender: false} }
     let(:unsafe_body) { [admin, moder] }
