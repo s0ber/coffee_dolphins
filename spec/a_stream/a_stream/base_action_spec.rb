@@ -80,8 +80,8 @@ describe AStream::BaseAction do
   end
 
   describe '.permitted_safe_attributes' do
-    let(:admin) { create(:user, :admin) }
-    let(:moder) { create(:user, :moder) }
+    let(:admin) { build_stubbed(:user, :admin) }
+    let(:moder) { build_stubbed(:user, :moder) }
 
     context 'safe attributes specified as a splat list of symbols' do
       before do
@@ -124,8 +124,8 @@ describe AStream::BaseAction do
   end
 
   describe '.permit_resource?' do
-    let(:admin) { create(:user, :admin) }
-    let(:moder) { create(:user, :moder) }
+    let(:admin) { build_stubbed(:user, :admin) }
+    let(:moder) { build_stubbed(:user, :moder) }
 
     context 'permission check specified as a scalar value' do
       context 'it is truthy' do

@@ -72,7 +72,7 @@ describe AStream::ActionStreamsRunner do
   let(:reject) { Users::Reject }
   let(:delete) { Users::Delete }
 
-  let(:performer) { create(:user) }
+  let(:performer) { build_stubbed(:user) }
   let(:controller) { double('fake controller') }
 
   describe '#run' do
