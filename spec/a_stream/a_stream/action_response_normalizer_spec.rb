@@ -5,7 +5,8 @@ describe AStream::ActionResponseNormalizer do
   subject(:normalizer) { described_class.new(request, response) }
   let(:request) { instance_double('AStream::ActionRequest', performer: performer, runner: action, query: nil) }
   let(:response) { instance_double('AStream::ActionResponse', unsafe_body: unsafe_body) }
-  let(:action) { Class.new(AStream::CollectionAction) { def self.to_s; 'TestAction' end } }
+  let(:action) { Class.new(AStream::BaseAction) { def self.to_s; 'TestAction' end } }
+  let(:collection_action) { Class.new(AStream::CollectionAction) { def self.to_s; 'TestCollectionAction' end } }
   let(:performer) { double('performer') }
   let(:unsafe_body) { ['unsafe', 'body'] }
 
@@ -80,6 +81,7 @@ describe AStream::ActionResponseNormalizer do
       end
 
       context 'collection of resources is provided' do
+        let(:action) { collection_action }
         let(:unsafe_body) { (1..10) }
 
         it 'reduces collection to an array, which satisfy permit rules' do
@@ -101,7 +103,7 @@ describe AStream::ActionResponseNormalizer do
     let(:moder) { build_stubbed(:user, :moder) }
 
     context 'safe attributes specified for action' do
-      let(:action) { Class.new(AStream::CollectionAction) { safe_attributes :full_name, :gender } }
+      let(:action) { Class.new(AStream::BaseAction) { safe_attributes :full_name, :gender } }
 
       context 'single resource is provided' do
         context 'resource is serializable' do
@@ -122,6 +124,8 @@ describe AStream::ActionResponseNormalizer do
       end
 
       context 'collection of resources is provided' do
+        let(:action) { Class.new(AStream::CollectionAction) { safe_attributes :full_name, :gender } }
+
         context 'resources are serializable' do
           it 'leaves only safe attributes and id' do
             expect(normalizer.serialize_resources(resources: [admin, moder]))
@@ -155,7 +159,7 @@ describe AStream::ActionResponseNormalizer do
 
     context 'safe attributes is not an array' do
       let(:action) do
-        Class.new(AStream::CollectionAction) do
+        Class.new(AStream::BaseAction) do
           safe_attributes { |performer| 42 }
           def self.to_s; 'TestAction' end
         end
@@ -249,11 +253,27 @@ describe AStream::ActionResponseNormalizer do
     end
 
     context 'action has not allowed included resources specified' do
-      let(:action) { Class.new(AStream::CollectionAction) }
+      let(:action) { Class.new(AStream::BaseAction) }
 
       it 'returns provided safe collection' do
         expect(normalizer.normalize_included_resources([:notes], [serialized_admin, serialized_moder]))
           .to eq([serialized_admin, serialized_moder])
+      end
+    end
+
+    context 'empty response given' do
+      context 'base action' do
+        let(:action) { Class.new(AStream::BaseAction) }
+        let(:unsafe_body) { nil }
+
+        specify { expect(normalizer.normalize_included_resources([:notes], nil)).to eq(nil) }
+      end
+
+      context 'collection action' do
+        let(:action) { Class.new(AStream::CollectionAction) }
+        let(:unsafe_body) { [] }
+
+        specify { expect(normalizer.normalize_included_resources([:notes], [])).to eq([]) }
       end
     end
   end
