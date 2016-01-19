@@ -15,11 +15,11 @@ describe AStream::ActionStreamsRunner do
         safe_attributes :search
         permit_resource true
         def perform_read(performer, query)
-          [search: 'response']
+          {search: 'response'}
         end
       end
 
-      class Show < AStream::BaseAction
+      class Show < AStream::CollectionAction
         query_by('users#search') { |r| { piped: 'search_response' } }
         safe_attributes :show
         permit_resource true
@@ -33,11 +33,11 @@ describe AStream::ActionStreamsRunner do
         safe_attributes :approve
         permit_resource true
         def perform_read(performer, query)
-          [approve: 'response']
+          {approve: 'response'}
         end
 
         def perform_update(performer, query)
-          AStream::Response.new(body: [approve: 'update_response'], message: 'User successfully approved.')
+          AStream::Response.new(body: {approve: 'update_response'}, message: 'User successfully approved.')
         end
       end
 
@@ -46,7 +46,7 @@ describe AStream::ActionStreamsRunner do
         safe_attributes :reject
         permit_resource true
         def perform_read(performer, query)
-          [reject: 'response']
+          {reject: 'response'}
         end
       end
 
@@ -55,7 +55,7 @@ describe AStream::ActionStreamsRunner do
         safe_attributes :delete
         permit_resource true
         def perform_read(performer, query)
-          [delete: 'response']
+          {delete: 'response'}
         end
       end
     end
@@ -88,7 +88,7 @@ describe AStream::ActionStreamsRunner do
 
       context 'successful responses' do
         specify do
-          expect(show).to receive(:pipe_data_from).with(search, [search: 'response']).and_return(piped: 'search_response').once.ordered
+          expect(show).to receive(:pipe_data_from).with(search, search: 'response').and_return(piped: 'search_response').once.ordered
           expect(approve).to receive(:pipe_data_from).with(show, [show: 'response']).and_return(piped: 'show_response').once.ordered
           expect(reject).to receive(:pipe_data_from).with(show, [show: 'response']).and_return(piped: 'show_response').once.ordered
           expect(delete).to receive(:pipe_data_from).with(show, [show: 'response']).and_return(piped: 'show_response').once.ordered
@@ -96,11 +96,11 @@ describe AStream::ActionStreamsRunner do
 
         after do
           expect(subject.run(action_streams)).to eq({
-            users_search: {body: [search: 'response']},
+            users_search: {body: {search: 'response'}},
             users_show: {body: [show: 'response']},
-            users_approve: {body: [approve: 'response']},
-            users_reject: {body: [reject: 'response']},
-            users_delete: {body: [delete: 'response']}
+            users_approve: {body: {approve: 'response'}},
+            users_reject: {body: {reject: 'response'}},
+            users_delete: {body: {delete: 'response'}}
           })
         end
       end
@@ -115,7 +115,7 @@ describe AStream::ActionStreamsRunner do
         end
 
         specify do
-          expect(show).not_to receive(:pipe_data_from).with(search, [search: 'response'])
+          expect(show).not_to receive(:pipe_data_from).with(search, search: 'response')
           expect(approve).not_to receive(:pipe_data_from).with(show, [show: 'response'])
           expect(reject).not_to receive(:pipe_data_from).with(show, [show: 'response'])
           expect(delete).not_to receive(:pipe_data_from).with(show, [show: 'response'])
@@ -138,7 +138,7 @@ describe AStream::ActionStreamsRunner do
         end
 
         specify do
-          expect(show).to receive(:pipe_data_from).with(search, [search: 'response']).and_return(piped: 'search_response').once.ordered
+          expect(show).to receive(:pipe_data_from).with(search, search: 'response').and_return(piped: 'search_response').once.ordered
           expect(approve).not_to receive(:pipe_data_from).with(show, [show: 'response'])
           expect(reject).not_to receive(:pipe_data_from).with(show, [show: 'response'])
           expect(delete).not_to receive(:pipe_data_from).with(show, [show: 'response'])
@@ -146,7 +146,7 @@ describe AStream::ActionStreamsRunner do
 
         after do
           expect(subject.run(action_streams)).to eq({
-            users_search: {body: [search: 'response']},
+            users_search: {body: {search: 'response'}},
             users_show: {status: :unprocessable_entity, body: nil}
           })
         end
@@ -162,7 +162,7 @@ describe AStream::ActionStreamsRunner do
         end
 
         specify do
-          expect(show).to receive(:pipe_data_from).with(search, [search: 'response']).and_return(piped: 'search_response').once.ordered
+          expect(show).to receive(:pipe_data_from).with(search, search: 'response').and_return(piped: 'search_response').once.ordered
           expect(approve).to receive(:pipe_data_from).with(show, [show: 'response']).and_return(piped: 'show_response').once.ordered
           expect(reject).to receive(:pipe_data_from).with(show, [show: 'response']).and_return(piped: 'show_response').once.ordered
           expect(delete).to receive(:pipe_data_from).with(show, [show: 'response']).and_return(piped: 'show_response').once.ordered
@@ -170,11 +170,11 @@ describe AStream::ActionStreamsRunner do
 
         after do
           expect(subject.run(action_streams)).to eq({
-            users_search: {body: [search: 'response']},
+            users_search: {body: {search: 'response'}},
             users_show: {body: [show: 'response']},
             users_approve: {status: :not_found, body: nil},
-            users_reject: {body: [reject: 'response']},
-            users_delete: {body: [delete: 'response']}
+            users_reject: {body: {reject: 'response'}},
+            users_delete: {body: {delete: 'response'}}
           })
         end
       end
@@ -193,14 +193,14 @@ describe AStream::ActionStreamsRunner do
 
       context 'successful responses' do
         specify do
-          expect(search).to receive(:pipe_data_from).with(approve, [approve: 'update_response']).and_return(piped: 'search_response').once.ordered
-          expect(show).to receive(:pipe_data_from).with(search, [search: 'response']).and_return(piped: 'search_response').once.ordered
+          expect(search).to receive(:pipe_data_from).with(approve, approve: 'update_response').and_return(piped: 'search_response').once.ordered
+          expect(show).to receive(:pipe_data_from).with(search, search: 'response').and_return(piped: 'search_response').once.ordered
         end
 
         after do
           expect(subject.run(action_streams)).to eq({
-            users_approve: {body: [approve: 'update_response'], message: 'User successfully approved.'},
-            users_search: {body: [search: 'response']},
+            users_approve: {body: {approve: 'update_response'}, message: 'User successfully approved.'},
+            users_search: {body: {search: 'response'}},
             users_show: {body: [show: 'response']}
           })
         end
@@ -216,8 +216,8 @@ describe AStream::ActionStreamsRunner do
         end
 
         specify do
-          expect(search).not_to receive(:pipe_data_from).with(approve, [approve: 'update_response'])
-          expect(show).not_to receive(:pipe_data_from).with(search, [search: 'response'])
+          expect(search).not_to receive(:pipe_data_from).with(approve, approve: 'update_response')
+          expect(show).not_to receive(:pipe_data_from).with(search, search: 'response')
         end
 
         after do
