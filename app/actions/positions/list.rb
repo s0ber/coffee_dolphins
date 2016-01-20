@@ -1,5 +1,4 @@
 class Positions::List < AStream::CollectionAction
-  query_params :page
   safe_attributes { |performer| Positions::Show.permitted_safe_attributes(performer) }
   permit_resource { |performer, resource| Positions::Show.permit_resource?(performer, resource) }
   included_resources :search_keywords
