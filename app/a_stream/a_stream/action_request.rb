@@ -2,7 +2,7 @@ module AStream
   class ActionRequest
     ALLOWED_TYPES = [:get, :post].freeze
 
-    attr_reader :runner, :type, :performer
+    attr_reader :runner, :type, :performer, :piped_requests
 
     def initialize(runner:, type: :get, query: nil, pipe: nil, performer: nil)
       @runner, @type, @query, @performer = runner, type, query, performer
@@ -47,10 +47,6 @@ module AStream
         else
           raise ArgumentError, message: 'Only ActionRequest instances can be piped'
         end
-    end
-
-    def piped_requests
-      @piped_requests
     end
 
     protected

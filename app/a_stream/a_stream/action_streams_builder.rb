@@ -1,6 +1,5 @@
 module AStream
   class ActionStreamsBuilder
-
     def initialize(performer:)
       @performer = performer
     end

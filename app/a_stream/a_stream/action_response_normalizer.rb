@@ -3,7 +3,7 @@ module AStream
     DEFAULT_SAFE_ATTRIBUTES = [:id].freeze
 
     def initialize(request, response)
-      @action, @performer, @query, @unsafe_body = request.runner, request.performer, request.query, response.unsafe_body
+      @runner, @performer, @query, @unsafe_body = request.runner, request.performer, request.query, response.unsafe_body
     end
 
     def normalize_body
@@ -19,17 +19,17 @@ module AStream
       safe_body
     end
 
-    def filter_resources(action: @action, resources: @unsafe_body)
+    def filter_resources(runner: @runner, resources: @unsafe_body)
       if resources.respond_to?(:each)
-        resources.select { |item| action.permit_resource?(@performer, item) }
+        resources.select { |item| runner.permit_resource?(@performer, item) }
       else
-        action.permit_resource?(@performer, resources) ? resources : nil
+        runner.permit_resource?(@performer, resources) ? resources : nil
       end
     end
 
-    def serialize_resources(action: @action, resources:)
-      unless (safe_attrs = action.permitted_safe_attributes(@performer)).is_a?(Array)
-        raise AStream::SafeAttributesNotSpecified, message: "Safe attributes for action #{action} are not valid array"
+    def serialize_resources(runner: @runner, resources:)
+      unless (safe_attrs = runner.permitted_safe_attributes(@performer)).is_a?(Array)
+        raise AStream::SafeAttributesNotSpecified, message: "Safe attributes for action #{runner} are not valid array"
       end
 
       safe_attrs = safe_attrs.select { |attr| attr.is_a?(Symbol) }
@@ -43,20 +43,20 @@ module AStream
     end
 
     def normalize_included_resources(requested_included_resources, safe_body)
-      return safe_body if !@action.respond_to?(:included_resources) || @unsafe_body.nil? || @unsafe_body.empty?
+      return safe_body if !@runner.respond_to?(:included_resources) || @unsafe_body.nil? || @unsafe_body.try(:empty?)
 
       requested_included_resources.each do |resource_name|
         if can_read_included_resources?(resource_name)
-          action = AStream.find_class("#{resource_name.to_s.pluralize}#show")
+          runner = AStream.find_class("#{resource_name.to_s.pluralize}#show")
 
           if safe_body.is_a?(Array)
             safe_body.each_with_index do |item, i|
               included_resources = @unsafe_body[i].send(resource_name)
-              safe_body[i][resource_name] = normalize_resources(action, included_resources)
+              safe_body[i][resource_name] = normalize_resources(runner, included_resources)
             end
           else
             included_resources = @unsafe_body.send(resource_name)
-            safe_body[resource_name] = normalize_resources(action, included_resources)
+            safe_body[resource_name] = normalize_resources(runner, included_resources)
           end
         end
       end
@@ -67,7 +67,7 @@ module AStream
     private
 
     def can_read_included_resources?(resource_name)
-      @action.allows_to_include_resource?(resource_name) && (@unsafe_body.respond_to?(:each) ? @unsafe_body.first.respond_to?(resource_name)
+      @runner.allows_to_include_resource?(resource_name) && (@unsafe_body.respond_to?(:each) ? @unsafe_body.first.respond_to?(resource_name)
                                                                                              : @unsafe_body.respond_to?(resource_name))
     end
 
@@ -79,9 +79,9 @@ module AStream
       end
     end
 
-    def normalize_resources(action, resources)
-      filtered_resources = filter_resources(action: action, resources: resources)
-      serialize_resources(action: action, resources: filtered_resources)
+    def normalize_resources(runner, resources)
+      filtered_resources = filter_resources(runner: runner, resources: resources)
+      serialize_resources(runner: runner, resources: filtered_resources)
     end
   end
 end
