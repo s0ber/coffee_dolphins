@@ -3,11 +3,11 @@ module AStream
     extend self
 
     def normalize_query(action, performer, query)
-      query = _normalize_params(action, performer, query)
+      query = _normalize_params(query)
       _filter_included_resources(action, performer, query)
     end
 
-    def _normalize_params(action, performer, query)
+    def _normalize_params(query)
       query = query.deep_symbolize_keys
       query[:included] &&= [].concat([query[:included]]).flatten
       ActionController::Parameters.new(query)

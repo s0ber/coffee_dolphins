@@ -12,7 +12,7 @@ describe AStream::ActionRequestNormalizer do
 
     specify do
       expect(normalizer).to receive(:_normalize_params)
-        .with(action, performer, initial_query)
+        .with(initial_query)
         .and_return(query_with_normalized_params).ordered
 
       expect(normalizer).to receive(:_filter_included_resources)
@@ -29,17 +29,15 @@ describe AStream::ActionRequestNormalizer do
   describe '._normalize_params' do
     context 'included resources requested' do
       context 'param :included is not permitted' do
-        let(:action) { Class.new(AStream::BaseAction) }
-
         context 'one type of included resources requested' do
           specify do
-            expect(normalizer._normalize_params(action, performer, included: :notes)).to eq('included' => [:notes])
+            expect(normalizer._normalize_params(included: :notes)).to eq('included' => [:notes])
           end
         end
 
         context 'few types of included resources requested' do
           specify do
-            expect(normalizer._normalize_params(action, performer, included: [:notes])).to eq('included' => [:notes])
+            expect(normalizer._normalize_params(included: [:notes])).to eq('included' => [:notes])
           end
         end
       end
