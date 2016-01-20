@@ -73,7 +73,7 @@ module AStream
 
     def serialize_resource(resource, safe_attrs)
       if resource.respond_to?(:serializable_hash)
-        resource.serializable_hash.symbolize_keys.slice(*safe_attrs)
+        resource.serializable_hash.deep_symbolize_keys.slice(*safe_attrs)
       elsif resource.is_a?(Hash)
         resource.slice(*safe_attrs)
       end
