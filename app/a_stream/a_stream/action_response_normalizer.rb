@@ -7,6 +7,8 @@ module AStream
     end
 
     def normalize_body
+      return nil unless @unsafe_body
+
       safe_body = filter_resources
       safe_body = serialize_resources(resources: safe_body)
 
