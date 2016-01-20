@@ -1,4 +1,4 @@
-class Landings::Show < AStream::CollectionAction
+class Landings::Show < AStream::BaseAction
   safe_attributes :title, :_status, :slug
   included_resources :position, :category
   permit_resource { |performer| performer }

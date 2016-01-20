@@ -1,4 +1,4 @@
-class Positions::List < AStream::CollectionAction
+class Positions::List < AStream::BaseAction
   safe_attributes { |performer| Positions::Show.permitted_safe_attributes(performer) }
   permit_resource { |performer, resource| Positions::Show.permit_resource?(performer, resource) }
   included_resources :search_keywords

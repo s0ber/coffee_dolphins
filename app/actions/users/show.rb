@@ -1,4 +1,4 @@
-class Users::Show < AStream::CollectionAction
+class Users::Show < AStream::BaseAction
   safe_attributes :full_name, :email, :description
   permit_resource { |performer| performer }
 

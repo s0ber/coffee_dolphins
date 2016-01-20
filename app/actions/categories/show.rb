@@ -1,4 +1,4 @@
-class Categories::Show < AStream::CollectionAction
+class Categories::Show < AStream::BaseAction
   safe_attributes :title, :description
   permit_resource { |performer| performer }
 
