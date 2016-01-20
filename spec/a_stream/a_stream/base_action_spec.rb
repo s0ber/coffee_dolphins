@@ -165,10 +165,6 @@ describe AStream::BaseAction do
     end
   end
 
-  describe '.collection_action?' do
-    specify { expect(show_action.collection_action?).to eq(false) }
-  end
-
   describe '#controller' do
     subject { show_action.new(controller: controller) }
 

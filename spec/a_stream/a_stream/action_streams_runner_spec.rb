@@ -19,7 +19,7 @@ describe AStream::ActionStreamsRunner do
         end
       end
 
-      class Show < AStream::CollectionAction
+      class Show < AStream::BaseAction
         query_by('users#search') { |r| { piped: 'search_response' } }
         safe_attributes :show
         permit_resource true

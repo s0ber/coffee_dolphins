@@ -6,7 +6,7 @@ describe AStream::ActionResponseNormalizer do
   let(:request) { instance_double('AStream::ActionRequest', performer: performer, runner: action, query: nil) }
   let(:response) { instance_double('AStream::ActionResponse', unsafe_body: unsafe_body) }
   let(:action) { Class.new(AStream::BaseAction) { def self.to_s; 'TestAction' end } }
-  let(:collection_action) { Class.new(AStream::CollectionAction) { def self.to_s; 'TestCollectionAction' end } }
+  let(:collection_action) { Class.new(AStream::BaseAction) { def self.to_s; 'TestBaseAction' end } }
   let(:performer) { double('performer') }
   let(:unsafe_body) { ['unsafe', 'body'] }
 
@@ -124,7 +124,7 @@ describe AStream::ActionResponseNormalizer do
       end
 
       context 'collection of resources is provided' do
-        let(:action) { Class.new(AStream::CollectionAction) { safe_attributes :full_name, :gender } }
+        let(:action) { Class.new(AStream::BaseAction) { safe_attributes :full_name, :gender } }
 
         context 'resources are serializable' do
           it 'leaves only safe attributes and id' do
@@ -147,7 +147,7 @@ describe AStream::ActionResponseNormalizer do
       end
 
       context 'given non-valid safe attributes' do
-        let(:action) { Class.new(AStream::CollectionAction) { safe_attributes :full_name, :gender, [:invalid_attribute] } }
+        let(:action) { Class.new(AStream::BaseAction) { safe_attributes :full_name, :gender, [:invalid_attribute] } }
 
         it 'ignores them' do
           expect(normalizer.serialize_resources(resources: [admin, moder]))
@@ -182,7 +182,7 @@ describe AStream::ActionResponseNormalizer do
 
     context 'action has allowed included resources specified' do
       let(:action) do
-        Class.new(AStream::CollectionAction) do
+        Class.new(AStream::BaseAction) do
           safe_attributes :full_name, :gender
           permit_resource true
           included_resources :notes
@@ -190,7 +190,7 @@ describe AStream::ActionResponseNormalizer do
       end
 
       let(:notes_action) do
-        Class.new(AStream::CollectionAction) do
+        Class.new(AStream::BaseAction) do
           safe_attributes :title
           permit_resource { |performer, note| performer.admin? ? (note.title == 'Note Odd') : (note.title == 'Note Even') }
         end
@@ -270,7 +270,7 @@ describe AStream::ActionResponseNormalizer do
       end
 
       context 'collection action' do
-        let(:action) { Class.new(AStream::CollectionAction) }
+        let(:action) { Class.new(AStream::BaseAction) }
         let(:unsafe_body) { [] }
 
         specify { expect(normalizer.normalize_included_resources([:notes], [])).to eq([]) }
