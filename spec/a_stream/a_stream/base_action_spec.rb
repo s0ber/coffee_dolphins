@@ -40,45 +40,6 @@ describe AStream::BaseAction do
     specify { expect(Users::Approve.action_name).to eq('users#approve') }
   end
 
-  describe '.permitted_query_params' do
-    let(:admin) { create(:user, :admin) }
-    let(:moder) { create(:user, :moder) }
-
-    context 'params specified as a splat list of symbols' do
-      before do
-        Users::Show.class_eval do
-          query_params :full_name, :gender
-        end
-      end
-      specify { expect(show_action.permitted_query_params(admin)).to eq [:full_name, :gender] }
-    end
-
-    context 'params specified as an array of symbols' do
-      before do
-        Users::Show.class_eval do
-          query_params [:full_name, :gender]
-        end
-      end
-      specify { expect(show_action.permitted_query_params(admin)).to eq [:full_name, :gender] }
-    end
-
-    context 'query params is a block' do
-      before do
-        Users::Show.class_eval do
-          query_params do |performer|
-            if performer.admin?
-              [:full_name, :gender]
-            else
-              [:full_name]
-            end
-          end
-        end
-      end
-      specify { expect(show_action.permitted_query_params(admin)).to eq [:full_name, :gender] }
-      specify { expect(show_action.permitted_query_params(moder)).to eq [:full_name] }
-    end
-  end
-
   describe '.permitted_safe_attributes' do
     let(:admin) { build_stubbed(:user, :admin) }
     let(:moder) { build_stubbed(:user, :moder) }

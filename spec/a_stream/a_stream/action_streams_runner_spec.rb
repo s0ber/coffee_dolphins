@@ -12,7 +12,6 @@ describe AStream::ActionStreamsRunner do
     module Users
       class Search < AStream::BaseAction
         query_by('users#approve') { |r| { piped: 'search_response' } }
-        query_params :search, :piped
         safe_attributes :search
         permit_resource true
         def perform_read(performer, query)
@@ -22,7 +21,6 @@ describe AStream::ActionStreamsRunner do
 
       class Show < AStream::CollectionAction
         query_by('users#search') { |r| { piped: 'search_response' } }
-        query_params :piped
         safe_attributes :show
         permit_resource true
         def perform_read(performer, query)
@@ -32,7 +30,6 @@ describe AStream::ActionStreamsRunner do
 
       class Approve < AStream::BaseAction
         query_by('users#show') { |r| { piped: 'show_response' } }
-        query_params :piped, :approve
         safe_attributes :approve
         permit_resource true
         def perform_read(performer, query)
@@ -46,7 +43,6 @@ describe AStream::ActionStreamsRunner do
 
       class Reject < AStream::BaseAction
         query_by('users#show') { |r| { piped: 'show_response' } }
-        query_params :piped
         safe_attributes :reject
         permit_resource true
         def perform_read(performer, query)
@@ -56,7 +52,6 @@ describe AStream::ActionStreamsRunner do
 
       class Delete < AStream::BaseAction
         query_by('users#show') { |r| { piped: 'show_response' } }
-        query_params :piped
         safe_attributes :delete
         permit_resource true
         def perform_read(performer, query)

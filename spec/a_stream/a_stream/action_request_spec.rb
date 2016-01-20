@@ -16,7 +16,7 @@ describe AStream::ActionRequest do
 
     specify { expect(subject.runner).to eq(Test::Test) }
     specify { expect(subject.type).to eq(:get) }
-    specify { expect(subject.query).to eq(test: 'query') }
+    specify { expect(subject.query).to eq('test' => 'query') }
     specify { expect(subject.performer).to eq(user) }
     specify { expect(subject.action_name).to eq('test#test') }
 
@@ -120,10 +120,10 @@ describe AStream::ActionRequest do
     end
 
     context 'query is specified' do
-      subject { described_class.new(runner: Test::Test, query: {dirty: 'query'}) }
+      subject { described_class.new(runner: Test::Test, query: {request: 'query'}) }
 
       it 'returns memoized normalized query' do
-        expect(AStream::ActionRequestNormalizer).to receive(:normalize_query).with(Test::Test, nil, dirty: 'query').once
+        expect(AStream::ActionRequestNormalizer).to receive(:normalize_query).with(Test::Test, nil, request: 'query').once
         subject.query
         subject.query
         expect(subject.query).to eq(normalized: 'query')
@@ -142,10 +142,6 @@ describe AStream::ActionRequest do
 
   describe '#query=' do
     before do
-      Test::Test.class_eval do
-        query_params :new
-      end
-
       subject.query = {new: 'query'}
     end
 
@@ -161,7 +157,7 @@ describe AStream::ActionRequest do
       subject { described_class.new(runner: Test::Test) }
 
       it 'sets new value' do
-        expect(subject.query).to eq({new: 'query'})
+        expect(subject.query).to eq({'new' => 'query'})
       end
     end
   end

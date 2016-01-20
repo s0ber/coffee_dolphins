@@ -7,16 +7,16 @@ describe AStream::ActionRequestNormalizer do
   describe '.normalize_query' do
     let(:action) { Class.new(AStream::BaseAction) }
     let(:initial_query) { {property: 'initial query'} }
-    let(:query_with_filtered_params) { {property: 'filtered'} }
+    let(:query_with_normalized_params) { {my_param: 'normalized'} }
     let(:query_with_filtered_included_resources) { {include: 'filtered'} }
 
     specify do
-      expect(normalizer).to receive(:_filter_params)
+      expect(normalizer).to receive(:_normalize_params)
         .with(action, performer, initial_query)
-        .and_return(query_with_filtered_params).ordered
+        .and_return(query_with_normalized_params).ordered
 
       expect(normalizer).to receive(:_filter_included_resources)
-        .with(action, performer, query_with_filtered_params)
+        .with(action, performer, query_with_normalized_params)
         .and_return(query_with_filtered_included_resources).ordered
     end
 
@@ -26,74 +26,22 @@ describe AStream::ActionRequestNormalizer do
     end
   end
 
-  describe '._filter_params' do
+  describe '._normalize_params' do
     context 'included resources requested' do
       context 'param :included is not permitted' do
-        let(:action) { Class.new(AStream::BaseAction) { query_params :name } }
+        let(:action) { Class.new(AStream::BaseAction) }
 
         context 'one type of included resources requested' do
           specify do
-            expect(normalizer._filter_params(action, performer, included: :notes)).to eq(included: [:notes])
+            expect(normalizer._normalize_params(action, performer, included: :notes)).to eq('included' => [:notes])
           end
         end
 
         context 'few types of included resources requested' do
           specify do
-            expect(normalizer._filter_params(action, performer, included: [:notes])).to eq(included: [:notes])
+            expect(normalizer._normalize_params(action, performer, included: [:notes])).to eq('included' => [:notes])
           end
         end
-      end
-    end
-
-    context 'permitted params are not specified for action' do
-      let(:action) { Class.new(AStream::BaseAction) { def self.to_s; 'TestAction' end } }
-      specify do
-        expect(normalizer._filter_params(action, performer, {name: 'Admin', credit_card: true})).to eq({})
-      end
-    end
-
-    context 'permitted params are specified for action' do
-      let(:action) do
-        Class.new(AStream::BaseAction) do
-          query_params :name, :email, :phone, contacts: []
-        end
-      end
-
-      context 'given restricted param' do
-        let(:query) { {name: 'Test User', credit_card: '1234567'} }
-        let(:filtered_query) { {name: 'Test User'} }
-        specify { expect(normalizer._filter_params(action, performer, query)).to eq(filtered_query) }
-
-      end
-
-      context 'given valid included resources keys' do
-        let(:query) { {name: 'Test User', credit_card: '1234567', included: ['notes', 'contacts']} }
-        let(:filtered_query) { {name: 'Test User', included: ['notes', 'contacts']} }
-        specify { expect(normalizer._filter_params(action, performer, query)).to eq(filtered_query) }
-      end
-
-      context 'given invalid included resources keys' do
-        let(:query) { {name: 'Test User', credit_card: '1234567', included: [{}, 'contacts']} }
-        let(:filtered_query) { {name: 'Test User'} }
-        specify { expect(normalizer._filter_params(action, performer, query)).to eq(filtered_query) }
-      end
-
-      context 'given non-scalar value' do
-        let(:query) { {name: 'Test User', email: ['test@mail.com']} }
-        let(:filtered_query) { {name: 'Test User'} }
-        specify { expect(normalizer._filter_params(action, performer, query)).to eq(filtered_query) }
-      end
-
-      context 'given allowed array of scalar values' do
-        let(:query) { {name: 'Test User', contacts: ['test@mail.com', 'twitter.com/testuser']} }
-        let(:filtered_query) { {name: 'Test User', contacts: ['test@mail.com', 'twitter.com/testuser']} }
-        specify { expect(normalizer._filter_params(action, performer, query)).to eq(filtered_query) }
-      end
-
-      context 'given allowed array of with non-scalar values' do
-        let(:query) { {name: 'Test User', contacts: [['test@mail.com'], 'twitter.com/testuser']} }
-        let(:filtered_query) { {name: 'Test User'} }
-        specify { expect(normalizer._filter_params(action, performer, query)).to eq(filtered_query) }
       end
     end
   end

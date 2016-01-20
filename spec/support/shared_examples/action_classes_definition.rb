@@ -18,17 +18,13 @@ shared_examples_for 'action classes definition' do
           query_by('test#action3') { |response| {}}
           query_by('test#action4') { |response| {}}
           query_by('test#action5') { |response| {}}
-
-          query_params :name
         })
       end
 
       class CantPipeAction < AStream::BaseAction
-        query_params :name
       end
 
       class Test < AStream::BaseAction
-        query_params :test
       end
 
       class WrongAction
@@ -37,12 +33,10 @@ shared_examples_for 'action classes definition' do
 
     module Users
       class Show < AStream::BaseAction
-        query_params :test
         permit_resource { |performer, user| performer && (performer[:admin] == true || user[:name] == performer[:name]) }
       end
 
       class ShowWithNotes < AStream::BaseAction
-        query_params :test
         included_resources :notes
         permit_resource true
       end
@@ -50,10 +44,8 @@ shared_examples_for 'action classes definition' do
 
     module Notes
       class Show < AStream::BaseAction
-        query_params :test
         permit_resource true
       end
     end
-
   end
 end
