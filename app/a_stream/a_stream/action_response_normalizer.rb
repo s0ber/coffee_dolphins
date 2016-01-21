@@ -31,7 +31,7 @@ module AStream
         response = response.select { |resource| runner.permit_resource?(@performer, resource) }
         response.map { |resource| resource.slice(*safe_attrs) }
       else
-        if runner.permit_resource?(@performer, response)
+        if response && runner.permit_resource?(@performer, response)
           response.slice(*safe_attrs)
         else
           nil
