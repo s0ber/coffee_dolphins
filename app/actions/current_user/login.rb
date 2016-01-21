@@ -1,5 +1,4 @@
 class CurrentUser::Login < AStream::BaseAction
-  query_params :email, :password, :remember_me
   safe_attributes :full_name
   permit_resource true
 

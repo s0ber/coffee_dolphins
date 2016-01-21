@@ -13,6 +13,7 @@ FactoryGirl.define do
     trait :admin do
       full_name 'Admin User'
       email 'coffeedolphins@gmail.com'
+      gender true
     end
 
     trait :moder do

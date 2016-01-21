@@ -40,48 +40,9 @@ describe AStream::BaseAction do
     specify { expect(Users::Approve.action_name).to eq('users#approve') }
   end
 
-  describe '.permitted_query_params' do
-    let(:admin) { create(:user, :admin) }
-    let(:moder) { create(:user, :moder) }
-
-    context 'params specified as a splat list of symbols' do
-      before do
-        Users::Show.class_eval do
-          query_params :full_name, :gender
-        end
-      end
-      specify { expect(show_action.permitted_query_params(admin)).to eq [:full_name, :gender] }
-    end
-
-    context 'params specified as an array of symbols' do
-      before do
-        Users::Show.class_eval do
-          query_params [:full_name, :gender]
-        end
-      end
-      specify { expect(show_action.permitted_query_params(admin)).to eq [:full_name, :gender] }
-    end
-
-    context 'query params is a block' do
-      before do
-        Users::Show.class_eval do
-          query_params do |performer|
-            if performer.admin?
-              [:full_name, :gender]
-            else
-              [:full_name]
-            end
-          end
-        end
-      end
-      specify { expect(show_action.permitted_query_params(admin)).to eq [:full_name, :gender] }
-      specify { expect(show_action.permitted_query_params(moder)).to eq [:full_name] }
-    end
-  end
-
   describe '.permitted_safe_attributes' do
-    let(:admin) { create(:user, :admin) }
-    let(:moder) { create(:user, :moder) }
+    let(:admin) { build_stubbed(:user, :admin) }
+    let(:moder) { build_stubbed(:user, :moder) }
 
     context 'safe attributes specified as a splat list of symbols' do
       before do
@@ -124,8 +85,8 @@ describe AStream::BaseAction do
   end
 
   describe '.permit_resource?' do
-    let(:admin) { create(:user, :admin) }
-    let(:moder) { create(:user, :moder) }
+    let(:admin) { build_stubbed(:user, :admin) }
+    let(:moder) { build_stubbed(:user, :moder) }
 
     context 'permission check specified as a scalar value' do
       context 'it is truthy' do
@@ -167,22 +128,6 @@ describe AStream::BaseAction do
     end
   end
 
-  describe '.allows_to_include_resource?' do
-    context 'included resources are not specified' do
-      specify { expect(show_action.allows_to_include_resource?(:notes)).to eq false }
-    end
-
-    context 'included resources are specified' do
-      before do
-        Users::Show.class_eval do
-          included_resources :notes, :secrets
-        end
-      end
-
-      specify { expect(show_action.allows_to_include_resource?(:notes)).to eq true }
-    end
-  end
-
   describe '.pipe_data_from' do
     context 'connector block is specified' do
       before do
@@ -202,10 +147,6 @@ describe AStream::BaseAction do
     context 'connector block is not specified' do
       specify { expect(approve_action.pipe_data_from(show_action, 2)).to eq(nil) }
     end
-  end
-
-  describe '.collection_action?' do
-    specify { expect(show_action.collection_action?).to eq(false) }
   end
 
   describe '#controller' do

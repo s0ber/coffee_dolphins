@@ -6,7 +6,7 @@ describe AStream::ActionResponse do
 
   let(:request) { instance_double('AStream::ActionRequest', runner: action) }
   let(:action) { Class.new(AStream::BaseAction) { def self.to_s; 'TestAction' end } }
-  let(:body) { create_list(:user, 2, :collection) }
+  let(:body) { build_stubbed_list(:user, 2, :collection) }
 
   context 'no status provided' do
     specify { expect(subject.status).to eq(:ok) }
@@ -28,20 +28,10 @@ describe AStream::ActionResponse do
 
   context 'non-enumerate response body is provided' do
     context 'simple action requested' do
-      let(:body) { create(:user) }
+      let(:body) { build_stubbed(:user) }
 
       specify do
         expect { described_class.new(body: body, request: request) }.not_to raise_error
-      end
-    end
-
-    context 'collection action requested' do
-      let(:body) { create(:user) }
-      let(:action) { Class.new(AStream::CollectionAction) { def self.to_s; 'TestAction' end } }
-
-      specify do
-        expect { described_class.new(body: body, request: request) }
-          .to raise_error(ArgumentError, /Action should always respond with collection, but non-iterateble response specified for action TestAction./)
       end
     end
   end

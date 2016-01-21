@@ -1,4 +1,4 @@
-class SearchKeywords::Show < AStream::CollectionAction
+class SearchKeywords::Show < AStream::BaseAction
   safe_attributes :name, :search_count
   permit_resource { |performer| performer }
 

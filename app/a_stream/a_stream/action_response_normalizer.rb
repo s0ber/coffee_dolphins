@@ -3,83 +3,80 @@ module AStream
     DEFAULT_SAFE_ATTRIBUTES = [:id].freeze
 
     def initialize(request, response)
-      @action, @performer, @query, @unsafe_body = request.runner, request.performer, request.query, response.unsafe_body
+      @runner, @performer, @query, @unsafe_response = request.runner, request.performer, request.query, response.unsafe_body
     end
 
     def normalize_body
-      safe_body = filter_resources
-      safe_body = serialize_resources(resources: safe_body)
+      return nil unless @unsafe_response
 
-      if @query && @query[:included]
-        safe_body = normalize_included_resources(@query[:included], safe_body)
-      end
-
-      safe_body
+      response = serialize_body
+      response = permit_and_filter_response(response, @runner)
+      permit_and_filter_included_response(response)
     end
 
-    def filter_resources(action: @action, resources: @unsafe_body)
-      if resources.respond_to?(:each)
-        resources.select { |item| action.permit_resource?(@performer, item) }
+    def serialize_body
+      if @unsafe_response.respond_to?(:each) && !@unsafe_response.is_a?(Hash)
+        @unsafe_response.map { |resource| serialize_resource(resource) }
       else
-        action.permit_resource?(@performer, resources) ? resources : nil
+        serialize_resource(@unsafe_response)
       end
     end
 
-    def serialize_resources(action: @action, resources:)
-      unless (safe_attrs = action.permitted_safe_attributes(@performer)).is_a?(Array)
-        raise AStream::SafeAttributesNotSpecified, message: "Safe attributes for action #{action} are not valid array"
-      end
+    def permit_and_filter_response(response, runner)
+      safe_attrs = safe_attrs_for_action(runner)
 
-      safe_attrs = safe_attrs.select { |attr| attr.is_a?(Symbol) }
-      safe_attrs = [].concat(DEFAULT_SAFE_ATTRIBUTES).concat(safe_attrs)
-
-      if resources.respond_to?(:each) && !resources.is_a?(Hash)
-        resources.map { |r| serialize_resource(r, safe_attrs) }.compact
+      # here we are calling it a response, but it may be a single resource (hash),
+      # or an array of resources (array of hashes)
+      if response.is_a?(Array)
+        response = response.select { |resource| runner.permit_resource?(@performer, resource) }
+        response.map { |resource| resource.slice(*safe_attrs) }
       else
-        serialize_resource(resources, safe_attrs)
+        if response && runner.permit_resource?(@performer, response)
+          response.slice(*safe_attrs)
+        else
+          nil
+        end
       end
     end
 
-    def normalize_included_resources(requested_included_resources, safe_body)
-      return safe_body if !@action.respond_to?(:included_resources) || @unsafe_body.nil? || (@action.collection_action? && @unsafe_body.empty?)
+    def permit_and_filter_included_response(response)
+      return response unless @query[:included]
 
-      requested_included_resources.each do |resource_name|
-        if can_read_included_resources?(resource_name)
-          action = AStream.find_class("#{resource_name.to_s.pluralize}#show")
+      @query[:included].each do |included_response_name|
+        runner = AStream.find_class("#{included_response_name.to_s.pluralize}#show")
 
-          if @action.collection_action?
-            safe_body.each_with_index do |item, i|
-              included_resources = @unsafe_body[i].send(resource_name)
-              safe_body[i][resource_name] = normalize_resources(action, included_resources)
-            end
-          else
-            included_resources = @unsafe_body.send(resource_name)
-            safe_body[resource_name] = normalize_resources(action, included_resources)
+        if response.is_a?(Array)
+          response.each do |resource|
+            resource[included_response_name] = permit_and_filter_response(resource[included_response_name], runner)
           end
+        else
+          response[included_response_name] = permit_and_filter_response(response[included_response_name], runner)
         end
       end
 
-      safe_body
+      response
     end
 
     private
 
-    def can_read_included_resources?(resource_name)
-      @action.allows_to_include_resource?(resource_name) && (@action.collection_action? ? @unsafe_body.first.respond_to?(resource_name)
-                                                                                        : @unsafe_body.respond_to?(resource_name))
-    end
-
-    def serialize_resource(resource, safe_attrs)
+    def serialize_resource(resource)
       if resource.respond_to?(:serializable_hash)
-        resource.serializable_hash.symbolize_keys.slice(*safe_attrs)
+        resource.serializable_hash(include: @query[:included]).deep_symbolize_keys
       elsif resource.is_a?(Hash)
-        resource.slice(*safe_attrs)
+        resource
+      else
+        raise AStream::CantSerializeResource, message: "Action should return either collection, or array of ActiveRecord objects (or hashes), or just one ActiveRecord object (or hash)"
       end
     end
 
-    def normalize_resources(action, resources)
-      filtered_resources = filter_resources(action: action, resources: resources)
-      serialize_resources(action: action, resources: filtered_resources)
+    def safe_attrs_for_action(runner)
+      safe_attrs = runner.permitted_safe_attributes(@performer)
+      unless safe_attrs.is_a?(Array)
+        raise AStream::SafeAttributesNotSpecified, message: "Safe attributes for action #{runner} are not valid array"
+      end
+
+      safe_attrs = safe_attrs.select { |attr| attr.is_a?(Symbol) }
+      [].concat(DEFAULT_SAFE_ATTRIBUTES).concat(safe_attrs)
     end
   end
 end
