@@ -3,7 +3,7 @@ class CurrentUser::Login < AStream::BaseAction
   permit_resource true
 
   def perform_update(performer, query)
-    user = User.new(query)
+    user = User.new(user_params(query))
     @user = controller.login(user.email, user.password, user.remember_me)
 
     if @user
@@ -11,5 +11,9 @@ class CurrentUser::Login < AStream::BaseAction
     else
       AStream::Response.new(status: :unauthorized)
     end
+  end
+
+  def user_params(query)
+    query.permit(:email, :password, :remember_me)
   end
 end
