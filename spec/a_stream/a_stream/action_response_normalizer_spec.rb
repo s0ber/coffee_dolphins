@@ -3,277 +3,251 @@ require 'a_stream/a_stream_helper'
 
 describe AStream::ActionResponseNormalizer do
   subject(:normalizer) { described_class.new(request, response) }
-  let(:request) { instance_double('AStream::ActionRequest', performer: performer, runner: action, query: nil) }
+
+  let(:query) { nil }
+  let(:request) { instance_double('AStream::ActionRequest', performer: performer, runner: action, query: query) }
   let(:response) { instance_double('AStream::ActionResponse', unsafe_body: unsafe_body) }
   let(:action) { Class.new(AStream::BaseAction) { def self.to_s; 'TestAction' end } }
-  let(:collection_action) { Class.new(AStream::BaseAction) { def self.to_s; 'TestBaseAction' end } }
   let(:performer) { double('performer') }
   let(:unsafe_body) { ['unsafe', 'body'] }
 
   describe '#normalize_body' do
-    context 'query requests included resources' do
-      let(:request) { instance_double('AStream::ActionRequest', performer: 'fake_performer', runner: 'fake_action', query: {included: [:test]}) }
+    let(:request) { instance_double('AStream::ActionRequest', performer: 'fake_performer', runner: 'fake_action', query: {included: [:test]}) }
 
-      specify do
-        expect(normalizer).to receive(:filter_resources)
-          .with(no_args)
-          .and_return(['filtered', 'resources'])
-          .ordered
-          .once
+    specify do
+      expect(normalizer).to receive(:serialize_body)
+        .with(no_args)
+        .and_return('serialized body')
+        .ordered
+        .once
 
-        expect(normalizer).to receive(:serialize_resources)
-          .with(resources: ['filtered', 'resources'])
-          .and_return(['serialized', 'resources'])
-          .ordered
-          .once
+      expect(normalizer).to receive(:permit_and_filter_response)
+        .with('serialized body', 'fake_action')
+        .and_return('permitted and filtered resources')
+        .ordered
+        .once
 
-        expect(normalizer).to receive(:normalize_included_resources)
-          .with([:test], ['serialized', 'resources'])
-          .and_return(['filtered', 'included', 'resources'])
-          .ordered
-          .once
+      expect(normalizer).to receive(:permit_and_filter_included_response)
+        .with('permitted and filtered resources')
+        .and_return('permitted and filtered with included resources')
+        .ordered
+        .once
+    end
+
+    after do
+      expect(normalizer.normalize_body).to eq('permitted and filtered with included resources')
+    end
+  end
+
+  describe '#serialize_body' do
+    context 'included resources are not requested' do
+      let(:query) { {included: []} }
+      let(:admin) { build_stubbed(:user, :admin) }
+      let(:moder) { build_stubbed(:user, :moder) }
+      let(:serialized_admin) { admin.serializable_hash.deep_symbolize_keys }
+      let(:serialized_moder) { moder.serializable_hash.deep_symbolize_keys }
+
+      context 'response is a collection of serializable resources' do
+        let(:unsafe_body) { [admin, moder] }
+        specify { expect(subject.serialize_body).to eq([serialized_admin, serialized_moder]) }
       end
 
-      after do
-        expect(normalizer.normalize_body).to eq(['filtered', 'included', 'resources'])
+      context 'response is a collection of hashes' do
+        let(:admin) { {id: 1, full_name: 'Admin User', secret_info: 'Likes ice-cream'} }
+        let(:moder) { {id: 2, full_name: 'Moder User', secret_info: 'Likes vodka'} }
+        let(:unsafe_body) { [admin, moder] }
+        specify { expect(subject.serialize_body).to eq([admin, moder]) }
+      end
+
+      context 'response is a serializable resource' do
+        let(:unsafe_body) { admin }
+        specify { expect(subject.serialize_body).to eq(serialized_admin) }
+      end
+
+      context 'response is a hash' do
+        let(:admin) { {id: 1, full_name: 'Admin User', secret_info: 'Likes ice-cream'} }
+        let(:unsafe_body) { admin }
+        specify { expect(subject.serialize_body).to eq(admin) }
+      end
+
+      context 'response is something else' do
+        let(:unsafe_body) { 5 }
+        specify { expect { subject.serialize_body }.to raise_error(AStream::CantSerializeResource) }
       end
     end
 
-    context 'query does not request included resources' do
-      let(:request) { instance_double('AStream::ActionRequest', performer: 'fake_performer', runner: 'fake_action', query: nil) }
+    context 'included resources are requested' do
+      let(:query) { {included: [:notes]} }
+      let(:admin) { build_stubbed(:user, :admin) }
+      let(:moder) { build_stubbed(:user, :moder) }
+      let(:serialized_admin) { admin.serializable_hash(include: [:notes]).deep_symbolize_keys }
+      let(:serialized_moder) { moder.serializable_hash(include: [:notes]).deep_symbolize_keys }
 
-      specify do
-        expect(normalizer).to receive(:filter_resources)
-          .with(no_args)
-          .and_return(['filtered', 'resources'])
-          .ordered
-
-        expect(normalizer).to receive(:serialize_resources)
-          .with(resources: ['filtered', 'resources'])
-          .and_return(['serialized', 'resources'])
-          .ordered
+      context 'response is a collection of serializable resources' do
+        let(:unsafe_body) { [admin, moder] }
+        specify { expect(subject.serialize_body).to eq([serialized_admin, serialized_moder]) }
       end
 
-      after do
-        expect(normalizer.normalize_body).to eq(['serialized', 'resources'])
+      context 'response is a serializable resource' do
+        let(:unsafe_body) { admin }
+        specify { expect(subject.serialize_body).to eq(serialized_admin) }
       end
     end
   end
 
-  describe '#filter_resources' do
-    context 'permit check specified' do
-      before do
-        action.class_eval do
-          permit_resource { |performer, item| item % 2 == 0 }
-        end
-      end
-
-      context 'single resource is provided' do
-        context 'resource satisfies permission check' do
-          let(:unsafe_body) { 4 }
-          specify { expect(normalizer.filter_resources).to eq(4) }
-        end
-
-        context 'resource does not satisfies permission check' do
-          let(:unsafe_body) { 5 }
-          specify { expect(normalizer.filter_resources).to eq(nil) }
-        end
-      end
-
-      context 'collection of resources is provided' do
-        let(:action) { collection_action }
-        let(:unsafe_body) { (1..10) }
-
-        it 'reduces collection to an array, which satisfy permit rules' do
-          expect(normalizer.filter_resources).to eq([2, 4, 6, 8, 10])
-        end
-      end
-    end
-
-    context 'permit check not specified' do
-      it 'raises error' do
-        expect { normalizer.filter_resources }.to raise_error(AStream::PermissionCheckNotSpecified,
-                                                             /Please specify permission check for action TestAction/)
-      end
-    end
-  end
-
-  describe '#serialize_resources' do
+  describe '#permit_and_filter_response' do
     let(:admin) { build_stubbed(:user, :admin) }
     let(:moder) { build_stubbed(:user, :moder) }
+    let(:serialized_admin) { admin.serializable_hash.deep_symbolize_keys }
+    let(:serialized_moder) { moder.serializable_hash.deep_symbolize_keys }
 
-    context 'safe attributes specified for action' do
-      let(:action) { Class.new(AStream::BaseAction) { safe_attributes :full_name, :gender } }
+    before do
+      action.class_eval do
+        safe_attributes :full_name, :gender
+        permit_resource { |performer, item| item[:gender] == performer[:gender] }
+      end
+    end
 
-      context 'single resource is provided' do
-        context 'resource is serializable' do
-          it 'leaves only safe attributes and id' do
-            expect(normalizer.serialize_resources(resources: admin))
-              .to match({id: an_instance_of(Fixnum), full_name: 'Admin User', gender: true})
-          end
+    context 'response is a collection of serializable resources' do
+      context 'performer is admin' do
+        let(:performer) { admin }
+        specify do
+          expect(subject.permit_and_filter_response([serialized_admin, serialized_moder], action))
+            .to match([{id: an_instance_of(Fixnum), full_name: 'Admin User', gender: true}])
         end
 
-        context 'resource is a valid hash' do
-          let(:admin) { {id: 1, full_name: 'Admin User', secret_info: 'Likes ice-cream'} }
-
-          it 'leaves only safe attributes and id' do
-            expect(normalizer.serialize_resources(resources: admin))
-              .to match({id: an_instance_of(Fixnum), full_name: 'Admin User'})
-          end
+        specify do
+          expect(subject.permit_and_filter_response([serialized_moder], action)).to eq([])
         end
       end
 
-      context 'collection of resources is provided' do
-        let(:action) { Class.new(AStream::BaseAction) { safe_attributes :full_name, :gender } }
-
-        context 'resources are serializable' do
-          it 'leaves only safe attributes and id' do
-            expect(normalizer.serialize_resources(resources: [admin, moder]))
-              .to match([{id: an_instance_of(Fixnum), full_name: 'Admin User', gender: true},
-                         {id: an_instance_of(Fixnum), full_name: 'Moder User', gender: false}])
-          end
+      context 'performer is moder' do
+        let(:performer) { moder }
+        specify do
+          expect(subject.permit_and_filter_response([serialized_admin, serialized_moder], action))
+            .to match([{id: an_instance_of(Fixnum), full_name: 'Moder User', gender: false}])
         end
 
-        context 'resources are valid hashes' do
-          let(:admin) { {id: 1, full_name: 'Admin User', secret_info: 'Likes ice-cream'} }
-          let(:moder) { {id: 2, full_name: 'Moder User', secret_info: 'Likes vodka'} }
-
-          it 'leaves only safe attributes and id' do
-            expect(normalizer.serialize_resources(resources: [admin, moder]))
-              .to match([{id: an_instance_of(Fixnum), full_name: 'Admin User'},
-                         {id: an_instance_of(Fixnum), full_name: 'Moder User'}])
-          end
-        end
-      end
-
-      context 'given non-valid safe attributes' do
-        let(:action) { Class.new(AStream::BaseAction) { safe_attributes :full_name, :gender, [:invalid_attribute] } }
-
-        it 'ignores them' do
-          expect(normalizer.serialize_resources(resources: [admin, moder]))
-            .to match([{id: an_instance_of(Fixnum), full_name: 'Admin User', gender: true},
-                       {id: an_instance_of(Fixnum), full_name: 'Moder User', gender: false}])
+        specify do
+          expect(subject.permit_and_filter_response([serialized_admin], action)).to eq([])
         end
       end
     end
 
-    context 'safe attributes is not an array' do
-      let(:action) do
-        Class.new(AStream::BaseAction) do
-          safe_attributes { |performer| 42 }
-          def self.to_s; 'TestAction' end
+    context 'response is a serializable resource' do
+      context 'performer is admin' do
+        let(:performer) { admin }
+        specify do
+          expect(subject.permit_and_filter_response(serialized_admin, action))
+            .to match({id: an_instance_of(Fixnum), full_name: 'Admin User', gender: true})
         end
       end
-      specify do
-        expect { normalizer.serialize_resources(resources: [admin, moder]) }
-          .to raise_error(AStream::SafeAttributesNotSpecified,
-                              /Safe attributes for action TestAction are not valid array/)
+
+      context 'performer is moder' do
+        let(:performer) { moder }
+        specify do
+          expect(subject.permit_and_filter_response(serialized_admin, action)).to eq(nil)
+        end
       end
     end
   end
 
-  describe '#normalize_included_resources' do
-    let!(:admin) { build_stubbed(:user, :admin) }
-    let!(:moder) { build_stubbed(:user, :moder) }
-    let(:serialized_admin) { {id: 1, full_name: 'Admin User', gender: true} }
-    let(:serialized_moder) { {id: 2, full_name: 'Moder User', gender: false} }
-    let(:unsafe_body) { [admin, moder] }
-    let(:performer) { admin }
+  describe '#permit_and_filter_included_response' do
+    let(:query) { {included: [:notes]} }
+    let(:admin) { {id: 1, full_name: 'Admin User', gender: true, notes: [
+      {id: 1, title: 'Note 1', text: 'Note 1 text', user_id: 1},
+      {id: 2, title: 'Note 2', text: 'Note 2 text', user_id: 2}
+    ]} }
+    let(:moder) { {id: 2, full_name: 'Moder User', gender: false, notes: [
+      {id: 3, title: 'Note 3', text: 'Note 3 text', user_id: 1},
+      {id: 4, title: 'Note 4', text: 'Note 4 text', user_id: 2}
+    ]} }
 
-    context 'action has allowed included resources specified' do
-      let(:action) do
-        Class.new(AStream::BaseAction) do
-          safe_attributes :full_name, :gender
-          permit_resource true
-          included_resources :notes
-        end
+    let(:action) do
+      Class.new(AStream::BaseAction) do
+        safe_attributes :full_name, :gender, :notes
+        permit_resource true
       end
+    end
 
-      let(:notes_action) do
-        Class.new(AStream::BaseAction) do
-          safe_attributes :title
-          permit_resource { |performer, note| performer.admin? ? (note.title == 'Note Odd') : (note.title == 'Note Even') }
-        end
+    let(:notes_action) do
+      Class.new(AStream::BaseAction) do
+        safe_attributes :title, :user_id
+        permit_resource { |performer, note| note[:user_id] == performer.id }
       end
+    end
 
-      before do
-        admin.notes << build_list(:note, 4, :zebra)
-        moder.notes << build_list(:note, 4, :zebra)
+    before { allow(AStream).to receive(:find_class).and_return(notes_action) }
 
-        allow(AStream).to receive(:find_class).and_return(notes_action)
-      end
+    context 'response is a collection of serializable resources' do
+      context 'performer is admin' do
+        let(:performer) { build_stubbed(:user, :admin, id: 1) }
 
-      context 'allowed included resources requested' do
-        context 'performer is admin' do
-          specify do
-            expect(normalizer.normalize_included_resources([:notes], [serialized_admin, serialized_moder])).to match([
-              {id: an_instance_of(Fixnum), full_name: 'Admin User', gender: true, notes: [
-                {id: an_instance_of(Fixnum), title: 'Note Odd'},
-                {id: an_instance_of(Fixnum), title: 'Note Odd'}
-              ]},
-              {id: an_instance_of(Fixnum), full_name: 'Moder User', gender: false, notes: [
-                {id: an_instance_of(Fixnum), title: 'Note Odd'},
-                {id: an_instance_of(Fixnum), title: 'Note Odd'}
-              ]}
-            ])
-          end
-        end
-
-        context 'performer is moder' do
-          let(:performer) { moder }
-          specify do
-            expect(normalizer.normalize_included_resources([:notes], [serialized_admin, serialized_moder])).to match([
-              {id: an_instance_of(Fixnum), full_name: 'Admin User', gender: true, notes: [
-                {id: an_instance_of(Fixnum), title: 'Note Even'},
-                {id: an_instance_of(Fixnum), title: 'Note Even'}
-              ]},
-              {id: an_instance_of(Fixnum), full_name: 'Moder User', gender: false, notes: [
-                {id: an_instance_of(Fixnum), title: 'Note Even'},
-                {id: an_instance_of(Fixnum), title: 'Note Even'}
-              ]}
-            ])
-          end
-        end
-      end
-
-      context 'non-allowed included resources requested' do
         specify do
-          expect(normalizer.normalize_included_resources([:notes, :secrets], [serialized_admin, serialized_moder])).to match([
-            {id: an_instance_of(Fixnum), full_name: 'Admin User', gender: true, notes: [
-              {id: an_instance_of(Fixnum), title: 'Note Odd'},
-              {id: an_instance_of(Fixnum), title: 'Note Odd'}
-            ]},
-            {id: an_instance_of(Fixnum), full_name: 'Moder User', gender: false, notes: [
-              {id: an_instance_of(Fixnum), title: 'Note Odd'},
-              {id: an_instance_of(Fixnum), title: 'Note Odd'}
-            ]}
-          ])
+          expect(subject.permit_and_filter_included_response([admin, moder]))
+            .to eq([
+                    {id: 1, full_name: 'Admin User', gender: true, notes: [
+                      {id: 1, title: 'Note 1', user_id: 1}
+                    ]},
+                    {id: 2, full_name: 'Moder User', gender: false, notes: [
+                      {id: 3, title: 'Note 3', user_id: 1}
+                    ]}
+                  ])
+        end
+      end
+
+      context 'performer is moder' do
+        let(:performer) { build_stubbed(:user, :moder, id: 2) }
+
+        specify do
+          expect(subject.permit_and_filter_included_response([admin, moder]))
+            .to eq([
+                    {id: 1, full_name: 'Admin User', gender: true, notes: [
+                      {id: 2, title: 'Note 2', user_id: 2}
+                    ]},
+                    {id: 2, full_name: 'Moder User', gender: false, notes: [
+                      {id: 4, title: 'Note 4', user_id: 2}
+                    ]}
+                  ])
         end
       end
     end
 
-    context 'action has not allowed included resources specified' do
-      let(:action) { Class.new(AStream::BaseAction) }
+    context 'response is a serializable resource' do
+      context 'performer is admin' do
+        let(:performer) { build_stubbed(:user, :admin, id: 1) }
 
-      it 'returns provided safe collection' do
-        expect(normalizer.normalize_included_resources([:notes], [serialized_admin, serialized_moder]))
-          .to eq([serialized_admin, serialized_moder])
+        specify do
+          expect(subject.permit_and_filter_included_response(admin))
+            .to eq({id: 1, full_name: 'Admin User', gender: true, notes: [
+                      {id: 1, title: 'Note 1', user_id: 1}
+                    ]})
+        end
+
+        specify do
+          expect(subject.permit_and_filter_included_response(moder))
+            .to eq({id: 2, full_name: 'Moder User', gender: false, notes: [
+                      {id: 3, title: 'Note 3', user_id: 1}
+                    ]})
+        end
       end
-    end
 
-    context 'empty response given' do
-      context 'base action' do
-        let(:action) { Class.new(AStream::BaseAction) }
-        let(:unsafe_body) { nil }
+      context 'performer is moder' do
+        let(:performer) { build_stubbed(:user, :moder, id: 2) }
 
-        specify { expect(normalizer.normalize_included_resources([:notes], nil)).to eq(nil) }
-      end
+        specify do
+          expect(subject.permit_and_filter_included_response(admin))
+            .to eq({id: 1, full_name: 'Admin User', gender: true, notes: [
+                      {id: 2, title: 'Note 2', user_id: 2}
+                    ]})
+        end
 
-      context 'collection action' do
-        let(:action) { Class.new(AStream::BaseAction) }
-        let(:unsafe_body) { [] }
-
-        specify { expect(normalizer.normalize_included_resources([:notes], [])).to eq([]) }
+        specify do
+          expect(subject.permit_and_filter_included_response(moder))
+            .to eq({id: 2, full_name: 'Moder User', gender: false, notes: [
+                      {id: 4, title: 'Note 4', user_id: 2}
+                    ]})
+        end
       end
     end
   end

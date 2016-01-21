@@ -8,21 +8,21 @@ describe AStream::ActionRequestNormalizer do
     let(:action) { Class.new(AStream::BaseAction) }
     let(:initial_query) { {property: 'initial query'} }
     let(:query_with_normalized_params) { {my_param: 'normalized'} }
-    let(:query_with_filtered_included_resources) { {include: 'filtered'} }
+    let(:query_with_normalized_included) { {included: 'filtered'} }
 
     specify do
       expect(normalizer).to receive(:_normalize_params)
         .with(initial_query)
         .and_return(query_with_normalized_params).ordered
 
-      expect(normalizer).to receive(:_filter_included_resources)
-        .with(action, performer, query_with_normalized_params)
-        .and_return(query_with_filtered_included_resources).ordered
+      expect(normalizer).to receive(:_normalize_included)
+        .with(query_with_normalized_params)
+        .and_return(query_with_normalized_included).ordered
     end
 
     after do
       query = normalizer.normalize_query(action, performer, initial_query)
-      expect(query).to eq(query_with_filtered_included_resources)
+      expect(query).to eq(query_with_normalized_included)
     end
   end
 
@@ -44,37 +44,16 @@ describe AStream::ActionRequestNormalizer do
     end
   end
 
-  describe '._filter_included_resources' do
-    context 'allowed included resources are not specified' do
-      let(:action) { Class.new(AStream::BaseAction) }
-      let(:query) { {name: 'Test user', included: ['contacts', 'notes']} }
-      let(:filtered_query) { {name: 'Test user'} }
-      specify { expect(normalizer._filter_included_resources(action, performer, query)).to eq(filtered_query) }
+  describe '._normalize_included' do
+    context 'included resources are not requested' do
+      let(:query) { {name: 'Test user'} }
+      specify { expect(normalizer._normalize_included(query)).to eq(query) }
     end
 
-    context 'allowed included resources are specified' do
-      let(:action) do
-        Class.new(AStream::BaseAction) do
-          included_resources :notes, :contacts
-        end
-      end
-
-      context 'included resources are not requested' do
-        let(:query) { {name: 'Test user'} }
-        specify { expect(normalizer._filter_included_resources(action, performer, query)).to eq(query) }
-      end
-
-      context 'given allowed included resources' do
-        let(:query) { {name: 'Test user', included: ['contacts', 'notes']} }
-        let(:filtered_query) { {name: 'Test user', included: [:contacts, :notes]} }
-        specify { expect(normalizer._filter_included_resources(action, performer, query)).to eq(filtered_query) }
-      end
-
-      context 'given some restricted included resources' do
-        let(:query) { {name: 'Test user', included: ['contacts', 'notes', 'pictures']} }
-        let(:filtered_query) { {name: 'Test user', included: [:contacts, :notes]} }
-        specify { expect(normalizer._filter_included_resources(action, performer, query)).to eq(filtered_query) }
-      end
+    context 'given allowed included resources' do
+      let(:query) { {name: 'Test user', included: ['contacts', 'notes']} }
+      let(:filtered_query) { {name: 'Test user', included: [:contacts, :notes]} }
+      specify { expect(normalizer._normalize_included(query)).to eq(filtered_query) }
     end
   end
 end

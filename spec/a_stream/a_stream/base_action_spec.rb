@@ -128,22 +128,6 @@ describe AStream::BaseAction do
     end
   end
 
-  describe '.allows_to_include_resource?' do
-    context 'included resources are not specified' do
-      specify { expect(show_action.allows_to_include_resource?(:notes)).to eq false }
-    end
-
-    context 'included resources are specified' do
-      before do
-        Users::Show.class_eval do
-          included_resources :notes, :secrets
-        end
-      end
-
-      specify { expect(show_action.allows_to_include_resource?(:notes)).to eq true }
-    end
-  end
-
   describe '.pipe_data_from' do
     context 'connector block is specified' do
       before do

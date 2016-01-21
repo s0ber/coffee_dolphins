@@ -5,6 +5,7 @@ module AStream
   QueryParamsNotSpecified = Class.new(StandardError)
   SafeAttributesNotSpecified = Class.new(StandardError)
   PermissionCheckNotSpecified = Class.new(StandardError)
+  CantSerializeResource = Class.new(StandardError)
 
   def self.run(performer, action_streams, controller)
     action_streams = ActionStreamsBuilder.new(performer: performer).build(action_streams)

@@ -10,7 +10,7 @@ module AStream
       child.class_eval do
         @can_accept_actions = {}
         @safe_attributes = []
-        @included_resources = @resource_permission_check = nil
+        @resource_permission_check = nil
 
         def self.action_name
           @action_name ||= name.underscore.split('/').last(2).join('#')
@@ -28,19 +28,6 @@ module AStream
         def self.pipe_data_from(action_class, data)
           return unless can_accept_action?(action_class)
           @can_accept_actions[action_class.action_name].call(data)
-        end
-
-        def self.included_resources(*args)
-          @included_resources = args.to_a
-        end
-
-        def self.allows_included_resources?
-          !!@included_resources
-        end
-
-        def self.allows_to_include_resource?(resource_name)
-          return false unless @included_resources
-          @included_resources.include?(resource_name)
         end
 
         def self.safe_attributes(*args, &block)

@@ -37,7 +37,6 @@ shared_examples_for 'action classes definition' do
       end
 
       class ShowWithNotes < AStream::BaseAction
-        included_resources :notes
         permit_resource true
       end
     end
