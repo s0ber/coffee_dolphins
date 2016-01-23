@@ -61,7 +61,7 @@ module CoffeeDolphinsApp
 
         resource '*',
           :headers => :any,
-          :methods => [:get, :post],
+          :methods => [:get, :post, :delete],
           :credentials => true,
           :max_age => 0
       end
