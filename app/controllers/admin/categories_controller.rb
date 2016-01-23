@@ -27,7 +27,7 @@ class Admin::CategoriesController < Admin::BaseController
 
   def destroy
     @category.destroy
-    render_success
+    render_success(notice: 'Категория успешно удалена.')
   end
 
 private

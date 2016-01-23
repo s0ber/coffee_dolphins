@@ -34,7 +34,7 @@ class Admin::PositionsController < Admin::BaseController
 
   def destroy
     @position.destroy
-    render_success
+    render_success(notice: 'Позиция успешно удалена.')
   end
 
   def prepare_import

@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
         success: true,
         user: ActiveModel::SerializableResource.new(user, serializer: CurrentUserSerializer),
         browser_redirect: session[:return_to_url] || root_url,
-        meta: {message: 'Вы успешно вошли на сайт.'}
+        meta: {notice: 'Вы успешно вошли на сайт.'}
       }
     else
       render_validation_errors(email: ['данные для входа не верны'])
@@ -25,7 +25,16 @@ class SessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_to login_url, notice: 'Сессия завершена.'
+    notice = 'Сессия завершена.'
+
+    respond_to do |format|
+      format.html do
+        redirect_to login_url, notice: notice
+      end
+      format.json do
+        render json: {success: true, notice: notice}
+      end
+    end
   end
 
   def logged_in_user
