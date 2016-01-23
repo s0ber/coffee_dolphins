@@ -4,8 +4,6 @@ class Admin::BaseController < ApplicationController
   before_filter :require_login
   before_filter :pass_variables_to_front
 
-  rescue_from ActiveRecord::RecordInvalid, with: :process_failed_validation
-
 protected
 
   def assets_md5_hash
@@ -26,7 +24,14 @@ private
   end
 
   def not_authenticated
-    redirect_to login_url, alert: 'Вы должны войти, чтобы получить доступ к запрашиваемой странице.'
+    respond_to do |format|
+      format.html do
+        redirect_to login_url, alert: 'Вы должны войти, чтобы получить доступ к запрашиваемой странице.'
+      end
+      format.json do
+        render json: {success: false}, status: :unauthorized
+      end
+    end
   end
 
   helper_method :assets_md5_hash

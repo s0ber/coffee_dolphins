@@ -6,10 +6,7 @@ module Responders
       if @default_response
         @default_response.call(options)
       else
-        render json: {
-          success: true,
-          html: controller.render_to_string(controller.action_name, layout: false, formats: [:html])
-        }
+        render json: undecorate_model(resource), meta: options
       end
     end
 
@@ -22,6 +19,14 @@ module Responders
     end
 
     private
+
+    def undecorate_model(resource)
+      if resource.is_a?(Draper::Decorator) || resource.is_a?(Draper::CollectionDecorator)
+        resource.send(:object)
+      else
+        resource
+      end
+    end
 
     def ijax_request_id
       controller.params[:i_req_id] || '0'
