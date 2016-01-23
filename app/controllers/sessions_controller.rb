@@ -12,7 +12,12 @@ class SessionsController < ApplicationController
 
     if user
       flash.notice = 'Вы успешно вошли на сайт.'
-      render json: {browser_redirect: session[:return_to_url] || root_url, meta: {message: 'Вы успешно вошли на сайт.'}}
+      render json: {
+        success: true,
+        user: ActiveModel::SerializableResource.new(user, serializer: CurrentUserSerializer),
+        browser_redirect: session[:return_to_url] || root_url,
+        meta: {message: 'Вы успешно вошли на сайт.'}
+      }
     else
       render_validation_errors(email: ['данные для входа не верны'])
     end
@@ -40,6 +45,6 @@ protected
 private
 
   def user_params
-    params.require(:user).permit(:email, :password, :remember_me)
+    params.fetch(:user).permit(:email, :password, :remember_me)
   end
 end
