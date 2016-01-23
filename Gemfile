@@ -27,6 +27,9 @@ gem 'rails', '4.1.8'
 # form objects
 gem 'active_data'
 
+# models serialization
+gem 'active_model_serializers', '0.10.0.rc3'
+
 # configure CORS
 gem 'rack-cors', :require => 'rack/cors'
 

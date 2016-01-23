@@ -12,7 +12,12 @@ class SessionsController < ApplicationController
 
     if user
       flash.notice = 'Вы успешно вошли на сайт.'
-      render json: {browser_redirect: session[:return_to_url] || root_url}
+      render json: {
+        success: true,
+        user: ActiveModel::SerializableResource.new(user, serializer: CurrentUserSerializer),
+        browser_redirect: session[:return_to_url] || root_url,
+        meta: {notice: 'Вы успешно вошли на сайт.'}
+      }
     else
       render_validation_errors(email: ['данные для входа не верны'])
     end
@@ -20,7 +25,24 @@ class SessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_to login_url, notice: 'Сессия завершена.'
+    notice = 'Сессия завершена.'
+
+    respond_to do |format|
+      format.html do
+        redirect_to login_url, notice: notice
+      end
+      format.json do
+        render json: {success: true, notice: notice}
+      end
+    end
+  end
+
+  def logged_in_user
+    if current_user
+      render json: current_user, serializer: CurrentUserSerializer
+    else
+      render json: {user: nil}
+    end
   end
 
 protected
@@ -32,7 +54,6 @@ protected
 private
 
   def user_params
-    params.require(:user).permit(:email, :password, :remember_me)
+    params.fetch(:user).permit(:email, :password, :remember_me)
   end
-
 end

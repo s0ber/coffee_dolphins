@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  after_action :set_csrf_token_cookie
 
   self.responder = Responders::AppResponder
   respond_to :html, :json, :al
@@ -11,6 +12,10 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordInvalid, with: :process_failed_validation
 
 protected
+
+  def set_csrf_token_cookie
+    cookies[:_csrf_token] = form_authenticity_token if protect_against_forgery?
+  end
 
   def render_success(options = {})
     render json: {success: true}.merge(options)

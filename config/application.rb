@@ -59,9 +59,9 @@ module CoffeeDolphinsApp
       allow do
         origins 'http://localhost:4000'
 
-        resource '/api*',
+        resource '*',
           :headers => :any,
-          :methods => [:get, :post],
+          :methods => [:get, :post, :delete],
           :credentials => true,
           :max_age => 0
       end
