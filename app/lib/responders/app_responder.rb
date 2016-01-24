@@ -11,7 +11,7 @@ module Responders
           render_options[k] = options[k] if options[k]
         end
         render_options[:meta] ||= {}
-        render_options[:meta].merge!(pagination_meta(resource)) if paginated?(resource)
+        render_options[:meta].merge!(pagination: pagination_meta(resource)) if paginated?(resource)
         render(render_options)
       end
     end
