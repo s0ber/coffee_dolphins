@@ -28,7 +28,7 @@ gem 'rails', '4.1.8'
 gem 'active_data'
 
 # models serialization
-gem 'active_model_serializers', '0.10.0.rc3'
+gem 'active_model_serializers', git: 'https://github.com/rails-api/active_model_serializers.git'
 
 # configure CORS
 gem 'rack-cors', :require => 'rack/cors'
