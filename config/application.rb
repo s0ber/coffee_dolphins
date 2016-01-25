@@ -33,7 +33,7 @@ module CoffeeDolphinsApp
     # We don't want the default of everything that isn't js or css, because it pulls too many things in
     config.assets.precompile.shift
 
-    config.assets.precompile += ['admin/application.js', 'admin/application.css', 'public/old_template/main_page.css', 'public/new_template/all.css']
+    config.assets.precompile += ['admin/application.js', 'admin/application.css', 'public/old_template/main_page.css', 'public/new_template/all.css', 'fontawesome-webfont.woff2']
 
     # color schemes for public landings
     %w(blue green pink red blue_light purple olive bronze cocoa aquamarine purple_light).each do |color|
