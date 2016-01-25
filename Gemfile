@@ -22,7 +22,7 @@ end
 gem 'pg'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.4'
 
 # form objects
 gem 'active_data'
@@ -51,7 +51,7 @@ gem "pure-css-rails"
 gem 'rb-readline'
 
 # Filter generated paths
-gem 'routing-filter', '0.4.0.pre'
+gem 'routing-filter', '~> 0.5.0'
 
 # automatically turn http:// text into links
 gem 'rails_autolink'
@@ -74,7 +74,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer',  platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+gem 'jquery-rails', '4.0.4'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -86,7 +86,7 @@ gem 'spring',        group: :development
 gem 'colorize', require: false
 
 # Custom responders
-gem 'responders'
+gem 'responders', '~> 2.1.1'
 
 # Authentification
 gem 'sorcery'
@@ -136,4 +136,4 @@ group :development do
 end
 
 # Misc
-gem 'rails_config'
+gem 'config', '~> 1.0.0'
