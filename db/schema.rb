@@ -29,28 +29,28 @@ ActiveRecord::Schema.define(version: 20151216150342) do
     t.decimal  "prize"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "outcome",      limit: 255
+    t.string   "outcome"
   end
 
   add_index "bets", ["bookmaker_id"], name: "index_bets_on_bookmaker_id", using: :btree
   add_index "bets", ["fork_id"], name: "index_bets_on_fork_id", using: :btree
 
   create_table "bookmakers", force: :cascade do |t|
-    t.string   "title",          limit: 255
+    t.string   "title"
     t.text     "description"
-    t.string   "image",          limit: 255
-    t.integer  "currency",                   default: 0
+    t.string   "image"
+    t.integer  "currency",       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "statistics_url", limit: 255
+    t.string   "statistics_url"
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string   "title",            limit: 255
-    t.string   "slug",             limit: 255
+    t.string   "title"
+    t.string   "slug"
     t.text     "description"
-    t.string   "html_title",       limit: 255
-    t.string   "meta_description", limit: 255
+    t.string   "html_title"
+    t.string   "meta_description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20151216150342) do
     t.integer  "bet_line_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title",              limit: 255
+    t.string   "title"
     t.integer  "winning_bet_id"
     t.datetime "played_out_at"
     t.datetime "event_scheduled_at"
@@ -68,10 +68,10 @@ ActiveRecord::Schema.define(version: 20151216150342) do
   add_index "forks", ["bet_line_id"], name: "index_forks_on_bet_line_id", using: :btree
 
   create_table "landing_images", force: :cascade do |t|
-    t.string   "image",       limit: 255
-    t.string   "alt_text",    limit: 255, default: ""
+    t.string   "image"
+    t.string   "alt_text",    default: ""
     t.integer  "position"
-    t.boolean  "for_gallery",             default: false
+    t.boolean  "for_gallery", default: false
     t.integer  "landing_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -80,78 +80,78 @@ ActiveRecord::Schema.define(version: 20151216150342) do
   add_index "landing_images", ["landing_id"], name: "index_landing_images_on_landing_id", using: :btree
 
   create_table "landings", force: :cascade do |t|
-    t.string   "title",               limit: 255
-    t.string   "slug",                limit: 255
+    t.string   "title"
+    t.string   "slug"
     t.decimal  "price"
-    t.string   "video_id",            limit: 255
-    t.integer  "color",               limit: 2,   default: 0
-    t.string   "apishops_article_id", limit: 255
-    t.string   "meta_description",    limit: 255
-    t.string   "html_title",          limit: 255
+    t.string   "video_id"
+    t.integer  "color",               limit: 2, default: 0
+    t.string   "apishops_article_id"
+    t.string   "meta_description"
+    t.string   "html_title"
     t.integer  "category_id"
-    t.string   "_status",             limit: 255
+    t.string   "_status"
     t.integer  "position_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "short_description"
-    t.string   "description_title",   limit: 255
+    t.string   "description_title"
     t.text     "description_text"
-    t.string   "advantages_title",    limit: 255
+    t.string   "advantages_title"
     t.text     "advantages_text"
-    t.string   "why_question",        limit: 255
-    t.string   "reviews_title",       limit: 255
-    t.string   "footer_title",        limit: 255
+    t.string   "why_question"
+    t.string   "reviews_title"
+    t.string   "footer_title"
     t.integer  "apishops_site_id"
-    t.integer  "discount",                        default: 30
-    t.string   "reviews_footer",      limit: 255
-    t.string   "subheader_title",     limit: 255
-    t.integer  "template",                        default: 0
+    t.integer  "discount",                      default: 30
+    t.string   "reviews_footer"
+    t.string   "subheader_title"
+    t.integer  "template",                      default: 0
   end
 
   add_index "landings", ["category_id"], name: "index_landings_on_category_id", using: :btree
   add_index "landings", ["position_id"], name: "index_landings_on_position_id", using: :btree
 
   create_table "notes", force: :cascade do |t|
-    t.string   "title",        limit: 255
+    t.string   "title"
     t.text     "comment"
     t.integer  "notable_id"
-    t.string   "notable_type", limit: 255
+    t.string   "notable_type"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "notes", ["notable_id", "notable_type"], name: "index_notes_on_notable_id_and_notable_type", using: :btree
+  add_index "notes", ["notable_type", "notable_id"], name: "index_notes_on_notable_type_and_notable_id", using: :btree
 
   create_table "positions", force: :cascade do |t|
-    t.string   "title",                limit: 255
-    t.string   "category",             limit: 255
+    t.string   "title"
+    t.string   "category"
     t.decimal  "price"
     t.decimal  "profit"
     t.integer  "availability_level"
-    t.string   "image_url",            limit: 255
+    t.string   "image_url"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "apishops_position_id"
     t.integer  "apishops_category_id"
-    t.boolean  "liked",                            default: false
+    t.boolean  "liked",                default: false
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.string   "author",            limit: 255
-    t.boolean  "author_gender",                 default: true
+    t.string   "author"
+    t.boolean  "author_gender",     default: true
     t.text     "text"
     t.integer  "landing_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "author_profession", limit: 255
+    t.string   "author_profession"
   end
 
   add_index "reviews", ["landing_id"], name: "index_reviews_on_landing_id", using: :btree
 
   create_table "search_keywords", force: :cascade do |t|
-    t.string   "name",         limit: 255
-    t.integer  "search_count",             default: 0
+    t.string   "name"
+    t.integer  "search_count", default: 0
     t.integer  "position_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -175,16 +175,16 @@ ActiveRecord::Schema.define(version: 20151216150342) do
   add_index "transactions", ["bookmaker_id"], name: "index_transactions_on_bookmaker_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                        limit: 255,                null: false
-    t.string   "crypted_password",             limit: 255,                null: false
-    t.string   "salt",                         limit: 255,                null: false
+    t.string   "email",                                       null: false
+    t.string   "crypted_password",                            null: false
+    t.string   "salt",                                        null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "remember_me_token",            limit: 255
+    t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
-    t.string   "full_name",                    limit: 255
+    t.string   "full_name"
     t.text     "description"
-    t.boolean  "gender",                                   default: true
+    t.boolean  "gender",                       default: true
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
