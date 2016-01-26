@@ -22,7 +22,7 @@ class Admin::CategoriesController < Admin::BaseController
 
   def update
     @category.update_attributes!(category_params)
-    render_success
+    render_success(notice: 'Категория обновлена.')
   end
 
   def destroy
@@ -31,6 +31,7 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
 private
+
   def load_category
     @category = Category.find(params[:id])
   end

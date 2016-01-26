@@ -23,7 +23,7 @@ class Admin::UsersController < Admin::BaseController
   def update
     user = User.find(params[:id])
     user.update_attributes!(user_params)
-    render_success
+    render_success(notice: 'Пользователь успешно обновлен.')
   end
 
   def destroy
