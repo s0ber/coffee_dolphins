@@ -29,7 +29,7 @@ class Admin::UsersController < Admin::BaseController
   def destroy
     user = User.find(params[:id])
     user.destroy unless user.admin?
-    render_success
+    render_success(notice: 'Пользователь успешно удален.')
   end
 
 private

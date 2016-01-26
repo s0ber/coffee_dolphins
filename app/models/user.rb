@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   attr_accessor :remember_me
 
   def admin?
-    email == 'coffeedolphins@gmail.com'
+    id == 1
   end
 
   def male?
