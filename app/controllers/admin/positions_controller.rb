@@ -29,7 +29,7 @@ class Admin::PositionsController < Admin::BaseController
 
   def update
     @position.update_attributes!(position_params)
-    render_success
+    render_success(notice: 'Позиция успешно обновлена.')
   end
 
   def destroy
