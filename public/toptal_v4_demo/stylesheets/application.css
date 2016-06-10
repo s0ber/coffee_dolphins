@@ -1,0 +1,358 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+/* line 7, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_reset.css */
+html, body, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+/* line 27, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_reset.css */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+/* line 31, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_reset.css */
+ol, ul {
+  list-style: none; }
+
+/* line 34, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_reset.css */
+blockquote, q {
+  quotes: none; }
+
+/* line 37, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_reset.css */
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+/* line 42, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_reset.css */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* line 50, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+html {
+  width: 100%;
+  height: 100%;
+  max-height: 100%; }
+
+/* line 55, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+html, button, input, textarea, label {
+  font-size: 13.86139px;
+  line-height: 1.6; }
+
+@media (min-width: 600px) {
+  /* line 60, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+  html, button, input, textarea, label {
+    font-size: 14px; } }
+@media (min-width: 800px) {
+  /* line 64, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+  html, button, input, textarea, label {
+    font-size: 14.14px; } }
+@media (min-width: 1100px) {
+  /* line 68, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+  html, button, input, textarea, label {
+    font-size: 14.2814px; } }
+@media (min-width: 1300px) {
+  /* line 72, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+  html, button, input, textarea, label {
+    font-size: 14.56846px; } }
+/* line 1, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_layout.sass */
+html {
+  width: 100%;
+  height: 100%;
+  font-family: "Helvetica Neue", "Tahoma", "Arial", "sans-serif"; }
+
+/* line 6, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_layout.sass */
+body {
+  width: 100%;
+  overflow-x: hidden;
+  color: #3F4040; }
+
+/* line 11, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_layout.sass */
+* {
+  box-sizing: border-box; }
+
+/* line 14, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_layout.sass */
+a {
+  text-decoration: none; }
+
+/* line 17, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_layout.sass */
+i {
+  text-decoration: underline; }
+
+/* line 1, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_button.sass */
+.Button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+  background: #3965A1;
+  color: #fff;
+  border-radius: 3px;
+  white-space: nowrap;
+  font-size: 0.93458rem; }
+
+@media (min-width: 600px) {
+  /* line 12, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_button.sass */
+  .Button {
+    padding: 0.5rem 1.5rem; } }
+/* line 3, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_layout.sass */
+.Layout-menu {
+  background: #F9FAFA;
+  border-bottom: 1px solid #C7D4D5; }
+
+/* line 9, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_layout.sass */
+.Layout-contentInner {
+  border-left: 1px solid #C7D4D5; }
+  /* line 2, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/application.css.sass */
+  .Layout-contentInner:before, .Layout-contentInner:after {
+    content: "";
+    display: table; }
+  /* line 7, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/application.css.sass */
+  .Layout-contentInner:after {
+    clear: both; }
+
+@media (min-width: 800px) {
+  /* line 14, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_layout.sass */
+  .Layout {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between; }
+
+  /* line 18, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_layout.sass */
+  .Layout-menu {
+    width: 15rem;
+    border-bottom: 0; }
+
+  /* line 22, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_layout.sass */
+  .Layout-content {
+    width: 100%;
+    padding-left: 15rem;
+    margin-left: -15rem; } }
+/* line 2, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/application.css.sass */
+.List:before, .List:after {
+  content: "";
+  display: table; }
+/* line 7, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/application.css.sass */
+.List:after {
+  clear: both; }
+
+/* line 4, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_list.sass */
+.List-item {
+  padding: 0.5rem 0; }
+
+/* line 7, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_list.sass */
+.List-itemLabel {
+  color: #abbfc1; }
+
+@media (min-width: 600px) {
+  /* line 11, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_list.sass */
+  .List-item {
+    float: left;
+    width: 50%; }
+    /* line 2, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/application.css.sass */
+    .List-item:before, .List-item:after {
+      content: "";
+      display: table; }
+    /* line 7, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/application.css.sass */
+    .List-item:after {
+      clear: both; } }
+@media (min-width: 1100px) {
+  /* line 17, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_list.sass */
+  .List-itemLabel {
+    float: left;
+    width: 30%; }
+
+  /* line 21, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_list.sass */
+  .List-itemValue {
+    float: left;
+    width: 70%; } }
+/* line 3, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_menu.sass */
+.Menu-item {
+  height: 4rem;
+  line-height: 4rem;
+  padding: 0 2rem;
+  color: #8DA6AA; }
+  /* line 9, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_menu.sass */
+  .Menu-item.is-active {
+    font-weight: bold;
+    color: #3F4040; }
+
+/* line 3, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_page.sass */
+.Page-title {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAABCAYAAACsXeyTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAFUlEQVQIHWNIS0sr/v//PwMMDzY+ADqMahlW4J91AAAAAElFTkSuQmCC") bottom left repeat-x;
+  padding: 1.25rem 1.25rem; }
+  /* line 7, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_page.sass */
+  .Page-title h1 {
+    font-size: 1.60578rem;
+    line-height: 1.3975; }
+
+/* line 10, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_page.sass */
+.Page-body {
+  padding: 1.75rem 1.25rem; }
+
+@media (min-width: 800px) {
+  /* line 14, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_page.sass */
+  .Page-title {
+    padding: 1.25rem 2rem; }
+
+  /* line 17, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_page.sass */
+  .Page-body {
+    padding: 1.75rem 2rem; } }
+/* line 1, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_panel.sass */
+.Panel {
+  margin: 2rem 0;
+  border: 1px solid #D3DBDC;
+  border-radius: 3px; }
+  /* line 6, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_panel.sass */
+  .Panel:first-child {
+    margin-top: 0; }
+  /* line 9, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_panel.sass */
+  .Panel:last-child {
+    margin-bottom: 0; }
+
+/* line 12, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_panel.sass */
+.Panel-header {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid #D3D8DC;
+  padding: 0.75rem 0.75rem 0.75rem 1.25rem; }
+
+/* line 19, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_panel.sass */
+.Panel-body {
+  padding: 0.75rem 1.25rem; }
+
+/* line 22, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_panel.sass */
+.Panel-headerText {
+  font-size: 1.22504rem;
+  line-height: 1.3975; }
+
+@media (min-width: 800px) {
+  /* line 30, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_panel.sass */
+  .Panel {
+    padding: 0 2rem; }
+
+  /* line 33, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_panel.sass */
+  .Panel-header,
+  .Panel-body {
+    padding: 1.25rem 0; } }
+/* line 1, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_text.sass */
+.Text-xsmall {
+  font-size: 0.87344rem;
+  margin: 1em 0; }
+  /* line 100, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+  .Text-xsmall:first-child {
+    margin-top: 0; }
+  /* line 103, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+  .Text-xsmall:last-child {
+    margin-bottom: 0; }
+
+/* line 6, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_text.sass */
+.Text-small {
+  font-size: 0.93458rem;
+  margin: 1em 0; }
+  /* line 100, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+  .Text-small:first-child {
+    margin-top: 0; }
+  /* line 103, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+  .Text-small:last-child {
+    margin-bottom: 0; }
+
+/* line 11, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_text.sass */
+.Text-base {
+  margin: 1em 0; }
+  /* line 100, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+  .Text-base:first-child {
+    margin-top: 0; }
+  /* line 103, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+  .Text-base:last-child {
+    margin-bottom: 0; }
+
+/* line 15, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_text.sass */
+.Text-large {
+  font-size: 1.07rem;
+  margin: 1em 0; }
+  /* line 100, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+  .Text-large:first-child {
+    margin-top: 0; }
+  /* line 103, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+  .Text-large:last-child {
+    margin-bottom: 0; }
+
+/* line 20, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_text.sass */
+.Text-headerS {
+  font-size: 1.22504rem;
+  line-height: 1.3975;
+  margin: 1em 0; }
+  /* line 100, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+  .Text-headerS:first-child {
+    margin-top: 0; }
+  /* line 103, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+  .Text-headerS:last-child {
+    margin-bottom: 0; }
+
+/* line 25, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_text.sass */
+.Text-headerM {
+  font-size: 1.3108rem;
+  line-height: 1.3975;
+  margin: 1em 0; }
+  /* line 100, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+  .Text-headerM:first-child {
+    margin-top: 0; }
+  /* line 103, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+  .Text-headerM:last-child {
+    margin-bottom: 0; }
+
+/* line 30, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_text.sass */
+.Text-headerL {
+  font-size: 1.60578rem;
+  line-height: 1.3975;
+  margin: 1em 0; }
+  /* line 100, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+  .Text-headerL:first-child {
+    margin-top: 0; }
+  /* line 103, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/_typo_grid.sass */
+  .Text-headerL:last-child {
+    margin-bottom: 0; }
+
+/* line 35, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_text.sass */
+.Text-highlighted {
+  border: 1px solid #D3DBDC;
+  background: #F1F7FF;
+  padding: 0.75rem 1rem;
+  border-radius: 3px; }
+
+/* line 1, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_top_bar.sass */
+.TopBar {
+  height: 5rem;
+  line-height: 5rem;
+  background-color: #3965A1;
+  color: #fff;
+  padding: 0 2rem; }
