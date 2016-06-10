@@ -118,19 +118,16 @@ i {
   background: #F9FAFA;
   border-bottom: 1px solid #C7D4D5; }
 
-/* line 9, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_layout.sass */
-.Layout-contentInner {
-  border-left: 1px solid #C7D4D5; }
-  /* line 2, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/application.css.sass */
-  .Layout-contentInner:before, .Layout-contentInner:after {
-    content: "";
-    display: table; }
-  /* line 7, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/application.css.sass */
-  .Layout-contentInner:after {
-    clear: both; }
+/* line 2, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/application.css.sass */
+.Layout-contentInner:before, .Layout-contentInner:after {
+  content: "";
+  display: table; }
+/* line 7, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/application.css.sass */
+.Layout-contentInner:after {
+  clear: both; }
 
 @media (min-width: 800px) {
-  /* line 14, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_layout.sass */
+  /* line 13, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_layout.sass */
   .Layout {
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -139,16 +136,20 @@ i {
         -ms-flex-pack: justify;
             justify-content: space-between; }
 
-  /* line 18, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_layout.sass */
+  /* line 17, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_layout.sass */
   .Layout-menu {
     width: 15rem;
     border-bottom: 0; }
 
-  /* line 22, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_layout.sass */
+  /* line 21, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_layout.sass */
   .Layout-content {
     width: 100%;
     padding-left: 15rem;
-    margin-left: -15rem; } }
+    margin-left: -15rem; }
+
+  /* line 26, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_layout.sass */
+  .Layout-contentInner {
+    border-left: 1px solid #C7D4D5; } }
 /* line 2, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/application.css.sass */
 .List:before, .List:after {
   content: "";
@@ -187,17 +188,38 @@ i {
   .List-itemValue {
     float: left;
     width: 70%; } }
-/* line 3, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_menu.sass */
+/* line 2, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/application.css.sass */
+.Menu:before, .Menu:after {
+  content: "";
+  display: table; }
+/* line 7, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/application.css.sass */
+.Menu:after {
+  clear: both; }
+
+/* line 4, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_menu.sass */
 .Menu-item {
   height: 4rem;
   line-height: 4rem;
-  padding: 0 2rem;
+  padding: 0 1.25rem;
   color: #8DA6AA; }
-  /* line 9, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_menu.sass */
+  /* line 10, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_menu.sass */
   .Menu-item.is-active {
     font-weight: bold;
     color: #3F4040; }
 
+@media (min-width: 600px) {
+  /* line 15, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_menu.sass */
+  .Menu-item {
+    float: left;
+    height: 3.5rem;
+    line-height: 3.5rem; } }
+@media (min-width: 800px) {
+  /* line 21, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_menu.sass */
+  .Menu-item {
+    float: none;
+    padding: 0 2rem;
+    height: 4rem;
+    line-height: 4rem; } }
 /* line 3, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_page.sass */
 .Page-title {
   background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAABCAYAAACsXeyTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAFUlEQVQIHWNIS0sr/v//PwMMDzY+ADqMahlW4J91AAAAAElFTkSuQmCC") bottom left repeat-x;
@@ -355,4 +377,9 @@ i {
   line-height: 5rem;
   background-color: #3965A1;
   color: #fff;
-  padding: 0 2rem; }
+  padding: 0 1.25rem; }
+
+@media (min-width: 800px) {
+  /* line 9, /Users/s0ber/my_projects/toptal_v2/source/stylesheets/blocks/_top_bar.sass */
+  .TopBar {
+    padding: 0 2rem; } }
