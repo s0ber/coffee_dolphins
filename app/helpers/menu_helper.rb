@@ -13,6 +13,7 @@ module MenuHelper
 
   def api_menu_items
     [
+      ['Resources', resources_path, menu_item_id: 'resources'],
       ['Types', types_path, menu_item_id: 'types']
     ]
   end

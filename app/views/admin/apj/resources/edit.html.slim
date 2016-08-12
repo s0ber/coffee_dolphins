@@ -1,0 +1,11 @@
+.panel_item-body
+  = neo_form_for @resource do |f|
+    .form-fields
+      = f.input :name, label: 'Resource Name'
+
+    .form-actions
+      .fl_r
+        .small_button data-role='editable_item-cancel_edit'
+          | Cancel
+        button.small_button.is-green type='submit'
+          | Save Resource
