@@ -1,4 +1,4 @@
-class Admin::Apj::ApjController < Admin::BaseController
+class Admin::Apj::BaseController < Admin::BaseController
   before_action :set_api_layout_flag
 
 private

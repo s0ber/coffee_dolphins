@@ -13,7 +13,7 @@ module MenuHelper
 
   def api_menu_items
     [
-      ['Api 2', api2_path, menu_item_id: 'api_2']
+      ['Types', types_path, menu_item_id: 'types']
     ]
   end
 end

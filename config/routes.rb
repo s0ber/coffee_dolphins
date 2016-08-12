@@ -30,7 +30,7 @@ Rails.application.routes.draw do
 
   scope module: :admin do
     scope module: :apj do
-      get '/api2' => 'apj#index'
+      resources :types
     end
 
     resources :positions do
