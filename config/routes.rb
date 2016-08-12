@@ -29,6 +29,10 @@ Rails.application.routes.draw do
   post '/api' => 'api#post'
 
   scope module: :admin do
+    scope module: :apj do
+      get '/api2' => 'apj#index'
+    end
+
     resources :positions do
       collection do
         get :prepare_import

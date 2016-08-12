@@ -10,4 +10,10 @@ module MenuHelper
       ['Пользователи', users_path, menu_item_id: 'users']
     ]
   end
+
+  def api_menu_items
+    [
+      ['Api 2', api2_path, menu_item_id: 'api_2']
+    ]
+  end
 end
