@@ -1,11 +1,30 @@
-.panel_item data-view='item' data={item_id: resource.id, block_path: resource_path(resource)}
-  .panel_item-header
+.panel data-view='item' data={item_id: resource.id, block_path: resource_path(resource)}
+  .panel-header
     span data-role='editable_item-title'
       = resource.name
     .fl_r
       = resource.edit_button
       = resource.remove_button
 
-  .panel_item-body data-role='editable_item-info'
+  .panel-body.has-p15 data-role='editable_item-info'
     .panel_list
-      | Some resource content here.
+      .panel_item
+        .panel_item-header
+          | Fields
+        .panel_item-body
+          .panel_list.for-resource_details
+            - if resource.fields.any?
+              - resource.fields.each do |field|
+                = list_item field.type.name, field.name
+            - else
+              p.panel-text
+                | Resource has no fields specified.
+
+      .panel_item
+        .panel_item-header
+          | Relations
+        .panel_item-body
+          .panel_list.for-resource_details
+            = list_item 'String', 'title'
+            = list_item 'Date', 'created_at'
+            = list_item 'Integer', 'count'

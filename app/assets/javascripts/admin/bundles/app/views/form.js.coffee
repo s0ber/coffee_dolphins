@@ -38,6 +38,11 @@ class App.Views.Form extends Dolphin.View
 
   showErrors: (errors) ->
     for name, messages of errors
+      isNestedError = name.split('.').length > 0
+
+      if isNestedError
+        @emit('flash_message:alert', "#{name}: #{messages.join(', ')}")
+
       $field = @$("[name='#{@entity()}[#{name}]']")
       $fieldWrap = $field.closest('.js-field_wrapper')
       $label = $fieldWrap.find('label.control-label .label_wrap')

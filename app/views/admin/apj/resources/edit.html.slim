@@ -1,7 +1,39 @@
+- field_template = capture do
+  - dummy_resource = Resource.new
+  - dummy_resource.fields.build
+
+  = neo_fields_for dummy_resource do |f|
+    = f.association :fields do |field_form|
+      = render 'field_form', field_form: field_form
+
 .panel_item-body
   = neo_form_for @resource do |f|
     .form-fields
       = f.input :name, label: 'Resource Name'
+
+      .panel_list
+        .panel_item data-view='app#fields_editing' data={field_template: {html: field_template}.to_json}
+          .panel_item-header
+            span
+              | Fields
+            .fl_r
+              .small_button.is-green data-role='fields_editing-add'
+                | Add Field
+          .panel_item-body
+            .panel_list.for-resource_details
+              p.panel-text data-role='fields_editing-empty_message' class=('hidden' if @resource.fields.any?)
+                | Resource has no fields specified.
+              div data-role='fields_editing-container sortable'
+                = f.simple_fields_for :fields do |field_form|
+                  = render 'field_form', field_form: field_form
+
+        .panel_item
+          .panel_item-header
+            | Relations
+          .panel_item-body
+            .panel_list.for-resource_details
+              p.panel-text
+                | Resource has no relations yet.
 
     .form-actions
       .fl_r

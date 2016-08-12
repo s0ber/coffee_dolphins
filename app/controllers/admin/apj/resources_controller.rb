@@ -31,11 +31,12 @@ class Admin::Apj::ResourcesController < Admin::Apj::BaseController
   end
 
 private
+
   def load_resource
     @resource = Resource.find(params[:id])
   end
 
   def resource_params
-    params.require(:resource).permit(:name)
+    params.require(:resource).permit(:name, fields_attributes: [:id, :type_id, :position, :name, :_destroy])
   end
 end

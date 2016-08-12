@@ -5,19 +5,10 @@ class App.Views.ImagesList extends Dolphin.View
     imagesContainer: '@images_list-container'
     images: '@images_list-image'
 
-  # those events fix Chrome's behavior,
-  # when you can't select text with CTRL+A in draggable inputs
-  events:
-    'focus input': 'unloadSorting'
-    'blur input': 'resetSorting'
-
   initialize: ->
     @initFileUploader()
-
-    @initSorting()
-    @listen('page:loaded', @resetSorting)
-
-    @$imagesContainer().on('sortupdate', @reorderImages.bind(@))
+    @applyBehavior('Sortable')
+    @behaviors.Sortable.onSortUpdate @reorderImages.bind(@)
 
   initFileUploader: ->
     new Utils.FileUploader
@@ -29,25 +20,6 @@ class App.Views.ImagesList extends Dolphin.View
       onComplete: (id, fileName, json) =>
         @addImage(json)
         @showNotice(json.notice) if json.notice?
-
-  initSorting: ->
-    @$imagesContainer().sortable(handle: '@images_list-sorting_handle')
-
-  unloadSorting: ->
-    @$imagesContainer().sortable('destroy')
-
-  resetSorting: ->
-    @unloadSorting()
-    @initSorting()
-
-  reorderImages: ->
-    $images = @$images()
-
-    indexes = for i in [0...$images.length]
-      $images.eq(i).data('id')
-
-    $.post(@reorderPath(), _method: 'put', indexes: indexes).done (json) =>
-      @showNotice(json.notice) if json.notice
 
   addImage: (json) ->
     $image = $(@imageTemplate().html)
@@ -75,7 +47,7 @@ class App.Views.ImagesList extends Dolphin.View
     $image.autofocus()
 
     @incrementImagesCounter()
-    @resetSorting()
+    @behaviors.Sortable.resetSorting()
 
 # getters
 
@@ -88,9 +60,6 @@ class App.Views.ImagesList extends Dolphin.View
   uploadPath: ->
     @$el.data('upload-image-path')
 
-  reorderPath: ->
-    @$el.data('reorder-path')
-
   imageTemplate: ->
     @$el.data('image-template')
 
@@ -99,3 +68,16 @@ class App.Views.ImagesList extends Dolphin.View
   incrementImagesCounter: ->
     @_imagesCounter++
 
+  reorderImages: ->
+    return unless @reorderPath()
+
+    $images = @$images()
+
+    indexes = for i in [0...$images.length]
+      $images.eq(i).data('id')
+
+    $.post(@reorderPath(), _method: 'put', indexes: indexes).done (json) =>
+      @showNotice(json.notice) if json.notice
+
+  reorderPath: ->
+    @$el.data('reorder-path')
