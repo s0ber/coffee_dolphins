@@ -31,7 +31,13 @@ Rails.application.routes.draw do
   scope module: :admin do
     scope module: :apj do
       resources :types
-      resources :resources
+      resources :resources do
+        get :cut, on: :member
+
+        scope module: :resources do
+          resources :examples, only: [:create, :show, :edit, :update, :destroy]
+        end
+      end
     end
 
     resources :positions do

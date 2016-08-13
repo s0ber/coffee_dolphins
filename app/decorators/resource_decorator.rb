@@ -1,5 +1,6 @@
 class ResourceDecorator < ApplicationDecorator
   decorates_association :relations
+  decorates_association :examples
 
 protected
 

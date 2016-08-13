@@ -1,35 +1,9 @@
-.panel data-view='item' data={item_id: resource.id, block_path: resource_path(resource)}
+.panel data-view='item' data={item_id: resource.id, block_path: cut_resource_path(resource)}
   .panel-header
     span data-role='editable_item-title'
-      = resource.name
+      = resource.link_with_arrow
     .fl_r
       = resource.edit_button
       = resource.remove_button
 
-  .panel-body.has-p15 data-role='editable_item-info'
-    .columns.has-2cols
-      .column
-        .panel
-          .panel-header
-            | Fields
-          .panel-body
-            .panel_list.for-resource_details
-              - if resource.fields.any?
-                - resource.fields.each do |field|
-                  = list_item field.type.name, field.name
-              - else
-                p.panel-text
-                  | Resource has no fields specified.
-
-      .column
-        .panel
-          .panel-header
-            | Relations
-          .panel-body
-            .panel_list.for-resource_details
-              - if resource.relations.any?
-                - resource.relations.each do |relation|
-                  = list_item relation.kind_humanized, relation.related_resource_name
-              - else
-                p.panel-text
-                  | Resource has no relations specified.
+  = render 'details', resource: resource

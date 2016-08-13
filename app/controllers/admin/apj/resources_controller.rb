@@ -1,5 +1,5 @@
 class Admin::Apj::ResourcesController < Admin::Apj::BaseController
-  before_filter :load_resource, only: [:show, :edit, :update, :destroy]
+  before_filter :load_resource, only: [:show, :cut, :edit, :update, :destroy]
 
   def index
     @resources = Resource.all.decorate
@@ -13,6 +13,17 @@ class Admin::Apj::ResourcesController < Admin::Apj::BaseController
   end
 
   def show
+    @resource = @resource.decorate
+    @example = Example.new
+
+    @resource.fields.each do |field|
+      @example.example_fields.build(field: field)
+    end
+
+    respond_with(@resource)
+  end
+
+  def cut
     render_partial('resource', resource: @resource.decorate)
   end
 

@@ -7,7 +7,7 @@ div data-component='app#items_list'
         | Добавить новую
 
   .page-body
-    = render 'new_form', category: @category, categories: @categories
+    = render 'new_form', category: @category
 
     .panels data-role='items_list-list_wrapper'
       = render partial: 'category', collection: @categories

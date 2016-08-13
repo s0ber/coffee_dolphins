@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160813012019) do
+ActiveRecord::Schema.define(version: 20160813145531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,26 @@ ActiveRecord::Schema.define(version: 20160813012019) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "example_fields", force: true do |t|
+    t.integer  "example_id"
+    t.integer  "field_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "value"
+  end
+
+  add_index "example_fields", ["example_id"], name: "index_example_fields_on_example_id", using: :btree
+  add_index "example_fields", ["field_id"], name: "index_example_fields_on_field_id", using: :btree
+
+  create_table "examples", force: true do |t|
+    t.integer  "resource_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "e_id"
+  end
+
+  add_index "examples", ["resource_id"], name: "index_examples_on_resource_id", using: :btree
 
   create_table "fields", force: true do |t|
     t.integer  "type_id"

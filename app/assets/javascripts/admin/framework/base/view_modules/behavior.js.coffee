@@ -26,8 +26,7 @@
 
     for own name, behavior of @behaviors
       console.log "Unload behavior '#{name}' from view '#{@options.viewName}'"
-      behavior.unload?()
-      behavior.remove()
+      behavior.onUnload()
 
     @behaviors = {}
 

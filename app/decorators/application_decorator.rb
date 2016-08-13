@@ -2,6 +2,14 @@ class ApplicationDecorator < Draper::Decorator
   BLANK_VALUE = '—'
   delegate_all
 
+  def link_with_arrow
+    arrow = h.content_tag(:span, '', class: 'chevron is-right')
+    h.link_to(
+      (h.h(object.try(:name) || object.try(:title) || 'No title') + arrow).html_safe,
+      h.polymorphic_path(object)
+    )
+  end
+
   def like_button
     h.content_tag :span, h.fa_icon('heart') + h.fa_icon('heart-o'),
       class: "small_button is-icon is-like #{'is-liked' if object.liked?}",
@@ -14,7 +22,7 @@ class ApplicationDecorator < Draper::Decorator
 
   def edit_button
     h.link_to h.fa_icon('pencil'),
-      h.polymorphic_path(object, action: :edit),
+      edit_path,
       class: 'small_button is-icon',
       remote: true,
       data: {role: 'editable_item-edit_button'}
@@ -36,7 +44,7 @@ class ApplicationDecorator < Draper::Decorator
   def remove_button
     if can_remove_object
       h.link_to h.fa_icon('close'),
-        h.polymorphic_path(object),
+        remove_path,
         class: 'small_button is-icon is-red',
         remote: true,
         method: :delete,
@@ -47,6 +55,14 @@ class ApplicationDecorator < Draper::Decorator
   end
 
 protected
+
+  def edit_path
+    h.polymorphic_path(object, action: :edit)
+  end
+
+  def remove_path
+    h.polymorphic_path(object)
+  end
 
   def can_remove_object
     true

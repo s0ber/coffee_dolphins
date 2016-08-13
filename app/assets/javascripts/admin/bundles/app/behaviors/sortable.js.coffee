@@ -19,8 +19,12 @@ class App.Behaviors.Sortable extends Dolphin.View
     @$sortable().sortable('destroy')
 
   resetSorting: ->
+    console.log 'OLOLO'
     @unloadSorting()
     @initSorting()
+
+  unload: ->
+    @unloadSorting()
 
   onSortUpdate: (fn) ->
     @_sortFn = fn

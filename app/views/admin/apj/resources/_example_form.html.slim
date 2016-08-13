@@ -1,0 +1,18 @@
+.panel-body
+  = neo_form_for [resource, example] do |f|
+    .form-fields
+      = f.input :e_id, as: :string, label: 'id'
+      = f.association :example_fields do |ef_form|
+        = ef_form.input :id, as: :hidden
+        = ef_form.input :field_id, as: :hidden
+        = ef_form.input :value, label: ef_form.object.field.name
+
+    .form-actions
+      .fl_r
+        .small_button data-role=(example.new_record? ? 'items_list-cancel' : 'editable_item-cancel_edit')
+          | Cancel
+        button.small_button.is-green type='submit'
+          - if example.new_record?
+            | Add Example
+          - else
+            | Save Example

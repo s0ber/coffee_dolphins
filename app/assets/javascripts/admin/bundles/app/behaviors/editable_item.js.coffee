@@ -16,6 +16,7 @@ class App.Behaviors.EditableItem extends Dolphin.View
     @applyBehavior 'Dynamic' if @blockPath()
 
   openEditForm: (e, json) ->
+    e.stopPropagation()
     @utils.disableLink(@$editButton(), true)
     @$infoContainer().hide()
     @after(@$infoContainer(), json.html)
@@ -27,7 +28,8 @@ class App.Behaviors.EditableItem extends Dolphin.View
       .next().remove().end()
       .show()
 
-  updateItem: ->
+  updateItem: (e) ->
+    e.stopPropagation()
     if @blockPath()
       @behaviors.Dynamic.redraw().done @showUpdateNotice.bind(@)
     else if @redirectPath()

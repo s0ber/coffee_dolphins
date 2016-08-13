@@ -28,7 +28,7 @@ ru:
       too_short: минимум %{count} символов
       not_a_number: должно быть числом
       invalid: невалидный формат
-      taken: уже занято
+      taken: already taken
       inclusion: не входит в допустимый диапазон значений
       not_enough_bookmaker_money: недостаточно денег на счету у БК
 
