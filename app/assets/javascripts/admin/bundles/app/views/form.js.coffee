@@ -38,7 +38,7 @@ class App.Views.Form extends Dolphin.View
 
   showErrors: (errors) ->
     for name, messages of errors
-      isNestedError = name.split('.').length > 0
+      isNestedError = name.split('.').length > 1
 
       if isNestedError
         @emit('flash_message:alert', "#{name}: #{messages.join(', ')}")
