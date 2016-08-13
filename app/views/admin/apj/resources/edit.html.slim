@@ -12,7 +12,7 @@
     = f.association :relations do |r_form|
       = render 'relation_form', r_form: r_form
 
-.panel_item-body
+.panel-body
   = neo_form_for @resource do |f|
     .form-fields
       = f.input :name, label: 'Resource Name'
