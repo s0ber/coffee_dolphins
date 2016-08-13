@@ -1,10 +1,16 @@
-- field_template = capture do
-  - dummy_resource = Resource.new
-  - dummy_resource.fields.build
+- dummy_resource = Resource.new
+- dummy_resource.fields.build
+- dummy_resource.relations.build
 
+- field_template = capture do
   = neo_fields_for dummy_resource do |f|
     = f.association :fields do |field_form|
       = render 'field_form', field_form: field_form
+
+- relation_template = capture do
+  = neo_fields_for dummy_resource do |f|
+    = f.association :relations do |r_form|
+      = render 'relation_form', r_form: r_form
 
 .panel_item-body
   = neo_form_for @resource do |f|
@@ -27,13 +33,20 @@
                 = f.simple_fields_for :fields do |field_form|
                   = render 'field_form', field_form: field_form
 
-        .panel_item
+        .panel_item data-view='app#fields_editing' data={field_template: {html: relation_template}.to_json}
           .panel_item-header
-            | Relations
+            span
+              | Relations
+            .fl_r
+              .small_button.is-green data-role='fields_editing-add'
+                | Add Relation
           .panel_item-body
             .panel_list.for-resource_details
-              p.panel-text
-                | Resource has no relations yet.
+              p.panel-text data-role='fields_editing-empty_message' class=('hidden' if @resource.relations.any?)
+                | Resource has no relations specified.
+              div data-role='fields_editing-container sortable'
+                = f.simple_fields_for :relations do |r_form|
+                  = render 'relation_form', r_form: r_form
 
     .form-actions
       .fl_r

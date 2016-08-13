@@ -25,6 +25,9 @@
           | Relations
         .panel_item-body
           .panel_list.for-resource_details
-            = list_item 'String', 'title'
-            = list_item 'Date', 'created_at'
-            = list_item 'Integer', 'count'
+            - if resource.relations.any?
+              - resource.relations.each do |relation|
+                = list_item relation.kind_humanized, relation.related_resource_name
+            - else
+              p.panel-text
+                | Resource has no relations specified.

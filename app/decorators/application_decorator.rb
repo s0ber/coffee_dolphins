@@ -34,15 +34,23 @@ class ApplicationDecorator < Draper::Decorator
   end
 
   def remove_button
-    h.link_to h.fa_icon('close'),
-      h.polymorphic_path(object),
-      class: 'small_button is-icon is-red',
-      remote: true,
-      method: :delete,
-      data: {role: "item-remove_button #{object.class.name.underscore}-remove_button", confirm: confirm_remove_message}
+    if can_remove_object
+      h.link_to h.fa_icon('close'),
+        h.polymorphic_path(object),
+        class: 'small_button is-icon is-red',
+        remote: true,
+        method: :delete,
+        data: {role: "item-remove_button #{object.class.name.underscore}-remove_button", confirm: confirm_remove_message}
+    else
+      h.content_tag :span, h.fa_icon('close'), class: 'small_button is-icon is-red is-disabled'
+    end
   end
 
 protected
+
+  def can_remove_object
+    true
+  end
 
   def add_sign(value)
     if value > 0

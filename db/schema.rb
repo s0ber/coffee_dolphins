@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160812231716) do
+ActiveRecord::Schema.define(version: 20160813012019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,6 +148,19 @@ ActiveRecord::Schema.define(version: 20160812231716) do
     t.integer  "apishops_category_id"
     t.boolean  "liked",                default: false
   end
+
+  create_table "relations", force: true do |t|
+    t.integer  "kind",                limit: 2
+    t.integer  "resource_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "position"
+    t.integer  "related_resource_id"
+  end
+
+  add_index "relations", ["related_resource_id"], name: "index_relations_on_related_resource_id", using: :btree
+  add_index "relations", ["resource_id"], name: "index_relations_on_resource_id", using: :btree
 
   create_table "resources", force: true do |t|
     t.string   "name"

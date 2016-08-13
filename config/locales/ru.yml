@@ -22,7 +22,7 @@
 ru:
   errors:
     messages:
-      blank: обязательно для заполнения
+      blank: can't be empty
       email_format: невалидный адрес почтового ящика
       confirmation: не совпадает с введенным паролем
       too_short: минимум %{count} символов

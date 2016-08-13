@@ -17,6 +17,7 @@ class Admin::Apj::ResourcesController < Admin::Apj::BaseController
   end
 
   def edit
+    @resource = @resource.decorate
     respond_with(@resource)
   end
 
@@ -37,6 +38,10 @@ private
   end
 
   def resource_params
-    params.require(:resource).permit(:name, fields_attributes: [:id, :type_id, :position, :name, :_destroy])
+    params.require(:resource).permit(
+      :name,
+      fields_attributes: [:id, :type_id, :position, :name, :_destroy],
+      relations_attributes: [:id, :kind, :related_resource_id, :position, :name, :_destroy]
+    )
   end
 end
