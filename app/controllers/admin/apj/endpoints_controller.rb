@@ -46,6 +46,9 @@ class Admin::Apj::EndpointsController < Admin::Apj::BaseController
   def endpoint_params
     params
       .fetch(:endpoint, {})
-      .permit(:request_method, :path)
+      .permit(
+        :request_method, :path,
+        api_resources_attributes: [:resource_id, :guid, :parent_guid, :kind, :position, :_destroy]
+      )
   end
 end

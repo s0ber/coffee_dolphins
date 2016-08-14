@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160814145416) do
+ActiveRecord::Schema.define(version: 20160814163837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,20 @@ ActiveRecord::Schema.define(version: 20160814145416) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "api_resources", force: true do |t|
+    t.string   "guid"
+    t.string   "parent_guid"
+    t.integer  "resource_id"
+    t.string   "kind"
+    t.integer  "endpoint_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "position"
+  end
+
+  add_index "api_resources", ["endpoint_id"], name: "index_api_resources_on_endpoint_id", using: :btree
+  add_index "api_resources", ["resource_id"], name: "index_api_resources_on_resource_id", using: :btree
 
   create_table "bet_lines", force: true do |t|
     t.datetime "performed_at"

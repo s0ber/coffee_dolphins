@@ -3,6 +3,9 @@ class Endpoint < ActiveRecord::Base
   REQUEST_METHODS_INVERTED = REQUEST_METHODS.invert
 
   belongs_to :api_group
+  has_many :api_resources
 
-  validates :request_method, :path, presence: true
+  validates :request_method, :path, :api_group_id, presence: true
+
+  accepts_nested_attributes_for :api_resources
 end

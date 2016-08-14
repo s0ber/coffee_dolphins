@@ -7,4 +7,58 @@
     | <b>[#{@endpoint.request_method_humanized}]</b> #{@endpoint.path}
 
 .page-body
-  | Ololo
+  .panels
+    .panel
+      .panel-header
+        | API Scheme
+      .panel-body.has-p15
+        .api_resources
+
+          .api_resource
+            .flexible
+              .flexible-left
+                | Company
+              .flexible-right
+                .small_button.is-icon.is-green
+                  = fa_icon 'plus'
+                .small_button.is-icon.is-red
+                  = fa_icon 'remove'
+
+            .api_resource-nested
+              .api_resource
+                .flexible
+                  .flexible-left
+                    | + Jobs
+                  .flexible-right
+                    .small_button.is-icon.is-green
+                      = fa_icon 'plus'
+                    .small_button.is-icon.is-red
+                      = fa_icon 'remove'
+                .api_resource-nested
+                  .api_resource
+                    .flexible
+                      .flexible-left
+                        | + Jobs
+                      .flexible-right
+                        .small_button.is-icon.is-green
+                          = fa_icon 'plus'
+                        .small_button.is-icon.is-red
+                          = fa_icon 'remove'
+                  .api_resource
+                    .flexible
+                      .flexible-left
+                        | + Invoices
+                      .flexible-right
+                        .small_button.is-icon.is-green
+                          = fa_icon 'plus'
+                        .small_button.is-icon.is-red
+                          = fa_icon 'remove'
+              .api_resource
+                .flexible
+                  .flexible-left
+                    | + Invoices
+                  .flexible-right
+                    .small_button.is-icon.is-green
+                      = fa_icon 'plus'
+                    .small_button.is-icon.is-red
+                      = fa_icon 'remove'
