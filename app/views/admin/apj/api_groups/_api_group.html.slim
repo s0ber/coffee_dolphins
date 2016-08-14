@@ -1,0 +1,11 @@
+.panel_item data-view='item' data={item_id: api_group.id, block_path: api_group_path(api_group)}
+  .panel_item-header
+    span data-role='editable_item-title'
+      = api_group.title
+    .fl_r
+      = api_group.edit_button
+      = api_group.remove_button
+
+  .panel_item-body data-role='editable_item-info'
+    .panel_list
+      = list_text(api_group.description)

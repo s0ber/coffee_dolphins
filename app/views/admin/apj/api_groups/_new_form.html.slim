@@ -1,0 +1,15 @@
+.panel.for-new_item.hidden data-view='new_item_form'
+  .panel-header
+    | Create New API Group
+  .panel-body
+    = neo_form_for api_group do |f|
+      .form-fields
+        = f.input :title, label: 'API Group Title'
+        = f.input :description, label: 'Description'
+
+      .form-actions
+        .fl_r
+          .small_button data-role='items_list-cancel'
+            | Cancel
+          button.small_button.is-green type='submit'
+            | Create API Group

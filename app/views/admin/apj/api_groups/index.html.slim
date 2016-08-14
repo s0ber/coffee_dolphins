@@ -1,0 +1,16 @@
+div data-component='app#items_list'
+  .page-title
+    span
+      | Types
+    .fl_r
+      button.small_button.is-green data-role='items_list-show_form'
+        | Add New
+
+  .page-body
+    = render 'new_form', api_group: @api_group, api_groups: @api_groups
+
+    .panels data-role='items_list-list_wrapper'
+      = render partial: 'api_group', collection: @api_groups
+
+    p.page-text class=('hidden' if @api_groups.any?) data-role='items_list-empty_list_message'
+      | No API groups added yet.

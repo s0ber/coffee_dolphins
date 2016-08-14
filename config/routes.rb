@@ -38,6 +38,8 @@ Rails.application.routes.draw do
           resources :examples, only: [:create, :show, :edit, :update, :destroy]
         end
       end
+
+      resources :api_groups
     end
 
     resources :positions do
