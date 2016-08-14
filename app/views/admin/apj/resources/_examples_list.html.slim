@@ -13,7 +13,7 @@
 
       = render 'example_form', resource: resource, example: example
 
-    .panels data-role='items_list-list_wrapper'
+    .panels.for-resource_examples data-role='items_list-list_wrapper'
       = render partial: 'example', collection: resource.examples, locals: {resource: resource}
 
     p.page-text class=('hidden' if resource.examples.any?) data-role='items_list-empty_list_message'

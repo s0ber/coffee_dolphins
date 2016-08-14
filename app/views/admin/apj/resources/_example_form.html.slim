@@ -1,11 +1,14 @@
 .panel-body
   = neo_form_for [resource, example] do |f|
-    .form-fields
-      = f.input :e_id, as: :string, label: 'id'
+    .form-fields.has-no_padding
+      = list_item 'id' do
+        = f.input :e_id, as: :string, label: false, modifier: 'stand_alone'
+
       = f.association :example_fields do |ef_form|
-        = ef_form.input :id, as: :hidden
-        = ef_form.input :field_id, as: :hidden
-        = ef_form.input :value, label: ef_form.object.field.name
+        = list_item ef_form.object.field.name do
+          = ef_form.input :id, as: :hidden
+          = ef_form.input :field_id, as: :hidden
+          = ef_form.input :value, label: false, modifier: 'stand_alone'
 
     .form-actions
       .fl_r
