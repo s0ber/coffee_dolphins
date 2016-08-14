@@ -40,6 +40,9 @@ Rails.application.routes.draw do
       end
 
       resources :api_groups
+      resources :endpoints do
+        get :confirm_destroy, on: :member
+      end
     end
 
     resources :positions do

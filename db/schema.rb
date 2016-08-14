@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160814143839) do
+ActiveRecord::Schema.define(version: 20160814145416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,16 @@ ActiveRecord::Schema.define(version: 20160814143839) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "endpoints", force: true do |t|
+    t.integer  "request_method", limit: 2
+    t.string   "path"
+    t.integer  "api_group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "endpoints", ["api_group_id"], name: "index_endpoints_on_api_group_id", using: :btree
 
   create_table "example_fields", force: true do |t|
     t.integer  "example_id"

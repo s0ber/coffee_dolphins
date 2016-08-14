@@ -1,0 +1,20 @@
+.wrapper.for-list_row
+  table.pure-table.pure-table-striped
+    thead
+      tr
+        th
+          | Method
+        th
+          | Path
+        th
+    tbody
+      - endpoints.each do |endpoint|
+        tr
+          td
+            = endpoint.request_method_humanized
+          td
+            = endpoint.path
+          td
+            = link_to 'Show Details', endpoint_path(endpoint), class: 'small_button'
+            = endpoint.modal_edit_button
+            = endpoint.confirm_remove_button

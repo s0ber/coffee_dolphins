@@ -1,4 +1,5 @@
 class ApiGroupDecorator < ApplicationDecorator
+  decorates_association :endpoints
 
 protected
 

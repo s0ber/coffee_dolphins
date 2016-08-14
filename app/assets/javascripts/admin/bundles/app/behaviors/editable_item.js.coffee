@@ -37,7 +37,7 @@ class App.Behaviors.EditableItem extends Dolphin.View
 
   showUpdateNotice: ->
     return unless @$itemTitle().exists()
-    $updateNotice = $('<span class="status is-gray"> — обновлено</span>').hide()
+    $updateNotice = $('<span class="status is-gray"> — updated</span>').hide()
     $updateNotice.appendTo(@$itemTitle()).fadeIn()
     (-> $updateNotice.fadeOut(-> $updateNotice.remove())).delay(4000)
 

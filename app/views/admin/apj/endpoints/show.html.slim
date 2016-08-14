@@ -1,0 +1,10 @@
+.page-title
+  span
+    = link_to 'API Groups', api_groups_path, class: 'panel_item-header_link'
+    span.chevron.is-right
+    = @endpoint.api_group.title
+    span.chevron.is-right
+    | <b>[#{@endpoint.request_method_humanized}]</b> #{@endpoint.path}
+
+.page-body
+  | Ololo
