@@ -24,12 +24,12 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
       $activeLink = @$menuItemForPath(location.pathname + location.search)
       @setLinkAsActive($activeLink) if $activeLink.exists()
 
-    @historyWidget.replaceInitialState('page_path': $activeLink.attr('href'))
+    @historyWidget.replaceInitialState('page_path': $activeLink.attr('href') || (location.pathname + location.search))
 
   processPoppedState: (state, path, dfd) ->
     $menuLink = @$menuItemForPath(state['page_path'])
 
-    dfd.fail => ijax.abortCurrentRequest()
+    dfd.fail -> ijax.abortCurrentRequest()
 
     ijax.get(path).done (response) =>
       frames = new Utils.PageFramesManager
@@ -40,7 +40,7 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
           @setLinkAsActive($menuLink)
 
       response
-        .onLayoutReceive((html) =>
+        .onLayoutReceive((html) ->
           frames.addFrame('layout', html)
         )
         .onFrameReceive((id, html) -> frames.addFrame(id, html))
@@ -74,7 +74,7 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
           @setLinkAsActive($menuLink)
 
       response
-        .onLayoutReceive((html) =>
+        .onLayoutReceive((html) ->
           frames.addFrame('layout', html)
         )
         .onFrameReceive((id, html) -> frames.addFrame(id, html))
@@ -97,7 +97,7 @@ class App.Behaviors.HistoryApiNavigation extends Dolphin.View
     e.which is 2 or e.metaKey or e.ctrlKey
 
   $menuItemForPath: (path) ->
-    @$menuItems().filter (i, menuItem) =>
+    @$menuItems().filter (i, menuItem) ->
       path.search($(menuItem).attr('href')) isnt -1
 
   setLinkAsActive: ($link) ->

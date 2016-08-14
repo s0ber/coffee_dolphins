@@ -16,32 +16,39 @@ html
         = render 'admin/shared/flash_message', message: alert, type: 'alert'
 
     .layout-main
-      header.layout-header
-        .header
-          img.header-logo src=image_path('admin/logo.png')
-          | Coffee Dolphins
+      .layout-main_wrap
+        header.layout-header
+          .header
+            img.header-logo src=image_path('admin/logo.png')
+            | Coffee Dolphins
+            - if current_user
+              .fl_r
+                ' You logged in as <b>#{current_user.email}</b>,
+                = link_to 'logout', logout_path
+
+        .clearfix
+          section.layout-content
+            .layout-content_inner
+              .main_content
+                .page data-role='app-page_wrapper'
+                  = yield
+
           - if current_user
-            .fl_r
-              ' Вы вошли как <b>#{current_user.email}</b>,
-              = link_to 'выйти', logout_path
+            aside.layout-sidebar
+              .menu data-role='app-menu'
+                .menu-header
+                  | Menu
+                .menu-items
+                  - if @api_layout
+                    - menu_items_for_layout = api_menu_items
+                  - else
+                    - menu_items_for_layout = menu_items
 
-      .clearfix
-        section.layout-content
-          .layout-content_inner
-            .main_content
-              .page data-role='app-page_wrapper'
-                = yield
+                  - menu_items_for_layout.each do |title, path, options = {}|
+                    - current_page = current_page?(path)
+                    = link_to title, path, class: "menu-item #{'is-active' if current_page}", data: {role: 'app-menu_item', menu_item_id: options[:menu_item_id]}
 
-        - if current_user
-          aside.layout-sidebar
-            .menu data-role='app-menu'
-              .menu-header
-                | Меню
-              .menu-items
-                - menu_items.each do |title, path, options = {}|
-                  - current_page = current_page?(path)
-                  = link_to title, path, class: "menu-item #{'is-active' if current_page}", data: {role: 'app-menu_item', menu_item_id: options[:menu_item_id]}
-
+      .layout-popups_wrapper data-role='page-popups_wrapper'
       .layout-empty
 
     footer.layout-footer

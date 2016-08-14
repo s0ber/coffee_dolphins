@@ -1,0 +1,15 @@
+.panel_list-row data-role='fields_editing-field'
+  .panel_list-label
+    = field_form.association :type, prompt: 'Select field type..', label: false
+  .panel_list-value
+    .flexible
+      .flexible-left
+        = field_form.input :id, as: :hidden, label: false
+        = field_form.input :position, as: :hidden, label: false, input_html: {data: {role: 'fields_editing-field_position'}}
+        = field_form.input :name, label: false, placeholder: 'Field name..'
+      .flexible-right
+        .small_button.is-icon data-role='sortable-handle'
+          = fa_icon 'arrows-v'
+        .small_button.is-icon.is-red data-role='fields_editing-remove'
+          = field_form.input :_destroy, as: :hidden, input_html: {data: {role: 'fields_editing-destroy_field'}}
+          = fa_icon 'remove'

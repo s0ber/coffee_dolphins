@@ -1,0 +1,9 @@
+.panel data-view='item' data={item_id: resource.id, block_path: cut_resource_path(resource)}
+  .panel-header
+    span data-role='editable_item-title'
+      = resource.link_with_arrow
+    .fl_r
+      = resource.edit_button
+      = resource.remove_button
+
+  = render 'details', resource: resource

@@ -1,0 +1,18 @@
+- is_new_action = action_name == 'new'
+
+= neo_form_for endpoint do |f|
+  .modal-fields
+    - if is_new_action
+      = f.association :api_group, as: :hidden, value: api_group.id
+    = f.input :request_method, collection: Endpoint::REQUEST_METHODS, label: 'Method', include_blank: false
+    = f.input :path, as: :string, label: 'Endpoint Path'
+
+  .modal-buttons
+    .fl_r
+      .small_button data-role='close_modal'
+        | Cancel
+      button.small_button.is-green type='submit'
+        - if is_new_action
+          | Create Endpoint
+        - else
+          | Save Endpoint

@@ -1,0 +1,20 @@
+.panel data-component='app#items_list'
+  .panel-header
+    span
+      | Examples
+    .fl_r
+      .small_button.is-green data-role='items_list-show_form'
+        | Add New Example
+
+  .panel-body.has-p15
+    .panel.for-new_item.hidden data-view='new_item_form'
+      .panel-header
+        | Create New Example For #{resource.name}
+
+      = render 'example_form', resource: resource, example: example
+
+    .panels.for-resource_examples data-role='items_list-list_wrapper'
+      = render partial: 'example', collection: resource.examples, locals: {resource: resource}
+
+    p.page-text class=('hidden' if resource.examples.any?) data-role='items_list-empty_list_message'
+      | No examples.

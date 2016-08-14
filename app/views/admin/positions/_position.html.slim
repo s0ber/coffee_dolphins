@@ -1,9 +1,7 @@
 .panel_item data-view='item' data={item_id: position.id, block_path: cut_position_path(position)}
   .panel_item-header
     span data-role='editable_item-title'
-      = link_to position_path(position) do
-        = position.title
-        span.chevron.is-right
+      = position.link_with_arrow
     .fl_r
       - if position.landing.nil?
         .small_button.is-green.is-icon data-modal=new_landing_path(position_id: position.id)
@@ -33,4 +31,3 @@
           - else
             = list_item 'Ключевые слова' do
               = render 'edit_search_keywords', position: position
-

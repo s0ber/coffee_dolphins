@@ -22,13 +22,13 @@
 ru:
   errors:
     messages:
-      blank: обязательно для заполнения
+      blank: can't be empty
       email_format: невалидный адрес почтового ящика
       confirmation: не совпадает с введенным паролем
       too_short: минимум %{count} символов
       not_a_number: должно быть числом
       invalid: невалидный формат
-      taken: уже занято
+      taken: already taken
       inclusion: не входит в допустимый диапазон значений
       not_enough_bookmaker_money: недостаточно денег на счету у БК
 

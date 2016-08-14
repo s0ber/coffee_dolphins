@@ -10,4 +10,12 @@ module MenuHelper
       ['Пользователи', users_path, menu_item_id: 'users']
     ]
   end
+
+  def api_menu_items
+    [
+      ['Resources', resources_path, menu_item_id: 'resources'],
+      ['API Groups', api_groups_path, menu_item_id: 'api_groups'],
+      ['Types', types_path, menu_item_id: 'types']
+    ]
+  end
 end

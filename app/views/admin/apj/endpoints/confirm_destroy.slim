@@ -1,0 +1,8 @@
+p.modal-text
+  | Are you sure you want to remove this endpoint?
+
+.modal-buttons
+  .fl_r
+    .small_button data-role='close_modal'
+      | Cancel
+    = link_to 'Remove Endpoint', endpoint_path(@endpoint.id), remote: true, method: :delete, class: 'small_button is-red'

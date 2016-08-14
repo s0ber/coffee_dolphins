@@ -1,0 +1,12 @@
+.panel data-view='item' data={item_id: example.id, block_path: resource_example_path(example.resource, example)}
+  .panel-header
+    span
+      | Example ##{example.e_id}
+    .fl_r
+      = example.edit_button
+      = example.remove_button
+
+  .panel-body data-role='editable_item-info'
+    = list_item('id', example.e_id)
+    - example.example_fields.each do |e_field|
+      = list_item(e_field.field.name, e_field.value)

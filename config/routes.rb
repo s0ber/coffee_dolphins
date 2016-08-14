@@ -29,6 +29,22 @@ Rails.application.routes.draw do
   post '/api' => 'api#post'
 
   scope module: :admin do
+    scope module: :apj do
+      resources :types
+      resources :resources do
+        get :cut, on: :member
+
+        scope module: :resources do
+          resources :examples, only: [:create, :show, :edit, :update, :destroy]
+        end
+      end
+
+      resources :api_groups
+      resources :endpoints do
+        get :confirm_destroy, on: :member
+      end
+    end
+
     resources :positions do
       collection do
         get :prepare_import

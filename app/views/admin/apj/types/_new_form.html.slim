@@ -1,0 +1,15 @@
+.panel.for-new_item.hidden data-view='new_item_form'
+  .panel-header
+    | Create New Type
+  .panel-body
+    = neo_form_for type do |f|
+      .form-fields
+        = f.input :name, label: 'Name'
+        = f.input :description, label: 'Description'
+
+      .form-actions
+        .fl_r
+          .small_button data-role='items_list-cancel'
+            | Cancel
+          button.small_button.is-green type='submit'
+            | Create Type
