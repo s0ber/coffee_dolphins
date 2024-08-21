@@ -119,9 +119,6 @@ gem 'capistrano-bundler', '~> 1.1.3'
 gem 'capistrano-rails', '~> 1.1.2'
 gem 'capistrano3-unicorn', '~> 0.2.1'
 
-# Add this if you're using rbenv
-gem 'capistrano-rbenv', github: "capistrano/rbenv"
-
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 gem 'pry-byebug', group: [:development, :test]
@@ -134,3 +131,5 @@ end
 
 # Misc
 gem 'rails_config'
+
+gem 'therubyracer'
