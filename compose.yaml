@@ -36,7 +36,8 @@ services:
     restart: always
     user: postgres
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - /var/lib/postgresql/data
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     environment:
       - POSTGRES_DB=coffee_dolphins_development
       - POSTGRES_USER=postgres
@@ -49,6 +50,5 @@ services:
       timeout: 5s
       retries: 5
 volumes:
-  db-data:
   bundle_cache:
   js_cache:

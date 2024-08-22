@@ -42,3 +42,5 @@ config/environments/*.local.yml
 dp/password.txt
 
 .DS_Store
+
+/docker-entrypoint-initdb.d
