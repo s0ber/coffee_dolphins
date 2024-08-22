@@ -106,6 +106,7 @@ GEM
     ffi (1.9.10)
     font-awesome-rails (4.2.0.0)
       railties (>= 3.2, < 5.0)
+    foreman (0.88.1)
     formatador (0.2.5)
     fuubar (2.0.0)
       rspec (~> 3.0)
@@ -144,7 +145,7 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.9.2)
-    libv8 (3.16.14.19.1-x86_64-linux)
+    libv8 (3.16.14.19.1)
     listen (3.0.3)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -334,6 +335,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.0)
   ffaker
   font-awesome-rails
+  foreman (~> 0.88.1)
   fuubar
   gon
   guard-rspec

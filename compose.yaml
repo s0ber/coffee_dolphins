@@ -18,8 +18,9 @@ services:
       - 3000:3000
 
     volumes:
-      - ./.:/app
+      - .:/app
       - bundle_cache:/usr/local/bundle
+      - js_cache:/app/vendor/assets/components
 
     # The commented out section below is an example of how to define a PostgreSQL
     # database that your application can use. `depends_on` tells Docker Compose to
@@ -52,6 +53,7 @@ services:
 volumes:
   db-data:
   bundle_cache:
+  js_cache:
 # secrets:
 #   db-password:
 #     file: db/password.txt

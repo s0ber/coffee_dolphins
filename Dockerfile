@@ -14,7 +14,8 @@ ENV PATH="/usr/lib/x86_64-linux-gnu/ImageMagick-6.8.9/bin-Q16:$PATH"
 
 WORKDIR '/app'
 
-COPY . .
+COPY Gemfile* .
+COPY gems gems
 
 RUN bundle install
 
@@ -23,10 +24,14 @@ SHELL ["/bin/bash", "--login", "-c"]
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
 RUN nvm install 1
 
-RUN npm install -g bower
-RUN bundle exec rake bower:install
+COPY .bowerrc bower.json .
 
-EXPOSE 3000
+RUN npm install -g bower
+RUN rm -rf vendor/assets/components && bower install --config.interactive=false
+
+ENV PORT=3000
+
+EXPOSE $PORT
 
 # What the container should run when it is started.
-CMD ["bundle", "exec", "unicorn", "-p", "3000"]
+CMD ["bundle", "exec", "foreman", "start"]

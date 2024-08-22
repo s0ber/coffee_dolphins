@@ -133,3 +133,6 @@ end
 gem 'rails_config'
 
 gem 'therubyracer'
+
+# Added at 2024-08-22 00:10:54 +0000 by root:
+gem "foreman", "~> 0.88.1"
