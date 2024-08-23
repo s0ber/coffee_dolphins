@@ -9,7 +9,7 @@ class App.Views.Form extends View
 
     @$select.on('change', _.bind(@redrawButtonText, @))
 
-    @initApishopsForm()
+    # @initApishopsForm()
 
     @$button.on('click', _.bind(@submitForm, @))
 
