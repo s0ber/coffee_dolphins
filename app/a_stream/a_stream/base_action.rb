@@ -13,7 +13,6 @@ module AStream
     def self.inherited(child)
       child.class_eval do
         @can_accept_actions = {}
-        @query_params = []
         @safe_attributes = []
         @included_resources = @resource_permission_check = nil
 
@@ -33,23 +32,6 @@ module AStream
         def self.pipe_data_from(action_class, data)
           return unless can_accept_action?(action_class)
           @can_accept_actions[action_class.action_name].call(data)
-        end
-
-        def self.query_params(*args, &block)
-          @query_params =
-            if block_given?
-              block
-            else
-              args[0].respond_to?(:each) ? args[0] : args
-            end
-        end
-
-        def self.permitted_query_params(performer)
-          if @query_params.is_a?(Proc)
-            @query_params.call(performer)
-          else
-            @query_params
-          end
         end
 
         def self.included_resources(*args)

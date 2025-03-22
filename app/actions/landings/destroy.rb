@@ -1,5 +1,4 @@
 class Landings::Destroy < AStream::BaseAction
-  query_params :id
   safe_attributes :id
   permit_resource { |performer| performer }
 

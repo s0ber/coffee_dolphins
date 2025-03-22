@@ -1,11 +1,11 @@
 class Landings::Show < AStream::CollectionAction
   safe_attributes :title, :_status, :slug
-  included_resources :position, :category
   permit_resource { |performer| performer }
 
   def perform_read(performer, query)
     if query[:included]
-      Landing.includes(*query[:included]).all
+      included_resources = query[:included].slice('position', 'category')
+      Landing.includes(*included_resources).all
     else
       Landing.all
     end

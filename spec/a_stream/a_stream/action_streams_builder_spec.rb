@@ -3,7 +3,7 @@ require 'support/shared_examples/action_classes_definition'
 
 describe AStream::ActionStreamsBuilder do
   subject(:builder) { described_class.new(performer: user) }
-  let(:user) { create(:user) }
+  let(:user) { build_stubbed(:user) }
 
   describe '#build' do
     let(:action_stream) { 'some stream' }

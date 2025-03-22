@@ -19,11 +19,7 @@ module AStream
     end
 
     def query
-      if @query
-        normalized_query
-      else
-        {}
-      end
+      @query || {}
     end
 
     def query=(new_query)
@@ -62,12 +58,6 @@ module AStream
         query == o.query &&
         piped_requests == o.piped_requests &&
         performer == o.performer
-    end
-
-    private
-
-    def normalized_query
-      @normalized_query ||= ActionRequestNormalizer.normalize_query(@runner, @performer, @query)
     end
   end
 end

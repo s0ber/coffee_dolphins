@@ -4,7 +4,7 @@ describe AStream do
   subject(:runner) { described_class }
 
   describe '.run' do
-    let(:performer) { create(:user, :admin) }
+    let(:performer) { build_stubbed(:user, :admin) }
     let(:controller) { double('fake controller') }
     let(:action_streams) { double('action streams') }
     let(:streams_builder) { double('ActionStreamsBuilder') }
