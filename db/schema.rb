@@ -11,10 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151216150342) do
+ActiveRecord::Schema.define(version: 20160814163837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "api_groups", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "api_resources", force: true do |t|
+    t.string   "guid"
+    t.string   "parent_guid"
+    t.integer  "resource_id"
+    t.string   "kind"
+    t.integer  "endpoint_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "position"
+  end
+
+  add_index "api_resources", ["endpoint_id"], name: "index_api_resources_on_endpoint_id", using: :btree
+  add_index "api_resources", ["resource_id"], name: "index_api_resources_on_resource_id", using: :btree
 
   create_table "bet_lines", force: true do |t|
     t.datetime "performed_at"
@@ -54,6 +75,48 @@ ActiveRecord::Schema.define(version: 20151216150342) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "endpoints", force: true do |t|
+    t.integer  "request_method", limit: 2
+    t.string   "path"
+    t.integer  "api_group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "endpoints", ["api_group_id"], name: "index_endpoints_on_api_group_id", using: :btree
+
+  create_table "example_fields", force: true do |t|
+    t.integer  "example_id"
+    t.integer  "field_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "value"
+  end
+
+  add_index "example_fields", ["example_id"], name: "index_example_fields_on_example_id", using: :btree
+  add_index "example_fields", ["field_id"], name: "index_example_fields_on_field_id", using: :btree
+
+  create_table "examples", force: true do |t|
+    t.integer  "resource_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "e_id"
+  end
+
+  add_index "examples", ["resource_id"], name: "index_examples_on_resource_id", using: :btree
+
+  create_table "fields", force: true do |t|
+    t.integer  "type_id"
+    t.string   "name"
+    t.integer  "resource_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "position"
+  end
+
+  add_index "fields", ["resource_id"], name: "index_fields_on_resource_id", using: :btree
+  add_index "fields", ["type_id"], name: "index_fields_on_type_id", using: :btree
 
   create_table "forks", force: true do |t|
     t.integer  "bet_line_id"
@@ -137,6 +200,25 @@ ActiveRecord::Schema.define(version: 20151216150342) do
     t.boolean  "liked",                default: false
   end
 
+  create_table "relations", force: true do |t|
+    t.integer  "kind",                limit: 2
+    t.integer  "resource_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "position"
+    t.integer  "related_resource_id"
+  end
+
+  add_index "relations", ["related_resource_id"], name: "index_relations_on_related_resource_id", using: :btree
+  add_index "relations", ["resource_id"], name: "index_relations_on_resource_id", using: :btree
+
+  create_table "resources", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "reviews", force: true do |t|
     t.string   "author"
     t.boolean  "author_gender",     default: true
@@ -173,6 +255,13 @@ ActiveRecord::Schema.define(version: 20151216150342) do
 
   add_index "transactions", ["bet_id"], name: "index_transactions_on_bet_id", using: :btree
   add_index "transactions", ["bookmaker_id"], name: "index_transactions_on_bookmaker_id", using: :btree
+
+  create_table "types", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                                       null: false

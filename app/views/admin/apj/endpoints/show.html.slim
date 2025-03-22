@@ -1,0 +1,64 @@
+.page-title
+  span
+    = link_to 'API Groups', api_groups_path, class: 'panel_item-header_link'
+    span.chevron.is-right
+    = @endpoint.api_group.title
+    span.chevron.is-right
+    | <b>[#{@endpoint.request_method_humanized}]</b> #{@endpoint.path}
+
+.page-body
+  .panels
+    .panel
+      .panel-header
+        | API Scheme
+      .panel-body.has-p15
+        .api_resources
+
+          .api_resource
+            .flexible
+              .flexible-left
+                | Company
+              .flexible-right
+                .small_button.is-icon.is-green data-view='app#popup_test'
+                  = fa_icon 'plus'
+                .small_button.is-icon.is-red
+                  = fa_icon 'remove'
+
+            .api_resource-nested
+              .api_resource
+                .flexible
+                  .flexible-left
+                    | + Jobs
+                  .flexible-right
+                    .small_button.is-icon.is-green
+                      = fa_icon 'plus'
+                    .small_button.is-icon.is-red
+                      = fa_icon 'remove'
+                .api_resource-nested
+                  .api_resource
+                    .flexible
+                      .flexible-left
+                        | + Jobs
+                      .flexible-right
+                        .small_button.is-icon.is-green
+                          = fa_icon 'plus'
+                        .small_button.is-icon.is-red
+                          = fa_icon 'remove'
+                  .api_resource
+                    .flexible
+                      .flexible-left
+                        | + Invoices
+                      .flexible-right
+                        .small_button.is-icon.is-green
+                          = fa_icon 'plus'
+                        .small_button.is-icon.is-red
+                          = fa_icon 'remove'
+              .api_resource
+                .flexible
+                  .flexible-left
+                    | + Invoices
+                  .flexible-right
+                    .small_button.is-icon.is-green
+                      = fa_icon 'plus'
+                    .small_button.is-icon.is-red
+                      = fa_icon 'remove'

@@ -1,0 +1,58 @@
+- dummy_resource = Resource.new
+- dummy_resource.fields.build
+- dummy_resource.relations.build
+
+- field_template = capture do
+  = neo_fields_for dummy_resource do |f|
+    = f.association :fields do |field_form|
+      = render 'field_form', field_form: field_form
+
+- relation_template = capture do
+  = neo_fields_for dummy_resource do |f|
+    = f.association :relations do |r_form|
+      = render 'relation_form', r_form: r_form
+
+.panel-body
+  = neo_form_for @resource do |f|
+    .form-fields
+      = f.input :name, label: 'Resource Name'
+
+      .columns.has-2cols
+        .column
+          .panel data-view='app#fields_editing' data={field_template: {html: field_template}.to_json}
+            .panel-header
+              span
+                | Fields
+              .fl_r
+                .small_button.is-green data-role='fields_editing-add'
+                  | Add Field
+            .panel-body
+              .panel_list.for-resource_details
+                p.panel-text data-role='fields_editing-empty_message' class=('hidden' if @resource.fields.any?)
+                  | Resource has no fields specified.
+                div data-role='fields_editing-container sortable'
+                  = f.simple_fields_for :fields do |field_form|
+                    = render 'field_form', field_form: field_form
+
+        .column
+          .panel data-view='app#fields_editing' data={field_template: {html: relation_template}.to_json}
+            .panel-header
+              span
+                | Relations
+              .fl_r
+                .small_button.is-green data-role='fields_editing-add'
+                  | Add Relation
+            .panel-body
+              .panel_list.for-resource_details
+                p.panel-text data-role='fields_editing-empty_message' class=('hidden' if @resource.relations.any?)
+                  | Resource has no relations specified.
+                div data-role='fields_editing-container sortable'
+                  = f.simple_fields_for :relations do |r_form|
+                    = render 'relation_form', r_form: r_form
+
+    .form-actions
+      .fl_r
+        .small_button data-role='editable_item-cancel_edit'
+          | Cancel
+        button.small_button.is-green type='submit'
+          | Save Resource

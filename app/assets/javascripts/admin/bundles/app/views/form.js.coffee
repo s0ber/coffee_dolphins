@@ -38,13 +38,24 @@ class App.Views.Form extends Dolphin.View
 
   showErrors: (errors) ->
     for name, messages of errors
-      $field = @$("[name='#{@entity()}[#{name}]']")
-      $fieldWrap = $field.closest('.js-field_wrapper')
-      $label = $fieldWrap.find('label.control-label .label_wrap')
+      isNestedError = name.split('.').length > 1
 
+      if isNestedError
+        @emit('flash_message:alert', "#{name}: #{messages.join(', ')}")
+
+      $field = @$("[name='#{@entity()}[#{name}]']")
+
+      $fieldWrap = $field.closest('.js-field_wrapper')
       $fieldWrap.addClass('is-invalid')
-      $error = $("<span class='error'> — #{messages.join(', ')}</span>").hide()
-      $error.insertAfter($label).fadeIn()
+
+      if $fieldWrap.hasClass('is-stand_alone')
+        $error = $("<span class='error'>#{messages.join(', ')}</span>").hide()
+        $error.insertAfter($field).fadeIn()
+      else
+        $error =
+          $("<span class='error'> — #{messages.join(', ')}</span>").hide()
+        $label = $fieldWrap.find('label.control-label .label_wrap')
+        $error.insertAfter($label).fadeIn()
 
   removeAllErrors: ->
     @$('.is-invalid').removeClass('is-invalid')

@@ -24,9 +24,9 @@ class Dolphin.View extends Frames.View
 
   onUnload: ->
     @unload?()
+    @unsubscribe()
     delete @node
     @remove()
-    @unsubscribe()
 
   utils: Utils
 

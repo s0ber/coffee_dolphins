@@ -1,0 +1,19 @@
+.panel_item data-view='item' data={item_id: api_group.id, block_path: api_group_path(api_group)}
+  .panel_item-header
+    span data-role='editable_item-title'
+      = api_group.title
+    .fl_r
+      .small_button.is-green data-modal=new_endpoint_path(api_group_id: api_group.id)
+        | Add Endpoint
+      = api_group.edit_button
+      = api_group.remove_button
+
+  .panel_item-body data-role='editable_item-info'
+    .panel_list
+      = list_text(api_group.description)
+      = list_row do
+        - if api_group.endpoints.any?
+          = render 'endpoints_list', endpoints: api_group.endpoints, api_group: api_group
+        - else
+          p.panel-text
+            | This group has no endpoints specified yet.

@@ -1,0 +1,10 @@
+.api_resource
+  .flexible
+    .flexible-left
+      = api_resource.name
+    .flexible-right
+      .small_button.is-icon
+        = fa_icon 'pencil'
+  - if api_resource.child_api_resources.any?
+    .api_resource-nested
+      = render partial: 'api_resource', collection: api_resource.child_api_resources

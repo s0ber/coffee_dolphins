@@ -2,6 +2,15 @@
 @import 'admin/primitives/panel'
 
 .panel_list
+  &.for-resource_details
+    .panel_list-label
+      font-weight: normal
+      text-align: right
+      width: 20%
+      padding-right: 0
+    .panel_list-value
+      font-weight: bold
+      width: 80%
 
 .panel_list-row
   +clearfix
@@ -104,4 +113,3 @@
 
       .panel_list:hover &
         opacity: 1
-

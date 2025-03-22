@@ -31,12 +31,25 @@
     width: 400px
     text-align: left
 
+
 .panels
   &.is-images_list
     margin-top: 15px
 
     &:empty
       margin-top: 0
+
+  &.for-resource_examples
+    width: calc(100% + 15px)
+    margin: -7.5px
+
+    .panel
+      display: inline-block
+      margin: 0
+      padding: 7.5px
+      width: 33.3%
+      box-sizing: border-box
+      vertical-align: top
 
 .panel-header
   +acts_as_panel_header

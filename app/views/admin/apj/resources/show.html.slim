@@ -1,0 +1,17 @@
+.page-title
+  span
+    = link_to 'Resources', resources_path, class: 'panel_item-header_link'
+    span.chevron.is-right
+    b = @resource.name
+
+.page-body
+  .panels
+    .panel data-view='app#editable_item' data={redirect_path: resource_path(@resource)}
+      .panel-header
+        span
+          | Scheme
+        .fl_r
+          = @resource.edit_button
+      = render 'details', resource: @resource
+
+    = render 'examples_list', resource: @resource, example: @example

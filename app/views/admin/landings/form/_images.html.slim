@@ -8,7 +8,7 @@
         .panel-body.is-stand_alone
           .panel_list.is-table
             .panel_list-inner
-              .panel_list-photo.has-reorder_icon data-role='images_list-sorting_handle'
+              .panel_list-photo.has-reorder_icon data-role='sortable-handle'
                 img src='' data-role='images_list-image_tag'
                 = fa_icon 'arrows-v'
               .panel_list-items
@@ -33,13 +33,13 @@
   .panel_item-body.has-p15
     div data-role='images_list-uploader'
 
-    .panels.is-images_list data-role='images_list-container'
+    .panels.is-images_list data-role='images_list-container sortable'
       = f.simple_fields_for :landing_images do |image_form|
         .panel data-role='images_list-image' data={id: image_form.object.id}
           .panel-body.is-stand_alone
             .panel_list.is-table
               .panel_list-inner
-                .panel_list-photo.has-reorder_icon data-role='images_list-sorting_handle'
+                .panel_list-photo.has-reorder_icon data-role='sortable-handle'
                   img src=image_form.object.image.thumb.url data-role='images_list-image_tag'
                   = fa_icon 'arrows-v'
                 .panel_list-items
